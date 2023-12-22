@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  mongodb:
+    platform: linux/amd64
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+
+  frontend:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_frontend
+    container_name: frontend
+    working_dir: /root/app/frontend
+    ports:
+      - 5173:5173
+      - 24678:24678
+    tty: true
+    # depends_on:
+    #   - backend
+
+  backend:
+    platform: linux/amd64
+    image: golang:1.21
+    container_name: backend
+    ports:
+      - 3000:3000
+    # volumes:
+    #     - ./backend:/tmp/app
+    tty: true
+    # depends_on:
+    #   - mongodb
+  
+volumes:
+  node_modules:
