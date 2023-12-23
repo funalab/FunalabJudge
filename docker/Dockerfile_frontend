@@ -1,7 +1,7 @@
 FROM node:21-slim
 
 WORKDIR /root/app
-RUN  npm install -g npm && npm create -y vite@5.0.10 frontend -- --template react-ts
+RUN  npm install -g npm && npm create -y vite@latest frontend -- --template react-ts
 WORKDIR /root/app/frontend
 RUN npm install && sed -i 's/"dev": "vite"/"dev": "vite --host"/' package.json
 
