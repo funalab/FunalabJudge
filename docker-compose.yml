@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.9'
 
 services:
   mongodb:
@@ -15,16 +15,18 @@ services:
     platform: linux/amd64
     build:
       context: .
-      dockerfile: docker/Dockerfile_frontend
+      dockerfile: frontend/Dockerfile
+      args:
+        - NODE_ENV=development
     container_name: frontend
-    working_dir: /root/app/frontend
+    working_dir: /home/node/frontend
     ports:
       - 5173:5173
       - 24678:24678
     tty: true
     volumes:
-      - ./frontend:/root/app/frontend:cached
-      - node_modules:/root/app/frontend/node_modules
+      - ./frontend:/home/node/frontend
+      - node_modules:/home/node/frontend/node_modules
     # depends_on:
     #   - backend
 
@@ -42,3 +44,8 @@ services:
   
 volumes:
   node_modules:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/frontend/node_modules
+      o: bind
