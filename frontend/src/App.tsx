@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ChakraProvider, Box, Flex, theme } from "@chakra-ui/react";
+import { TopHeader } from "./components/TopHeader";
+import { SideMenu } from "./components/SideMenu";
 
-function App() {
-  const [count, setCount] = useState(0)
+// ルーティング設定に必要なものをimport
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// ルーティング先の画面コンポーネントをimport
+import { Account } from "./routes/Account";
+import { Dashboard } from "./routes/Dashboard";
+import { Message } from "./routes/Message";
+import { Schedule } from "./routes/Schedule";
+
+export const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <ChakraProvider theme={theme}>
+      <Flex w="100vw" h="100wh">
+        <BrowserRouter>
+        <TopHeader />
+        </BrowserRouter>
+        <Box mt="100px">
+          <Flex>
+            <BrowserRouter>
+              <SideMenu />
+              <Box w="70vw">
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/message" element={<Message />} />
+                  <Route path="/schedule" element={<Schedule />} />
+                </Routes>
+              </Box>
+            </BrowserRouter>
+          </Flex>
+        </Box>
+      </Flex>
+    </ChakraProvider>
+  );
+};
 
 export default App
