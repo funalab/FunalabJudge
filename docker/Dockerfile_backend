@@ -1,0 +1,12 @@
+FROM golang:1.21
+ENV TZ=Asia/Tokyo
+EXPOSE 3000
+ENV ROOT=/home/go/backend
+WORKDIR ${ROOT}
+ENV GOPATH=/go
+
+RUN apt-get update && apt-get install -y git
+COPY --chown=root:root backend/go.mod /home/go/backend
+RUN go mod tidy
+
+CMD ["go", "run", "main.go"]

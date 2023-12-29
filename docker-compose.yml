@@ -32,13 +32,19 @@ services:
 
   backend:
     platform: linux/amd64
-    image: golang:1.21
+    #image: golang:1.21
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_backend
     container_name: backend
+    working_dir: /home/go/backend
+    environment:
+      TZ: "Asia/Tokyo"
     ports:
       - 3000:3000
-    # volumes:
-    #     - ./backend:/tmp/app
     tty: true
+    volumes:
+      - ./backend:/home/go/backend
     # depends_on:
     #   - mongodb
   

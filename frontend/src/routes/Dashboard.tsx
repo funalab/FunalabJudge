@@ -1,2 +1,39 @@
-export const Dashboard = () => <h1>プロジェクト一覧（教育課題+各年プチコーダー？）</h1>;
+import {useState, useEffect } from 'react';
+import {Button, Box, Text, VStack } from '@chakra-ui/react';
+import axios from 'axios';
+
+export const Dashboard = () => {
+  const [data, setData] = useState(null);
+
+  // コンポーネントがマウントされた時にHTTPリクエストを送信する
+  useEffect(() => {
+    // バックエンドサーバーのエンドポイントURLを指定
+    const apiUrl = 'http://localhost:3000/'; 
+
+    // HTTP GETリクエストの送信
+    axios.get(apiUrl)
+      .then(response => {
+        // レスポンスを受け取り、stateにセットする
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  return (
+    <Box p={4}>
+      <VStack spacing={4}>
+        <Text>Data from Backend:</Text>
+        {data ? (
+          <Box>
+            <Text>{JSON.stringify(data)}</Text>
+          </Box>
+        ) : (
+          <Text>Loading...</Text>
+        )}
+      </VStack>
+    </Box>
+  );
+}
 
