@@ -18,7 +18,7 @@ func mongo_connectable() bool {
 
 	mongoClient, err := mongo.Connect(
 		ctx,
-		options.Client().ApplyURI("mongodb://root:password@mongo:27017/"),
+		options.Client().ApplyURI("mongodb://localhost:27017/"),
 	)
 	if err != nil {
 		log.Fatalf("connection error :%v", err)
