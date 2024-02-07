@@ -1,11 +1,41 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"log"
+	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
+
+func mongo_connectable() bool {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+
+	mongoClient, err := mongo.Connect(
+		ctx,
+		options.Client().ApplyURI("mongodb://root:password@mongo:27017/"),
+	)
+	if err != nil {
+		log.Fatalf("connection error :%v", err)
+		return false
+	}
+	err = mongoClient.Ping(ctx, readpref.Primary())
+	if err != nil {
+		log.Fatalf("ping mongodb error :%v", err)
+		return false
+	}
+	cancel()
+	if err := mongoClient.Disconnect(ctx); err != nil {
+		log.Fatalf("mongodb disconnect error : %v", err)
+		return false
+	}
+	return true
+}
 
 // レスポンスとして返すデータ
 type Data struct {
@@ -22,12 +52,14 @@ func main() {
 
 	// エンドポイントのハンドラー関数を設定
 	router.GET("/", func(c *gin.Context) {
-		// レスポンスデータの作成
-		data := Data{
-			Message: "Hello from Gin!!",
+		if mongo_connectable() {
+			// レスポンスデータの作成
+			data := Data{
+				Message: "Hello from Gin and mongo!!",
+			}
+			// JSON形式でレスポンスを返す
+			c.JSON(200, data)
 		}
-		// JSON形式でレスポンスを返す
-		c.JSON(200, data)
 	})
 
 	// サーバーをポート3000で起動
