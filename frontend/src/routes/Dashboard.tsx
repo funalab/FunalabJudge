@@ -1,5 +1,6 @@
 import {useState, useEffect } from 'react';
 import {Button, Box, Text, VStack } from '@chakra-ui/react';
+import { DefaultLayout } from "./DefaultLayout";
 import axios from 'axios';
 
 export const Dashboard = () => {
@@ -22,18 +23,19 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <Box p={4}>
-      <VStack spacing={4}>
-        <Text>Data from Backend:</Text>
-        {data ? (
-          <Box>
-            <Text>{JSON.stringify(data)}</Text>
-          </Box>
-        ) : (
-          <Text>Loading...</Text>
-        )}
-      </VStack>
-    </Box>
+    <DefaultLayout>
+      <Box p={4}>
+        <VStack spacing={4}>
+          <Text>Data from Backend:</Text>
+          {data ? (
+            <Box>
+              <Text>{JSON.stringify(data)}</Text>
+            </Box>
+          ) : (
+            <Text>Loading...</Text>
+          )}
+        </VStack>
+      </Box>
+    </DefaultLayout>
   );
 }
-
