@@ -4,7 +4,7 @@ import CopyButtion from './CopyButtion'
 import InputOutputBox from './InputOutputBox'
 
 export interface TestcaseProps {
-  id: number,
+  id: string,
   input: string,
   output: string
 }
