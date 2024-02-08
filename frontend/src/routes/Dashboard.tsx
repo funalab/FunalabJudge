@@ -1,6 +1,6 @@
 import {useState, useEffect } from 'react';
 import {Button, Box, Text, VStack } from '@chakra-ui/react';
-import { DefaultLayout } from "./DefaultLayout";
+import { DefaultLayout } from "../components/DefaultLayout";
 import axios from 'axios';
 
 export const Dashboard = () => {

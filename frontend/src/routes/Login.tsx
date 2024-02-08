@@ -5,21 +5,18 @@ import { useNavigate } from 'react-router-dom';
 export const Login = () => {
   const [user_id, setUser_Id] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-     // バックエンドにPOSTリクエストを送る(先ほどgit cloneしてい、サーバーを立ち上げたもののURL)
     axios.post("http://127.0.0.1:8000/accounts/login/", {
       user_id: user_id,
       password: password,
     })
     .then((response) => {
-     // ここでユーザー情報をローカルストレージに保存します
       localStorage.setItem('user_id', response.data.user_id);
-      alert('ログイン成功！');
       navigate("/");
     })
     .catch((error) => {
