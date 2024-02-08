@@ -1,14 +1,14 @@
-import {useState, useEffect } from 'react';
-import {Button, Box, Text, VStack } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import { Button, Box, Text, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 
-export const Dashboard = () => {
+const DashboardPage = () => {
   const [data, setData] = useState(null);
 
   // コンポーネントがマウントされた時にHTTPリクエストを送信する
   useEffect(() => {
     // バックエンドサーバーのエンドポイントURLを指定
-    const apiUrl = 'http://localhost:3000/'; 
+    const apiUrl = 'http://localhost:3000/';
 
     // HTTP GETリクエストの送信
     axios.get(apiUrl)
@@ -37,3 +37,4 @@ export const Dashboard = () => {
   );
 }
 
+export default DashboardPage
