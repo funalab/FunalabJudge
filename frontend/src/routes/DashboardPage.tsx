@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Button, Box, Text, VStack } from "@chakra-ui/react";
-import { DefaultLayout } from "./DefaultLayout";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
+import DefaultLayout from "../components/DefaultLayout";
 
 const DashboardPage = () => {
   const [data, setData] = useState(null);

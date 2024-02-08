@@ -1,7 +1,7 @@
 import { ChakraProvider, Box, Flex, theme } from "@chakra-ui/react";
-import { TopHeader } from "../components/TopHeader";
-import { SideMenu } from "../components/SideMenu";
-import React, { ReactNode } from "react";
+import { TopHeader } from "./TopHeader";
+import { SideMenu } from "./SideMenu";
+import React, { ReactNode } from 'react';
 
 interface DefaultLayoutProps {
   children: ReactNode;
