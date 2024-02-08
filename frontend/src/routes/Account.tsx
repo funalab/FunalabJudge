@@ -1,4 +1,9 @@
-import { DefaultLayout } from "../components/DefaultLayout";
+import React from 'react'
 
-export const Account = () => <DefaultLayout><h1>アカウント関連、個別の課題状況</h1></DefaultLayout>;
+const AccountPage = () => {
+  return (
+    <div>AccountPage</div>
+  )
+}
 
+export default AccountPage

@@ -11,7 +11,7 @@ interface CopyButtonProps {
   Copy functionality would be implemented in the future.
  * */
 
-const CopyButtion: React.FC/*<CopyButtonProps>*/ = (/*{ content }*/) => {
+const CopyButton: React.FC/*<CopyButtonProps>*/ = (/*{ content }*/) => {
   return (
     <>
       <Button>Copy</Button>
@@ -19,4 +19,4 @@ const CopyButtion: React.FC/*<CopyButtonProps>*/ = (/*{ content }*/) => {
   )
 }
 
-export default CopyButtion
+export default CopyButton
