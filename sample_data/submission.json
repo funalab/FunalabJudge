@@ -1,0 +1,111 @@
+[
+    {
+        "userId": 1,
+        "problemId": 1,
+        "submittedDate": "2024-03-01T03:34:00",
+        "results": [
+            {
+                "testCaseId": 1,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 2,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 3,
+                "status": "AC"
+            }
+        ]
+    },
+    {
+        "userId": 1,
+        "problemId": 2,
+        "submittedDate": "2024-03-03T03:34:00",
+        "results": [
+            {
+                "testCaseId": 1,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 2,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 3,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 4,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 5,
+                "status": "AC"
+            }
+        ]
+    },{
+        "userId": 2,
+        "problemId": 1,
+        "submittedDate": "2024-03-01T05:24:00",
+        "results": [
+            {
+                "testCaseId": 1,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 2,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 3,
+                "status": "AC"
+            }
+        ]
+    },
+    {
+        "userId": 1,
+        "problemId": 2,
+        "submittedDate": "2024-03-03T09:12:00",
+        "results": [
+            {
+                "testCaseId": 1,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 2,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 3,
+                "status": "WA"
+            },
+            {
+                "testCaseId": 4,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 5,
+                "status": "WA"
+            }
+        ]
+    },{
+        "userId": 3,
+        "problemId": 1,
+        "submittedDate": "2024-03-01T11:24:00",
+        "results": [
+            {
+                "testCaseId": 1,
+                "status": "AC"
+            },
+            {
+                "testCaseId": 2,
+                "status": "TLE"
+            },
+            {
+                "testCaseId": 3,
+                "status": "AC"
+            }
+        ]
+    }
+]
