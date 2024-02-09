@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Button, Box, Text, VStack } from '@chakra-ui/react';
 import { DefaultLayout } from "../components/DefaultLayout";
 import { CardList } from "./CardList"
 import axios from 'axios';

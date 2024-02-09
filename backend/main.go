@@ -63,6 +63,35 @@ func main() {
 	fmt.Println("Server is running.")
 }
 
+// 後々以下は別ファイルに移行する
+
+type Problems struct {
+	ProblemId          int       `bson:"problemId"`
+	Name               string    `bson:"name"`
+	ExecutionTime      int       `bson:"executionTime"`
+	MemoryLimit        int       `bson:"memoryLimit"`
+	Statement          string    `bson:"statement"`
+	ProblemConstraints string    `bson:"problemConstraints"`
+	InputFormat        string    `bson:"inputFormat"`
+	OutputFormat       string    `bson:"outputFormat"`
+	OpenDate           time.Time `bson:"openDate"`
+	CloseDate          time.Time `bson:"closeDate"`
+	BorderScore        int       `bson:"borderScore"`
+	Status             bool      `bson:"status"`
+}
+
+type Result struct {
+	TestId int    `bson:"testId"`
+	Status string `bson:"status"`
+}
+
+type Submission struct {
+	UserId        int       `bson:"userId"`
+	ProblemId     int       `bson:"problemId"`
+	SubmittedDate time.Time `bson:"submittedDate"`
+	Results       []Result  `bson:"results"`
+}
+
 func GetAssignments(c *gin.Context) {
 	client, exists := c.Get("mongoClient")
 	if !exists {
@@ -77,39 +106,12 @@ func GetAssignments(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	type Problems struct {
-		ProblemId          int       `bson:"problemId"`
-		Name               string    `bson:"name"`
-		ExecutionTime      int       `bson:"executionTime"`
-		MemoryLimit        int       `bson:"memoryLimit"`
-		Statement          string    `bson:"statement"`
-		ProblemConstraints string    `bson:"problemConstraints"`
-		InputFormat        string    `bson:"inputFormat"`
-		OutputFormat       string    `bson:"outputFormat"`
-		OpenDate           time.Time `bson:"openDate"`
-		CloseDate          time.Time `bson:"closeDate"`
-		BorderScore        int       `bson:"borderScore"`
-		Status             bool      `bson:"status"`
-	}
 	var problems []Problems
-
-	type Result struct {
-		// Result型の定義。例えば:
-		TestId int    `bson:"testId"`
-		Status string `bson:"status"`
-		// その他の必要なフィールド...
-	}
-	type Submission struct {
-		UserId        int       `bson:"userId"`
-		ProblemId     int       `bson:"problemId"`
-		SubmittedDate time.Time `bson:"submittedDate"` // タグの修正: `bson"submittedDate"`から`bson:"submittedDate"`へ
-		Results       []Result  `bson:"results"`       // `Array`から`[]Result`へ変更し、フィールド名を大文字にしてエクスポート
-	}
-
 	if err = cur.All(context.Background(), &problems); err != nil {
 		log.Fatal(err)
 	}
-	//　続いてstatusを決定する。これがちょい大変。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
+
+	//　続いてstatusを決定する。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
 	submissionCollection := dbClient.Database("dev").Collection("submission")
 
 	for i, problem := range problems {

@@ -19,9 +19,6 @@ interface Problems {
   BorderScore: number,
   Status: boolean
 }
-interface CardGridProps {
-  data: Problems[];
-}
 
 interface CardListProps {
   data: Problems[];
@@ -34,7 +31,7 @@ export const CardList = ({ data }: CardListProps) => {
 
   const navigate = useNavigate()
 
-  const CardGrid: React.FC<CardGridProps> = ({ data }) => {
+  const CardGrid = ({ data }: CardListProps) => {
     return (
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
