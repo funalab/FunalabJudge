@@ -4,37 +4,35 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-func mongo_connectable() bool {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+var mongoClient *mongo.Client
 
-	mongoClient, err := mongo.Connect(
-		ctx,
-		options.Client().ApplyURI("mongodb://localhost:27017/"),
-	)
+func initMongoClient() {
+	var err error
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	mongoClient, err = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017/"))
 	if err != nil {
-		log.Fatalf("connection error :%v", err)
-		return false
+		log.Fatalf("Failed to connect to MongoDB: %v", err)
 	}
-	err = mongoClient.Ping(ctx, readpref.Primary())
+
+	// MongoDBへの接続を確認
+	err = mongoClient.Ping(ctx, nil)
 	if err != nil {
-		log.Fatalf("ping mongodb error :%v", err)
-		return false
+		log.Fatalf("Failed to ping MongoDB: %v", err)
 	}
-	cancel()
-	if err := mongoClient.Disconnect(ctx); err != nil {
-		log.Fatalf("mongodb disconnect error : %v", err)
-		return false
-	}
-	return true
+
+	fmt.Println("Connected to MongoDB")
 }
 
 // レスポンスとして返すデータ
@@ -43,6 +41,7 @@ type Data struct {
 }
 
 func main() {
+	initMongoClient()
 	// Ginルーターを作成
 	router := gin.Default()
 
@@ -50,19 +49,97 @@ func main() {
 	config.AllowOrigins = []string{"http://localhost:5173"} // リクエストを許可するオリジンを指定
 	router.Use(cors.New(config))
 
-	// エンドポイントのハンドラー関数を設定
-	router.GET("/", func(c *gin.Context) {
-		if mongo_connectable() {
-			// レスポンスデータの作成
-			data := Data{
-				Message: "Hello from Gin and mongo!!",
-			}
-			// JSON形式でレスポンスを返す
-			c.JSON(200, data)
-		}
+	router.Use(func(c *gin.Context) {
+		c.Set("mongoClient", mongoClient)
+		c.Next()
 	})
+
+	// エンドポイントのハンドラー関数を設定
+
+	router.GET("/api/assignments", GetAssignments)
 
 	// サーバーをポート3000で起動
 	router.Run(":3000")
 	fmt.Println("Server is running.")
+}
+
+func GetAssignments(c *gin.Context) {
+	client, exists := c.Get("mongoClient")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database client not available"})
+		return
+	}
+	dbClient := client.(*mongo.Client)
+
+	// まずはproblemsのテーブルから全ての問題をとってくる
+	problemsCollection := dbClient.Database("dev").Collection("problems")
+	cur, err := problemsCollection.Find(context.Background(), bson.D{})
+	if err != nil {
+		log.Fatal(err)
+	}
+	type Problems struct {
+		ProblemId          int       `bson:"problemId"`
+		Name               string    `bson:"name"`
+		ExecutionTime      int       `bson:"executionTime"`
+		MemoryLimit        int       `bson:"memoryLimit"`
+		Statement          string    `bson:"statement"`
+		ProblemConstraints string    `bson:"problemConstraints"`
+		InputFormat        string    `bson:"inputFormat"`
+		OutputFormat       string    `bson:"outputFormat"`
+		OpenDate           time.Time `bson:"openDate"`
+		CloseDate          time.Time `bson:"closeDate"`
+		BorderScore        int       `bson:"borderScore"`
+		Status             bool      `bson:"status"`
+	}
+	var problems []Problems
+
+	type Result struct {
+		// Result型の定義。例えば:
+		TestId int    `bson:"testId"`
+		Status string `bson:"status"`
+		// その他の必要なフィールド...
+	}
+	type Submission struct {
+		UserId        int       `bson:"userId"`
+		ProblemId     int       `bson:"problemId"`
+		SubmittedDate time.Time `bson:"submittedDate"` // タグの修正: `bson"submittedDate"`から`bson:"submittedDate"`へ
+		Results       []Result  `bson:"results"`       // `Array`から`[]Result`へ変更し、フィールド名を大文字にしてエクスポート
+	}
+
+	if err = cur.All(context.Background(), &problems); err != nil {
+		log.Fatal(err)
+	}
+	//　続いてstatusを決定する。これがちょい大変。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
+	submissionCollection := dbClient.Database("dev").Collection("submission")
+
+	for i, problem := range problems {
+		filter := bson.D{{Key: "problemId", Value: problem.ProblemId}}
+		submissionCursor, err := submissionCollection.Find(context.TODO(), filter)
+		if err != nil {
+			log.Fatal(err)
+		}
+		var submissions []Submission
+		if err = submissionCursor.All(context.TODO(), &submissions); err != nil {
+			log.Fatal(err)
+		}
+
+		// 対応するsubmissionから全てがACの提出が存在するか確認
+		fmt.Printf("%v\n", submissions)
+		for _, submission := range submissions {
+			allAC := true
+			for _, object := range submission.Results {
+				if object.Status != "AC" {
+					allAC = false
+					break
+				}
+			}
+			if allAC {
+				problems[i].Status = true
+				break
+			} else {
+				problems[i].Status = false
+			}
+		}
+	}
+	c.JSON(http.StatusOK, problems)
 }

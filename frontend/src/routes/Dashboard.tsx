@@ -5,12 +5,12 @@ import { CardList } from "./CardList"
 import axios from 'axios';
 
 export const Dashboard = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   // コンポーネントがマウントされた時にHTTPリクエストを送信する
   useEffect(() => {
     // バックエンドサーバーのエンドポイントURLを指定
-    const apiUrl = 'http://localhost:3000/';
+    const apiUrl = 'http://localhost:3000/api/assignments';
 
     // HTTP GETリクエストの送信
     axios.get(apiUrl)
@@ -25,7 +25,7 @@ export const Dashboard = () => {
 
   return (
     <DefaultLayout>
-      <CardList></CardList>
+      <CardList data={data} />
     </DefaultLayout>
   );
 }

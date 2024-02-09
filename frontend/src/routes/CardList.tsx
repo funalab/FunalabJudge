@@ -1,40 +1,33 @@
-import { useState, useEffect } from 'react';
-import { Button, Box, Text, Stack } from '@chakra-ui/react';
-import axios from 'axios';
+import { useState } from 'react';
+import { Button, Box, Stack } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom"
-import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
+import { Checkbox } from '@chakra-ui/react'
 
-export const CardList = () => {
-  const [data, setData] = useState(null);
+interface Problems {
+  ProblemId: number,
+  Name: string,
+  ExecutionTime: number,
+  MemoryLimit: number,
+  Statement: string,
+  ProblemConstraints: string,
+  InputFormat: string,
+  OutputFormat: string,
+  OpenDate: string,
+  CloseDate: string,
+  BorderScore: number,
+  Status: boolean
+}
+interface CardGridProps {
+  data: Problems[];
+}
 
-  // コンポーネントがマウントされた時にHTTPリクエストを送信する
-  useEffect(() => {
-    // バックエンドサーバーのエンドポイントURLを指定
-    const apiUrl = 'http://localhost:3000';
+interface CardListProps {
+  data: Problems[];
+}
 
-    // HTTP GETリクエストの送信
-    axios.get(apiUrl)
-      .then(response => {
-        // レスポンスを受け取り、stateにセットする
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
-  interface Assignment {
-    title: string;
-    content: string;
-    open: string;
-    close: string;
-    status: boolean;
-    path: string;
-  }
-  interface CardGridProps {
-    data: Record<string, Assignment>;
-  }
+export const CardList = ({ data }: CardListProps) => {
 
   const check_list = ["完了済みの課題も表示する", "未公開の課題も表示する"] //必要に応じて項目を増やすならここだけ変えればチェックボックスはそれに応じて増える
   const [checkedItems, setCheckedItems] = useState(new Array(check_list.length).fill(false))
@@ -45,36 +38,33 @@ export const CardList = () => {
     return (
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
-        {Object.entries(data).map(([key, assignment]) => {
+        {data.map((assignment) => {
 
           // CheckBoxの状態に応じて表示するカードを変更する
-          if (assignment.status && !checkedItems[0]) {
+          if (assignment.Status && !checkedItems[0]) {
             return null;
           }
-          if (new Date() < new Date(assignment.open) && !checkedItems[1]) {
+          if (new Date() < new Date(assignment.OpenDate) && !checkedItems[1]) {
             return null;
           }
 
           return (
-            <Card key={key}>
+            <Card key={assignment.ProblemId}>
               <CardHeader>
-                <Heading> {assignment.title}</Heading>
+                <Heading> {assignment.Name}</Heading>
               </CardHeader>
               <CardBody>
                 <Box>
-                  {assignment.content}
+                  Open: {new Date(assignment.OpenDate).toLocaleString()}
                 </Box>
                 <Box>
-                  Open: {assignment.open}
+                  Close: {new Date(assignment.CloseDate).toLocaleString()}
                 </Box>
-                <Box>
-                  Close: {assignment.close}
-                </Box>
-                {assignment.status && <Box bg="red.500" w='100%' display='flex' justifyContent="center" alignItems="center" color="white">DONE!!</Box>}
+                {assignment.Status && <Box bg="red.500" w='100%' display='flex' justifyContent="center" alignItems="center" color="white">DONE!!</Box>}
               </CardBody>
               <CardFooter>
-                {new Date() > new Date(assignment.open) ? (
-                  <Button colorScheme='teal' onClick={() => navigate(assignment.path)}>
+                {new Date() > new Date(assignment.OpenDate) ? (
+                  <Button colorScheme='teal' onClick={() => navigate("/message")}>
                     詳細
                   </Button>
                 ) : (
@@ -149,7 +139,7 @@ export const CardList = () => {
           </Checkbox>
         ))}
       </Stack>
-      <CardGrid data={data_tmp} />
+      <CardGrid data={data} />
     </div>
   );
 }
