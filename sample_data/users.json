@@ -1,0 +1,30 @@
+[
+    {
+        "userId": 1,
+        "email": "isoda@fun.bio.keio.ac.jp",
+        "password": "password",
+        "createdDate": "2024-02-08T04:41:00",
+        "role": "admin"
+    },
+    {
+        "userId": 2,
+        "email": "araki@fun.bio.keio.ac.jp",
+        "password": "password",
+        "createdDate": "2024-02-08T04:31:00",
+        "role": "admin"
+    },
+    {
+        "userId": 3,
+        "email": "rkimura@fun.bio.keio.ac.jp",
+        "password": "password",
+        "createdDate": "2024-02-08T03:34:00",
+        "role": "admin"
+    },
+    {
+        "userId": 4,
+        "email": "kawakita@fun.bio.keio.ac.jp",
+        "password": "password",
+        "createdDate": "2024-02-09T08:13:00",
+        "role": "user"
+    }
+]
