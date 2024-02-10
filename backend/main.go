@@ -61,6 +61,9 @@ func main() {
 			c.JSON(200, data)
 		}
 	})
+	router.POST("/login", func(c *gin.Context) {
+		authUser(c)
+	})
 
 	// サーバーをポート3000で起動
 	router.Run(":3000")

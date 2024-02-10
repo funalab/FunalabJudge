@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PasswordField } from '../components/PasswordField'
 import {
   Box,
@@ -13,24 +13,38 @@ import {
   Input,
   Stack,
 } from '@chakra-ui/react'
+import { UserType } from '../types/UserTypes';
+import { AuthUserContextType, useAuthUserContext } from '../providers/AuthUser';
 
-export const Login = () => {
-  const [email, setEmail] = useState("");
+export const Login: React.FC = () => {
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  // const fromPathName:string = location.state.from.pathname;
+  const authUser:AuthUserContextType = useAuthUserContext();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    axios.post("http://127.0.0.1:8000/accounts/login/", {
-      email: email,
+    axios.post("http://localhost:3000/login", {
+      userId: userId,
       password: password,
     })
     .then((response) => {
       if (response.data.authorized) {
-        localStorage.setItem('email', response.data.email);
-        navigate("/");
+        const user: UserType = {
+          userName: response.data.userName,
+          role: response.data.role
+        }
+        authUser.signin(user, () => {
+          if (location.state) {
+            navigate(location.state, { replace: true })
+          } else {
+            navigate(`/${user.userName}/dashboard`, { replace: true })
+          }
+        })
       } else {
         console.error(error);
         setError('ログイン情報が間違っています。');
@@ -62,7 +76,7 @@ export const Login = () => {
           <Stack spacing="5">
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <Input id="userId" type="email" value={userId} onChange={(e) => setUserId(e.target.value)}/>
             </FormControl>
             <PasswordField id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           </Stack>

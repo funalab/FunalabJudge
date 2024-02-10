@@ -1,25 +1,12 @@
-// ルーティング設定に必要なものをimport
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import { Providers } from "./components/Providers"
+import { RouterConfig } from "./components/RouteConfig";
 
-// ルーティング先の画面コンポーネントをimport
-import { Login } from "./routes/Login";
-import { Account } from "./routes/Account";
-import { Dashboard } from "./routes/Dashboard";
-import { Message } from "./routes/Message";
-import { Schedule } from "./routes/Schedule";
-
-export const App = () => {
+export const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<Login />}/> 
-        <Route path="/account" element={<Account />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/message" element={<Message />} />
-        <Route path="/schedule" element={<Schedule />} />
-      </Routes>
-    </BrowserRouter>
+    <Providers>
+      <RouterConfig />
+    </Providers>
   );
 };
 
