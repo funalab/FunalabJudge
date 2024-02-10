@@ -1,9 +1,11 @@
 import React from 'react'
 
-const SchedulePage = () => {
+const Schedule: React.FC = () => {
   return (
-    <div>SchedulePage</div>
+    <>
+      SchedulePage
+    </>
   )
 }
 
-export default SchedulePage
+export default Schedule

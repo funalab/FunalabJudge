@@ -3,7 +3,7 @@ import { Box, Text, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import DefaultLayout from "../components/DefaultLayout";
 
-const DashboardPage = () => {
+const Dashboard = () => {
   const [data, setData] = useState(null);
 
   // コンポーネントがマウントされた時にHTTPリクエストを送信する
@@ -41,4 +41,4 @@ const DashboardPage = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;

@@ -1,9 +1,11 @@
 import React from 'react'
 
-const AccountPage = () => {
+const Account: React.FC = () => {
   return (
-    <div>AccountPage</div>
+    <>
+      AccountPage
+    </>
   )
 }
 
-export default AccountPage
+export default Account 

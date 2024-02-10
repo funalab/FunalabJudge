@@ -1,9 +1,11 @@
 import React from 'react'
 
-const MessagePage = () => {
+const Message: React.FC = () => {
   return (
-    <div>MessagePage</div>
+    <>
+      MessagePage
+    </>
   )
 }
 
-export default MessagePage
+export default Message
