@@ -3,6 +3,7 @@ package assignment
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 	"strconv"
 
@@ -10,18 +11,19 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func AssignmentInfoHandler(c *gin.Context) {
 	dbName := os.Getenv("DB_NAME")
 	prbCol := os.Getenv("PROBLEMS_COLLECTION")
 
-	err, client := db.Mongo_connectable()
-	if err != nil {
-		log.Fatalf("connection error :%v", err.Error())
+	client, exists := c.Get("mongoClient")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
+		return
 	}
-
-	collection := client.Database(dbName).Collection(prbCol)
+	collection := (client.(*mongo.Client)).Database(dbName).Collection(prbCol)
 	pid, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		log.Fatalf("Failed to parse problemId as a number: %v\n", pid)

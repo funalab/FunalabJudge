@@ -6,6 +6,7 @@ import (
 	"go-test/db"
 	"go-test/env"
 	"go-test/submission"
+	"log"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -32,6 +33,15 @@ func main() {
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://localhost:5173"} // リクエストを許可するオリジンを指定
 	router.Use(cors.New(config))
+	err, client := db.Mongo_connectable()
+	if err != nil {
+		log.Printf("Connection err: %v\n", err.Error())
+	}
+
+	router.Use(func(c *gin.Context) {
+		c.Set("mongoClient", client)
+		c.Next()
+	})
 
 	router.GET("/", tutorialHandler)
 	router.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)

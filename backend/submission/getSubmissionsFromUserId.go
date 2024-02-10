@@ -2,21 +2,26 @@ package submission
 
 import (
 	"context"
-	"go-test/db"
+	"errors"
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 
+	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetSubmissionsFromUserId(userId string) (*[]Submission, error) {
-	err, client := db.Mongo_connectable()
-	if err != nil {
-		log.Printf("connection error :%v\n", err.Error())
-		return &[]Submission{}, err
+func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]Submission, error) {
+	client, exists := c.Get("mongoClient")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
+		return &[]Submission{}, errors.New(fmt.Sprint("Error: NotExist\n"))
 	}
+
 	dbName := os.Getenv("DB_NAME")
-	collection := client.Database(dbName).Collection("USERS_COLLECTION")
+	collection := (client.(*mongo.Client)).Database(dbName).Collection("USERS_COLLECTION")
 
 	filter := bson.M{"userId": userId}
 	var submissions []Submission
