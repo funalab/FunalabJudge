@@ -1,67 +1,70 @@
-import React, { useEffect, useState } from 'react'
-import { Divider, Heading, Text, VStack } from '@chakra-ui/react'
-import ExecutionConstraints from '../components/ExecutionConstraints'
-import InputOutputBox from '../components/InputOutputBox'
-import Testcase, { TestcaseProps } from '../components/Testcase'
-import axios from 'axios'
-import DefaultLayout from '../components/DefaultLayout'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Divider, Heading, Text, VStack } from "@chakra-ui/react";
+import ExecutionConstraints from "../components/ExecutionConstraints";
+import InputOutputBox from "../components/InputOutputBox";
+import Testcase, { TestcaseProps } from "../components/Testcase";
+import axios from "axios";
+import DefaultLayout from "../components/DefaultLayout";
 
-
-const [name, setName] = useState('')
-const [executionTime, setExecutionTime] = useState(0)
-const [memoryLimit, setMemoryLimit] = useState(0)
-const [statement, setStatement] = useState('')
-const [problemConstraints, setProblemConstraints] = useState([])
-const [inputFormat, setInputFormat] = useState('')
-const [outputFormat, setOutputFormat] = useState('')
-const [testcases, setTestcases] = useState([])
-
-const AssignmentPage: React.FC = () => {
-  const id = useParams()
-  /*fetch db and set each parameters.
-         * 
-        type ProblemResp struct {
-          Pid       int32      `bson:"problemId"`
-          Name      string     `bson:"name"`
-          ExTime    int32      `bson: "executionTime"`
-          MemLim    int32      `bson: "memoryLimit"`
-          Statement string     `bson: "statement"`
-          PrbConst  string     `bson: "problemConstraints"`
-          InputFmt  string     `bson: "inputFormat"`
-          OutputFmt string     `bson: "outputFormat"`
-          Testcases []Testcase `bson: "testCases"`
-        }
-        */
+const AssignmentPage = () => {
+  const { id } = useParams<string>();
+  const [name, setName] = useState("");
+  const [executionTime, setExecutionTime] = useState(0);
+  const [memoryLimit, setMemoryLimit] = useState(0);
+  const [statement, setStatement] = useState("");
+  const [problemConstraints, setProblemConstraints] = useState([]);
+  const [inputFormat, setInputFormat] = useState("");
+  const [outputFormat, setOutputFormat] = useState("");
+  const [testcases, setTestcases] = useState([]);
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios.get("/assignmentInfo/" + id)
-        setName(data.Name)
-        setExecutionTime(data.ExTime)
-        setMemoryLimit(data.MemLim)
-        setStatement(data.Statement)
-        setProblemConstraints(data.PrbConst)
-        setInputFormat(data.InputFmt)
-        setOutputFormat(data.OutputFmt)
-        setTestcases(data.Testcases)
-      } catch (error) {
+    /*fetch db and set each parameters.
+     * 
+    type ProblemResp struct {
+      Pid       int32      `bson:"problemId"`
+      Name      string     `bson:"name"`
+      ExTime    int32      `bson: "executionTime"`
+      MemLim    int32      `bson: "memoryLimit"`
+      Statement string     `bson: "statement"`
+      PrbConst  string     `bson: "problemConstraints"`
+      InputFmt  string     `bson: "inputFormat"`
+      OutputFmt string     `bson: "outputFormat"`
+      Testcases []Testcase `bson: "testCases"`
+    }
+    */
+
+    console.log(id);
+    axios
+      .get(`/assignmentInfo/${id}`)
+      .then((response) => {
+        const { data } = response;
+        setName(data.Name);
+        setExecutionTime(data.ExTime);
+        setMemoryLimit(data.MemLim);
+        setStatement(data.Statement);
+        setProblemConstraints(data.PrbConst);
+        setInputFormat(data.InputFmt);
+        setOutputFormat(data.OutputFmt);
+        setTestcases(data.Testcases);
+        console.log();
+      })
+      .catch(() => {
         /*Temporary error handling*/
-        console.log(error)
-        alert("Failed to fetch data from database.")
-      }
-    })()
-  }, [id])
+        console.log("error");
+        alert("Failed to fetch data from database.");
+      });
+  }, [id]);
 
   return (
     <>
       <DefaultLayout>
         <VStack>
-          <Heading>
-            {name}
-          </Heading>
+          <Heading>{name}</Heading>
           <Divider />
-          <ExecutionConstraints executionTime={executionTime} memoryLimit={memoryLimit} />
+          <ExecutionConstraints
+            executionTime={executionTime}
+            memoryLimit={memoryLimit}
+          />
           <VStack>
             <Text>問題文</Text>
             <Text>{statement}</Text>
@@ -81,16 +84,16 @@ const AssignmentPage: React.FC = () => {
           </VStack>
         </VStack>
         <Divider />
-        {testcases.map(
-          (testcase: TestcaseProps) => <Testcase
+        {testcases.map((testcase: TestcaseProps) => (
+          <Testcase
             id={String(id)}
-            input={testcase.input}
-            output={testcase.output}
-          />)}
-
+            InputFile={testcase.InputFile}
+            OutputFile={testcase.OutputFile}
+          />
+        ))}
       </DefaultLayout>
     </>
-  )
-}
+  );
+};
 
-export default AssignmentPage
+export default AssignmentPage;
