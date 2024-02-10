@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -42,6 +43,8 @@ type Submission struct {
 }
 
 func GetAssignments(c *gin.Context) {
+	dbName := os.Getenv("DB_NAME")
+	prbCol := os.Getenv("PROBLEMS_COLLECTION")
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database client not available"})
@@ -50,7 +53,7 @@ func GetAssignments(c *gin.Context) {
 	dbClient := client.(*mongo.Client)
 
 	// まずはproblemsのテーブルから全ての問題をとってくる
-	problemsCollection := dbClient.Database("dev").Collection("problems")
+	problemsCollection := dbClient.Database(dbName).Collection(prbCol)
 	cur, err := problemsCollection.Find(context.Background(), bson.D{})
 	if err != nil {
 		log.Fatal(err)
@@ -61,7 +64,7 @@ func GetAssignments(c *gin.Context) {
 	}
 
 	//　続いてstatusを決定する。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
-	submissionCollection := dbClient.Database("dev").Collection("submission")
+	submissionCollection := dbClient.Database(dbName).Collection("submission")
 
 	for i, problem := range problems {
 		filter := bson.D{{Key: "problemId", Value: problem.ProblemId}}

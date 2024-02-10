@@ -28,4 +28,6 @@ export const Dashboard = () => {
       <CardList data={data} />
     </DefaultLayout>
   );
-}
+};
+
+export default Dashboard;

@@ -9,6 +9,8 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"go-test/db"
+	"go-test/env"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -34,14 +36,23 @@ func initMongoClient() {
 	fmt.Println("Connected to MongoDB")
 }
 
-// レスポンスとして返すデータ
 type Data struct {
 	Message string `json:"message"`
 }
 
+func tutorialHandler(c *gin.Context) {
+	if db.Mongo_connectable() {
+		data := Data{
+			Message: "Hello fron Gin and mongo!!",
+		}
+		c.JSON(200, data)
+	}
+}
+
 func main() {
-	initMongoClient()
+	err, mongoClient := db.Mongo_connectable()
 	// Ginルーターを作成
+	env.LoadEnv()
 	router := gin.Default()
 
 	config := cors.DefaultConfig()
@@ -53,11 +64,10 @@ func main() {
 		c.Next()
 	})
 
-	// エンドポイントのハンドラー関数を設定
-
 	router.GET("/api/assignments", api.GetAssignments)
+	router.GET("/", tutorialHandler)
+	router.GET("/assignmentInfo/:id", api.AssignmentInfoHandler)
 
-	// サーバーをポート3000で起動
 	router.Run(":3000")
 	fmt.Println("Server is running.")
 }
