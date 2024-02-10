@@ -10,10 +10,9 @@ export const Dashboard = () => {
   useEffect(() => {
     (async () => {
       // バックエンドサーバーのエンドポイントURLを指定
-      const apiUrl = 'http://localhost:3000/api/assignments';
       try {
         // HTTP GETリクエストの送信
-        const response = await axios.get(apiUrl)
+        const response = await axios.get("/")
         // レスポンスを受け取り、stateにセットする
         setData(response.data);
       }
