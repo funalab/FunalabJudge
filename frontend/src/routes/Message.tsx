@@ -1,4 +1,11 @@
-import { DefaultLayout } from "../components/DefaultLayout";
+import React from 'react'
 
-export const Message = () => <DefaultLayout><h1>課題のopen,closeの情報の表示</h1></DefaultLayout>;
+const Message: React.FC = () => {
+  return (
+    <>
+      MessagePage
+    </>
+  )
+}
 
+export default Message

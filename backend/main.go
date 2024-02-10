@@ -1,68 +1,52 @@
 package main
 
 import (
-	"context"
 	"fmt"
+	"go-test/assignment"
+	"go-test/db"
+	"go-test/env"
+	"go-test/submission"
 	"log"
-	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-func mongo_connectable() bool {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-
-	mongoClient, err := mongo.Connect(
-		ctx,
-		options.Client().ApplyURI("mongodb://localhost:27017/"),
-	)
-	if err != nil {
-		log.Fatalf("connection error :%v", err)
-		return false
-	}
-	err = mongoClient.Ping(ctx, readpref.Primary())
-	if err != nil {
-		log.Fatalf("ping mongodb error :%v", err)
-		return false
-	}
-	cancel()
-	if err := mongoClient.Disconnect(ctx); err != nil {
-		log.Fatalf("mongodb disconnect error : %v", err)
-		return false
-	}
-	return true
-}
-
-// レスポンスとして返すデータ
 type Data struct {
 	Message string `json:"message"`
 }
 
+func tutorialHandler(c *gin.Context) {
+	err, _ := db.Mongo_connectable()
+	if err == nil {
+		data := Data{
+			Message: "Hello fron Gin and mongo!!",
+		}
+		c.JSON(200, data)
+	}
+}
+
 func main() {
-	// Ginルーターを作成
+	env.LoadEnv()
 	router := gin.Default()
 
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"http://localhost:5173"} // リクエストを許可するオリジンを指定
 	router.Use(cors.New(config))
+	err, client := db.Mongo_connectable()
+	if err != nil {
+		log.Printf("Connection err: %v\n", err.Error())
+	}
 
-	// エンドポイントのハンドラー関数を設定
-	router.GET("/", func(c *gin.Context) {
-		if mongo_connectable() {
-			// レスポンスデータの作成
-			data := Data{
-				Message: "Hello from Gin and mongo!!",
-			}
-			// JSON形式でレスポンスを返す
-			c.JSON(200, data)
-		}
+	router.Use(func(c *gin.Context) {
+		c.Set("mongoClient", client)
+		c.Next()
 	})
 
-	// サーバーをポート3000で起動
+	router.GET("/", tutorialHandler)
+	router.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)
+	router.GET("/submissions/:userId", submission.SubmissionQueueHandler)
+
 	router.Run(":3000")
 	fmt.Println("Server is running.")
 }

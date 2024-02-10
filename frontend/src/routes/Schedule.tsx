@@ -1,4 +1,11 @@
-import { DefaultLayout } from "../components/DefaultLayout";
+import React from 'react'
 
-export const Schedule = () => <DefaultLayout><h1>締め切りとかのカレンダー的なものとか</h1></DefaultLayout>;
+const Schedule: React.FC = () => {
+  return (
+    <>
+      SchedulePage
+    </>
+  )
+}
 
+export default Schedule

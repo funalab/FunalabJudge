@@ -10,19 +10,17 @@ interface DefaultLayoutProps {
 export const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
   return (
     <ChakraProvider theme={theme}>
-    <Flex w="100vw" h="100wh">
-      <TopHeader />
-      <Box mt="100px">
-        <Flex>
+      <Flex w="100vw" h="100wh">
+        <TopHeader />
+        <Box mt="100px">
+          <Flex>
             <SideMenu />
-            <Box w="70vw">
-              {children}
-            </Box>
-        </Flex>
-      </Box>
-    </Flex>
+            <Box w="70vw">{children}</Box>
+          </Flex>
+        </Box>
+      </Flex>
     </ChakraProvider>
   );
 };
 
-export default DefaultLayout
+export default DefaultLayout;
