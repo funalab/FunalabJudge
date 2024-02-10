@@ -84,9 +84,9 @@ const AssignmentPage = () => {
         <Divider />
         {testcases.map(
           (testcase: TestcaseProps) => <Testcase
-            id={id}
-            input={testcase.input}
-            output={testcase.output}
+            id={String(id)}
+            InputFile={testcase.InputFile}
+            OutputFile={testcase.OutputFile}
           />)}
 
       </DefaultLayout>
