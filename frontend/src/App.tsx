@@ -7,6 +7,7 @@ import Account from "./routes/Account";
 import Dashboard from "./routes/Dashboard";
 import Message from "./routes/Message";
 import Schedule from "./routes/Schedule";
+import AssignmentPage from "./routes/AssignmentPage";
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/message" element={<Message />} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/assignmentInfo/:id" element={<AssignmentPage />} />
       </Routes>
     </BrowserRouter>
   );

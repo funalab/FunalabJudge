@@ -83,7 +83,7 @@ const AssignmentPage: React.FC = () => {
         <Divider />
         {testcases.map(
           (testcase: TestcaseProps) => <Testcase
-            id={id}
+            id={String(id)}
             input={testcase.input}
             output={testcase.output}
           />)}
