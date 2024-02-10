@@ -50,7 +50,7 @@ func tutorialHandler(c *gin.Context) {
 }
 
 func main() {
-	err, mongoClient := db.Mongo_connectable()
+	initMongoClient()
 	// Ginルーターを作成
 	env.LoadEnv()
 	router := gin.Default()
