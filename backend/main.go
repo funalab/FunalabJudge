@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"go-test/auth"
 	"log"
 	"time"
 
@@ -62,7 +63,7 @@ func main() {
 		}
 	})
 	router.POST("/login", func(c *gin.Context) {
-		authUser(c)
+		auth.AuthUser(c)
 	})
 
 	// サーバーをポート3000で起動

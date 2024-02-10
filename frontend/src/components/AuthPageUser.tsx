@@ -13,7 +13,7 @@ export const AuthPageUser = (props:Props): boolean => {
     if (props.pageType == PageType.Public) {
         return true;
     } else if (props.pageType == PageType.Private) {
-        if (props.authUser.role == RoleType.Admin || props.authUser.role == RoleType.Manager) {  // 書き方綺麗に
+        if (props.authUser.role === RoleType.Admin || props.authUser.role === RoleType.Manager) {  // 書き方綺麗に
             return true;
         } else if (props.authUser.role == RoleType.User) {
             if (props.authUser.userName == userName) {

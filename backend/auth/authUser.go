@@ -1,4 +1,4 @@
-package main
+package auth
 
 import (
 	"context"
@@ -45,7 +45,7 @@ func authorizeUser(user User, form JsonRequest) bool {
 	}
 }
 
-func authUser(c *gin.Context) {
+func AuthUser(c *gin.Context) {
 	var jsonRequest JsonRequest
 	if err := c.ShouldBindJSON(&jsonRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

@@ -21,8 +21,6 @@ export const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
-  // const fromPathName:string = location.state.from.pathname;
   const authUser:AuthUserContextType = useAuthUserContext();
 
   const handleSubmit = (event: FormEvent) => {
@@ -39,11 +37,7 @@ export const Login: React.FC = () => {
           role: response.data.role
         }
         authUser.signin(user, () => {
-          if (location.state) {
-            navigate(location.state, { replace: true })
-          } else {
-            navigate(`/${user.userName}/dashboard`, { replace: true })
-          }
+          navigate(`/${user.userName}/dashboard`, { replace: true })
         })
       } else {
         console.error(error);
