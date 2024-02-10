@@ -1,11 +1,5 @@
 package assignment
 
-type Testcase struct {
-	TestcaseId int32
-	InputFile  string
-	OutputFile string
-}
-
 type ProblemResp struct {
 	Pid       int32      `bson:"problemId"`
 	Name      string     `bson:"name"`

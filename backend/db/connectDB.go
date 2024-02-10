@@ -25,7 +25,7 @@ func NewConnectionErr(errMsg string) error {
 	}
 }
 
-func Mongo_connectable() bool {
+func Mongo_connectable() (error, *mongo.Client) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 
 	mongoClient, err := mongo.Connect(
@@ -34,17 +34,17 @@ func Mongo_connectable() bool {
 	)
 	if err != nil {
 		log.Fatalf("connection error :%v", err)
-		return false
+		return err, nil
 	}
 	err = mongoClient.Ping(ctx, readpref.Primary())
 	if err != nil {
 		log.Fatalf("ping mongodb error :%v", err)
-		return false
+		return err, nil
 	}
 	cancel()
 	if err := mongoClient.Disconnect(ctx); err != nil {
 		log.Fatalf("mongodb disconnect error : %v", err)
-		return false
+		return err, nil
 	}
-	return true
+	return nil, mongoClient
 }

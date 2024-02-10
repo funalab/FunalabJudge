@@ -5,6 +5,8 @@ import InputOutputBox from '../components/InputOutputBox'
 import Testcase, { TestcaseProps } from '../components/Testcase'
 import axios from 'axios'
 import DefaultLayout from '../components/DefaultLayout'
+import { useParams } from 'react-router-dom'
+
 
 const [name, setName] = useState('')
 const [executionTime, setExecutionTime] = useState(0)
@@ -15,28 +17,24 @@ const [inputFormat, setInputFormat] = useState('')
 const [outputFormat, setOutputFormat] = useState('')
 const [testcases, setTestcases] = useState([])
 
-interface AssignmentPageProps {
-  id: string
-}
-
-const AssignmentPage: React.FC<AssignmentPageProps> = ({ id }) => {
+const AssignmentPage: React.FC = () => {
+  const id = useParams()
+  /*fetch db and set each parameters.
+         * 
+        type ProblemResp struct {
+          Pid       int32      `bson:"problemId"`
+          Name      string     `bson:"name"`
+          ExTime    int32      `bson: "executionTime"`
+          MemLim    int32      `bson: "memoryLimit"`
+          Statement string     `bson: "statement"`
+          PrbConst  string     `bson: "problemConstraints"`
+          InputFmt  string     `bson: "inputFormat"`
+          OutputFmt string     `bson: "outputFormat"`
+          Testcases []Testcase `bson: "testCases"`
+        }
+        */
   useEffect(() => {
     (async () => {
-      /*fetch db and set each parameters.
-       * 
-      type ProblemResp struct {
-        Pid       int32      `bson:"problemId"`
-        Name      string     `bson:"name"`
-        ExTime    int32      `bson: "executionTime"`
-        MemLim    int32      `bson: "memoryLimit"`
-        Statement string     `bson: "statement"`
-        PrbConst  string     `bson: "problemConstraints"`
-        InputFmt  string     `bson: "inputFormat"`
-        OutputFmt string     `bson: "outputFormat"`
-        Testcases []Testcase `bson: "testCases"`
-      }
-      */
-
       try {
         const { data } = await axios.get("/assignmentInfo/" + id)
         setName(data.Name)
