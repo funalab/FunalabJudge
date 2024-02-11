@@ -1,7 +1,6 @@
 import { HStack, Spacer, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
-import CopyButton from './CopyButton.tsx'
-import InputFileOutputBox from './InputOutputBox'
+import CopyTestcase from './CopyButton'
 
 export interface TestcaseProps {
   id: string,
@@ -15,14 +14,12 @@ const Testcase: React.FC<TestcaseProps> = ({ id, InputFile, OutputFile }) => {
       <VStack>
         <HStack>
           <Text>入力例{id}</Text>
-          <CopyButton />
-          <InputFileOutputBox content={InputFile} />
+          <CopyTestcase content={InputFile} />
         </HStack>
         <Spacer />
         <HStack>
           <Text>出力例{id}</Text>
-          <CopyButton />
-          <InputFileOutputBox content={OutputFile} />
+          <CopyTestcase content={OutputFile} />
         </HStack>
       </VStack>
     </>
