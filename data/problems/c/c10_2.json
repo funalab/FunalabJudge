@@ -1,0 +1,7 @@
+{
+  "name": "File Master2",
+  "statement": "標準入力から文字列S1、S2、S3を受け取り、S1中の部分文字列S2をS3に置換した新しい文字列S_Newを返すmystrsubst()を実装した上で、S_Newを標準出力するmain関数を実装してください。",
+  "constraints": "入力はS1、S2、S3が空白区切りで与えられる。いずれの文字列も空文字列の場合がある。\n",
+  "executionTime": 1,
+  "memoryLimit": 1024
+}

@@ -1,0 +1,7 @@
+{
+  "name": "My Average",
+  "statement": "EOF (Ctrl + D)を受け取るまで標準入力に与えられた数値の平均と合計を標準出力するプログラムを実装してください。",
+  "constraints": "入力はあらゆる数値\n",
+  "executionTime": 1,
+  "memoryLimit": 1024
+}
