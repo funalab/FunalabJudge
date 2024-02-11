@@ -8,13 +8,20 @@ import { Result } from "./SubmissionTableRow"
 
 const SubmitDetailsPage: React.FC = () => {
   const { submitId } = useParams()
-  const [submission, setSubmission] = useState<SubmissionTableRowProps>()
+  const [submission, setSubmission] = useState<SubmissionTableRowProps>({
+    Id: 0,
+    UserId: 0,
+    ProblemId: 0,
+    SubmittedDate: "",
+    Results: [] as Result[],
+    Status: ""
+  })
+
   const [score, setScore] = useState(0)
   useEffect(() => {
     axios
       .get(`/submission/${submitId}`)
-      .then((response) => {
-        const { data } = response
+      .then(({ data }) => {
         setSubmission(data)
         console.log(data)
         let newScore = 0;
@@ -38,7 +45,6 @@ const SubmitDetailsPage: React.FC = () => {
     <DefaultLayout>
       <>
         <Heading>提出番号 {submitId}</Heading>
-        <Code>import os</Code>
         <TableContainer>
           <Table variant='simple'>
             <Thead>
@@ -51,9 +57,9 @@ const SubmitDetailsPage: React.FC = () => {
             </Thead>
             <Tbody>
               <Tr>
-                <Td>submission!.SubmittedDate</Td>
-                <Td>submission!.ProblemId</Td>
-                <Td>{score}</Td>
+                <Td>{new Date(submission.SubmittedDate).toLocaleString()}</Td>
+                <Td>{submission.ProblemId}</Td>
+                <Td>{score} / {submission.Results.length}</Td>
               </Tr>
             </Tbody>
           </Table>
@@ -68,13 +74,12 @@ const SubmitDetailsPage: React.FC = () => {
             </Tr>
           </Thead>
           <Tbody>
-
-            <Tr>
-              <Td>result.testId</Td>
-              <Td>result.status</Td>
-            </Tr>
-
-
+            {submission.Results.map((result) => (
+              <Tr>
+                <Td>{result.TestId}</Td>
+                <Td>{result.Status}</Td>
+              </Tr>
+            ))}
           </Tbody>
         </Table>
       </>

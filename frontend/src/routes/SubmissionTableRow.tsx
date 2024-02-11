@@ -20,7 +20,7 @@ const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Id, SubmittedDa
   return (
     <>
       <Tr>
-        <Td>{SubmittedDate}</Td>
+        <Td>{new Date(SubmittedDate).toLocaleString()}</Td>
         <Td>{ProblemId}</Td>
         <Td>{UserId}</Td>
         <Td>{Status}   <Button variant="link" onClick={() => navigate(`/submission/${Id}`)}>詳細</Button> </Td>
