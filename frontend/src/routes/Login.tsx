@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PasswordField } from '../components/PasswordField'
 import {
   Box,
@@ -13,15 +13,12 @@ import {
   Input,
   Stack,
 } from '@chakra-ui/react'
-import { UserType } from '../types/UserTypes';
-import { AuthUserContextType, useAuthUserContext } from '../providers/AuthUser';
 
 export const Login: React.FC = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const authUser:AuthUserContextType = useAuthUserContext();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -31,14 +28,9 @@ export const Login: React.FC = () => {
       password: password,
     })
     .then((response) => {
-      if (response.data.authorized) {
-        const user: UserType = {
-          userName: response.data.userName,
-          role: response.data.role
-        }
-        authUser.signin(user, () => {
-          navigate(`/${user.userName}/dashboard`, { replace: true })
-        })
+      if (response.data.token) {  // OKだったらbackendでjwtがcookieにセットされる
+        console.log(userId.split("@")[0]);
+        navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
       } else {
         console.error(error);
         setError('ログイン情報が間違っています。');
@@ -46,7 +38,7 @@ export const Login: React.FC = () => {
     })
     .catch((error) => {
       console.error(error);
-      setError('ログインに失敗しました。');
+      setError('通信に失敗しました。');
     });
   };
 

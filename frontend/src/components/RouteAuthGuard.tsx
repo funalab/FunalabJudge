@@ -11,8 +11,6 @@ type Props = {
 }
 
 export const RouteAuthGuard: React.FC<Props> = (props) => {
-  const authUser = useAuthUserContext().user;
-
   let allowRoute = false;
   if ( authUser ) {
     allowRoute = AuthPageUser({pageType: props.pageType, authUser: authUser});

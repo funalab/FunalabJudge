@@ -1,70 +1,72 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"go-test/auth"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
-
-func mongo_connectable() bool {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-
-	mongoClient, err := mongo.Connect(
-		ctx,
-		options.Client().ApplyURI("mongodb://localhost:27017/"),
-	)
-	if err != nil {
-		log.Fatalf("connection error :%v", err)
-		return false
-	}
-	err = mongoClient.Ping(ctx, readpref.Primary())
-	if err != nil {
-		log.Fatalf("ping mongodb error :%v", err)
-		return false
-	}
-	cancel()
-	if err := mongoClient.Disconnect(ctx); err != nil {
-		log.Fatalf("mongodb disconnect error : %v", err)
-		return false
-	}
-	return true
-}
-
-// レスポンスとして返すデータ
-type Data struct {
-	Message string `json:"message"`
-}
 
 func main() {
 	// Ginルーターを作成
 	router := gin.Default()
 
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:5173"} // リクエストを許可するオリジンを指定
-	router.Use(cors.New(config))
+	// ここからCorsの設定
+	router.Use(cors.New(cors.Config{
+		// アクセスを許可したいアクセス元
+		AllowOrigins: []string{
+			"http://localhost:5173",
+		},
+		// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
+		AllowMethods: []string{
+			"POST",
+			"GET",
+			"OPTIONS",
+			"PUT",
+			"DELETE",
+		},
+		// 許可したいHTTPリクエストヘッダ
+		AllowHeaders: []string{
+			"Access-Control-Allow-Credentials",
+			"Access-Control-Allow-Headers",
+			"Access-Control-Request-Method",
+			"Access-Control-Request-Headers",
+			"Access-Control-Allow-Origin",
+			"Content-Type",
+			"Content-Length",
+			"Accept-Encoding",
+			"Authorization",
+			"X-Requested-With",
+			"Origin,Accept",
+		},
+		// cookieなどの情報を必要とするかどうか
+		AllowCredentials: true,
+		// AllowAllOrigins:  true,
+		// preflightリクエストの結果をキャッシュする時間
+		MaxAge: 24 * time.Hour,
+	}))
 
-	// エンドポイントのハンドラー関数を設定
-	router.GET("/", func(c *gin.Context) {
-		if mongo_connectable() {
-			// レスポンスデータの作成
-			data := Data{
-				Message: "Hello from Gin and mongo!!",
-			}
-			// JSON形式でレスポンスを返す
-			c.JSON(200, data)
-		}
-	})
-	router.POST("/login", func(c *gin.Context) {
-		auth.AuthUser(c)
-	})
+	jwtMiddleware, err := auth.NewJwtMiddleware()
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+
+	router.POST("/login", jwtMiddleware.LoginHandler)
+	router.GET("/refresh_token", jwtMiddleware.RefreshHandler)
+	api := router.Group("/api") //.Use(jwtMiddleware.MiddlewareFunc())
+	{
+		api.GET("/test", func(c *gin.Context) {
+			// userID := auth.UserIdInJwt(c)
+			c.JSON(http.StatusOK, gin.H{
+				"userID": "test",
+			})
+		})
+	}
 
 	// サーバーをポート3000で起動
 	router.Run(":3000")

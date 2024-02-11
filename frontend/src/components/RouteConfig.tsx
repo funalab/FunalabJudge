@@ -20,10 +20,10 @@ export const RouterConfig:React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/:userName">
-          <Route path="dashboard" element={<RouteAuthGuard component={<Dashboard />} redirect="/login" pageType={PageType.Private} />} />
-          <Route path="account" element={<RouteAuthGuard component={<Account />} redirect="/:userName/dashboard" pageType={PageType.Private} />} />
-          <Route path="message" element={<RouteAuthGuard component={<Message />} redirect="/:userName/dashboard" pageType={PageType.Private} />} />
-          <Route path="schedule" element={<RouteAuthGuard component={<Schedule />} redirect="/:userName/dashboard" pageType={PageType.Private} />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="account" element={<Account />} />
+          <Route path="message" element={<Message />} />
+          <Route path="schedule" element={<Schedule />} />
         </Route>
         <Route path="/login" element={<Login />}/>
         <Route path="*" element={<NotFound />} />

@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -38,34 +39,65 @@ func extractUsername(email string) string {
 }
 
 func authorizeUser(user User, form JsonRequest) bool {
-	if user.Password == form.Password {
-		return true
-	} else {
-		return false
-	}
+	return user.Password == form.Password
 }
 
-func AuthUser(c *gin.Context) {
-	var jsonRequest JsonRequest
-	if err := c.ShouldBindJSON(&jsonRequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	var result User
-	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
-	client, _ := mongo.Connect(
-		ctx,
-		options.Client().ApplyURI("mongodb://localhost:27017/"),
-	)
-	err := client.Database("dev").Collection("users").FindOne(context.TODO(), bson.D{{"email", jsonRequest.UserId}}).Decode(&result)
+func UserIdInJwt(c *gin.Context) string {
+	claims := jwt.ExtractClaims(c)
+	userID := claims[jwt.IdentityKey]
+	return userID.(string)
+}
+
+func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
+	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
+		Realm:          "test zone",
+		Key:            []byte("secret key"),
+		Timeout:        time.Hour * 24,
+		MaxRefresh:     time.Hour * 24 * 7,
+		SendCookie:     true,
+		SecureCookie:   true, // 開発環境はhttpsじゃないのでfalse
+		CookieHTTPOnly: true,
+		CookieSameSite: http.SameSiteNoneMode,
+		PayloadFunc: func(data interface{}) jwt.MapClaims {
+			return jwt.MapClaims{
+				jwt.IdentityKey: data,
+			}
+		},
+		Authenticator: func(c *gin.Context) (interface{}, error) {
+			var jsonRequest JsonRequest
+
+			if err := c.ShouldBind(&jsonRequest); err != nil {
+				return "", jwt.ErrMissingLoginValues
+			}
+
+			var result User
+			ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+			client, _ := mongo.Connect(
+				ctx,
+				options.Client().ApplyURI("mongodb://localhost:27017/"),
+			)
+			err := client.Database("dev").Collection("users").FindOne(context.TODO(), bson.D{{"email", jsonRequest.UserId}}).Decode(&result)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				return "", jwt.ErrFailedAuthentication
+			}
+			if !authorizeUser(result, jsonRequest) {
+				return "", jwt.ErrFailedAuthentication
+			}
+
+			return result.Email, nil
+		},
+	})
+
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
+		return nil, err
 	}
-	jsonReturn := JsonReturn{
-		Authorized: authorizeUser(result, jsonRequest),
-		UserName:   extractUsername(result.Email),
-		Role:       result.Role,
+
+	err = jwtMiddleware.MiddlewareInit()
+
+	if err != nil {
+		return nil, err
 	}
-	c.JSON(http.StatusOK, jsonReturn)
+
+	return jwtMiddleware, nil
 }

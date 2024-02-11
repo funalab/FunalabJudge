@@ -8,9 +8,7 @@ type Props = {
 export const Providers:React.FC<Props> = (props) => {
   return (
     <>
-      <AuthUserProvider>
         {props.children}
-      </AuthUserProvider>
     </>
   );
 }
