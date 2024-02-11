@@ -62,7 +62,6 @@ func GetAssignments(c *gin.Context) {
 	if err = cur.All(context.Background(), &problems); err != nil {
 		log.Fatal(err)
 	}
-
 	//　続いてstatusを決定する。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
 	submissionCollection := dbClient.Database(dbName).Collection("submission")
 

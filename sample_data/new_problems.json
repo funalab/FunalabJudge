@@ -1,0 +1,28 @@
+[
+  {
+    "problemId": 1,
+    "problemPath": "data/problems/c/c1.json",
+    "inputFormat": "C1 inputFormat",
+    "outputFormat": "C1 outputFormat",
+    "openDate": "2024-01-01T00:00:00",
+    "closeDate": "2024-01-23T00:00:00",
+    "borderScore": 3,
+    "testCases": [
+      {
+        "testCaseId": 1,
+        "inputFile": "problem1-1_input.csv",
+        "outputFile": "problem1-1_output.csv"
+      },
+      {
+        "testCaseId": 2,
+        "inputFile": "problem1-2_input.csv",
+        "outputFile": "problem1-2_output.csv"
+      },
+      {
+        "testCaseId": 3,
+        "inputFile": "problem1-3_input.csv",
+        "outputFile": "problem1-3_output.csv"
+      }
+    ]
+  }
+]
