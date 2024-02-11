@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,19 +22,35 @@ func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]Submission, err
 	}
 
 	dbName := os.Getenv("DB_NAME")
-	collection := (client.(*mongo.Client)).Database(dbName).Collection("USERS_COLLECTION")
+	submitCol := os.Getenv("SUBMISSION_COLLECTION")
+	collection := (client.(*mongo.Client)).Database(dbName).Collection(submitCol)
 
-	filter := bson.M{"userId": userId}
-	var submissions []Submission
+	id, err := strconv.Atoi(userId)
+
+	filter := bson.D{{Key: "userId", Value: id}}
+
 	cursor, err := collection.Find(context.TODO(), filter)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
 		return &[]Submission{}, err
 	}
-
+	var submissions []Submission
 	if err = cursor.All(context.TODO(), &submissions); err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
 		return &[]Submission{}, err
+	}
+	for i, submission := range submissions {
+		status := "AC"
+		for _, object := range submission.Results {
+			if object.Status == "WA" {
+				status = "WA"
+				break
+			} else if object.Status == "TLE" {
+				status = "TLE"
+				break
+			}
+		}
+		submissions[i].Status = status
 	}
 	return &submissions, nil
 }

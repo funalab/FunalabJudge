@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "userId": 1,
         "problemId": 1,
         "submittedDate": "2024-03-01T03:34:00",
@@ -19,6 +20,7 @@
         ]
     },
     {
+        "id": 2,
         "userId": 1,
         "problemId": 2,
         "submittedDate": "2024-03-03T03:34:00",
@@ -45,6 +47,7 @@
             }
         ]
     },{
+        "id": 3,
         "userId": 2,
         "problemId": 1,
         "submittedDate": "2024-03-01T05:24:00",
@@ -64,6 +67,7 @@
         ]
     },
     {
+        "id": 4,
         "userId": 1,
         "problemId": 2,
         "submittedDate": "2024-03-03T09:12:00",
@@ -90,6 +94,7 @@
             }
         ]
     },{
+        "id": 5,
         "userId": 3,
         "problemId": 1,
         "submittedDate": "2024-03-01T11:24:00",

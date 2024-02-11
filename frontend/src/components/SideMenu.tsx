@@ -4,6 +4,7 @@ import {
   MdDashboard,
   MdCalendarMonth,
   MdAccountBox,
+  MdAssignment,
 } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -20,9 +21,9 @@ export const SideMenu = () => {
       path: "/account",
     },
     {
-      name: "Message",
-      icon: MdMessage,
-      path: "/message",
+      name: "Results",
+      icon: MdAssignment,
+      path: "/results/1",
     },
     {
       name: "Schedule",
