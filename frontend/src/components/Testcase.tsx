@@ -1,6 +1,6 @@
 import { HStack, Spacer, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
-import CopyTestcase from './CopyButton'
+import CopyTestcase from './CopyTestcase'
 
 export interface TestcaseProps {
   id: string,
