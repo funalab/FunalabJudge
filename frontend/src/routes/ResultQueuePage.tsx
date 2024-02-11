@@ -16,6 +16,7 @@ const ResultQueuePage: React.FC = () => {
       .then((response) => {
         const { data } = response;
         setSubmissions(data)
+        console.log(submissions)
       })
       .catch(() => {
         console.log('error')

@@ -47,6 +47,7 @@ func main() {
 	router.GET("/", api.GetAssignments)
 	router.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)
 	router.GET("/submissions/:userId", submission.SubmissionQueueHandler)
+	router.GET("/submission/:submitId", submission.SubmissionHandler)
 
 	router.Run(":3000")
 	fmt.Println("Server is running.")

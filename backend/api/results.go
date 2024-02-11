@@ -5,7 +5,7 @@ import (
 )
 
 type Result struct {
-	TestId int    `bson:"testId"`
+	TestId int    `bson:"testCaseId"`
 	Status string `bson:"status"`
 }
 

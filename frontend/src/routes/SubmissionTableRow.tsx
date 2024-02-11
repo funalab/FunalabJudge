@@ -7,12 +7,12 @@ export interface SubmissionTableRowProps {
   ProblemId: number;
   SubmittedDate: string;
   Results: Result[];
-  Status: String;
+  Status: string;
 }
 
-interface Result {
-  testId: number;
-  status: string;
+export interface Result {
+  TestId: number;
+  Status: string;
 }
 
 const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Id, SubmittedDate, ProblemId, UserId, Results, Status }) => {
