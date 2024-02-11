@@ -33,7 +33,6 @@ const AssignmentPage = () => {
     }
     */
 
-    console.log(id);
     axios
       .get(`/assignmentInfo/${id}`)
       .then((response) => {
@@ -46,7 +45,6 @@ const AssignmentPage = () => {
         setInputFormat(data.InputFmt);
         setOutputFormat(data.OutputFmt);
         setTestcases(data.Testcases);
-        console.log();
       })
       .catch(() => {
         /*Temporary error handling*/

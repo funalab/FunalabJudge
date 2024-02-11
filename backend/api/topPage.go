@@ -4,7 +4,6 @@ package api
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -30,21 +29,10 @@ type Problems struct {
 	Status             bool      `bson:"status"`
 }
 
-type Result struct {
-	TestId int    `bson:"testId"`
-	Status string `bson:"status"`
-}
-
-type Submission struct {
-	UserId        int       `bson:"userId"`
-	ProblemId     int       `bson:"problemId"`
-	SubmittedDate time.Time `bson:"submittedDate"`
-	Results       []Result  `bson:"results"`
-}
-
 func GetAssignments(c *gin.Context) {
 	dbName := os.Getenv("DB_NAME")
 	prbCol := os.Getenv("PROBLEMS_COLLECTION")
+	submitCol := os.Getenv("SUBMISSION_COLLECTION")
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database client not available"})
@@ -64,7 +52,7 @@ func GetAssignments(c *gin.Context) {
 	}
 
 	//　続いてstatusを決定する。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
-	submissionCollection := dbClient.Database(dbName).Collection("submission")
+	submissionCollection := dbClient.Database(dbName).Collection(submitCol)
 
 	for i, problem := range problems {
 		filter := bson.D{{Key: "problemId", Value: problem.ProblemId}}
@@ -78,7 +66,6 @@ func GetAssignments(c *gin.Context) {
 		}
 
 		// 対応するsubmissionから全てがACの提出が存在するか確認
-		fmt.Printf("%v\n", submissions)
 		for _, submission := range submissions {
 			allAC := true
 			for _, object := range submission.Results {

@@ -1,10 +1,13 @@
 import React from 'react'
+import DefaultLayout from '../components/DefaultLayout'
 
 const Account: React.FC = () => {
   return (
-    <>
-      AccountPage
-    </>
+    <DefaultLayout>
+      <>
+        AccountPage
+      </>
+    </DefaultLayout>
   )
 }
 

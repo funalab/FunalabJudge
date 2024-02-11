@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
 import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import axios from 'axios';
 import SubmissionTableRow, { SubmissionTableRowProps } from './SubmissionTableRow';
 
-const ResultQueuePage: React.FC<number> = (userId: number) => {
-
+const ResultQueuePage: React.FC = () => {
+  const { userId } = useParams()
   const [submissions, setSubmissions] = useState<SubmissionTableRowProps[]>([])
 
   useEffect(() => {
-    (async () => {
-      /* fetch all submissions that submitted by user whose id is useId */
-      const { data } = await axios.get("/submissions/" + userId)
-      setSubmissions(data)
-    })()
+    /* fetch all submissions that submitted by user whose id is useId */
+    axios
+      .get(`/submissions/${userId}`)
+      .then((response) => {
+        const { data } = response;
+        setSubmissions(data)
+      })
+      .catch(() => {
+        console.log('error')
+        alert("Failed to fetch data from database")
+      })
   }, []);
 
   return (
@@ -35,10 +42,12 @@ const ResultQueuePage: React.FC<number> = (userId: number) => {
             <Tbody>
               {submissions.map(submission => (
                 <SubmissionTableRow
-                  submittedDate={submission.submittedDate}
-                  problemId={submission.problemId}
-                  userId={submission.userId}
-                  status={submission.status}
+                  Id={submission.Id}
+                  SubmittedDate={submission.SubmittedDate}
+                  ProblemId={submission.ProblemId}
+                  UserId={submission.UserId}
+                  Results={submission.Results}
+                  Status={submission.Status}
                 />
               ))}
             </Tbody>
