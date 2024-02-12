@@ -50,8 +50,8 @@ func UserIdInJwt(c *gin.Context) string {
 
 func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
-		Realm:          "test zone",
-		Key:            []byte("secret key"),
+		Realm:          "funalabJudge",
+		Key:            []byte("a2u3zWOTpZKyOkg3NmjVlRnP8x1v4K8KsJv8NDFlTSY="), // TODO .envファイルに移動, 運用時には再作成: % openssl rand -base64 32
 		Timeout:        time.Hour * 24,
 		MaxRefresh:     time.Hour * 24 * 7,
 		SendCookie:     true,
@@ -61,6 +61,7 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		CookieName:     "token", // default jwt
 		TokenLookup:    "cookie:token",
 		CookieSameSite: http.SameSiteDefaultMode, //SameSiteDefaultMode, SameSiteLaxMode, SameSiteStrictMode, SameSiteNoneMode
+		IdentityKey:    "id",
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			return jwt.MapClaims{
 				jwt.IdentityKey: data,
@@ -74,7 +75,8 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 			}
 
 			var result User
-			ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancel()
 			client, _ := mongo.Connect(
 				ctx,
 				options.Client().ApplyURI("mongodb://localhost:27017/"),
@@ -82,9 +84,9 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 			err := client.Database("dev").Collection("users").FindOne(context.TODO(), bson.D{{"email", jsonRequest.UserId}}).Decode(&result)
 			if err != nil {
 				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-				return "", jwt.ErrFailedAuthentication
+				return "", jwt.ErrMissingLoginValues
 			}
-			if !authorizeUser(result, jsonRequest) {
+			if result.Password != jsonRequest.Password {
 				return "", jwt.ErrFailedAuthentication
 			}
 
@@ -96,9 +98,8 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		return nil, err
 	}
 
-	err = jwtMiddleware.MiddlewareInit()
-
-	if err != nil {
+	errInit := jwtMiddleware.MiddlewareInit()
+	if errInit != nil {
 		return nil, err
 	}
 

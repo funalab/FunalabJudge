@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -22,23 +23,30 @@ func main() {
 		},
 		AllowCredentials: true,
 		// preflightリクエストの結果をキャッシュする時間
-		MaxAge: 24 * time.Hour,
+		MaxAge:       24 * time.Hour,
+		AllowHeaders: []string{"content-type"}, // 他はなくても現状動く
 		// 以下の項目は、全てを許可しない設定にしても認証機能に影響はなかった, セキュリティの観点で設定が必要な可能性はある
-		// AllowMethods: []string{},  あってもなくても認証機能に影響はなかった
-		// AllowHeaders: []string{},  あってもなくても認証機能に影響はなかった
+		// AllowMethods: []string{},
 	}))
 
-	jwtMiddleware, err := auth.NewJwtMiddleware()
+	authMiddleware, err := auth.NewJwtMiddleware()
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 
-	router.POST("/login", jwtMiddleware.LoginHandler)
-	router.GET("/refresh_token", jwtMiddleware.RefreshHandler)
-	api := router.Group("").Use(jwtMiddleware.MiddlewareFunc())
+	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
+		claims := jwt.ExtractClaims(c)
+		log.Printf("NoRoute claims: %#v\n", claims)
+		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+	})
+
+	router.POST("/login", authMiddleware.LoginHandler)
+	router.POST("/logout", authMiddleware.LogoutHandler)
+	router.GET("/refresh_token", authMiddleware.RefreshHandler)
+	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
-		api.GET("/test", func(c *gin.Context) {
+		authed.GET("/test", func(c *gin.Context) {
 			// userID := auth.UserIdInJwt(c)
 			c.JSON(http.StatusOK, gin.H{
 				"userID": "test",

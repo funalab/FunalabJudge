@@ -1,5 +1,5 @@
-import React, { useState, FormEvent } from 'react';
-import axios from 'axios';
+import { useState, FormEvent, FC } from 'react';
+import axios, { HttpStatusCode } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PasswordField } from '../components/PasswordField'
 import {
@@ -14,7 +14,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
-export const Login: React.FC = () => {
+export const Login: FC = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
@@ -28,8 +28,7 @@ export const Login: React.FC = () => {
       password: password,
     })
     .then((response) => {
-      console.log("")
-      if (response.data.token) {  // OKだったらbackendでjwtがcookieにセットされる
+      if (response.status === HttpStatusCode.Ok && response.data.token) {
         console.log(userId.split("@")[0]);
         navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
       } else {
@@ -38,7 +37,7 @@ export const Login: React.FC = () => {
       }
     })
     .catch((error) => {
-      if (error.response?.status === 401) {
+      if (error.response?.status === HttpStatusCode.Unauthorized) {
         console.error(error);
         setError('ログイン情報が間違っています。');
       } else {
