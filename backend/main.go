@@ -9,18 +9,16 @@ import (
 	"go-test/submission"
 	"log"
 
+	"go-test/types"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-type Data struct {
-	Message string `json:"message"`
-}
-
 func tutorialHandler(c *gin.Context) {
 	err, _ := db.Mongo_connectable()
 	if err == nil {
-		data := Data{
+		data := types.Data{
 			Message: "Hello fron Gin and mongo!!",
 		}
 		c.JSON(200, data)

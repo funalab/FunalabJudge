@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Code, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from './SubmissionTableRow'
 import { Result } from "./SubmissionTableRow"
 
@@ -22,8 +22,8 @@ const SubmitDetailsPage: React.FC = () => {
     axios
       .get(`/submission/${submitId}`)
       .then(({ data }) => {
-        setSubmission(data)
         console.log(data)
+        setSubmission(data)
         let newScore = 0;
         {
           data.Results.forEach((result: Result) => {
@@ -57,7 +57,7 @@ const SubmitDetailsPage: React.FC = () => {
             </Thead>
             <Tbody>
               <Tr>
-                <Td>{new Date(submission.SubmittedDate).toLocaleString()}</Td>
+                <Td>{submission.SubmittedDate}</Td>
                 <Td>{submission.ProblemId}</Td>
                 <Td>{score} / {submission.Results.length}</Td>
               </Tr>

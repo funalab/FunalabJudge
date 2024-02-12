@@ -4,30 +4,17 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"time"
+
+	"go-test/types"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
-
-type Problems struct {
-	ProblemId          int       `bson:"problemId"`
-	Name               string    `bson:"name"`
-	ExecutionTime      int       `bson:"executionTime"`
-	MemoryLimit        int       `bson:"memoryLimit"`
-	Statement          string    `bson:"statement"`
-	ProblemConstraints string    `bson:"problemConstraints"`
-	InputFormat        string    `bson:"inputFormat"`
-	OutputFormat       string    `bson:"outputFormat"`
-	OpenDate           time.Time `bson:"openDate"`
-	CloseDate          time.Time `bson:"closeDate"`
-	BorderScore        int       `bson:"borderScore"`
-	Status             bool      `bson:"status"`
-}
 
 func GetAssignments(c *gin.Context) {
 	dbName := os.Getenv("DB_NAME")
@@ -40,26 +27,26 @@ func GetAssignments(c *gin.Context) {
 	}
 	dbClient := client.(*mongo.Client)
 
-	// まずはproblemsのテーブルから全ての問題をとってくる
 	problemsCollection := dbClient.Database(dbName).Collection(prbCol)
 	cur, err := problemsCollection.Find(context.Background(), bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	var problems []Problems
+	var problems []types.ProblemWithStatus
 	if err = cur.All(context.Background(), &problems); err != nil {
 		log.Fatal(err)
 	}
-	//　続いてstatusを決定する。submittionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
+	//　続いてstatusを決定する。submissionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
 	submissionCollection := dbClient.Database(dbName).Collection(submitCol)
 
 	for i, problem := range problems {
+		fmt.Printf("problemPath: %v\n", problem.ProblemPath)
 		filter := bson.D{{Key: "problemId", Value: problem.ProblemId}}
 		submissionCursor, err := submissionCollection.Find(context.TODO(), filter)
 		if err != nil {
 			log.Fatal(err)
 		}
-		var submissions []Submission
+		var submissions []types.Submission
 		if err = submissionCursor.All(context.TODO(), &submissions); err != nil {
 			log.Fatal(err)
 		}

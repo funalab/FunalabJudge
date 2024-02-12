@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
 import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import axios from 'axios';
-import SubmissionTableRow, { SubmissionTableRowProps } from './SubmissionTableRow';
+import SubmissionTableRow, { SubmissionWithStatusProps } from './SubmissionTableRow';
 
 const ResultQueuePage: React.FC = () => {
   const { userId } = useParams()
-  const [submissions, setSubmissions] = useState<SubmissionTableRowProps[]>([])
+  const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
 
   useEffect(() => {
     /* fetch all submissions that submitted by user whose id is useId */
@@ -15,8 +15,7 @@ const ResultQueuePage: React.FC = () => {
       .get(`/submissions/${userId}`)
       .then((response) => {
         const { data } = response;
-        setSubmissions(data)
-        console.log(submissions)
+        setSubmissionWithStatus(data)
       })
       .catch(() => {
         console.log('error')
@@ -41,14 +40,14 @@ const ResultQueuePage: React.FC = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {submissions.map(submission => (
+              {submissionsWithStatus.map(submissionWithStatus => (
                 <SubmissionTableRow
-                  Id={submission.Id}
-                  SubmittedDate={submission.SubmittedDate}
-                  ProblemId={submission.ProblemId}
-                  UserId={submission.UserId}
-                  Results={submission.Results}
-                  Status={submission.Status}
+                  Id={submissionWithStatus.Submission.Id}
+                  SubmittedDate={submissionWithStatus.Submission.SubmittedDate}
+                  ProblemId={submissionWithStatus.Submission.ProblemId}
+                  UserId={submissionWithStatus.Submission.UserId}
+                  Results={submissionWithStatus.Submission.Results}
+                  Status={submissionWithStatus.Status}
                 />
               ))}
             </Tbody>

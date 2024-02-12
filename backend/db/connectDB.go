@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
@@ -10,20 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
-
-type ConnectionErr struct {
-	msg string
-}
-
-func (c *ConnectionErr) Error() string {
-	return fmt.Sprintf("ConnectionErr: %v\n", c.msg)
-}
-
-func NewConnectionErr(errMsg string) error {
-	return &ConnectionErr{
-		msg: errMsg,
-	}
-}
 
 func Mongo_connectable() (error, *mongo.Client) {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)

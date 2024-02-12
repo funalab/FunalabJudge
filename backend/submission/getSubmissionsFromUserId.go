@@ -9,16 +9,18 @@ import (
 	"os"
 	"strconv"
 
+	"go-test/types"
+
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]Submission, error) {
+func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]types.SubmissionWithStatus, error) {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return &[]Submission{}, errors.New(fmt.Sprint("Error: NotExist\n"))
+		return &[]types.SubmissionWithStatus{}, errors.New(fmt.Sprint("Error: NotExist\n"))
 	}
 
 	dbName := os.Getenv("DB_NAME")
@@ -27,21 +29,26 @@ func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]Submission, err
 
 	id, err := strconv.Atoi(userId)
 
-	filter := bson.D{{Key: "userId", Value: id}}
+	if err != nil {
+		log.Fatalf("Failed to convert string into integer: %v\n", err.Error())
+		return &[]types.SubmissionWithStatus{}, err
+	}
+
+	filter := bson.M{"userId": id}
 
 	cursor, err := collection.Find(context.TODO(), filter)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &[]Submission{}, err
+		return &[]types.SubmissionWithStatus{}, err
 	}
-	var submissions []Submission
+	var submissions []types.SubmissionWithStatus
 	if err = cursor.All(context.TODO(), &submissions); err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &[]Submission{}, err
+		return &[]types.SubmissionWithStatus{}, err
 	}
 	for i, submission := range submissions {
 		status := "AC"
-		for _, object := range submission.Results {
+		for _, object := range submission.Submission.Results {
 			if object.Status == "WA" {
 				status = "WA"
 				break

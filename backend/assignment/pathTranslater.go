@@ -3,6 +3,7 @@ package assignment
 import (
 	"context"
 	"encoding/json"
+	"go-test/types"
 	"go-test/util"
 	"io"
 	"log"
@@ -15,24 +16,8 @@ import (
 
 var backendProjectRootPath string
 
-type ProblemContainPath struct {
-	Pid         int        `bson:"problemId"`
-	ProblemPath string     `bson:"problemPath"`
-	InputFmt    string     `bson:"inputFormat"`
-	OutputFmt   string     `bson:"outputFormat"`
-	Testcases   []Testcase `bson:"testCases"`
-}
-
-type ProblemJSON struct {
-	Name          string `json:"name"`
-	Statement     string `json:"statement"`
-	Constraints   string `json:"constraints"`
-	ExecutionTime int32  `json:"executionTime"`
-	MemoryLimit   int32  `json:"memoryLimit"`
-}
-
-func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *ProblemResp {
-	var p ProblemContainPath
+func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *types.ProblemResp {
+	var p types.ProblemContainPath
 
 	err := coll.FindOne(context.TODO(), bson.M{"problemId": pid}).Decode(&p)
 	if err != nil {
@@ -60,17 +45,17 @@ func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *ProblemResp 
 	return mapToProblemResp(&p, pj)
 }
 
-func parseProblemJSON(pf *os.File) (*ProblemJSON, error) {
-	var pj ProblemJSON
+func parseProblemJSON(pf *os.File) (*types.ProblemJSON, error) {
+	var pj types.ProblemJSON
 	byteValue, err := io.ReadAll(pf)
 	if err != nil {
 		log.Fatalf("Failed to read problem file as byte: %v\n", err.Error())
-		return &ProblemJSON{}, err
+		return &types.ProblemJSON{}, err
 	}
 	err = json.Unmarshal(byteValue, &pj)
 	if err != nil {
 		log.Fatalf("Failed to unmarshal json file: %v\n", err.Error())
-		return &ProblemJSON{}, err
+		return &types.ProblemJSON{}, err
 	}
 	return &pj, nil
 }
@@ -79,8 +64,8 @@ func parseIntoProjectPath(path string) string {
 	return filepath.Join(filepath.Dir(backendProjectRootPath), path)
 }
 
-func mapToProblemResp(p *ProblemContainPath, pj *ProblemJSON) *ProblemResp {
-	pr := new(ProblemResp)
+func mapToProblemResp(p *types.ProblemContainPath, pj *types.ProblemJSON) *types.ProblemResp {
+	pr := new(types.ProblemResp)
 	pr.Pid = p.Pid
 	pr.Name = pj.Name
 	pr.ExTime = pj.ExecutionTime

@@ -6,7 +6,7 @@ import (
 	"os"
 	"strconv"
 
-	"go-test/db"
+	"go-test/types"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -25,12 +25,12 @@ func AssignmentInfoHandler(c *gin.Context) {
 	pid, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		log.Fatalf("Failed to parse problemId as a number: %v\n", pid)
-		c.JSON(400, db.NewConnectionErr(err.Error()))
+		c.JSON(400, types.NewMongoConnectionErr(err.Error()))
 	}
 	resp := TranslatePathIntoProblemResp(collection, pid)
 	if resp == nil {
 		log.Fatalf("Failed to find single result from DB: %v\n", err)
-		c.JSON(400, NewFindOneAssignmentErr(err.Error()))
+		c.JSON(400, types.NewFindOneAssignmentErr(err.Error()))
 	}
 	c.JSON(200, resp)
 }
