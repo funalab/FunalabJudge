@@ -34,6 +34,13 @@ type ProblemResp struct {
 	Testcases []Testcase
 }
 
+type ProblemRespWithDateInfo struct {
+	ProblemResp ProblemResp
+	OpenDate    time.Time
+	CloseDate   time.Time
+	Status      bool
+}
+
 type ProblemContainPath struct {
 	Pid               int                `bson:"problemId"`
 	ProblemPath       string             `bson:"problemPath"`

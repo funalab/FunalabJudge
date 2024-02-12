@@ -4,11 +4,11 @@ package api
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 
+	"go-test/assignment"
 	"go-test/types"
 
 	"github.com/gin-gonic/gin"
@@ -38,10 +38,9 @@ func GetAssignments(c *gin.Context) {
 	}
 	//　続いてstatusを決定する。submissionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
 	submissionCollection := dbClient.Database(dbName).Collection(submitCol)
-
-	for i, problem := range problems {
-		fmt.Printf("problemPath: %v\n", problem.ProblemPath)
-		filter := bson.D{{Key: "problemId", Value: problem.ProblemId}}
+	resps := make([]types.ProblemRespWithDateInfo, 0)
+	for _, problem := range problems {
+		filter := bson.M{"problemId": problem.ProblemId}
 		submissionCursor, err := submissionCollection.Find(context.TODO(), filter)
 		if err != nil {
 			log.Fatal(err)
@@ -61,12 +60,20 @@ func GetAssignments(c *gin.Context) {
 				}
 			}
 			if allAC {
-				problems[i].Status = true
+				problem.Status = true
 				break
 			} else {
-				problems[i].Status = false
+				problem.Status = false
 			}
 		}
+		resp := assignment.TranslatePathIntoProblemResp(problemsCollection, problem.ProblemId)
+		resp2 := new(types.ProblemRespWithDateInfo)
+		resp2.ProblemResp = *resp
+		resp2.Status = problem.Status
+		resp2.OpenDate = problem.OpenDate
+		resp2.CloseDate = problem.CloseDate
+		resps = append(resps, *resp2)
 	}
-	c.JSON(http.StatusOK, problems)
+
+	c.JSON(http.StatusOK, resps)
 }

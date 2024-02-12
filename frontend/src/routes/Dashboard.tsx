@@ -8,8 +8,8 @@ export const Dashboard = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get("/")
-        setData(response.data);
+        const { data } = await axios.get("/")
+        setData(data);
       }
       catch (error) {
         console.log(error)

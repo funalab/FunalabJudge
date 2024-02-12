@@ -3,7 +3,6 @@ package assignment
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"go-test/types"
 	"go-test/util"
 	"io"
@@ -97,8 +96,6 @@ func parseSampleJSON(f *os.File) (*types.SampleJSON, error) {
 }
 
 func mapToProblemResp(p *types.ProblemContainPath, pj *types.ProblemJSON) *types.ProblemResp {
-	fmt.Printf("p: %v\n", *p)
-	fmt.Printf("pj: %v\n", pj)
 	pr := new(types.ProblemResp)
 	pr.Pid = p.Pid
 	pr.Name = pj.Name

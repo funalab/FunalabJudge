@@ -2,7 +2,6 @@ package submission
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -18,7 +17,6 @@ import (
 func SubmissionHandler(c *gin.Context) {
 	submitId := c.Param("submitId")
 	client, exists := c.Get("mongoClient")
-	fmt.Printf("%v\n", submitId)
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not availale."})
 	}
@@ -39,6 +37,5 @@ func SubmissionHandler(c *gin.Context) {
 	if err != nil {
 		c.JSON(400, err.Error())
 	}
-	fmt.Printf("%v\n", submission)
 	c.JSON(200, submission)
 }

@@ -6,18 +6,24 @@ import { useNavigate } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
 
 interface Problems {
-  ProblemId: number,
+  CloseDate: string,
+  OpenDate: string,
+  Status: boolean
+  ProblemResp: ProblemResp,
+}
+
+interface ProblemResp {
+  Pid: number,
   Name: string,
-  ExecutionTime: number,
-  MemoryLimit: number,
+  ExTime: number,
+  MemLim: number,
   Statement: string,
-  ProblemConstraints: string,
-  InputFormat: string,
-  OutputFormat: string,
+  Prbconst: string,
+  InputFmt: string,
+  OutputFmt: string,
   OpenDate: string,
   CloseDate: string,
   BorderScore: number,
-  Status: boolean
 }
 
 interface CardListProps {
@@ -36,7 +42,7 @@ export const CardList = ({ data }: CardListProps) => {
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
         {data.map((assignment) => {
-
+          console.log(assignment)
           // CheckBoxの状態に応じて表示するカードを変更する
           if (assignment.Status && !checkedItems[0]) {
             return null;
@@ -44,11 +50,10 @@ export const CardList = ({ data }: CardListProps) => {
           if (new Date() < new Date(assignment.OpenDate) && !checkedItems[1]) {
             return null;
           }
-
           return (
-            <Card key={assignment.ProblemId}>
+            <Card key={assignment.ProblemResp.Pid}>
               <CardHeader>
-                <Heading> {assignment.Name}</Heading>
+                <Heading> {assignment.ProblemResp.Name}</Heading>
               </CardHeader>
               <CardBody>
                 <Box>
@@ -61,7 +66,7 @@ export const CardList = ({ data }: CardListProps) => {
               </CardBody>
               <CardFooter>
                 {new Date() > new Date(assignment.OpenDate) ? (
-                  <Button colorScheme='teal' onClick={() => navigate(`/assignmentInfo/${assignment.ProblemId}`)}>
+                  <Button colorScheme='teal' onClick={() => navigate(`/assignmentInfo/${assignment.ProblemResp.Pid}`)}>
                     詳細
                   </Button>
                 ) : (
@@ -77,49 +82,6 @@ export const CardList = ({ data }: CardListProps) => {
     );
   }
 
-  // 一時的に返ってくるであろうデータを設定
-  const data_tmp = ({
-    q1: {
-      title: 'C-x',
-      content: 'this assignment is application of x function',
-      open: '2024-04-10',
-      close: '2024-04-25',
-      status: false,
-      path: '/message'
-    },
-    q2: {
-      title: 'C-1',
-      content: 'this is first assignment',
-      open: '2024-01-10',
-      close: '2024-01-30',
-      status: true,
-      path: '/account'
-    },
-    q3: {
-      title: 'python',
-      content: 'Drawing a graph using python',
-      open: '2024-02-10',
-      close: '2024-02-26',
-      status: false,
-      path: '/schedule'
-    },
-    q4: {
-      title: 'python',
-      content: 'Drawing a graph using python',
-      open: '2024-02-10',
-      close: '2024-04-10',
-      status: false,
-      path: '/schedule'
-    },
-    q5: {
-      title: 'python',
-      content: 'Drawing a graph using python',
-      open: '2024-01-01',
-      close: '2024-04-30',
-      status: false,
-      path: '/schedule'
-    }
-  })
   return (
     <div>
       <Box>
