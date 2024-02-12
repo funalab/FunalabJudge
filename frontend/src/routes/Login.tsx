@@ -1,5 +1,5 @@
 import { useState, FormEvent, FC } from 'react';
-import axios, { HttpStatusCode } from 'axios';
+import { HttpStatusCode } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PasswordField } from '../components/PasswordField'
 import {
