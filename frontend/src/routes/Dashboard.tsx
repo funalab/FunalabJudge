@@ -8,11 +8,7 @@ export const Dashboard = () => {
 
   // コンポーネントがマウントされた時にHTTPリクエストを送信する
   useEffect(() => {
-    // バックエンドサーバーのエンドポイントURLを指定
-    const apiUrl = 'http://localhost:3000/test'; 
-
-    // HTTP GETリクエストの送信
-    axios.get(apiUrl)
+    axios.get("/test")
       .then(response => {
         console.log(response.data);
         // レスポンスを受け取り、stateにセットする

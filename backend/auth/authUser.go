@@ -52,7 +52,7 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:          "funalabJudge",
 		Key:            []byte("a2u3zWOTpZKyOkg3NmjVlRnP8x1v4K8KsJv8NDFlTSY="), // TODO .envファイルに移動, 運用時には再作成: % openssl rand -base64 32
-		Timeout:        time.Hour * 24,
+		Timeout:        time.Hour * 24 * 7,
 		MaxRefresh:     time.Hour * 24 * 7,
 		SendCookie:     true,
 		SecureCookie:   false, //non HTTPS dev environments
@@ -60,7 +60,7 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		CookieDomain:   "localhost:3000",
 		CookieName:     "token", // default jwt
 		TokenLookup:    "cookie:token",
-		CookieSameSite: http.SameSiteDefaultMode, //SameSiteDefaultMode, SameSiteLaxMode, SameSiteStrictMode, SameSiteNoneMode
+		CookieSameSite: http.SameSiteStrictMode, //SameSiteDefaultMode, SameSiteLaxMode, SameSiteStrictMode, SameSiteNoneMode
 		IdentityKey:    "id",
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			return jwt.MapClaims{

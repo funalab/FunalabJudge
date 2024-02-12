@@ -7,7 +7,7 @@ export const TopHeader = () => {
   const navigate = useNavigate()
 
   const handleLogout = async () => {
-    axios.post("http://localhost:3000/logout")
+    axios.post("/logout")
     .then((response) => {
       if (response.status === HttpStatusCode.Ok) {
         navigate("/login");

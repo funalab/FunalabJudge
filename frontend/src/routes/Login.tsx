@@ -23,12 +23,13 @@ export const Login: FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     
-    axios.post("http://localhost:3000/login", {
+    axios.post("/login", {
       userId: userId,
       password: password,
     })
     .then((response) => {
       if (response.status === HttpStatusCode.Ok && response.data.token) {
+        console.log(response.data.token);
         console.log(userId.split("@")[0]);
         navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
       } else {
