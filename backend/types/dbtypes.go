@@ -16,20 +16,26 @@ type Result struct {
 }
 
 type Problem struct {
-	Id          int32
-	Path        string
-	InputFmt    string
-	OutputFmt   string
-	OpenDate    time.Time
-	CloseDate   time.Time
-	BorderScore int32
-	Testcases   []Testcase
+	Id                int32              `bson:"problemId"`
+	Path              string             `bson:"problemPath"`
+	InputFmt          string             `bson:"inputFormat"`
+	OutputFmt         string             `bson:"outputFormat"`
+	OpenDate          time.Time          `bson:"openDate"`
+	CloseDate         time.Time          `bson:"closeDate"`
+	BorderScore       int32              `bson:"borderScore"`
+	TestcaseWithPaths []TestcaseWithPath `bson:"testcases"`
 }
 
-type Testcase struct {
+type TestcaseWithPath struct {
 	TestcaseId     int32  `bson:"testCaseId"`
 	InputFilePath  string `bson:"inputFilePath"`
 	OutputFilePath string `bson:"outputFilePath"`
+}
+
+type Testcase struct {
+	TestcaseId        int32
+	InputFileContent  string
+	OutputFileContent string
 }
 
 type User struct {

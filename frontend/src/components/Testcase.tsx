@@ -4,22 +4,22 @@ import CopyTestcase from './CopyTestcase'
 
 export interface TestcaseProps {
   id: string,
-  InputFilePath: string,
-  OutputFilePath: string
+  InputFileContent: string,
+  OutputFileContent: string
 }
 
-const Testcase: React.FC<TestcaseProps> = ({ id, InputFilePath, OutputFilePath }) => {
+const Testcase: React.FC<TestcaseProps> = ({ id, InputFileContent, OutputFileContent }) => {
   return (
     <>
       <VStack>
         <HStack>
           <Text>入力例{id}</Text>
-          <CopyTestcase content={InputFilePath} />
+          <CopyTestcase content={InputFileContent} />
         </HStack>
         <Spacer />
         <HStack>
           <Text>出力例{id}</Text>
-          <CopyTestcase content={OutputFilePath} />
+          <CopyTestcase content={OutputFileContent} />
         </HStack>
       </VStack>
     </>

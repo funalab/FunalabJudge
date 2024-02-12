@@ -23,23 +23,23 @@ type ProblemWithStatus struct {
 }
 
 type ProblemResp struct {
-	Pid       int        `bson:"problemId"`
-	Name      string     `bson:"name"`
-	ExTime    int32      `bson:"executionTime"`
-	MemLim    int32      `bson:"memoryLimit"`
-	Statement string     `bson:"statement"`
-	PrbConst  string     `bson:"problemConstraints"`
-	InputFmt  string     `bson:"inputFormat"`
-	OutputFmt string     `bson:"outputFormat"`
-	Testcases []Testcase `bson:"testCases"`
+	Pid       int
+	Name      string
+	ExTime    int32
+	MemLim    int32
+	Statement string
+	PrbConst  string
+	InputFmt  string
+	OutputFmt string
+	Testcases []Testcase
 }
 
 type ProblemContainPath struct {
-	Pid         int        `bson:"problemId"`
-	ProblemPath string     `bson:"problemPath"`
-	InputFmt    string     `bson:"inputFormat"`
-	OutputFmt   string     `bson:"outputFormat"`
-	Testcases   []Testcase `bson:"testCases"`
+	Pid               int                `bson:"problemId"`
+	ProblemPath       string             `bson:"problemPath"`
+	InputFmt          string             `bson:"inputFormat"`
+	OutputFmt         string             `bson:"outputFormat"`
+	TestcaseWithPaths []TestcaseWithPath `bson:"testCases"`
 }
 
 type ProblemJSON struct {
@@ -48,4 +48,8 @@ type ProblemJSON struct {
 	Constraints   string `json:"constraints"`
 	ExecutionTime int32  `json:"executionTime"`
 	MemoryLimit   int32  `json:"memoryLimit"`
+}
+
+type SampleJSON struct {
+	Content string `json:"content"`
 }

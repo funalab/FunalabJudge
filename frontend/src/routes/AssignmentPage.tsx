@@ -37,6 +37,7 @@ const AssignmentPage = () => {
       .get(`/assignmentInfo/${id}`)
       .then((response) => {
         const { data } = response;
+        console.log(data)
         setName(data.Name);
         setExecutionTime(data.ExTime);
         setMemoryLimit(data.MemLim);
@@ -85,8 +86,8 @@ const AssignmentPage = () => {
         {testcases.map((testcase: TestcaseProps, index: number) => (
           <Testcase
             id={String(index + 1)}
-            InputFilePath={testcase.InputFilePath}
-            OutputFilePath={testcase.OutputFilePath}
+            InputFileContent={testcase.InputFileContent}
+            OutputFileContent={testcase.OutputFileContent}
           />
         ))}
       </DefaultLayout>
