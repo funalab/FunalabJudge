@@ -37,17 +37,17 @@
       {
         "testCaseId": 1,
         "inputFilePath": "data/testcases/inputs/c/c2_1/input1.json",
-        "outputFilePath": "data/testcases/inputs/c/c2_1/output1.json"
+        "outputFilePath": "data/testcases/outputs/c/c2_1/output1.json"
       },
       {
         "testCaseId": 2,
         "inputFilePath": "data/testcases/inputs/c/c2_1/input2.json",
-        "outputFilePath": "data/testcases/inputs/c/c2_1/output2.json"
+        "outputFilePath": "data/testcases/outputs/c/c2_1/output2.json"
       },
       {
         "testCaseId": 3,
         "inputFilePath": "data/testcases/inputs/c/c2_1/input3.json",
-        "outputFilePath": "data/testcases/inputs/c/c2_1/output3.json"
+        "outputFilePath": "data/testcases/outputs/c/c2_1/output3.json"
       }
     ]
   }
