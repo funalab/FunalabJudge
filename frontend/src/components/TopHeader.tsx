@@ -1,13 +1,14 @@
 import { Flex, Image, Button } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import axios, { HttpStatusCode } from "axios";
+import { HttpStatusCode } from "axios";
+import { axiosClient } from "../providers/AxiosClientProvider";
 
 export const TopHeader = () => {
   const navigate = useNavigate()
 
   const handleLogout = async () => {
-    axios.post("/logout")
+    axiosClient.post("/logout")
     .then((response) => {
       if (response.status === HttpStatusCode.Ok) {
         navigate("/login");

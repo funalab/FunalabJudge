@@ -1,14 +1,14 @@
 import {useState, useEffect } from 'react';
-import {Button, Box, Text, VStack } from '@chakra-ui/react';
+import { Box, Text, VStack } from '@chakra-ui/react';
 import { DefaultLayout } from "../components/DefaultLayout";
-import axios from 'axios';
+import { axiosClient } from '../providers/AxiosClientProvider';
 
 export const Dashboard = () => {
   const [data, setData] = useState(null);
 
   // コンポーネントがマウントされた時にHTTPリクエストを送信する
   useEffect(() => {
-    axios.get("/test")
+    axiosClient.get("/test")
       .then(response => {
         console.log(response.data);
         // レスポンスを受け取り、stateにセットする

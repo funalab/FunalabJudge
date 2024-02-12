@@ -8,9 +8,7 @@ import { Dashboard } from "../routes/Dashboard";
 import { Message } from "../routes/Message";
 import { Schedule } from "../routes/Schedule";
 import { NotFound } from "../routes/NotFound";
-
-import { RouteAuthGuard } from "./RouteAuthGuard";
-import { PageType } from "../types/PageTypes";
+import { AxiosClientProvider } from "../providers/AxiosClientProvider";
 
 export const RouterConfig:React.FC = () => {
   // <Route path="/dashboard" element={<RouteAuthGuard component={<Dashboard />} pagetype={private} redirect="/login" />} />
@@ -18,6 +16,7 @@ export const RouterConfig:React.FC = () => {
   return (
   <>
     <BrowserRouter>
+    <AxiosClientProvider>
       <Routes>
         <Route path="/:userName">
           <Route path="dashboard" element={<Dashboard />} />
@@ -28,6 +27,7 @@ export const RouterConfig:React.FC = () => {
         <Route path="/login" element={<Login />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
+    </AxiosClientProvider>
     </BrowserRouter>
   </>
   );

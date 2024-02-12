@@ -13,6 +13,7 @@ import {
   Input,
   Stack,
 } from '@chakra-ui/react'
+import { axiosClient } from '../providers/AxiosClientProvider';
 
 export const Login: FC = () => {
   const [userId, setUserId] = useState("");
@@ -23,19 +24,14 @@ export const Login: FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     
-    axios.post("/login", {
+    axiosClient.post("/login", {
       userId: userId,
       password: password,
     })
     .then((response) => {
-      if (response.status === HttpStatusCode.Ok && response.data.token) {
-        console.log(response.data.token);
-        console.log(userId.split("@")[0]);
-        navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
-      } else {
-        console.error(error);
-        setError('ログイン情報が間違っています。');
-      }
+      console.log(response.data.token);
+      console.log(userId.split("@")[0]);
+      navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
     })
     .catch((error) => {
       if (error.response?.status === HttpStatusCode.Unauthorized) {
