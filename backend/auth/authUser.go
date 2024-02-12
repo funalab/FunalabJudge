@@ -55,9 +55,12 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		Timeout:        time.Hour * 24,
 		MaxRefresh:     time.Hour * 24 * 7,
 		SendCookie:     true,
-		SecureCookie:   true, // 開発環境はhttpsじゃないのでfalse
-		CookieHTTPOnly: true,
-		CookieSameSite: http.SameSiteNoneMode,
+		SecureCookie:   false, //non HTTPS dev environments
+		CookieHTTPOnly: true,  // JS can't modify
+		CookieDomain:   "localhost:3000",
+		CookieName:     "token", // default jwt
+		TokenLookup:    "cookie:token",
+		CookieSameSite: http.SameSiteDefaultMode, //SameSiteDefaultMode, SameSiteLaxMode, SameSiteStrictMode, SameSiteNoneMode
 		PayloadFunc: func(data interface{}) jwt.MapClaims {
 			return jwt.MapClaims{
 				jwt.IdentityKey: data,

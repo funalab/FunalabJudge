@@ -58,7 +58,7 @@ func main() {
 
 	router.POST("/login", jwtMiddleware.LoginHandler)
 	router.GET("/refresh_token", jwtMiddleware.RefreshHandler)
-	api := router.Group("/api") //.Use(jwtMiddleware.MiddlewareFunc())
+	api := router.Group("/api").Use(jwtMiddleware.MiddlewareFunc())
 	{
 		api.GET("/test", func(c *gin.Context) {
 			// userID := auth.UserIdInJwt(c)

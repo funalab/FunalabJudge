@@ -22,12 +22,13 @@ export const Login: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
+    
     axios.post("http://localhost:3000/login", {
       userId: userId,
       password: password,
     })
     .then((response) => {
+      console.log("")
       if (response.data.token) {  // OKだったらbackendでjwtがcookieにセットされる
         console.log(userId.split("@")[0]);
         navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
@@ -37,8 +38,13 @@ export const Login: React.FC = () => {
       }
     })
     .catch((error) => {
-      console.error(error);
-      setError('通信に失敗しました。');
+      if (error.response?.status === 401) {
+        console.error(error);
+        setError('ログイン情報が間違っています。');
+      } else {
+        console.error(error);
+        setError('通信に失敗しました。');
+      }
     });
   };
 
