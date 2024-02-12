@@ -82,9 +82,9 @@ const AssignmentPage = () => {
           </VStack>
         </VStack>
         <Divider />
-        {testcases.map((testcase: TestcaseProps) => (
+        {testcases.map((testcase: TestcaseProps, index: number) => (
           <Testcase
-            id={String(id)}
+            id={String(index + 1)}
             InputFile={testcase.InputFile}
             OutputFile={testcase.OutputFile}
           />
