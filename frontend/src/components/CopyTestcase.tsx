@@ -27,6 +27,7 @@ const CopyTestcase: React.FC<CopyTestcaseProps> = ({ content }) => {
           value={value}
           mr={2}
           readOnly={true}
+          style={{ resize: 'none' }}
         />
         <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
       </Flex>
