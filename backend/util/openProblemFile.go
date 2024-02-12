@@ -1,6 +1,9 @@
 package util
 
-import "os"
+import (
+	"os"
+	"path/filepath"
+)
 
 /*
 * This function should be used when we get file path from datbase.
@@ -15,5 +18,5 @@ func OpenFileFromDB(pfp string) (*os.File, error) {
 }
 
 func ParseIntoAbsolutePath(pathFragment string) string {
-	return GetProjectRoot() + pathFragment
+	return filepath.Join(GetProjectRoot(), pathFragment)
 }

@@ -85,8 +85,8 @@ const AssignmentPage = () => {
         {testcases.map((testcase: TestcaseProps, index: number) => (
           <Testcase
             id={String(index + 1)}
-            InputFile={testcase.InputFile}
-            OutputFile={testcase.OutputFile}
+            InputFilePath={testcase.InputFilePath}
+            OutputFilePath={testcase.OutputFilePath}
           />
         ))}
       </DefaultLayout>

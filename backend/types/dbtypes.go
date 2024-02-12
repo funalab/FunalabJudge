@@ -27,9 +27,9 @@ type Problem struct {
 }
 
 type Testcase struct {
-	TestcaseId     int32
-	InputFilePath  string
-	OutputFilePath string
+	TestcaseId     int32  `bson:"testCaseId"`
+	InputFilePath  string `bson:"inputFilePath"`
+	OutputFilePath string `bson:"outputFilePath"`
 }
 
 type User struct {

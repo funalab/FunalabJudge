@@ -8,7 +8,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"path/filepath"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -24,15 +23,7 @@ func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *types.Proble
 		log.Fatalf("Failed to parse problemId as a number: %v\n", err.Error())
 		return nil
 	}
-
-	backendProjectRootPath = util.GetBackendProjectRoot()
-	if err != nil {
-		log.Fatalf("Failed to get current working directory path: %v\n", err.Error())
-		return nil
-	}
-
-	parsedPath := parseIntoProjectPath(p.ProblemPath)
-	pf, err := os.Open(parsedPath)
+	pf, err := util.OpenFileFromDB(p.ProblemPath)
 	if err != nil {
 		log.Fatalf("Failed to open problem file: %v\n", err.Error())
 		return nil
@@ -58,10 +49,6 @@ func parseProblemJSON(pf *os.File) (*types.ProblemJSON, error) {
 		return &types.ProblemJSON{}, err
 	}
 	return &pj, nil
-}
-
-func parseIntoProjectPath(path string) string {
-	return filepath.Join(filepath.Dir(backendProjectRootPath), path)
 }
 
 func mapToProblemResp(p *types.ProblemContainPath, pj *types.ProblemJSON) *types.ProblemResp {
