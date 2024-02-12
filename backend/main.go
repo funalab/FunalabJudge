@@ -17,37 +17,15 @@ func main() {
 
 	// ここからCorsの設定
 	router.Use(cors.New(cors.Config{
-		// アクセスを許可したいアクセス元
 		AllowOrigins: []string{
 			"http://localhost:5173",
 		},
-		// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
-		AllowMethods: []string{
-			"POST",
-			"GET",
-			"OPTIONS",
-			"PUT",
-			"DELETE",
-		},
-		// 許可したいHTTPリクエストヘッダ
-		AllowHeaders: []string{
-			"Access-Control-Allow-Credentials",
-			"Access-Control-Allow-Headers",
-			"Access-Control-Request-Method",
-			"Access-Control-Request-Headers",
-			"Access-Control-Allow-Origin",
-			"Content-Type",
-			"Content-Length",
-			"Accept-Encoding",
-			"Authorization",
-			"X-Requested-With",
-			"Origin,Accept",
-		},
-		// cookieなどの情報を必要とするかどうか
 		AllowCredentials: true,
-		// AllowAllOrigins:  true,
 		// preflightリクエストの結果をキャッシュする時間
 		MaxAge: 24 * time.Hour,
+		// 以下の項目は、全てを許可しない設定にしても認証機能に影響はなかった, セキュリティの観点で設定が必要な可能性はある
+		// AllowMethods: []string{},  あってもなくても認証機能に影響はなかった
+		// AllowHeaders: []string{},  あってもなくても認証機能に影響はなかった
 	}))
 
 	jwtMiddleware, err := auth.NewJwtMiddleware()
@@ -58,7 +36,7 @@ func main() {
 
 	router.POST("/login", jwtMiddleware.LoginHandler)
 	router.GET("/refresh_token", jwtMiddleware.RefreshHandler)
-	api := router.Group("/api").Use(jwtMiddleware.MiddlewareFunc())
+	api := router.Group("").Use(jwtMiddleware.MiddlewareFunc())
 	{
 		api.GET("/test", func(c *gin.Context) {
 			// userID := auth.UserIdInJwt(c)
