@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { DefaultLayout } from "../components/DefaultLayout";
 import { CardList } from "../components/CardList"
-import axios from 'axios';
+import { axiosClient } from '../providers/AxiosClientProvider';
 
 export const Dashboard = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("/")
+        const { data } = await axiosClient.get("/")
         setData(data);
       }
       catch (error) {
