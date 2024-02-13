@@ -23,7 +23,6 @@ const AssignmentPage = () => {
       .get(`/assignmentInfo/${id}`)
       .then((response) => {
         const { data } = response;
-        console.log(data)
         setName(data.Name);
         setExecutionTime(data.ExTime);
         setMemoryLimit(data.MemLim);
