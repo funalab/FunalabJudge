@@ -40,7 +40,7 @@ const ResultQueuePage: React.FC = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {submissionsWithStatus.map(submissionWithStatus => (
+              {submissionsWithStatus?.map(submissionWithStatus => (
                 <SubmissionTableRow
                   Id={submissionWithStatus.Submission.Id}
                   SubmittedDate={submissionWithStatus.Submission.SubmittedDate}
