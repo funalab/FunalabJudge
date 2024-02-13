@@ -68,7 +68,6 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 			}
 		},
 		Authenticator: func(c *gin.Context) (interface{}, error) {
-			println("aaa")
 			var jsonRequest JsonRequest
 
 			if err := c.ShouldBind(&jsonRequest); err != nil {
@@ -79,16 +78,13 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 			usrCol := os.Getenv("USERS_COLLECTION")
 			client, _ := c.Get("mongoClient")
 			dbClient := client.(*mongo.Client)
-			println(dbClient)
 
 			var result User
 			err := dbClient.Database(dbName).Collection(usrCol).FindOne(context.TODO(), bson.D{{"email", jsonRequest.UserId}}).Decode(&result)
-			println(err != nil)
 			if err != nil {
 				println(err.Error())
 				return "", jwt.ErrMissingLoginValues
 			}
-			println(result.Password != jsonRequest.Password)
 			if result.Password != jsonRequest.Password {
 				return "", jwt.ErrFailedAuthentication
 			}

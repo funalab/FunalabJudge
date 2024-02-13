@@ -62,7 +62,6 @@ func main() {
 	router.POST("/login", authMiddleware.LoginHandler)
 	router.POST("/logout", authMiddleware.LogoutHandler)
 	router.GET("/refresh_token", authMiddleware.RefreshHandler)
-	// router.GET("/", api.GetAssignments)
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
 		authed.GET("/", api.GetAssignments)
