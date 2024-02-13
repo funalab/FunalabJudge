@@ -10,7 +10,7 @@ interface DefaultLayoutProps {
 export const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
   return (
     <ChakraProvider theme={theme}>
-      <Flex w="100vw" h="100wh">
+      <Flex w="100vw" h="100vh" overflowY={'auto'}>
         <TopHeader />
         <Box mt="100px">
           <Flex>

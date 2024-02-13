@@ -42,7 +42,6 @@ export const CardList = ({ data }: CardListProps) => {
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
         {data.map((assignment) => {
-          console.log(assignment)
           // CheckBoxの状態に応じて表示するカードを変更する
           if (assignment.Status && !checkedItems[0]) {
             return null;
@@ -51,7 +50,7 @@ export const CardList = ({ data }: CardListProps) => {
             return null;
           }
           return (
-            <Card key={assignment.ProblemResp.Pid}>
+            <Card key={assignment.ProblemResp.Pid} boxShadow={'dark-lg'}>
               <CardHeader>
                 <Heading> {assignment.ProblemResp.Name}</Heading>
               </CardHeader>
@@ -83,9 +82,9 @@ export const CardList = ({ data }: CardListProps) => {
   }
 
   return (
-    <div>
-      <Box>
-        <h1>There are some assignments</h1>
+    <>
+      <Box my={4}>
+        <Heading>Assignments</Heading>
       </Box>
       <Stack spacing={5} direction='row'>
         {check_list.map((check, index: number) => (
@@ -98,8 +97,10 @@ export const CardList = ({ data }: CardListProps) => {
           </Checkbox>
         ))}
       </Stack>
-      <CardGrid data={data} />
-    </div>
+      <Stack mt={8}>
+        <CardGrid data={data} />
+      </Stack>
+    </>
   );
 }
 

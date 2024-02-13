@@ -1,6 +1,5 @@
 import { Box, Button, Icon } from "@chakra-ui/react";
 import {
-  MdMessage,
   MdDashboard,
   MdCalendarMonth,
   MdAccountBox,
@@ -34,7 +33,13 @@ export const SideMenu = () => {
   // natigate関数を取得
   const navigate = useNavigate();
   return (
-    <Box w="20vw" m="20px">
+    <Box
+      w="20vw"
+      h="100%"
+      m="20px"
+      display="flex"
+      flexDirection="column"
+    >
       {sideMenuItems.map((item) => (
         <label key={item.name}>
           <Box mt="10px" ml="10px">
