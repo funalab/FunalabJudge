@@ -39,6 +39,7 @@ export const SideMenu = () => {
       m="20px"
       display="flex"
       flexDirection="column"
+      position={"fixed"}
     >
       {sideMenuItems.map((item) => (
         <label key={item.name}>

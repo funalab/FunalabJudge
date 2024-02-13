@@ -12,10 +12,10 @@ export const DefaultLayout: React.FC<DefaultLayoutProps> = ({ children }) => {
     <ChakraProvider theme={theme}>
       <Flex w="100vw" h="100vh" overflowY={'auto'}>
         <TopHeader />
-        <Box mt="100px">
+        <Box mt="100px" w="100%">
           <Flex>
             <SideMenu />
-            <Box w="70vw">{children}</Box>
+            <Box w="70vw" ml="20vw">{children}</Box>
           </Flex>
         </Box>
       </Flex>
