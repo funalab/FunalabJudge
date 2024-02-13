@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
 import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import axios from 'axios';
-import SubmissionTableRow, { SubmissionWithStatusProps } from './SubmissionTableRow';
+import SubmissionTableRow, { SubmissionWithStatusProps } from '../components/SubmissionTableRow';
+import { axiosClient } from '../providers/AxiosClientProvider';
 
 const ResultQueuePage: React.FC = () => {
-  const { userId } = useParams()
+  const { userName } = useParams()
   const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
 
   useEffect(() => {
     /* fetch all submissions that submitted by user whose id is useId */
-    axios
-      .get(`/submissions/${userId}`)
+    axiosClient
+      .get(`/submissions/${userName}`)
       .then((response) => {
         const { data } = response;
         setSubmissionWithStatus(data)

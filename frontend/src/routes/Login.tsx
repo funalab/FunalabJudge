@@ -16,7 +16,7 @@ import {
 import { axiosClient } from '../providers/AxiosClientProvider';
 
 export const Login: FC = () => {
-  const [userId, setUserId] = useState("");
+  const [userName, setuserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -25,13 +25,11 @@ export const Login: FC = () => {
     event.preventDefault();
     
     axiosClient.post("/login", {
-      userId: userId,
+      userName: userName,
       password: password,
     })
     .then((response) => {
-      console.log(response.data.token);
-      console.log(userId.split("@")[0]);
-      navigate(`/${userId.split("@")[0]}/dashboard`, { replace: true })  //TODO
+      navigate(`/${userName}/dashboard`, { replace: true })  //TODO
     })
     .catch((error) => {
       if (error.response?.status === HttpStatusCode.Unauthorized) {
@@ -63,8 +61,8 @@ export const Login: FC = () => {
         <Stack spacing="6">
           <Stack spacing="5">
             <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <Input id="userId" type="email" value={userId} onChange={(e) => setUserId(e.target.value)}/>
+              <FormLabel htmlFor="email">User Name</FormLabel>
+              <Input id="userName" type="email" value={userName} onChange={(e) => setuserName(e.target.value)}/>
             </FormControl>
             <PasswordField id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           </Stack>

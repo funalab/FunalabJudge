@@ -1,12 +1,15 @@
 package submission
 
 import (
+	"go-test/user"
+
 	"github.com/gin-gonic/gin"
 )
 
 func SubmissionQueueHandler(c *gin.Context) {
-	userId := c.Param("userId")
-	submissions, err := GetSubmissionsFromUserId(c, userId)
+	userName := c.Param("userName")
+	userData := user.GetUserFromUserName(c, userName)
+	submissions, err := GetSubmissionsFromUser(c, *userData)
 	if err != nil {
 		c.JSON(400, err.Error())
 	}

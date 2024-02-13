@@ -1,38 +1,37 @@
 import { Box, Button, Icon } from "@chakra-ui/react";
 import {
-  MdMessage,
   MdDashboard,
   MdCalendarMonth,
   MdAccountBox,
   MdAssignment,
 } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const SideMenu = () => {
+  const navigate = useNavigate();
+  const { userName } = useParams();
   const sideMenuItems = [
     {
       name: "Dashboard",
       icon: MdDashboard,
-      path: "/",
+      path: `/${userName}/dashboard`,
     },
     {
       name: "Account",
       icon: MdAccountBox,
-      path: "/account",
+      path: `/${userName}/account`,
     },
     {
       name: "Results",
       icon: MdAssignment,
-      path: "/results/1",
+      path: `/${userName}/results`,
     },
     {
       name: "Schedule",
       icon: MdCalendarMonth,
-      path: "/schedule",
+      path: `/${userName}/schedule`,
     },
   ];
-  // natigate関数を取得
-  const navigate = useNavigate();
   return (
     <Box w="20vw" m="20px">
       {sideMenuItems.map((item) => (

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
 import { Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { SubmissionTableRowProps } from './SubmissionTableRow'
-import { Result } from "./SubmissionTableRow"
+import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
+import { Result } from "../components/SubmissionTableRow"
+import { axiosClient } from '../providers/AxiosClientProvider'
 
 const SubmitDetailsPage: React.FC = () => {
   const { submitId } = useParams()
@@ -19,7 +19,7 @@ const SubmitDetailsPage: React.FC = () => {
 
   const [score, setScore] = useState(0)
   useEffect(() => {
-    axios
+    axiosClient
       .get(`/submission/${submitId}`)
       .then(({ data }) => {
         console.log(data)

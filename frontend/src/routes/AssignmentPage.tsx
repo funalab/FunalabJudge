@@ -4,8 +4,8 @@ import { Divider, Heading, Text, VStack } from "@chakra-ui/react";
 import ExecutionConstraints from "../components/ExecutionConstraints";
 import InputOutputBox from "../components/InputOutputBox";
 import Testcase, { TestcaseProps } from "../components/Testcase";
-import axios from "axios";
 import DefaultLayout from "../components/DefaultLayout";
+import { axiosClient } from "../providers/AxiosClientProvider";
 
 const AssignmentPage = () => {
   const { id } = useParams<string>();
@@ -33,7 +33,7 @@ const AssignmentPage = () => {
     }
     */
 
-    axios
+    axiosClient
       .get(`/assignmentInfo/${id}`)
       .then((response) => {
         const { data } = response;

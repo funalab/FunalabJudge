@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Box, Stack } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
 
 interface Problems {
@@ -36,13 +36,13 @@ export const CardList = ({ data }: CardListProps) => {
   const [checkedItems, setCheckedItems] = useState(new Array(check_list.length).fill(false))
 
   const navigate = useNavigate()
+  const { userName } = useParams()
 
   const CardGrid = ({ data }: CardListProps) => {
     return (
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
         {data.map((assignment) => {
-          console.log(assignment)
           // CheckBoxの状態に応じて表示するカードを変更する
           if (assignment.Status && !checkedItems[0]) {
             return null;
@@ -66,7 +66,7 @@ export const CardList = ({ data }: CardListProps) => {
               </CardBody>
               <CardFooter>
                 {new Date() > new Date(assignment.OpenDate) ? (
-                  <Button colorScheme='teal' onClick={() => navigate(`/assignmentInfo/${assignment.ProblemResp.Pid}`)}>
+                  <Button colorScheme='teal' onClick={() => navigate(`/${userName}/assignmentInfo/${assignment.ProblemResp.Pid}`)}>
                     詳細
                   </Button>
                 ) : (

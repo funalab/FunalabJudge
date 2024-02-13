@@ -2,9 +2,9 @@ package auth
 
 import (
 	"context"
+	"go-test/types"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -14,7 +14,7 @@ import (
 )
 
 type JsonRequest struct {
-	UserId   string `json:"userId"`
+	UserName string `json:"userName"`
 	Password string `json:"password"`
 }
 
@@ -22,24 +22,6 @@ type JsonReturn struct {
 	Authorized bool   `json:"authorized"`
 	UserName   string `json:"userName"`
 	Role       string `json:"role"`
-}
-
-type User struct {
-	UserId      int64
-	Email       string
-	Password    string
-	CreatedDate time.Time
-	Role        string
-}
-
-func extractUsername(email string) string {
-	parts := strings.Split(email, "@")
-	username := parts[0]
-	return username
-}
-
-func authorizeUser(user User, form JsonRequest) bool {
-	return user.Password == form.Password
 }
 
 func UserIdInJwt(c *gin.Context) string {
@@ -51,8 +33,8 @@ func UserIdInJwt(c *gin.Context) string {
 func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:          "funalabJudge",
-		Key:            []byte("a2u3zWOTpZKyOkg3NmjVlRnP8x1v4K8KsJv8NDFlTSY="), // TODO .envファイルに移動, 運用時には再作成: % openssl rand -base64 32
-		Timeout:        time.Hour * 24 * 7,                                     // equals to CookieMaxAge
+		Key:            []byte(os.Getenv("SECRET_KEY")), // 運用時には再作成する: % openssl rand -base64 32
+		Timeout:        time.Hour * 24 * 7,              // equals to CookieMaxAge
 		MaxRefresh:     time.Hour * 24 * 7,
 		SendCookie:     true,
 		SecureCookie:   false, //non HTTPS dev environments
@@ -78,9 +60,10 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 			usrCol := os.Getenv("USERS_COLLECTION")
 			client, _ := c.Get("mongoClient")
 			dbClient := client.(*mongo.Client)
+			filter := bson.M{"userName": jsonRequest.UserName}
 
-			var result User
-			err := dbClient.Database(dbName).Collection(usrCol).FindOne(context.TODO(), bson.D{{"email", jsonRequest.UserId}}).Decode(&result)
+			var result types.User
+			err := dbClient.Database(dbName).Collection(usrCol).FindOne(context.TODO(), filter).Decode(&result)
 			if err != nil {
 				println(err.Error())
 				return "", jwt.ErrMissingLoginValues
@@ -89,7 +72,7 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 				return "", jwt.ErrFailedAuthentication
 			}
 
-			return result.Email, nil
+			return result.UserName, nil
 		},
 	})
 

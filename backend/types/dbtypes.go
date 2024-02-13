@@ -39,9 +39,9 @@ type Testcase struct {
 }
 
 type User struct {
-	UserId      int64
-	Email       string
-	Password    string
-	CreatedDate time.Time
-	Role        string
+	UserId      int64     `bson:"userId"`
+	UserName    string    `bson:"userName"`
+	Password    string    `bson:"password"`
+	CreatedDate time.Time `bson:"createdDate"`
+	Role        string    `bson:"role"`
 }

@@ -12,16 +12,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetUserFromUserId(c *gin.Context, userId string) *types.User {
+func GetUserFromUserName(c *gin.Context, userName string) *types.User {
+	println("bb")
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
 		return &types.User{}
 	}
 	dbName := os.Getenv("DB_NAME")
-	collection := (client.(*mongo.Client)).Database(dbName).Collection("USERS_COLLECTION")
+	usrCol := os.Getenv("USERS_COLLECTION")
+	collection := (client.(*mongo.Client)).Database(dbName).Collection(usrCol)
 
-	filter := bson.M{"userId": userId}
+	filter := bson.M{"userName": userName}
 
 	var user types.User
 	err := collection.FindOne(context.TODO(), filter).Decode(&user)

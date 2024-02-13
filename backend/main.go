@@ -66,7 +66,7 @@ func main() {
 	{
 		authed.GET("/", api.GetAssignments)
 		authed.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)
-		authed.GET("/submissions/:userId", submission.SubmissionQueueHandler)
+		authed.GET("/submissions/:userName", submission.SubmissionQueueHandler)
 		authed.GET("/submission/:submitId", submission.SubmissionHandler)
 	}
 

@@ -20,13 +20,12 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/:userName">
-            {/* <Route path="" element={<Dashboard />} /> */}
             <Route path="account" element={<Account />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="message" element={<Message />} />
             <Route path="schedule" element={<Schedule />} />
             <Route path="assignmentInfo/:id" element={<AssignmentPage />} />
-            <Route path="results/:userId" element={<ResultQueuePage />} />
+            <Route path="results" element={<ResultQueuePage />} />
             <Route path="submission/:submitId" element={<SubmitDetailsPage />} />
           </Route>
         </Routes>

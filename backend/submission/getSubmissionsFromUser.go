@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 
 	"go-test/types"
 
@@ -16,7 +15,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]types.SubmissionWithStatus, error) {
+func GetSubmissionsFromUser(c *gin.Context, user types.User) (*[]types.SubmissionWithStatus, error) {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
@@ -27,14 +26,7 @@ func GetSubmissionsFromUserId(c *gin.Context, userId string) (*[]types.Submissio
 	submitCol := os.Getenv("SUBMISSION_COLLECTION")
 	collection := (client.(*mongo.Client)).Database(dbName).Collection(submitCol)
 
-	id, err := strconv.Atoi(userId)
-
-	if err != nil {
-		log.Fatalf("Failed to convert string into integer: %v\n", err.Error())
-		return &[]types.SubmissionWithStatus{}, err
-	}
-
-	filter := bson.M{"userId": id}
+	filter := bson.M{"userId": user.UserId}
 
 	cursor, err := collection.Find(context.TODO(), filter)
 	if err != nil {
