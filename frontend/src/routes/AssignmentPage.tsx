@@ -6,6 +6,7 @@ import InputOutputBox from "../components/InputOutputBox";
 import Testcase, { TestcaseProps } from "../components/Testcase";
 import axios from "axios";
 import DefaultLayout from "../components/DefaultLayout";
+import SubmitForm from "../components/SubmitForm";
 
 const AssignmentPage = () => {
   const { id } = useParams<string>();
@@ -18,21 +19,6 @@ const AssignmentPage = () => {
   const [outputFormat, setOutputFormat] = useState("");
   const [testcases, setTestcases] = useState([]);
   useEffect(() => {
-    /*fetch db and set each parameters.
-     * 
-    type ProblemResp struct {
-      Pid       int32      `bson:"problemId"`
-      Name      string     `bson:"name"`
-      ExTime    int32      `bson: "executionTime"`
-      MemLim    int32      `bson: "memoryLimit"`
-      Statement string     `bson: "statement"`
-      PrbConst  string     `bson: "problemConstraints"`
-      InputFmt  string     `bson: "inputFormat"`
-      OutputFmt string     `bson: "outputFormat"`
-      Testcases []Testcase `bson: "testCases"`
-    }
-    */
-
     axios
       .get(`/assignmentInfo/${id}`)
       .then((response) => {
@@ -106,6 +92,7 @@ const AssignmentPage = () => {
             <InputOutputBox content={outputFormat} />
           </Stack>
           <Divider />
+          <Text fontSize={32} fontWeight={'bold'}>Sample Cases</Text>
           {testcases.map((testcase: TestcaseProps, index: number) => (
             <>
               <Testcase
@@ -115,8 +102,8 @@ const AssignmentPage = () => {
               />
             </>
           ))}
+          <SubmitForm />
         </VStack>
-
       </DefaultLayout >
     </>
   );

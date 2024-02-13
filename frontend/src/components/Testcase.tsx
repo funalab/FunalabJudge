@@ -1,4 +1,4 @@
-import { Divider, SimpleGrid } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import CopyTestcase from './CopyTestcase'
 
@@ -21,7 +21,6 @@ const Testcase: React.FC<TestcaseProps> = ({ id, InputFileContent, OutputFileCon
           content={OutputFileContent}
         />
       </SimpleGrid>
-      <Divider />
     </>
   )
 }

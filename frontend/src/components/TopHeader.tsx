@@ -1,5 +1,5 @@
 import { Flex, Image } from "@chakra-ui/react";
-import { Box} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 export const TopHeader = () => {
@@ -14,6 +14,7 @@ export const TopHeader = () => {
       width="full"
       height="100px"
       shadow="sm"
+      zIndex={9999}
       py={4}
       px={8}
     >
