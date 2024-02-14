@@ -8,7 +8,7 @@ import DefaultLayout from "../components/DefaultLayout";
 import { axiosClient } from "../providers/AxiosClientProvider";
 
 const AssignmentPage = () => {
-  const { id } = useParams<string>();
+  const { problemId } = useParams<string>();
   const [name, setName] = useState("");
   const [executionTime, setExecutionTime] = useState(0);
   const [memoryLimit, setMemoryLimit] = useState(0);
@@ -18,23 +18,8 @@ const AssignmentPage = () => {
   const [outputFormat, setOutputFormat] = useState("");
   const [testcases, setTestcases] = useState([]);
   useEffect(() => {
-    /*fetch db and set each parameters.
-     * 
-    type ProblemResp struct {
-      Pid       int32      `bson:"problemId"`
-      Name      string     `bson:"name"`
-      ExTime    int32      `bson: "executionTime"`
-      MemLim    int32      `bson: "memoryLimit"`
-      Statement string     `bson: "statement"`
-      PrbConst  string     `bson: "problemConstraints"`
-      InputFmt  string     `bson: "inputFormat"`
-      OutputFmt string     `bson: "outputFormat"`
-      Testcases []Testcase `bson: "testCases"`
-    }
-    */
-
     axiosClient
-      .get(`/assignmentInfo/${id}`)
+      .get(`/assignmentInfo/${problemId}`)
       .then((response) => {
         const { data } = response;
         console.log(data)
@@ -52,7 +37,7 @@ const AssignmentPage = () => {
         console.log("error");
         alert("Failed to fetch data from database.");
       });
-  }, [id]);
+  }, [problemId]);
 
   return (
     <>

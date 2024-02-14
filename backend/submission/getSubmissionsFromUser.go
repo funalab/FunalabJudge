@@ -53,3 +53,24 @@ func GetSubmissionsFromUser(c *gin.Context, user types.User) (*[]types.Submissio
 	}
 	return &submissions, nil
 }
+
+func GetSubmissionsFromSubmissionId(c *gin.Context, submissionId int) *types.Submission {
+	client, exists := c.Get("mongoClient")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
+		return &types.Submission{}
+	}
+	dbName := os.Getenv("DB_NAME")
+	usrCol := os.Getenv("SUBMISSION_COLLECTION")
+	collection := (client.(*mongo.Client)).Database(dbName).Collection(usrCol)
+
+	filter := bson.M{"id": submissionId}
+
+	var submission types.Submission
+	err := collection.FindOne(context.TODO(), filter).Decode(&submission)
+	if err != nil {
+		log.Printf("Failed to find single result from DB: %v\n", err.Error())
+		return &types.Submission{}
+	}
+	return &submission
+}

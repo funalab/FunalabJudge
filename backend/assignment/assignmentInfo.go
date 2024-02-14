@@ -22,7 +22,7 @@ func AssignmentInfoHandler(c *gin.Context) {
 		return
 	}
 	collection := (client.(*mongo.Client)).Database(dbName).Collection(prbCol)
-	pid, err := strconv.Atoi(c.Param("id"))
+	pid, err := strconv.Atoi(c.Param("problemId"))
 	if err != nil {
 		log.Fatalf("Failed to parse problemId as a number: %v\n", pid)
 		c.JSON(400, types.NewMongoConnectionErr(err.Error()))

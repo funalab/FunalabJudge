@@ -39,7 +39,7 @@ type Testcase struct {
 }
 
 type User struct {
-	UserId      int64     `bson:"userId"`
+	UserId      int32     `bson:"userId"`
 	UserName    string    `bson:"userName"`
 	Password    string    `bson:"password"`
 	CreatedDate time.Time `bson:"createdDate"`

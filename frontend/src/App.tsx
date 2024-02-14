@@ -24,9 +24,9 @@ const App: React.FC = () => {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="message" element={<Message />} />
             <Route path="schedule" element={<Schedule />} />
-            <Route path="assignmentInfo/:id" element={<AssignmentPage />} />
+            <Route path="assignmentInfo/:problemId" element={<AssignmentPage />} />
             <Route path="results" element={<ResultQueuePage />} />
-            <Route path="submission/:submitId" element={<SubmitDetailsPage />} />
+            <Route path="submission/:submissionId" element={<SubmitDetailsPage />} />
           </Route>
         </Routes>
       </AxiosClientProvider>

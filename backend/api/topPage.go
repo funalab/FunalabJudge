@@ -37,6 +37,7 @@ func GetAssignments(c *gin.Context) {
 		log.Fatal(err)
 	}
 	//　続いてstatusを決定する。submissionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
+	// TODO userでの絞り込みは現状してない, 全てのユーザーの全ての提出をみている
 	submissionCollection := dbClient.Database(dbName).Collection(submitCol)
 	resps := make([]types.ProblemRespWithDateInfo, 0)
 	for _, problem := range problems {
@@ -51,6 +52,7 @@ func GetAssignments(c *gin.Context) {
 		}
 
 		// 対応するsubmissionから全てがACの提出が存在するか確認
+		// TODO 全てがACではなく、problemのboarderScore以上に修正が必要
 		for _, submission := range submissions {
 			allAC := true
 			for _, object := range submission.Results {

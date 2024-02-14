@@ -64,10 +64,11 @@ func main() {
 	router.GET("/refresh_token", authMiddleware.RefreshHandler)
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
-		authed.GET("/", api.GetAssignments)
-		authed.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)
+		// ユーザーごとにアクセス権が異なるエンドポイントには、userNameかsubmissionIdを含める
+		authed.GET("/getAssignmentStatus/:userName", api.GetAssignments)
+		authed.GET("/assignmentInfo/:problemId", assignment.AssignmentInfoHandler)
 		authed.GET("/submissions/:userName", submission.SubmissionQueueHandler)
-		authed.GET("/submission/:submitId", submission.SubmissionHandler)
+		authed.GET("/submission/:submissionId", submission.SubmissionHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {

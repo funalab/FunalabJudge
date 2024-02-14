@@ -7,7 +7,7 @@ import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
 
 const SubmitDetailsPage: React.FC = () => {
-  const { submitId } = useParams()
+  const { submissionId } = useParams()
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
     UserId: 0,
@@ -20,7 +20,7 @@ const SubmitDetailsPage: React.FC = () => {
   const [score, setScore] = useState(0)
   useEffect(() => {
     axiosClient
-      .get(`/submission/${submitId}`)
+      .get(`/submission/${submissionId}`)
       .then(({ data }) => {
         console.log(data)
         setSubmission(data)
@@ -44,7 +44,7 @@ const SubmitDetailsPage: React.FC = () => {
   return (
     <DefaultLayout>
       <>
-        <Heading>提出番号 {submitId}</Heading>
+        <Heading>提出番号 {submissionId}</Heading>
         <TableContainer>
           <Table variant='simple'>
             <Thead>

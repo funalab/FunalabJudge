@@ -15,7 +15,7 @@ import (
 )
 
 func SubmissionHandler(c *gin.Context) {
-	submitId := c.Param("submitId")
+	submissionId := c.Param("submissionId")
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not availale."})
@@ -24,7 +24,7 @@ func SubmissionHandler(c *gin.Context) {
 	submitCol := os.Getenv("SUBMISSION_COLLECTION")
 	collection := (client.(*mongo.Client)).Database(dbName).Collection(submitCol)
 
-	id, err := strconv.Atoi(submitId)
+	id, err := strconv.Atoi(submissionId)
 	filter := bson.D{{Key: "id", Value: id}}
 
 	var submission types.Submission

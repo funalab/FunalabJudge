@@ -1,89 +1,60 @@
 package auth
 
 import (
-	"context"
+	"fmt"
+	"go-test/submission"
 	"go-test/types"
-	"net/http"
-	"os"
-	"time"
+	"go-test/user"
+	"strconv"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type JsonRequest struct {
-	UserName string `json:"userName"`
-	Password string `json:"password"`
-}
-
-type JsonReturn struct {
-	Authorized bool   `json:"authorized"`
-	UserName   string `json:"userName"`
-	Role       string `json:"role"`
-}
-
-func UserIdInJwt(c *gin.Context) string {
+func GetUserNameFromJwt(c *gin.Context) interface{} {
+	// jwtからuserNameを抽出し、UserAuthorizatorに渡す
 	claims := jwt.ExtractClaims(c)
-	userID := claims[jwt.IdentityKey]
-	return userID.(string)
+	return &types.User{
+		UserName: claims[jwt.IdentityKey].(string),
+	}
 }
 
-func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
-	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
-		Realm:          "funalabJudge",
-		Key:            []byte(os.Getenv("SECRET_KEY")), // 運用時には再作成する: % openssl rand -base64 32
-		Timeout:        time.Hour * 24 * 7,              // equals to CookieMaxAge
-		MaxRefresh:     time.Hour * 24 * 7,
-		SendCookie:     true,
-		SecureCookie:   false, //non HTTPS dev environments
-		CookieHTTPOnly: true,  // JS can't modify
-		CookieDomain:   "localhost:3000",
-		CookieName:     "token", // default jwt
-		TokenLookup:    "cookie:token",
-		CookieSameSite: http.SameSiteStrictMode, //SameSiteDefaultMode, SameSiteLaxMode, SameSiteStrictMode, SameSiteNoneMode
-		IdentityKey:    "id",
-		PayloadFunc: func(data interface{}) jwt.MapClaims {
-			return jwt.MapClaims{
-				jwt.IdentityKey: data,
+func GetUserNameFromsubmissionId(c *gin.Context, submissionId int) string {
+	s := submission.GetSubmissionsFromSubmissionId(c, submissionId)
+	u := user.GetUserFromUserId(c, s.UserId)
+	return u.UserName
+}
+
+func UserAuthorizator(data interface{}, c *gin.Context) bool {
+	// 引数"data"はGetUserNameFromJwtのreturn
+	if v, ok := data.(*types.User); ok {
+		jwtUserName := v.UserName
+		jwtUser := user.GetUserFromUserName(c, jwtUserName)
+		if jwtUser.Role == "admin" || jwtUser.Role == "manager" { // TODO エレガントに書きたい
+			return true
+		} else if jwtUser.Role == "user" {
+			urlUserName := c.Param("userName")
+			if urlUserName == "" { // userNameを含まないエンドポイントの場合
+				if c.Param("submissionId") != "" {
+					urlSubmissionId, err := strconv.Atoi(c.Param("submissionId"))
+					if err != nil {
+						fmt.Println(err)
+						return false
+					}
+					urlUserName = GetUserNameFromsubmissionId(c, urlSubmissionId)
+				} else {
+					// userNameもsubmissionIdもない = 全ユーザがアクセス可能なエンドポイント
+					return true
+				}
 			}
-		},
-		Authenticator: func(c *gin.Context) (interface{}, error) {
-			var jsonRequest JsonRequest
-
-			if err := c.ShouldBind(&jsonRequest); err != nil {
-				return "", jwt.ErrMissingLoginValues
+			if jwtUserName == urlUserName {
+				return true
 			}
-
-			dbName := os.Getenv("DB_NAME")
-			usrCol := os.Getenv("USERS_COLLECTION")
-			client, _ := c.Get("mongoClient")
-			dbClient := client.(*mongo.Client)
-			filter := bson.M{"userName": jsonRequest.UserName}
-
-			var result types.User
-			err := dbClient.Database(dbName).Collection(usrCol).FindOne(context.TODO(), filter).Decode(&result)
-			if err != nil {
-				println(err.Error())
-				return "", jwt.ErrMissingLoginValues
-			}
-			if result.Password != jsonRequest.Password {
-				return "", jwt.ErrFailedAuthentication
-			}
-
-			return result.UserName, nil
-		},
-	})
-
-	if err != nil {
-		return nil, err
+		} else {
+			// unexpected Role
+			return false
+		}
 	}
 
-	errInit := jwtMiddleware.MiddlewareInit()
-	if errInit != nil {
-		return nil, err
-	}
-
-	return jwtMiddleware, nil
+	return false
 }
