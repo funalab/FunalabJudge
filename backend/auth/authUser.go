@@ -30,7 +30,7 @@ func UserAuthorizator(data interface{}, c *gin.Context) bool {
 	if v, ok := data.(*types.User); ok {
 		jwtUserName := v.UserName
 		jwtUser := user.GetUserFromUserName(c, jwtUserName)
-		if jwtUser.Role == "admin" || jwtUser.Role == "manager" { // TODO エレガントに書きたい
+		if jwtUser.Role == "admin" || jwtUser.Role == "manager" {
 			return true
 		} else if jwtUser.Role == "user" {
 			urlUserName := c.Param("userName")
