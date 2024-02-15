@@ -11,13 +11,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type JsonRequest struct {
+type LoginRequest struct {
 	UserName string `json:"userName"`
 	Password string `json:"password"`
 }
 
 func LoginAuthenticator(c *gin.Context) (interface{}, error) {
-	var jsonRequest JsonRequest
+	var jsonRequest LoginRequest
 
 	if err := c.ShouldBind(&jsonRequest); err != nil {
 		return "", jwt.ErrMissingLoginValues
@@ -34,7 +34,7 @@ func LoginAuthenticator(c *gin.Context) (interface{}, error) {
 	if err != nil {
 		return "", jwt.ErrMissingLoginValues
 	}
-	if result.Password != jsonRequest.Password {
+	if !CheckPasswordHash(jsonRequest.Password, result.Password) {
 		return "", jwt.ErrFailedAuthentication
 	}
 

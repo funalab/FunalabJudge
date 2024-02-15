@@ -8,7 +8,6 @@ import (
 	"go-test/db"
 	"go-test/env"
 	"go-test/submission"
-	"go-test/types"
 	"log"
 	"time"
 
@@ -16,16 +15,6 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
-
-func tutorialHandler(c *gin.Context) {
-	err, _ := db.Mongo_connectable()
-	if err == nil {
-		data := types.Data{
-			Message: "Hello fron Gin and mongo!!",
-		}
-		c.JSON(200, data)
-	}
-}
 
 func main() {
 	env.LoadEnv()
@@ -65,6 +54,7 @@ func main() {
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
 		// ユーザーごとにアクセス権が異なるエンドポイントには、userNameかsubmissionIdを含める
+		authed.POST("/changePass/:userName", auth.ChangeUserPass)
 		authed.GET("/getAssignmentStatus/:userName", api.GetAssignments)
 		authed.GET("/assignmentInfo/:problemId", assignment.AssignmentInfoHandler)
 		authed.GET("/submissions/:userName", submission.SubmissionQueueHandler)
@@ -81,3 +71,17 @@ func main() {
 	router.Run(":3000")
 	fmt.Println("Server is running.")
 }
+
+// // ハッシュ化した初期パスワードを生成するコード
+// // 他のmain関数とimportを全てコメントアウトして実行する
+// package main
+
+// import (
+// 	"fmt"
+// 	"go-test/auth"
+// )
+
+// func main() {
+// 	hash, _ := auth.HashPassword("password")
+// 	fmt.Println(hash)
+// }

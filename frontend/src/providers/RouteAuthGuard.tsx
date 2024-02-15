@@ -1,7 +1,7 @@
 import React from "react";
 import { PageType } from "../types/PageTypes";
 import { Navigate, useLocation, useParams } from "react-router-dom";
-import { RoleType } from "../types/UserTypes";
+import { RoleType } from "../types/RoleTypes";
 
 type Props = {
   component: React.ReactNode;

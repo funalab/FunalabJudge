@@ -1,7 +1,7 @@
 import { useState, FormEvent, FC } from 'react';
 import { HttpStatusCode } from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { PasswordField } from '../components/PasswordField'
+import { PasswordField } from '../components/PasswordField';
 import {
   Box,
   Button,
@@ -88,9 +88,12 @@ export const Login: FC = () => {
           <Stack spacing="5">
             <FormControl>
               <FormLabel htmlFor="email">User Name</FormLabel>
-              <Input id="userName" type="email" value={userName} autoComplete='username' onChange={(e) => setuserName(e.target.value)}/>
+              <Input id="userName" type="username" value={userName} autoComplete='username' onChange={(e) => setuserName(e.target.value)}/>
             </FormControl>
-            <PasswordField id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <FormControl>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <PasswordField id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            </FormControl>
           </Stack>
           {error && <div style={{ color: 'red' }}>{error}</div>}
           <Stack spacing="6">
