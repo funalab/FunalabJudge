@@ -74,7 +74,7 @@ export const Login: FC = () => {
     <Stack spacing="8">
       <Stack spacing="6">
         <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-          <Heading size={{ base: 'xs', md: 'sm' }}>Log in to your account</Heading>
+          <Heading size={{ base: 'xs', md: 'sm' }}>Login to your account</Heading>
         </Stack>
       </Stack>
       <Box
@@ -88,9 +88,9 @@ export const Login: FC = () => {
           <Stack spacing="5">
             <FormControl>
               <FormLabel htmlFor="email">User Name</FormLabel>
-              <Input id="userName" type="email" value={userName} onChange={(e) => setuserName(e.target.value)}/>
+              <Input id="userName" type="email" value={userName} autoComplete='username' onChange={(e) => setuserName(e.target.value)}/>
             </FormControl>
-            <PasswordField id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+            <PasswordField id="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           </Stack>
           {error && <div style={{ color: 'red' }}>{error}</div>}
           <Stack spacing="6">
