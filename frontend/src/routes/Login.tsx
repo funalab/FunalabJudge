@@ -1,6 +1,6 @@
 import { useState, FormEvent, FC } from 'react';
 import { HttpStatusCode } from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PasswordField } from '../components/PasswordField'
 import {
   Box,
@@ -14,12 +14,25 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { axiosClient } from '../providers/AxiosClientProvider';
+import { jwtDecode } from 'jwt-decode';
+
+export interface MyJwtPayload {
+  exp: number,
+  orig_iat: number,
+  role: string,
+  user: string,
+}
 
 export const Login: FC = () => {
   const [userName, setuserName] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  sessionStorage.removeItem("authUserName");
+  sessionStorage.removeItem("authUserRole");
+  sessionStorage.removeItem("authUserExp");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -29,7 +42,20 @@ export const Login: FC = () => {
       password: password,
     })
     .then((response) => {
-      navigate(`/${userName}/dashboard`, { replace: true })  //TODO
+      if (response.status === HttpStatusCode.Ok) {
+        const jwtToken = jwtDecode<MyJwtPayload>(response.data.token);
+        sessionStorage.setItem("authUserName", jwtToken.user);
+        sessionStorage.setItem("authUserRole", jwtToken.role);
+        sessionStorage.setItem("authUserExp", jwtToken.exp.toString());
+        if (location.state) {
+          navigate(location.state, { replace: true })
+        } else {
+          navigate(`/${userName}/dashboard`, { replace: true })
+        }
+      } else {
+        console.error(response.statusText);
+        setError('ログイン情報が間違っています。');
+      }
     })
     .catch((error) => {
       if (error.response?.status === HttpStatusCode.Unauthorized) {

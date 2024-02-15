@@ -12,10 +12,11 @@ import (
 )
 
 func GetUserNameFromJwt(c *gin.Context) interface{} {
-	// jwtからuserNameを抽出し、UserAuthorizatorに渡す
+	// jwtからuser情報を抽出し、UserAuthorizatorに渡す
 	claims := jwt.ExtractClaims(c)
 	return &types.User{
-		UserName: claims[jwt.IdentityKey].(string),
+		UserName: claims[JwtIdentityKey].(string),
+		Role:     claims[JwtUserRoleKey].(string),
 	}
 }
 
@@ -27,9 +28,7 @@ func GetUserNameFromsubmissionId(c *gin.Context, submissionId int) string {
 
 func UserAuthorizator(data interface{}, c *gin.Context) bool {
 	// 引数"data"はGetUserNameFromJwtのreturn
-	if v, ok := data.(*types.User); ok {
-		jwtUserName := v.UserName
-		jwtUser := user.GetUserFromUserName(c, jwtUserName)
+	if jwtUser, ok := data.(*types.User); ok {
 		if jwtUser.Role == "admin" || jwtUser.Role == "manager" {
 			return true
 		} else if jwtUser.Role == "user" {
@@ -47,7 +46,7 @@ func UserAuthorizator(data interface{}, c *gin.Context) bool {
 					return true
 				}
 			}
-			if jwtUserName == urlUserName {
+			if jwtUser.UserName == urlUserName {
 				return true
 			}
 		} else {

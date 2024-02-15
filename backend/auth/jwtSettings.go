@@ -8,6 +8,9 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 )
 
+const JwtIdentityKey = "user"
+const JwtUserRoleKey = "role"
+
 func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{
 		Realm:           "funalabJudge",

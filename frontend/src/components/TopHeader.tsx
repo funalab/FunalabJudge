@@ -6,11 +6,15 @@ import { axiosClient } from "../providers/AxiosClientProvider";
 
 export const TopHeader = () => {
   const navigate = useNavigate()
+  const loginUser = sessionStorage.getItem("authUserName")
 
   const handleLogout = async () => {
     try {
       const { status } = await axiosClient.post("/logout")
       if (status === HttpStatusCode.Ok) {
+        sessionStorage.removeItem("authUserName");
+        sessionStorage.removeItem("authUserRole");
+        sessionStorage.removeItem("authUserExp");
         navigate("/login");
       } else {
         // gin-jwtのソースコード的に、OK以外を返すことはない?
@@ -41,6 +45,9 @@ export const TopHeader = () => {
         </Box>
         <Box mt="10px" ml="10px">
           <Button onClick={handleLogout}>ログアウト</Button>
+        </Box>
+        <Box mt="10px" ml="10px">
+          welcome {loginUser}!
         </Box>
       </Flex>
     </Flex>

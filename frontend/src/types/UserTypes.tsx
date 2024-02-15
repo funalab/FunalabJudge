@@ -5,8 +5,3 @@ export const RoleType = {
 } as const;
 export type RoleType = typeof RoleType[keyof typeof RoleType];
 export const AllRoleType = Object.values(RoleType);
-
-export type UserType = {
-    userName: string;
-    role: RoleType
-}

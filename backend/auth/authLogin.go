@@ -45,7 +45,8 @@ func JwtMapper(data interface{}) jwt.MapClaims {
 	// 引数"data"はLoginAuthenticatorの一つ目のreturn
 	if v, ok := data.(*types.User); ok {
 		return jwt.MapClaims{
-			jwt.IdentityKey: v.UserName,
+			JwtIdentityKey: v.UserName,
+			JwtUserRoleKey: v.Role,
 		}
 	}
 	return jwt.MapClaims{}
