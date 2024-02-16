@@ -33,7 +33,6 @@ const AssignmentPage = () => {
         setTestcases(data.Testcases);
       })
       .catch(() => {
-        /*Temporary error handling*/
         console.log("error");
         alert("Failed to fetch data from database.");
       });

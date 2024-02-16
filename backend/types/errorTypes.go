@@ -61,3 +61,18 @@ func NewFindOneAssignmentErr(errMsg string) error {
 		Msg: errMsg,
 	}
 }
+
+/* MakeFailErr*/
+type MakeFailErr struct {
+	Msg string
+}
+
+func (m *MakeFailErr) Error() string {
+	return fmt.Sprintf("Make Fail Error: %v\n", m.Msg)
+}
+
+func NewMakeFailErr(errMsg string) error {
+	return &MakeFailErr{
+		Msg: errMsg,
+	}
+}

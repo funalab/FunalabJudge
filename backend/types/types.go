@@ -1,6 +1,8 @@
 package types
 
-import "time"
+import (
+	"time"
+)
 
 type Data struct {
 	Message string `json:"message"`
@@ -59,4 +61,14 @@ type ProblemJSON struct {
 
 type SampleJSON struct {
 	Content string `json:"content"`
+}
+
+type CompileRequest struct {
+	Names    []string `json:"names"`
+	Contents []string `json:"contents"`
+}
+
+type File struct {
+	Name    string
+	Content string
 }

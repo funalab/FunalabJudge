@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react'
 import React from 'react'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 /*
  * SubmitButtonProps Interface should handle two submission way.
@@ -11,13 +11,30 @@ import React from 'react'
  * If authentication would be completed, navigation would work correctly.
  * */
 interface SubmitButtonProps {
+  selectedFiles: File[]
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = () => {
-  // const navigate = useNavigate();
+
+const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    /*Confirm whether the files can be fetched.*/
+    selectedFiles.map((file: File) => {
+      console.log(file);
+    })
+    /*navigate into submission queue endpoint with files*/
+    const navigationLink = "/results/1" /*  should be changed into result queue endpoint., temporary userId == 1*/
+    navigate(navigationLink, {
+      state: {
+        files: selectedFiles,
+        fromNavigation: true
+      }
+    })
+  }
+
   return (
     <>
-      <Button /*onClick={() => navigate(`/submissions/${userId}`) }*/>
+      <Button onClick={handleClick}>
         Submit
       </Button >
     </>

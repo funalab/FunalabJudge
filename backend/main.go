@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"go-test/api"
 	"go-test/assignment"
+	"go-test/compile"
 	"go-test/db"
 	"go-test/env"
 	"go-test/submission"
@@ -43,6 +44,7 @@ func main() {
 	})
 
 	router.GET("/", api.GetAssignments)
+	router.POST("/compile", compile.CompileHandler)
 	router.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)
 	router.GET("/submissions/:userId", submission.SubmissionQueueHandler)
 	router.GET("/submission/:submitId", submission.SubmissionHandler)

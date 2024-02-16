@@ -1,20 +1,26 @@
 import { Text, Stack, Divider, Flex, Button, HStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import SubmitButton from './SubmitButton'
-import SubmitFile from './SubmitFile';
+import SubmitFile from './SubmitFile'
 
 export interface SubmitFormProps {
 }
 
 const SubmitForm: React.FC<SubmitFormProps> = () => {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+
+  const handleSelectedFiles = (file: File) => {
+    setSelectedFiles(prevFiles => [...prevFiles, file])
+  }
+
   const [inputFields, setInputFields] = useState<JSX.Element[]>([
-    <SubmitFile />
+    <SubmitFile handleSelectedFiles={handleSelectedFiles} />
   ]);
 
   const handlePlus = () => {
     const newInputFields = [...inputFields];
     newInputFields.push(
-      <SubmitFile />
+      <SubmitFile handleSelectedFiles={handleSelectedFiles} />
     );
     setInputFields(newInputFields);
   };
@@ -27,6 +33,8 @@ const SubmitForm: React.FC<SubmitFormProps> = () => {
     newInputFields.pop();
     setInputFields(newInputFields);
   };
+
+
 
   return (
     <>
@@ -41,7 +49,7 @@ const SubmitForm: React.FC<SubmitFormProps> = () => {
           {inputFields}
         </Stack>
         <Flex>
-          <SubmitButton />
+          <SubmitButton selectedFiles={selectedFiles} />
         </Flex>
       </Stack>
     </>
