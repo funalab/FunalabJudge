@@ -62,6 +62,21 @@ func NewFindOneAssignmentErr(errMsg string) error {
 	}
 }
 
+/*MakeFileErr*/
+type GenerateMakefileErr struct {
+	Msg string
+}
+
+func (g *GenerateMakefileErr) Error() string {
+	return fmt.Sprintf("Generate Makefile Error: %v\n", g.Error())
+}
+
+func NewGenerateMakefileErr(errMsg string) error {
+	return &GenerateMakefileErr{
+		Msg: errMsg,
+	}
+}
+
 /* MakeFailErr*/
 type MakeFailErr struct {
 	Msg string

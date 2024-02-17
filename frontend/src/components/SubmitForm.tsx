@@ -34,8 +34,6 @@ const SubmitForm: React.FC<SubmitFormProps> = () => {
     setInputFields(newInputFields);
   };
 
-
-
   return (
     <>
       <Divider />

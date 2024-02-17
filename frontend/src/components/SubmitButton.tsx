@@ -14,7 +14,6 @@ interface SubmitButtonProps {
   selectedFiles: File[]
 }
 
-
 const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles }) => {
   const navigate = useNavigate();
   const handleClick = () => {

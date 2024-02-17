@@ -13,7 +13,7 @@ const ResultQueuePage: React.FC = () => {
   const is_from_navigation = () => {
     return !(location.state === undefined)
   }
-  const retrieveNamsAndContents = async (files: File[]) => {
+  const retrieveNamesAndContents = async (files: File[]) => {
     const names = [];
     const contents = [];
 
@@ -53,7 +53,7 @@ const ResultQueuePage: React.FC = () => {
       const sendCompileRequest = async () => {
         try {
           const files = location.state.files
-          const namesAndContents = await retrieveNamsAndContents(files)
+          const namesAndContents = await retrieveNamesAndContents(files)
           const names = namesAndContents[0];
           const contents = namesAndContents[1];
           console.log(names)
@@ -71,6 +71,7 @@ const ResultQueuePage: React.FC = () => {
       sendCompileRequest().then(data => {
         if (data) {
           /* Judge Compile Error has been occued or not. */
+
         } else {
           console.log('No responce from compile endpoint.')
         }
