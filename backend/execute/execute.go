@@ -127,7 +127,7 @@ func compareWithAnswer(output string, fanswer string) (bool, error) {
 	return stat, err
 }
 
-/*Validation*/
+/*TODO: Validation*/
 func compareHelper(output string, answer string) (bool, error) {
 	return true, nil
 }
