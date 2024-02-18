@@ -1,12 +1,6 @@
 import { Td, Tr, Button } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from "react-router-dom"
-
-export interface SubmissionWithStatusProps {
-  Status: string
-  Submission: SubmissionTableRowProps
-}
-
 export interface SubmissionTableRowProps {
   Id: number;
   UserId: number;

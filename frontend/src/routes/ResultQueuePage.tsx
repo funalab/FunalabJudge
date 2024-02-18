@@ -3,12 +3,22 @@ import { useLocation, useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
 import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import axios from 'axios';
-import SubmissionTableRow, { SubmissionWithStatusProps } from './SubmissionTableRow';
+import SubmissionTableRow, { Result, SubmissionWithStatusProps } from './SubmissionTableRow';
 
 const ResultQueuePage: React.FC = () => {
   const { userId } = useParams()
   const location = useLocation();
   const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
+  const [files, setFiles] = useState<File[]>([])
+  const [problemId, setProblemId] = useState<number>(-1)
+  const [submittedDate, setSubmittedDate] = useState<string>('')
+  const [ready, setReady] = useState(false)
+
+  const pushSubmissionWithStatus = (newSubmission: SubmissionWithStatusProps) => {
+    const newSubmissionWithStatus = [...submissionsWithStatus];
+    newSubmissionWithStatus.push(newSubmission)
+    setSubmissionWithStatus(newSubmissionWithStatus);
+  };
 
   const is_from_navigation = () => {
     return !(location.state === undefined)
@@ -34,60 +44,111 @@ const ResultQueuePage: React.FC = () => {
 
     return [names, contents];
   }
-  useEffect(() => {
-    /* fetch all submissions that submitted by user whose id is useId */
-    if (is_from_navigation()) {
-      /* Should be added ongoing-judge queue row.
-       * Before this, we should throw post request into backend.
-       * Waiting backend responce, the status should be waiting-judge acronym for WJ.
-       * */
+  const sendCompileRequest = async () => {
+    const files = location.state.files
+    const problemId = location.state.problemId;
+    const submittedDate = location.state.submittedDate
+    setFiles(files)
+    setProblemId(problemId)
+    setSubmittedDate(submittedDate)
 
-      /* Logic is here.
-       *
-       * 1. throw post request to backend/compile endpoint.
-       * 2. get compile result, if CE("compile error") has been occured, UI should be changed, and end.
-       * 3. If compile was successful, web socket connection start.
-       * */
-
-      /*1. Throw post request to compile endpoint */
-      const sendCompileRequest = async () => {
-        try {
-          const files = location.state.files
-          const namesAndContents = await retrieveNamesAndContents(files)
-          const names = namesAndContents[0];
-          const contents = namesAndContents[1];
-          console.log(names)
-          console.log(contents)
-          const response = await axios.post("/compile", {
-            names: names,
-            contents: contents,
-          })
-          return response.data;
-        } catch (error) {
-          console.log(error);
-          return null;
-        }
-      }
-      sendCompileRequest().then(data => {
-        if (data) {
-          /* Judge Compile Error has been occued or not. */
-
-        } else {
-          console.log('No responce from compile endpoint.')
-        }
-      });
+    try {
+      const namesAndContents = await retrieveNamesAndContents(files)
+      const names = namesAndContents[0];
+      const contents = namesAndContents[1];
+      const response = await axios.post("/compile", {
+        names: names,
+        contents: contents,
+        problemId: problemId,
+        submittedDate: submittedDate
+      })
+      return response;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
+  }
+
+
+  useEffect(() => {
     axios
       .get(`/submissions/${userId}`)
       .then((response) => {
         const { data } = response;
         setSubmissionWithStatus(data)
+        const files = location.state.files;
+        const problemId = location.state.problemId;
+        const submittedDate = location.state.submittedDate;
+        setFiles(files)
+        setProblemId(problemId)
+        setSubmittedDate(submittedDate)
+        setReady(true)
       })
       .catch(() => {
         console.log('error')
         alert("Failed to fetch data from database")
       })
-  }, []);
+  }, [])
+
+  useEffect(() => {
+    if (ready) {
+      /* fetch all submissions that submitted by user whose id is useId */
+      if (is_from_navigation()) {
+        /* Should be added ongoing-judge queue row.
+         * Before this, we should throw post request into backend.
+         * Waiting backend responce, the status should be waiting-judge acronym for WJ.
+         * */
+
+        /* Logic is here.
+         *
+         * 1. throw post request to backend/compile endpoint.
+         * 2. get compile result, if CE("compile error") has been occured, UI should be changed, and end.
+         * 3. If compile was successful, web socket connection start.
+         * */
+
+        /*1. Throw post request to compile endpoint */
+        axios
+          .get(`/maxSubmissionId`)
+          .then(async (maxSubmissionIdResp) => {
+            const maxSubmissionId = maxSubmissionIdResp.data.maxSubmissionId;
+            sendCompileRequest().then(async resp => {
+              if (resp) {
+                const data = resp.data;
+                const status = resp.status
+                if (status === 200) {
+                  /* Throw judge request with websocket or ajax*/
+                  console.log(data)
+                } else {
+                  console.log(status)
+                }
+              } else {
+                try {
+                  const currentSubmission = {
+                    Id: maxSubmissionId,
+                    UserId: userId,
+                    ProblemId: problemId,
+                    SubmittedDate: submittedDate,
+                    Results: [] as Result[],
+                    Status: "CE"
+                  };
+                  pushSubmissionWithStatus({
+                    Status: currentSubmission.Status,
+                    Submission: currentSubmission
+                  })
+                  /*push into db*/
+                  await axios.post("/addSubmission", currentSubmission)
+                } catch (error) {
+                  console.log(error)
+                }
+              }
+            });
+          })
+          .catch(() => {
+            console.log('error')
+          })
+      }
+    }
+  }, [ready]);
 
   return (
     <>

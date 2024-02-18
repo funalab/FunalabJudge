@@ -48,6 +48,8 @@ func main() {
 	router.GET("/assignmentInfo/:id", assignment.AssignmentInfoHandler)
 	router.GET("/submissions/:userId", submission.SubmissionQueueHandler)
 	router.GET("/submission/:submitId", submission.SubmissionHandler)
+	router.GET("/maxSubmissionId", submission.MaxSubmissionIdHandler)
+	router.POST("/addSubmission", submission.AddSubmissionHandler)
 
 	router.Run(":3000")
 	fmt.Println("Server is running.")

@@ -15,7 +15,6 @@ import (
 func AssignmentInfoHandler(c *gin.Context) {
 	dbName := os.Getenv("DB_NAME")
 	prbCol := os.Getenv("PROBLEMS_COLLECTION")
-
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})

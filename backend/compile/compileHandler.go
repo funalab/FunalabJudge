@@ -39,6 +39,7 @@ func CompileHandler(c *gin.Context) {
 	}
 	names := cr.Names
 	contents := cr.Contents
+	problemId := cr.ProblemId
 
 	if !isSameNumber(names, contents) {
 		c.JSON(http.StatusInternalServerError, gin.H{
@@ -70,7 +71,7 @@ func CompileHandler(c *gin.Context) {
 		c.JSON(400, gin.H{"err": err.Error()})
 		return
 	}
-	c.JSON(200, gin.H{"msg": "Make success"})
+	c.JSON(200, gin.H{"problemId": problemId})
 }
 
 func isSameNumber(names []string, contents []string) bool {

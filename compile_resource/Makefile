@@ -1,5 +1,5 @@
 PROG = final
-OBJS = print.o main.o calc.o 
+OBJS = main.o 
 CC = gcc
 CFLAGS = -Wall
 LDFLAGS = -lm

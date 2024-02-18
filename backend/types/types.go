@@ -64,8 +64,9 @@ type SampleJSON struct {
 }
 
 type CompileRequest struct {
-	Names    []string `json:"names"`
-	Contents []string `json:"contents"`
+	Names     []string `json:"names"`
+	Contents  []string `json:"contents"`
+	ProblemId int32    `json:"problemId"`
 }
 
 type File struct {

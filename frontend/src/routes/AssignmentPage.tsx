@@ -100,7 +100,7 @@ const AssignmentPage = () => {
               />
             </>
           ))}
-          <SubmitForm />
+          <SubmitForm problemId={+id!} />
         </VStack>
       </DefaultLayout >
     </>

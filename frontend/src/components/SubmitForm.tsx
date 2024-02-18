@@ -4,9 +4,10 @@ import SubmitButton from './SubmitButton'
 import SubmitFile from './SubmitFile'
 
 export interface SubmitFormProps {
+  problemId: number
 }
 
-const SubmitForm: React.FC<SubmitFormProps> = () => {
+const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
 
   const handleSelectedFiles = (file: File) => {
@@ -47,7 +48,7 @@ const SubmitForm: React.FC<SubmitFormProps> = () => {
           {inputFields}
         </Stack>
         <Flex>
-          <SubmitButton selectedFiles={selectedFiles} />
+          <SubmitButton selectedFiles={selectedFiles} problemId={problemId} />
         </Flex>
       </Stack>
     </>

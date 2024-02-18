@@ -12,9 +12,10 @@ import { useNavigate } from 'react-router-dom'
  * */
 interface SubmitButtonProps {
   selectedFiles: File[]
+  problemId: number
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles }) => {
+const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     /*Confirm whether the files can be fetched.*/
@@ -25,6 +26,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles }) => {
     const navigationLink = "/results/1" /*  should be changed into result queue endpoint., temporary userId == 1*/
     navigate(navigationLink, {
       state: {
+        problemId: problemId,
+        submittedDate: new Date(),
         files: selectedFiles,
         fromNavigation: true
       }
