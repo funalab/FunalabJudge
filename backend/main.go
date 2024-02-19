@@ -5,6 +5,7 @@ import (
 	"go-test/api"
 	"go-test/assignment"
 	"go-test/auth"
+	"go-test/compile"
 	"go-test/db"
 	"go-test/env"
 	"go-test/submission"
@@ -47,7 +48,6 @@ func main() {
 		log.Fatal(err)
 		return
 	}
-
 	router.POST("/login", authMiddleware.LoginHandler)
 	router.POST("/logout", authMiddleware.LogoutHandler)
 	router.GET("/refresh_token", authMiddleware.RefreshHandler)
@@ -59,6 +59,9 @@ func main() {
 		authed.GET("/assignmentInfo/:problemId", assignment.AssignmentInfoHandler)
 		authed.GET("/submissions/:userName", submission.SubmissionQueueHandler)
 		authed.GET("/submission/:submissionId", submission.SubmissionHandler)
+		authed.POST("/compile", compile.CompileHandler)
+		authed.GET("/maxSubmissionId", submission.MaxSubmissionIdHandler)
+		authed.POST("/addSubmission", submission.AddSubmissionHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {

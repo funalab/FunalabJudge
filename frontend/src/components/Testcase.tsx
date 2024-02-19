@@ -1,4 +1,4 @@
-import { HStack, Spacer, Text, VStack } from '@chakra-ui/react'
+import { SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import CopyTestcase from './CopyTestcase'
 
@@ -11,17 +11,16 @@ export interface TestcaseProps {
 const Testcase: React.FC<TestcaseProps> = ({ id, InputFileContent, OutputFileContent }) => {
   return (
     <>
-      <VStack>
-        <HStack>
-          <Text>入力例{id}</Text>
-          <CopyTestcase content={InputFileContent} />
-        </HStack>
-        <Spacer />
-        <HStack>
-          <Text>出力例{id}</Text>
-          <CopyTestcase content={OutputFileContent} />
-        </HStack>
-      </VStack>
+      <SimpleGrid mt={6} mb={6} columns={2} spacingX={'20px'}>
+        <CopyTestcase
+          text={`入力例${id}`}
+          content={InputFileContent}
+        />
+        <CopyTestcase
+          text={`出力例${id}`}
+          content={OutputFileContent}
+        />
+      </SimpleGrid>
     </>
   )
 }

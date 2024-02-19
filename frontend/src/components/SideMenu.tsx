@@ -33,7 +33,14 @@ export const SideMenu = () => {
     },
   ];
   return (
-    <Box w="20vw" m="20px">
+    <Box
+      w="20vw"
+      h="100%"
+      m="20px"
+      display="flex"
+      flexDirection="column"
+      position={"fixed"}
+    >
       {sideMenuItems.map((item) => (
         <label key={item.name}>
           <Box mt="10px" ml="10px">

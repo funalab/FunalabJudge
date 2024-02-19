@@ -9,8 +9,8 @@ export interface SubmissionWithStatusProps {
 
 export interface SubmissionTableRowProps {
   Id: number;
-  UserId: number;
-  ProblemId: number;
+  UserName: string;
+  ProblemId: string;
   SubmittedDate: string;
   Results: Result[];
   Status: string;
@@ -21,7 +21,7 @@ export interface Result {
   Status: string;
 }
 
-const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Id, SubmittedDate, ProblemId, UserId, Results, Status }) => {
+const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Id, SubmittedDate, ProblemId, UserName, Results, Status }) => {
   const navigate = useNavigate()
   const { userName } = useParams()
   return (
@@ -29,7 +29,7 @@ const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Id, SubmittedDa
       <Tr>
         <Td>{new Date(SubmittedDate).toLocaleString()}</Td>
         <Td>{ProblemId}</Td>
-        <Td>{UserId}</Td>
+        <Td>{UserName}</Td>
         <Td>{Status}   <Button variant="link" onClick={() => navigate(`/${userName}/submission/${Id}`)}>詳細</Button> </Td>
       </Tr>
     </>

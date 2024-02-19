@@ -36,6 +36,7 @@ export const TopHeader = () => {
       width="full"
       height="100px"
       shadow="sm"
+      zIndex={9999}
       py={4}
       px={8}
     >

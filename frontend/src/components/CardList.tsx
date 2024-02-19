@@ -51,7 +51,7 @@ export const CardList = ({ data }: CardListProps) => {
             return null;
           }
           return (
-            <Card key={assignment.ProblemResp.Pid}>
+            <Card key={assignment.ProblemResp.Pid} boxShadow={'dark-lg'}>
               <CardHeader>
                 <Heading> {assignment.ProblemResp.Name}</Heading>
               </CardHeader>
@@ -83,9 +83,9 @@ export const CardList = ({ data }: CardListProps) => {
   }
 
   return (
-    <div>
-      <Box>
-        <h1>There are some assignments</h1>
+    <>
+      <Box my={4}>
+        <Heading>Assignments</Heading>
       </Box>
       <Stack spacing={5} direction='row'>
         {check_list.map((check, index: number) => (
@@ -98,8 +98,10 @@ export const CardList = ({ data }: CardListProps) => {
           </Checkbox>
         ))}
       </Stack>
-      <CardGrid data={data} />
-    </div>
+      <Stack mt={8}>
+        <CardGrid data={data} />
+      </Stack>
+    </>
   );
 }
 

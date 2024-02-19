@@ -1,7 +1,8 @@
-import { Button, Flex, Textarea, useClipboard } from '@chakra-ui/react'
+import { Button, VStack, HStack, useClipboard, Text, Textarea } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 
 interface CopyTestcaseProps {
+  text: string
   content: string
 }
 
@@ -13,7 +14,7 @@ interface CopyTestcaseProps {
  * 
  * */
 
-const CopyTestcase: React.FC<CopyTestcaseProps> = ({ content }) => {
+const CopyTestcase: React.FC<CopyTestcaseProps> = ({ text, content }) => {
   const { onCopy, value, setValue, hasCopied } = useClipboard("")
 
   useEffect(() => {
@@ -22,15 +23,18 @@ const CopyTestcase: React.FC<CopyTestcaseProps> = ({ content }) => {
 
   return (
     <>
-      <Flex mb={2}>
+      <VStack mb={2}>
+        <HStack spacing={4}>
+          <Text fontSize={24} fontWeight={'bold'}>{text}</Text>
+          <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
+        </HStack>
         <Textarea
           value={value}
           mr={2}
           readOnly={true}
           style={{ resize: 'none' }}
         />
-        <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
-      </Flex>
+      </VStack>
     </>
   )
 }

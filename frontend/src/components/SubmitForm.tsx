@@ -1,24 +1,56 @@
-import { Input } from '@chakra-ui/react'
-import React from 'react'
+import { Text, Stack, Divider, Flex, Button, HStack } from '@chakra-ui/react'
+import React, { useState } from 'react'
 import SubmitButton from './SubmitButton'
+import SubmitFile from './SubmitFile'
 
 export interface SubmitFormProps {
+  problemId: number
 }
 
-const handleInputFile = (ev: React.ChangeEvent<HTMLInputElement>) => {
-  const selectedFile = ev.target.files![0]
-  if (selectedFile) {
-    /* selectedFile would be passed to compile phase. Temporary, console.log()*/
-    console.log(selectedFile)
+const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+
+  const handleSelectedFiles = (file: File) => {
+    setSelectedFiles(prevFiles => [...prevFiles, file])
   }
-}
 
-const SubmitForm: React.FC<SubmitFormProps> = () => {
+  const [inputFields, setInputFields] = useState<JSX.Element[]>([
+    <SubmitFile handleSelectedFiles={handleSelectedFiles} />
+  ]);
+
+  const handlePlus = () => {
+    const newInputFields = [...inputFields];
+    newInputFields.push(
+      <SubmitFile handleSelectedFiles={handleSelectedFiles} />
+    );
+    setInputFields(newInputFields);
+  };
+
+  const handleMinus = () => {
+    if (inputFields.length === 1) {
+      return;
+    }
+    const newInputFields = [...inputFields];
+    newInputFields.pop();
+    setInputFields(newInputFields);
+  };
+
   return (
     <>
-      <Input placeholder="Your file" type="file" onChange={handleInputFile} />
-      {/* <Input type="text" onChange={handleCommitHash} /> */}
-      <SubmitButton />
+      <Divider />
+      <HStack>
+        <Text fontSize={30} fontWeight={'bold'}>Submit Form</Text>
+        <Button onClick={handlePlus}>+</Button>
+        <Button onClick={handleMinus}>-</Button>
+      </HStack>
+      <Stack>
+        <Stack>
+          {inputFields}
+        </Stack>
+        <Flex>
+          <SubmitButton selectedFiles={selectedFiles} problemId={problemId} />
+        </Flex>
+      </Stack>
     </>
   )
 }
