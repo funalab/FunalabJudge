@@ -20,10 +20,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
   const { userName } = useParams()
   const navigate = useNavigate();
   const handleClick = async () => {
-    /*Confirm whether the files can be fetched.*/
-    // selectedFiles.map((file: File) => {
-    //   console.log(file);
-    // })
     /*navigate into submission queue endpoint with files*/
     const { data } = await axiosClient.get(`/maxSubmissionId`)
     const submissionId = data.maxSubmissionId + 1
@@ -33,14 +29,13 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
       problemId: problemId,
       submittedDate: new Date(),
     })
+    /*execute request -> gorutine*/
     const navigationLink = `/${userName}/results` /*  should be changed into result queue endpoint., temporary userId == 1*/
-    /*POSTでDBにサブミットの情報をpushする*/
     navigate(navigationLink, {
       state: {
         problemId: problemId,
         submittedDate: new Date(),
         files: selectedFiles,
-        fromNavigation: true
       }
     })
   }

@@ -11,8 +11,6 @@ const ResultQueuePage: React.FC = () => {
   const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
   const [files, setFiles] = useState<File[]>([])
   const [submittedDate, setSubmittedDate] = useState<string>('')
-  // const [problemId, setProblemId] = useState(-1);
-  const [ready, setReady] = useState(false)
 
   const pushSubmissionWithStatus = (newSubmission: SubmissionWithStatusProps) => {
     const newSubmissionWithStatus = [...submissionsWithStatus];
@@ -20,9 +18,6 @@ const ResultQueuePage: React.FC = () => {
     setSubmissionWithStatus(newSubmissionWithStatus);
   };
 
-  const is_from_navigation = () => {
-    return !(location.state === undefined)
-  }
   const retrieveNamesAndContents = async (files: File[]) => {
     const names = [];
     const contents = [];
@@ -41,7 +36,6 @@ const ResultQueuePage: React.FC = () => {
       contents.push(content);
       names.push(name);
     }
-
     return [names, contents];
   }
   const sendCompileRequest = async () => {
@@ -50,7 +44,6 @@ const ResultQueuePage: React.FC = () => {
     const submittedDate = location.state.submittedDate
     setFiles(files)
     setSubmittedDate(submittedDate)
-    // setProblemId(problemId)
 
     try {
       const namesAndContents = await retrieveNamesAndContents(files)
@@ -70,7 +63,6 @@ const ResultQueuePage: React.FC = () => {
   }
 
   useEffect(() => {
-    /* fetch all submissions that submitted by user whose id is useId */
     axiosClient
       .get(`/submissions/${userName}`)
       .then((response) => {
@@ -80,73 +72,12 @@ const ResultQueuePage: React.FC = () => {
         const submittedDate = location.state.submittedDate;
         setFiles(files)
         setSubmittedDate(submittedDate)
-        setReady(true)
       })
       .catch(() => {
         console.log('error')
         alert("Failed to fetch data from database")
       })
   }, [])
-
-  useEffect(() => {
-    if (ready) {
-      /* fetch all submissions that submitted by user whose id is useId */
-      if (is_from_navigation()) {
-        /* Should be added ongoing-judge queue row.
-         * Before this, we should throw post request into backend.
-         * Waiting backend responce, the status should be waiting-judge acronym for WJ.
-         * */
-
-        /* Logic is here.
-         *
-         * 1. throw post request to backend/compile endpoint.
-         * 2. get compile result, if CE("compile error") has been occured, UI should be changed, and end.
-         * 3. If compile was successful, web socket connection start.
-         * */
-
-        /*1. Throw post request to compile endpoint */
-        axiosClient
-          .get(`/maxSubmissionId`)
-          .then(async (maxSubmissionIdResp) => {
-            const maxSubmissionId = maxSubmissionIdResp.data.maxSubmissionId;
-            sendCompileRequest().then(async resp => {
-              if (resp) {
-                const data = resp.data;
-                const status = resp.status
-                if (status === 200) {
-                  /* Throw judge request with websocket or ajax*/
-                  console.log(data)
-                } else {
-                  console.log(status)
-                }
-              } else {
-                try {
-                  const currentSubmission = {
-                    Id: maxSubmissionId,
-                    UserName: userName!,
-                    ProblemId: 0, /*temp*/
-                    SubmittedDate: submittedDate,
-                    Results: [] as Result[],
-                    Status: "CE"
-                  };
-                  pushSubmissionWithStatus({
-                    Status: currentSubmission.Status,
-                    Submission: currentSubmission
-                  })
-                  /*push into db*/
-                  await axiosClient.post("/addSubmission", currentSubmission)
-                } catch (error) {
-                  console.log(error)
-                }
-              }
-            });
-          })
-          .catch(() => {
-            console.log('error')
-          })
-      }
-    }
-  }, [ready]);
 
   return (
     <>
