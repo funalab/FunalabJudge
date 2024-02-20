@@ -77,8 +77,6 @@ func main() {
 
 // // ハッシュ化した初期パスワードを生成するコード
 // // 他のmain関数とimportを全てコメントアウトして実行する
-// package main
-
 // import (
 // 	"fmt"
 // 	"go-test/auth"
