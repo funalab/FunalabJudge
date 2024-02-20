@@ -6,11 +6,12 @@ import SubmissionTableRow, { Result, SubmissionWithStatusProps } from '../compon
 import { axiosClient } from '../providers/AxiosClientProvider';
 
 const ResultQueuePage: React.FC = () => {
-  const { userName, problemId } = useParams()
+  const { userName } = useParams()
   const location = useLocation();
   const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
   const [files, setFiles] = useState<File[]>([])
   const [submittedDate, setSubmittedDate] = useState<string>('')
+  const [problemId, setProblemId] = useState(-1);
   const [ready, setReady] = useState(false)
 
   const pushSubmissionWithStatus = (newSubmission: SubmissionWithStatusProps) => {
@@ -49,6 +50,7 @@ const ResultQueuePage: React.FC = () => {
     const submittedDate = location.state.submittedDate
     setFiles(files)
     setSubmittedDate(submittedDate)
+    setProblemId(problemId)
 
     try {
       const namesAndContents = await retrieveNamesAndContents(files)

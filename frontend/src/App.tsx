@@ -26,7 +26,7 @@ const App: React.FC = () => {
             <Route path="message" element={<RouteAuthGuard component={<Message />} pageType={PageType.Private} />} />
             <Route path="schedule" element={<RouteAuthGuard component={<Schedule />} pageType={PageType.Private} />} />
             <Route path="assignmentInfo/:problemId" element={<RouteAuthGuard component={<AssignmentPage />} pageType={PageType.Private} />} />
-            <Route path="results/:problemId" element={<RouteAuthGuard component={<ResultQueuePage />} pageType={PageType.Private} />} />
+            <Route path="results" element={<RouteAuthGuard component={<ResultQueuePage />} pageType={PageType.Private} />} />
             <Route path="submission/:submissionId" element={<RouteAuthGuard component={<SubmitDetailsPage />} pageType={PageType.Private} />} />
           </Route>
           <Route path="*" element={<NotFound />} />

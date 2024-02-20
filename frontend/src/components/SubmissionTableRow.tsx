@@ -10,7 +10,7 @@ export interface SubmissionWithStatusProps {
 export interface SubmissionTableRowProps {
   Id: number;
   UserName: string;
-  ProblemId: string;
+  ProblemId: number;
   SubmittedDate: string;
   Results: Result[];
   Status: string;

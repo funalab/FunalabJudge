@@ -24,7 +24,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
       console.log(file);
     })
     /*navigate into submission queue endpoint with files*/
-    const navigationLink = `/${userName}/results/${problemId}` /*  should be changed into result queue endpoint., temporary userId == 1*/
+    const navigationLink = `/${userName}/results` /*  should be changed into result queue endpoint., temporary userId == 1*/
     /*POSTでDBにサブミットの情報をpushする*/
     /*一旦WJでpushして、アップデートしていく。結果を非同期で画面を更新していく*/
     navigate(navigationLink, {
