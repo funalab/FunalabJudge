@@ -47,6 +47,9 @@ func GetSubmissionsFromUser(c *gin.Context, user types.User) (*[]types.Submissio
 			} else if object.Status == "TLE" {
 				status = "TLE"
 				break
+			} else if object.Status == "WJ" {
+				status = "WJ"
+				break
 			}
 		}
 		submissions[i].Status = status

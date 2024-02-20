@@ -18,6 +18,7 @@ const AssignmentPage = () => {
   const [inputFormat, setInputFormat] = useState("");
   const [outputFormat, setOutputFormat] = useState("");
   const [testcases, setTestcases] = useState([]);
+
   useEffect(() => {
     axiosClient
       .get(`/assignmentInfo/${problemId}`)

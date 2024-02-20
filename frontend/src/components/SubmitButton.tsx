@@ -1,6 +1,7 @@
 import { Button } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { axiosClient } from '../providers/AxiosClientProvider'
 
 /*
  * SubmitButtonProps Interface should handle two submission way.
@@ -18,15 +19,22 @@ interface SubmitButtonProps {
 const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId }) => {
   const { userName } = useParams()
   const navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = async () => {
     /*Confirm whether the files can be fetched.*/
-    selectedFiles.map((file: File) => {
-      console.log(file);
-    })
+    // selectedFiles.map((file: File) => {
+    //   console.log(file);
+    // })
     /*navigate into submission queue endpoint with files*/
+    const { data } = await axiosClient.get(`/maxSubmissionId`)
+    const submissionId = data.maxSubmissionId + 1
+    await axiosClient.post(`/addSubmission`, {
+      submissionId: submissionId,
+      userName: userName,
+      problemId: problemId,
+      submittedDate: new Date(),
+    })
     const navigationLink = `/${userName}/results` /*  should be changed into result queue endpoint., temporary userId == 1*/
     /*POSTでDBにサブミットの情報をpushする*/
-    /*一旦WJでpushして、アップデートしていく。結果を非同期で画面を更新していく*/
     navigate(navigationLink, {
       state: {
         problemId: problemId,

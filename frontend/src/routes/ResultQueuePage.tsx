@@ -11,7 +11,7 @@ const ResultQueuePage: React.FC = () => {
   const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
   const [files, setFiles] = useState<File[]>([])
   const [submittedDate, setSubmittedDate] = useState<string>('')
-  const [problemId, setProblemId] = useState(-1);
+  // const [problemId, setProblemId] = useState(-1);
   const [ready, setReady] = useState(false)
 
   const pushSubmissionWithStatus = (newSubmission: SubmissionWithStatusProps) => {
@@ -50,7 +50,7 @@ const ResultQueuePage: React.FC = () => {
     const submittedDate = location.state.submittedDate
     setFiles(files)
     setSubmittedDate(submittedDate)
-    setProblemId(problemId)
+    // setProblemId(problemId)
 
     try {
       const namesAndContents = await retrieveNamesAndContents(files)
@@ -124,7 +124,7 @@ const ResultQueuePage: React.FC = () => {
                   const currentSubmission = {
                     Id: maxSubmissionId,
                     UserName: userName!,
-                    ProblemId: problemId!,
+                    ProblemId: 0, /*temp*/
                     SubmittedDate: submittedDate,
                     Results: [] as Result[],
                     Status: "CE"
