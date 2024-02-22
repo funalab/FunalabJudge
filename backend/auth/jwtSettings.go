@@ -20,11 +20,11 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		SendCookie:      true,
 		SecureCookie:    false, //non HTTPS dev environments
 		CookieHTTPOnly:  true,  // JS can't modify
-		CookieDomain:    "localhost",
-		CookieName:      "token", // default jwt
+		CookieDomain:    "localhost:3000",
+		CookieName:      "token", // default:jwt
 		TokenLookup:     "cookie:token",
-		CookieSameSite:  http.SameSiteStrictMode, //SameSiteDefaultMode, SameSiteLaxMode, SameSiteStrictMode, SameSiteNoneMode
-		IdentityKey:     jwt.IdentityKey,
+		CookieSameSite:  http.SameSiteStrictMode, // CSRF対策にもなる
+		IdentityKey:     JwtIdentityKey,
 		PayloadFunc:     JwtMapper,
 		Authenticator:   LoginAuthenticator,
 		IdentityHandler: GetUserNameFromJwt,

@@ -47,3 +47,23 @@ func parseReflectValue(rv reflect.Value) string {
 		return ""
 	}
 }
+
+func ExtractNonNullFieldValues(obj interface{}) []interface{} {
+	var values []interface{}
+
+	objVal := reflect.ValueOf(obj)
+
+	if objVal.Kind() != reflect.Struct {
+		panic("Expected a struct")
+	}
+
+	for i := 0; i < objVal.NumField(); i++ {
+		field := objVal.Field(i)
+
+		if !reflect.DeepEqual(field.Interface(), reflect.Zero(field.Type()).Interface()) {
+			values = append(values, field.Interface())
+		}
+	}
+
+	return values
+}
