@@ -9,7 +9,7 @@ import (
 	"os"
 
 	"go-test/assignment"
-	"go-test/types"
+	"go-test/myTypes"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -32,21 +32,21 @@ func GetAssignments(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	var problems []types.ProblemWithStatus
+	var problems []myTypes.ProblemWithStatus
 	if err = cur.All(context.Background(), &problems); err != nil {
 		log.Fatal(err)
 	}
 	//　続いてstatusを決定する。submissionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
 	// TODO userでの絞り込みは現状してない, 全てのユーザーの全ての提出をみている
 	submissionCollection := dbClient.Database(dbName).Collection(submitCol)
-	resps := make([]types.ProblemRespWithDateInfo, 0)
+	resps := make([]myTypes.ProblemRespWithDateInfo, 0)
 	for _, problem := range problems {
 		filter := bson.M{"problemId": problem.ProblemId}
 		submissionCursor, err := submissionCollection.Find(context.TODO(), filter)
 		if err != nil {
 			log.Fatal(err)
 		}
-		var submissions []types.Submission
+		var submissions []myTypes.Submission
 		if err = submissionCursor.All(context.TODO(), &submissions); err != nil {
 			log.Fatal(err)
 		}
@@ -69,7 +69,7 @@ func GetAssignments(c *gin.Context) {
 			}
 		}
 		resp := assignment.TranslatePathIntoProblemResp(problemsCollection, problem.ProblemId)
-		resp2 := new(types.ProblemRespWithDateInfo)
+		resp2 := new(myTypes.ProblemRespWithDateInfo)
 		resp2.ProblemResp = *resp
 		resp2.Status = problem.Status
 		resp2.OpenDate = problem.OpenDate

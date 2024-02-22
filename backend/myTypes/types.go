@@ -1,4 +1,4 @@
-package types
+package myTypes
 
 import (
 	"time"
@@ -61,15 +61,4 @@ type ProblemJSON struct {
 
 type SampleJSON struct {
 	Content string `json:"content"`
-}
-
-type CompileRequest struct {
-	Names     []string `json:"names"`
-	Contents  []string `json:"contents"`
-	ProblemId int32    `json:"problemId"`
-}
-
-type File struct {
-	Name    string
-	Content string
 }

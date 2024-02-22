@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"go-test/types"
+	"go-test/myTypes"
 )
 
 var goModFile string = "go.mod"
@@ -35,7 +35,7 @@ func findRootDir(currentDir string) (string, error) {
 	parentDir := filepath.Dir(currentDir)
 
 	if parentDir == currentDir {
-		return "", types.NewFindRootDirErr(fmt.Sprintf("Failed to get root path."))
+		return "", myTypes.NewFindRootDirErr(fmt.Sprintf("Failed to get root path."))
 	}
 
 	return findRootDir(parentDir)

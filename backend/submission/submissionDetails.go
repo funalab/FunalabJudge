@@ -7,7 +7,7 @@ import (
 	"os"
 	"strconv"
 
-	"go-test/types"
+	"go-test/myTypes"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
@@ -27,7 +27,7 @@ func SubmissionHandler(c *gin.Context) {
 	id, err := strconv.Atoi(submissionId)
 	filter := bson.D{{Key: "id", Value: id}}
 
-	var submission types.Submission
+	var submission myTypes.Submission
 	err = collection.FindOne(context.TODO(), filter).Decode(&submission)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v \n", err.Error())

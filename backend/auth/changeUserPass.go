@@ -21,7 +21,7 @@ func ChangeUserPass(c *gin.Context) {
 		return
 	}
 
-	// targUser := types.User{UserName: jsonRequest.UserName}
+	// targUser := myTypes.User{UserName: jsonRequest.UserName}
 	// userInfo := user.SearchUser(c, targUser)
 	userInfo := user.GetUserFromUserName(c, jsonRequest.UserName)
 	if !CheckPasswordHash(jsonRequest.ExPass, userInfo.Password) {

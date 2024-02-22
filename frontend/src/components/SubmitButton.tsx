@@ -21,23 +21,17 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
   const navigate = useNavigate();
   const handleClick = async () => {
     /*navigate into submission queue endpoint with files*/
-    const { data } = await axiosClient.get(`/maxSubmissionId`)
-    const submissionId = data.maxSubmissionId + 1
-    await axiosClient.post(`/addSubmission`, {
-      submissionId: submissionId,
-      userName: userName,
+    await axiosClient.post(`/addSubmission/${userName}`, {
       problemId: problemId,
       submittedDate: new Date(),
+      files: selectedFiles,
+    }, {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
     })
-    /*execute request -> gorutine*/
     const navigationLink = `/${userName}/results` /*  should be changed into result queue endpoint., temporary userId == 1*/
-    navigate(navigationLink, {
-      state: {
-        problemId: problemId,
-        submittedDate: new Date(),
-        files: selectedFiles,
-      }
-    })
+    navigate(navigationLink)
   }
 
   return (

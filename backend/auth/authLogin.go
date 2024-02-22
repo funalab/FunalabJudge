@@ -2,7 +2,7 @@ package auth
 
 import (
 	"context"
-	"go-test/types"
+	"go-test/myTypes"
 	"os"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -28,7 +28,7 @@ func LoginAuthenticator(c *gin.Context) (interface{}, error) {
 	client, _ := c.Get("mongoClient")
 	dbClient := client.(*mongo.Client)
 
-	var result types.User
+	var result myTypes.User
 	filter := bson.M{"userName": jsonRequest.UserName}
 	err := dbClient.Database(dbName).Collection(usrCol).FindOne(context.TODO(), filter).Decode(&result)
 	if err != nil {
@@ -43,7 +43,7 @@ func LoginAuthenticator(c *gin.Context) (interface{}, error) {
 
 func JwtMapper(data interface{}) jwt.MapClaims {
 	// 引数"data"はLoginAuthenticatorの一つ目のreturn
-	if v, ok := data.(*types.User); ok {
+	if v, ok := data.(*myTypes.User); ok {
 		return jwt.MapClaims{
 			JwtIdentityKey: v.UserName,
 			JwtUserRoleKey: v.Role,

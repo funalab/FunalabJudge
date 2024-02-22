@@ -1,4 +1,4 @@
-package types
+package myTypes
 
 import "fmt"
 

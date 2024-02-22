@@ -1,4 +1,4 @@
-package types
+package myTypes
 
 import "time"
 
@@ -8,6 +8,7 @@ type Submission struct {
 	ProblemId     int32     `bson:"problemId"`
 	SubmittedDate time.Time `bson:"submittedDate"`
 	Results       []Result  `bson:"results"`
+	Status        string    `bson:"status"`
 }
 
 type Result struct {

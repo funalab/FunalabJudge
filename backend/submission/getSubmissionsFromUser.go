@@ -8,18 +8,18 @@ import (
 	"net/http"
 	"os"
 
-	"go-test/types"
+	"go-test/myTypes"
 
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetSubmissionsFromUser(c *gin.Context, user types.User) (*[]types.SubmissionWithStatus, error) {
+func GetSubmissionsFromUser(c *gin.Context, user myTypes.User) (*[]myTypes.SubmissionWithStatus, error) {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return &[]types.SubmissionWithStatus{}, errors.New(fmt.Sprint("Error: NotExist\n"))
+		return &[]myTypes.SubmissionWithStatus{}, errors.New(fmt.Sprint("Error: NotExist\n"))
 	}
 
 	dbName := os.Getenv("DB_NAME")
@@ -31,12 +31,12 @@ func GetSubmissionsFromUser(c *gin.Context, user types.User) (*[]types.Submissio
 	cursor, err := collection.Find(context.TODO(), filter)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &[]types.SubmissionWithStatus{}, err
+		return &[]myTypes.SubmissionWithStatus{}, err
 	}
-	var submissions []types.SubmissionWithStatus
+	var submissions []myTypes.SubmissionWithStatus
 	if err = cursor.All(context.TODO(), &submissions); err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &[]types.SubmissionWithStatus{}, err
+		return &[]myTypes.SubmissionWithStatus{}, err
 	}
 	for i, submission := range submissions {
 		status := "AC"
@@ -57,11 +57,11 @@ func GetSubmissionsFromUser(c *gin.Context, user types.User) (*[]types.Submissio
 	return &submissions, nil
 }
 
-func GetSubmissionsFromSubmissionId(c *gin.Context, submissionId int) *types.Submission {
+func GetSubmissionsFromSubmissionId(c *gin.Context, submissionId int) *myTypes.Submission {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return &types.Submission{}
+		return &myTypes.Submission{}
 	}
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("SUBMISSION_COLLECTION")
@@ -69,11 +69,11 @@ func GetSubmissionsFromSubmissionId(c *gin.Context, submissionId int) *types.Sub
 
 	filter := bson.M{"id": submissionId}
 
-	var submission types.Submission
+	var submission myTypes.Submission
 	err := collection.FindOne(context.TODO(), filter).Decode(&submission)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &types.Submission{}
+		return &myTypes.Submission{}
 	}
 	return &submission
 }

@@ -3,7 +3,7 @@ package user
 import (
 	"context"
 	"go-test/db"
-	"go-test/types"
+	"go-test/myTypes"
 	"log"
 	"net/http"
 	"os"
@@ -13,11 +13,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetUserFromUserName(c *gin.Context, userName string) *types.User {
+func GetUserFromUserName(c *gin.Context, userName string) *myTypes.User {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return &types.User{}
+		return &myTypes.User{}
 	}
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("USERS_COLLECTION")
@@ -25,20 +25,20 @@ func GetUserFromUserName(c *gin.Context, userName string) *types.User {
 
 	filter := bson.M{"userName": userName}
 
-	var user types.User
+	var user myTypes.User
 	err := collection.FindOne(context.TODO(), filter).Decode(&user)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &types.User{}
+		return &myTypes.User{}
 	}
 	return &user
 }
 
-func GetUserFromUserId(c *gin.Context, userId int32) *types.User {
+func GetUserFromUserId(c *gin.Context, userId int32) *myTypes.User {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return &types.User{}
+		return &myTypes.User{}
 	}
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("USERS_COLLECTION")
@@ -46,21 +46,21 @@ func GetUserFromUserId(c *gin.Context, userId int32) *types.User {
 
 	filter := bson.M{"userId": userId}
 
-	var user types.User
+	var user myTypes.User
 	err := collection.FindOne(context.TODO(), filter).Decode(&user)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &types.User{}
+		return &myTypes.User{}
 	}
 	return &user
 }
 
 // MakeFilterWithNonnilField関数が未完成なので動かない
-func SearchUser(c *gin.Context, userInfo types.User) *types.User {
+func SearchUser(c *gin.Context, userInfo myTypes.User) *myTypes.User {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return &types.User{}
+		return &myTypes.User{}
 	}
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("USERS_COLLECTION")
@@ -68,12 +68,12 @@ func SearchUser(c *gin.Context, userInfo types.User) *types.User {
 
 	filter := db.MakeFilterWithNonnilField(userInfo)
 
-	var user types.User
+	var user myTypes.User
 	// 基本的にusers collectionからは1つのdocumentを問い合わせる想定
 	err := collection.FindOne(context.TODO(), filter).Decode(&user)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
-		return &types.User{}
+		return &myTypes.User{}
 	}
 	return &user
 }

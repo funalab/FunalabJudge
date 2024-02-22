@@ -1,12 +1,11 @@
-package compile
+package execute
 
 import (
 	"fmt"
-	"go-test/types"
+	"go-test/myTypes"
 	"go-test/util"
 	"io"
 	"log"
-	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,42 +18,9 @@ import (
 var makefile string = "Makefile"
 var compileResourceDirPath = filepath.Join(util.GetProjectRoot(), "compile_resource")
 
-/*
-* PROJECT_ROOT/compile_resource is a directory for executing compile.
-* Here, in short, call this directory as CDIR.
-*
-* Logic is here.
-*
-* 1. Clean CDIR.
-* 2. Create CDIR.
-* 3. Execute compile.
-*
-* */
-
-func CompileHandler(c *gin.Context) {
-	var cr types.CompileRequest
-	if err := c.BindJSON(&cr); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-	names := cr.Names
-	contents := cr.Contents
-	problemId := cr.ProblemId
-
-	if !isSameNumber(names, contents) {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "Your input is not valid: isSameNumber()",
-		})
-		return
-	}
-	/*1 Clean CDIR*/
-	cleanCompileResourceDir()
-
-	/* 2 Create CDIR and files for compile*/
-	/* If not have make file, generate make file and append filelist, in short, f. */
-	createCompileResourceDir()
-
-	f := createFiles(names, contents)
+func GenerateMakefile(c *gin.Context) {
+	// 既にファイルは保存されている
+	// Makefileがなければ作成する
 
 	if !isHaveMakeFile(names) {
 		m, err := writeMakeFile(names)
@@ -71,10 +37,6 @@ func CompileHandler(c *gin.Context) {
 		return
 	}
 	c.JSON(200, gin.H{"problemId": problemId})
-}
-
-func isSameNumber(names []string, contents []string) bool {
-	return len(names) == len(contents)
 }
 
 func isHaveMakeFile(names []string) bool {
@@ -141,19 +103,19 @@ func writeMakeFile(names []string) (*os.File, error) {
 	makefile, err := os.Create(path)
 	if err != nil {
 		log.Println("Failed to write make file.")
-		return nil, types.NewGenerateMakefileErr(fmt.Sprintf("Failed to generate makefile: %v\n", err.Error()))
+		return nil, myTypes.NewGenerateMakefileErr(fmt.Sprintf("Failed to generate makefile: %v\n", err.Error()))
 	}
 	defer makefile.Close()
 
 	err = writeOptions(makefile, names)
 	if err != nil {
 		log.Println("Failed to write makefile header.")
-		return nil, types.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile header: %v\n", err.Error()))
+		return nil, myTypes.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile header: %v\n", err.Error()))
 	}
 	err = writeTargets(makefile)
 	if err != nil {
 		log.Println("Failed to write make targets.")
-		return nil, types.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile targets: %v\n", err.Error()))
+		return nil, myTypes.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile targets: %v\n", err.Error()))
 	}
 	return makefile, nil
 }
@@ -304,14 +266,14 @@ func execMake() error {
 	err := os.Chdir(compileResourceDirPath)
 	if err != nil {
 		log.Printf("Failed to change directory: %v\n", err.Error())
-		return types.NewMakeFailErr(fmt.Sprintf("Failed to change directory: %v\n", err.Error()))
+		return myTypes.NewMakeFailErr(fmt.Sprintf("Failed to change directory: %v\n", err.Error()))
 	}
 	cmd := exec.Command("make")
 	output, err := cmd.CombinedOutput()
 
 	if err != nil {
 		log.Printf("Failed to execute make command: %v\n", err.Error())
-		return types.NewMakeFailErr(fmt.Sprintf("Failed to execute make command: %v\n", err.Error()))
+		return myTypes.NewMakeFailErr(fmt.Sprintf("Failed to execute make command: %v\n", err.Error()))
 	}
 	/*Confirm output of make command*/
 	fmt.Printf("Make output: %v\n", string(output))

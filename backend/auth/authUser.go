@@ -2,8 +2,8 @@ package auth
 
 import (
 	"fmt"
+	"go-test/myTypes"
 	"go-test/submission"
-	"go-test/types"
 	"go-test/user"
 	"strconv"
 
@@ -14,7 +14,7 @@ import (
 func GetUserNameFromJwt(c *gin.Context) interface{} {
 	// jwtからuser情報を抽出し、UserAuthorizatorに渡す
 	claims := jwt.ExtractClaims(c)
-	return &types.User{
+	return &myTypes.User{
 		UserName: claims[JwtIdentityKey].(string),
 		Role:     claims[JwtUserRoleKey].(string),
 	}
@@ -28,7 +28,7 @@ func GetUserNameFromsubmissionId(c *gin.Context, submissionId int) string {
 
 func UserAuthorizator(data interface{}, c *gin.Context) bool {
 	// 引数"data"はGetUserNameFromJwtのreturn
-	if jwtUser, ok := data.(*types.User); ok {
+	if jwtUser, ok := data.(*myTypes.User); ok {
 		if jwtUser.Role == "admin" || jwtUser.Role == "manager" {
 			return true
 		} else if jwtUser.Role == "user" {

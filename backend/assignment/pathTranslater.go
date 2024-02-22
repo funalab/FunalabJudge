@@ -3,7 +3,7 @@ package assignment
 import (
 	"context"
 	"encoding/json"
-	"go-test/types"
+	"go-test/myTypes"
 	"go-test/util"
 	"io"
 	"log"
@@ -15,8 +15,8 @@ import (
 
 var backendProjectRootPath string
 
-func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *types.ProblemResp {
-	var p types.ProblemContainPath
+func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *myTypes.ProblemResp {
+	var p myTypes.ProblemContainPath
 
 	err := coll.FindOne(context.TODO(), bson.M{"problemId": pid}).Decode(&p)
 	if err != nil {
@@ -36,24 +36,24 @@ func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *types.Proble
 	return mapToProblemResp(&p, pj)
 }
 
-func parseProblemJSON(pf *os.File) (*types.ProblemJSON, error) {
-	var pj types.ProblemJSON
+func parseProblemJSON(pf *os.File) (*myTypes.ProblemJSON, error) {
+	var pj myTypes.ProblemJSON
 	b, err := io.ReadAll(pf)
 	if err != nil {
 		log.Fatalf("Failed to read problem file as byte: %v\n", err.Error())
-		return &types.ProblemJSON{}, err
+		return &myTypes.ProblemJSON{}, err
 	}
 	err = json.Unmarshal(b, &pj)
 	if err != nil {
 		log.Fatalf("Failed to unmarshal json file: %v\n", err.Error())
-		return &types.ProblemJSON{}, err
+		return &myTypes.ProblemJSON{}, err
 	}
 	return &pj, nil
 }
 
 /*TODO: Check whether parsing would be done correctly.*/
-func parseTestcaseWithPathIntoTestcase(tws *[]types.TestcaseWithPath) *[]types.Testcase {
-	ts := make([]types.Testcase, 0)
+func parseTestcaseWithPathIntoTestcase(tws *[]myTypes.TestcaseWithPath) *[]myTypes.Testcase {
+	ts := make([]myTypes.Testcase, 0)
 	for _, tw := range *tws {
 		inPath := tw.InputFilePath
 		inFile, err := util.OpenFileFromDB(inPath)
@@ -80,23 +80,23 @@ func parseTestcaseWithPathIntoTestcase(tws *[]types.TestcaseWithPath) *[]types.T
 	return &ts
 }
 
-func parseSampleJSON(f *os.File) (*types.SampleJSON, error) {
-	var s types.SampleJSON
+func parseSampleJSON(f *os.File) (*myTypes.SampleJSON, error) {
+	var s myTypes.SampleJSON
 	b, err := io.ReadAll(f)
 	if err != nil {
 		log.Fatalf("Failed to read samples as byte: %v\n", err.Error())
-		return &types.SampleJSON{}, err
+		return &myTypes.SampleJSON{}, err
 	}
 	err = json.Unmarshal(b, &s)
 	if err != nil {
 		log.Fatalf("Failed to unmarshal json file: %v\n", err.Error())
-		return &types.SampleJSON{}, err
+		return &myTypes.SampleJSON{}, err
 	}
 	return &s, nil
 }
 
-func mapToProblemResp(p *types.ProblemContainPath, pj *types.ProblemJSON) *types.ProblemResp {
-	pr := new(types.ProblemResp)
+func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *myTypes.ProblemResp {
+	pr := new(myTypes.ProblemResp)
 	pr.Pid = p.Pid
 	pr.Name = pj.Name
 	pr.ExTime = pj.ExecutionTime
@@ -108,8 +108,8 @@ func mapToProblemResp(p *types.ProblemContainPath, pj *types.ProblemJSON) *types
 	pr.Testcases = *parseTestcaseWithPathIntoTestcase(&p.TestcaseWithPaths)
 	return pr
 }
-func mapToTestcase(tw types.TestcaseWithPath, sIn *types.SampleJSON, sOut *types.SampleJSON) *types.Testcase {
-	t := new(types.Testcase)
+func mapToTestcase(tw myTypes.TestcaseWithPath, sIn *myTypes.SampleJSON, sOut *myTypes.SampleJSON) *myTypes.Testcase {
+	t := new(myTypes.Testcase)
 	t.TestcaseId = tw.TestcaseId
 	t.InputFileContent = sIn.Content
 	t.OutputFileContent = sOut.Content
