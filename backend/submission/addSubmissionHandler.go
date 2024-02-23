@@ -2,7 +2,7 @@ package submission
 
 import (
 	"context"
-	"go-test/execute"
+	"go-test/judge"
 	"go-test/myMath"
 	"go-test/myTypes"
 	"log"
@@ -43,10 +43,10 @@ func AddSubmissionHandler(c *gin.Context) {
 	form, _ := c.MultipartForm()
 	files := form.File["files[]"]
 	for _, file := range files {
-		c.SaveUploadedFile(file, filepath.Join("../compile_resource", strconv.Itoa(int(s.Id)), file.Filename))
+		c.SaveUploadedFile(file, filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(int(s.Id)), file.Filename))
 	}
 	// コンパイル&実行プロセスのマルチスレッド予約
-	go execute.ExecuteProgram(c, int(s.Id))
+	go judge.JudgeProcess(c, *s)
 	c.JSON(400, nil)
 }
 
