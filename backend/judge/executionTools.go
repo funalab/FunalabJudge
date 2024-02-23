@@ -36,10 +36,10 @@ func updateSubmissionResult(c *gin.Context, sId int, tId int, status string) {
 		log.Fatal("DB client is not available.")
 	}
 	dbName := os.Getenv("DB_NAME")
-	usrCol := os.Getenv("SUBMISSION_COLLECTION")
-	collection := (client.(*mongo.Client)).Database(dbName).Collection(usrCol)
+	subCol := os.Getenv("SUBMISSION_COLLECTION")
+	collection := (client.(*mongo.Client)).Database(dbName).Collection(subCol)
 
-	filter := bson.M{"id": 1}
+	filter := bson.M{"id": sId}
 	update := bson.M{
 		"$set": bson.M{
 			"results.$[elem].status": status,
@@ -87,10 +87,10 @@ func execCommandWithInput(sId int, command string, input string) (string, error)
 	if err != nil {
 		return "", err
 	}
-	defer stdin.Close()
-	stdin.Write([]byte(input))
-
+	stdin.Write([]byte(input + "\n"))
+	stdin.Close()
 	output, err := cmd.CombinedOutput()
+
 	return string(output), err
 }
 

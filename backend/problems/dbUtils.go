@@ -22,7 +22,7 @@ func GetProblemFromId(c *gin.Context, problemId int32) myTypes.Problem {
 	prbCol := os.Getenv("PROBLEMS_COLLECTION")
 	collection := (client.(*mongo.Client)).Database(dbName).Collection(prbCol)
 
-	filter := bson.M{"problenId": problemId}
+	filter := bson.M{"problemId": problemId}
 
 	var problem myTypes.Problem
 	err := collection.FindOne(context.TODO(), filter).Decode(&problem)

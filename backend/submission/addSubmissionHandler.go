@@ -47,7 +47,7 @@ func AddSubmissionHandler(c *gin.Context) {
 	}
 	// コンパイル&実行プロセスのマルチスレッド予約
 	go judge.JudgeProcess(c, *s)
-	c.JSON(400, nil)
+	c.JSON(200, nil)
 }
 
 func makeSubmissionDocument(c *gin.Context, sr *submissionRequest) *myTypes.Submission {

@@ -2,11 +2,15 @@ package judge
 
 import (
 	"fmt"
+	"go-test/assignment"
 	"go-test/myTypes"
 	"go-test/problems"
 	"log"
+	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func JudgeProcess(c *gin.Context, s myTypes.Submission) {
@@ -33,33 +37,30 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		return
 	}
 	// 全テストケースをジャッジする
-	p := problems.GetProblemFromId(c, s.ProblemId)
-	tLen := len(p.TestcaseWithPaths)
+	// 以下はassignment.TranslatePathIntoProblemRespを使うために流用, 整えたい
+	dbName := os.Getenv("DB_NAME")
+	prbCol := os.Getenv("PROBLEMS_COLLECTION")
+	client, exists := c.Get("mongoClient")
+	if !exists {
+		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
+		return
+	}
+	collection := (client.(*mongo.Client)).Database(dbName).Collection(prbCol)
+	p := assignment.TranslatePathIntoProblemResp(collection, int(s.ProblemId))
+	tLen := len(p.Testcases)
 	acNum := 0
-	for i, t := range p.TestcaseWithPaths {
+	for i, t := range p.Testcases {
 		updateSubmissionStatus(c, int(s.Id), fmt.Sprintf("%d/%d", i, tLen))
 
-		input, err := readFileToString(t.InputFilePath)
-		if err != nil {
-			log.Println("Failed to read input.")
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
-			continue
-		}
-		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), input)
+		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), t.InputFileContent)
 		if err != nil {
 			log.Println("Failed to run the testcase. RE is caused.")
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
 
-		answer, err := readFileToString(t.OutputFilePath)
-		if err != nil {
-			log.Println("Failed to read output")
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
-			continue
-		}
 		// 実行結果をジャッジする
-		if compareWithAnswer(string(output), answer) {
+		if compareWithAnswer(output, t.OutputFileContent) {
 			acNum++
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "AC")
 		} else {
@@ -67,18 +68,16 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		}
 	}
 	// 合否を判定して更新
-	if acNum >= int(p.BorderScore) {
+	if acNum >= int(problems.GetProblemFromId(c, s.ProblemId).BorderScore) {
 		updateSubmissionStatus(c, int(s.Id), "AC")
 	} else {
 		updateSubmissionStatus(c, int(s.Id), "WA")
 	}
 
 	// make cleanする
-	output, err := execCommand(int(s.Id), "make clean")
+	_, err = execCommand(int(s.Id), "make clean")
 	if err != nil {
-		log.Println("Failed to exec make clean")
-		log.Println(err.Error())
-		log.Println(output)
+		log.Println("Failed to exec make clean", err.Error())
 		updateSubmissionStatus(c, int(s.Id), "RE")
 		return
 	}
