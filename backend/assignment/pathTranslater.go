@@ -8,12 +8,11 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
-
-var backendProjectRootPath string
 
 func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *myTypes.ProblemResp {
 	var p myTypes.ProblemContainPath
@@ -55,44 +54,19 @@ func parseProblemJSON(pf *os.File) (*myTypes.ProblemJSON, error) {
 func parseTestcaseWithPathIntoTestcase(tws *[]myTypes.TestcaseWithPath) *[]myTypes.Testcase {
 	ts := make([]myTypes.Testcase, 0)
 	for _, tw := range *tws {
-		inPath := tw.InputFilePath
-		inFile, err := util.OpenFileFromDB(inPath)
-		if err != nil {
-			log.Fatalf("Failed to open input file: %v\n", err.Error())
-		}
-		sIn, err := parseSampleJSON(inFile)
+		sIn, err := os.ReadFile(filepath.Join("..", tw.InputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
 		}
-		outPath := tw.OutputFilePath
-		outFile, err := util.OpenFileFromDB(outPath)
-		if err != nil {
-			log.Fatalf("Failed to open output file: %v\n", err.Error())
-		}
-		sOut, err := parseSampleJSON(outFile)
+		sOut, err := os.ReadFile(filepath.Join("..", tw.OutputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
 		}
-		t := mapToTestcase(tw, sIn, sOut)
+		t := mapToTestcase(tw, string(sIn), string(sOut))
 		//After parsing both input and output file, append to slice.
 		ts = append(ts, *t)
 	}
 	return &ts
-}
-
-func parseSampleJSON(f *os.File) (*myTypes.SampleJSON, error) {
-	var s myTypes.SampleJSON
-	b, err := io.ReadAll(f)
-	if err != nil {
-		log.Fatalf("Failed to read samples as byte: %v\n", err.Error())
-		return &myTypes.SampleJSON{}, err
-	}
-	err = json.Unmarshal(b, &s)
-	if err != nil {
-		log.Fatalf("Failed to unmarshal json file: %v\n", err.Error())
-		return &myTypes.SampleJSON{}, err
-	}
-	return &s, nil
 }
 
 func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *myTypes.ProblemResp {
@@ -108,10 +82,10 @@ func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *m
 	pr.Testcases = *parseTestcaseWithPathIntoTestcase(&p.TestcaseWithPaths)
 	return pr
 }
-func mapToTestcase(tw myTypes.TestcaseWithPath, sIn *myTypes.SampleJSON, sOut *myTypes.SampleJSON) *myTypes.Testcase {
+func mapToTestcase(tw myTypes.TestcaseWithPath, sIn string, sOut string) *myTypes.Testcase {
 	t := new(myTypes.Testcase)
 	t.TestcaseId = tw.TestcaseId
-	t.InputFileContent = sIn.Content
-	t.OutputFileContent = sOut.Content
+	t.InputFileContent = sIn
+	t.OutputFileContent = sOut
 	return t
 }

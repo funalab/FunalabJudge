@@ -5,6 +5,8 @@ import (
 	"go-test/myTypes"
 	"go-test/problems"
 	"log"
+	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,15 +23,14 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 
 	_, err := execCommand(int(s.Id), "make")
 	if err != nil {
-		// return myTypes.NewMakeFailErr(fmt.Sprintf("Failed to execute make command: %v\n", err.Error()))
-		log.Println("Failed to compile")
+		log.Println("Failed to compile", err.Error())
 		updateSubmissionStatus(c, int(s.Id), "CE")
 		return
 	}
 
 	execFile, err := searchExecutableFile(int(s.Id))
 	if err != nil {
-		log.Println(err.Error())
+		log.Println("Failed to search executable file", err.Error())
 		updateSubmissionStatus(c, int(s.Id), "CE")
 		return
 	}
@@ -40,30 +41,27 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 	for i, t := range p.TestcaseWithPaths {
 		updateSubmissionStatus(c, int(s.Id), fmt.Sprintf("%d/%d", i, tLen))
 
-		input, err := readFileToString(t.InputFilePath)
+		input, err := os.ReadFile(filepath.Join("..", t.InputFilePath))
 		if err != nil {
-			log.Println("Failed to read input of test case")
-			log.Println(err.Error())
+			log.Println("Failed to read input of test case", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
-		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), input)
+		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), string(input))
 		if err != nil {
-			log.Println("Failed to run the testcase. RE is caused.")
-			log.Println(err.Error())
+			log.Println("Failed to run the testcase. RE is caused.", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
 
 		// 実行結果をジャッジする
-		answer, err := readFileToString(t.OutputFilePath)
+		answer, err := os.ReadFile(filepath.Join("..", t.OutputFilePath))
 		if err != nil {
-			log.Println("Failed to read output of test case")
-			log.Println(err.Error())
+			log.Println("Failed to read output of test case", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
-		if compareWithAnswer(output, answer) {
+		if compareWithAnswer(output, string(answer)) {
 			acNum++
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "AC")
 		} else {

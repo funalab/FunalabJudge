@@ -58,14 +58,6 @@ func updateSubmissionResult(c *gin.Context, sId int, tId int, status string) {
 	}
 }
 
-func readFileToString(filePath string) (string, error) {
-	content, err := os.ReadFile(filePath)
-	if err != nil {
-		return "", err
-	}
-	return string(content), nil
-}
-
 func compareWithAnswer(output string, answer string) bool {
 	fixedOutput := strings.TrimRight(output, "\n")
 	fixedAnswer := strings.TrimRight(answer, "\n")
