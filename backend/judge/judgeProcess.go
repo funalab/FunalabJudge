@@ -48,6 +48,8 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 	// exec with all test cases
 	tLen := len(p.TestcaseWithPaths)
 	acNum := 0
+	reFlag := false
+	tleFlag := false
 	for i, t := range p.TestcaseWithPaths {
 		updateSubmissionStatus(c, int(s.Id), fmt.Sprintf("%d/%d", i, tLen))
 
@@ -56,6 +58,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		if err != nil {
 			log.Println("Failed to read input of test case :", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			reFlag = true
 			continue
 		}
 		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), string(input))
@@ -63,9 +66,11 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 			if err.Error() == "signal: killed" {
 				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
 				updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "TLE")
+				tleFlag = true
 			} else {
 				log.Println("Failed to run the testcase. RE is caused :", err.Error())
 				updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+				reFlag = true
 			}
 			continue
 		}
@@ -75,6 +80,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		if err != nil {
 			log.Println("Failed to read output of test case :", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			reFlag = true
 			continue
 		}
 		if compareWithAnswer(output, string(answer)) {
@@ -85,10 +91,14 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		}
 	}
 	// judge pass/fail and update status
-	if acNum >= int(p.BorderScore) {
-		updateSubmissionStatus(c, int(s.Id), "AC")
-	} else {
+	if reFlag {
+		updateSubmissionStatus(c, int(s.Id), "RE")
+	} else if tleFlag {
+		updateSubmissionStatus(c, int(s.Id), "TLE")
+	} else if acNum < int(p.BorderScore) {
 		updateSubmissionStatus(c, int(s.Id), "WA")
+	} else {
+		updateSubmissionStatus(c, int(s.Id), "AC")
 	}
 
 	_, err = execCommand(int(s.Id), "make clean")
