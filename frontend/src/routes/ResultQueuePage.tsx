@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
-import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Divider, Heading, PopoverHeader, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import SubmissionTableRow, { Result, SubmissionWithStatusProps } from '../components/SubmissionTableRow';
 import { axiosClient } from '../providers/AxiosClientProvider';
 
@@ -11,6 +11,7 @@ const ResultQueuePage: React.FC = () => {
   const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
   const [files, setFiles] = useState<File[]>([])
   const [submittedDate, setSubmittedDate] = useState<string>('')
+  const [haveNotComplete, setHaveNotComplete] = useState<boolean>(false)
 
   const pushSubmissionWithStatus = (newSubmission: SubmissionWithStatusProps) => {
     const newSubmissionWithStatus = [...submissionsWithStatus];
@@ -38,6 +39,7 @@ const ResultQueuePage: React.FC = () => {
     }
     return [names, contents];
   }
+
   const sendCompileRequest = async () => {
     const files = location.state.files
     const problemId = location.state.problemId;
@@ -68,16 +70,47 @@ const ResultQueuePage: React.FC = () => {
       .then((response) => {
         const { data } = response;
         setSubmissionWithStatus(data)
-        const files = location.state.files;
-        const submittedDate = location.state.submittedDate;
-        setFiles(files)
-        setSubmittedDate(submittedDate)
+        const complete = ["AC", "WA", "CE", "TLE"]
+        data.map((submission: SubmissionWithStatusProps) => {
+          if (!complete.includes(submission.Status)) {
+            setHaveNotComplete(true)
+          }
+        })
       })
-      .catch(() => {
-        console.log('error')
+      .catch((error) => {
+        console.log(error)
         alert("Failed to fetch data from database")
       })
   }, [])
+
+  /*未確定の奴があるなら0.5sずつリクエストを投げてレンダリングをする*/
+  useEffect(() => {
+    if (haveNotComplete) {
+      const sendStatusRequest = () => {
+        axiosClient.get(`/submissions/${userName}`)
+          .then((response) => {
+            const { data } = response;
+            setSubmissionWithStatus(data)
+            const complete = ["AC", "WA", "CE", "TLE"]
+            let completeFlag = true
+            data.map((submission: SubmissionWithStatusProps) => {
+              if (!complete.includes(submission.Status)) {
+                completeFlag = false
+              }
+            })
+            if (completeFlag === true) {
+              clearInterval(intervalId)
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+            alert("Failed to send status request")
+          })
+      }
+      const intervalId = setInterval(sendStatusRequest, 1000)
+      return () => clearInterval(intervalId);
+    }
+  }, [haveNotComplete])
 
   return (
     <>

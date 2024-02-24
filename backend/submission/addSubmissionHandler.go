@@ -83,5 +83,6 @@ func mapToSubmission(c *gin.Context, ts *TmpSubmission) *types.Submission {
 		ele.Status = "WJ"
 		s.Results[index] = ele
 	}
+	s.Status = "WJ"
 	return &s
 }
