@@ -38,22 +38,6 @@ func GetSubmissionsFromUser(c *gin.Context, user myTypes.User) (*[]myTypes.Submi
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
 		return &[]myTypes.SubmissionWithStatus{}, err
 	}
-	for i, submission := range submissions {
-		status := "AC"
-		for _, object := range submission.Submission.Results {
-			if object.Status == "WA" {
-				status = "WA"
-				break
-			} else if object.Status == "TLE" {
-				status = "TLE"
-				break
-			} else if object.Status == "WJ" {
-				status = "WJ"
-				break
-			}
-		}
-		submissions[i].Status = status
-	}
 	return &submissions, nil
 }
 

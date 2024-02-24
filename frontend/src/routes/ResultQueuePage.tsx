@@ -70,7 +70,7 @@ const ResultQueuePage: React.FC = () => {
       .then((response) => {
         const { data } = response;
         setSubmissionWithStatus(data)
-        const complete = ["AC", "WA", "CE", "TLE"]
+        const complete = ["AC", "WA", "CE", "TLE", "RE"]
         data.map((submission: SubmissionWithStatusProps) => {
           if (!complete.includes(submission.Status)) {
             setHaveNotComplete(true)
@@ -83,7 +83,7 @@ const ResultQueuePage: React.FC = () => {
       })
   }, [])
 
-  /*未確定の奴があるなら0.5sずつリクエストを投げてレンダリングをする*/
+  /*未確定の奴があるなら1sずつリクエストを投げてレンダリングをする*/
   useEffect(() => {
     if (haveNotComplete) {
       const sendStatusRequest = () => {
@@ -91,7 +91,7 @@ const ResultQueuePage: React.FC = () => {
           .then((response) => {
             const { data } = response;
             setSubmissionWithStatus(data)
-            const complete = ["AC", "WA", "CE", "TLE"]
+            const complete = ["AC", "WA", "CE", "TLE", "RE"]
             let completeFlag = true
             data.map((submission: SubmissionWithStatusProps) => {
               if (!complete.includes(submission.Status)) {

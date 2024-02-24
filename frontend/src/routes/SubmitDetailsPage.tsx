@@ -22,7 +22,6 @@ const SubmitDetailsPage: React.FC = () => {
     axiosClient
       .get(`/submission/${submissionId}`)
       .then(({ data }) => {
-        console.log(data)
         setSubmission(data)
         let newScore = 0;
         {
