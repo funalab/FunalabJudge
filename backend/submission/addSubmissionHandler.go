@@ -87,6 +87,7 @@ func makeSubmissionDocument(c *gin.Context, sr *submissionRequest) *myTypes.Subm
 		ele.Status = "WJ"
 		s.Results[index] = ele
 	}
+	s.Status = "WJ"
 	return &s
 }
 
