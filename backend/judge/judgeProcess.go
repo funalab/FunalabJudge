@@ -18,7 +18,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 	if !isHaveMakeFile(int(s.Id)) {
 		err := writeMakeFile(int(s.Id))
 		if err != nil {
-			log.Println("Failed to write make file")
+			log.Println("Failed to write make file :", err.Error())
 			updateSubmissionStatus(c, int(s.Id), "CE")
 			ceFlag = true
 		}
@@ -26,14 +26,14 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 
 	_, err := execCommand(int(s.Id), "make")
 	if err != nil {
-		log.Println("Failed to compile", err.Error())
+		log.Println("Failed to compile :", err.Error())
 		updateSubmissionStatus(c, int(s.Id), "CE")
 		ceFlag = true
 	}
 
 	execFile, err := searchExecutableFile(int(s.Id))
 	if err != nil {
-		log.Println("Failed to search executable file", err.Error())
+		log.Println("Failed to search executable file :", err.Error())
 		updateSubmissionStatus(c, int(s.Id), "CE")
 		ceFlag = true
 	}
@@ -54,21 +54,26 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		// exec test case
 		input, err := os.ReadFile(filepath.Join("..", t.InputFilePath))
 		if err != nil {
-			log.Println("Failed to read input of test case", err.Error())
+			log.Println("Failed to read input of test case :", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
 		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), string(input))
 		if err != nil {
-			log.Println("Failed to run the testcase. RE is caused.", err.Error())
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			if err.Error() == "signal: killed" {
+				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
+				updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "TLE")
+			} else {
+				log.Println("Failed to run the testcase. RE is caused :", err.Error())
+				updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			}
 			continue
 		}
 
 		// judge result
 		answer, err := os.ReadFile(filepath.Join("..", t.OutputFilePath))
 		if err != nil {
-			log.Println("Failed to read output of test case", err.Error())
+			log.Println("Failed to read output of test case :", err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
@@ -88,7 +93,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 
 	_, err = execCommand(int(s.Id), "make clean")
 	if err != nil {
-		log.Println("Failed to exec make clean", err.Error())
+		log.Println("Failed to exec make clean :", err.Error())
 		updateSubmissionStatus(c, int(s.Id), "RE")
 		return
 	}
