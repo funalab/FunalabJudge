@@ -19,6 +19,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		if err != nil {
 			log.Println("Failed to write make file")
 			updateSubmissionStatus(c, int(s.Id), "CE")
+			return
 		}
 	}
 
