@@ -10,18 +10,18 @@
     "testCases": [
       {
         "testCaseId": 1,
-        "inputFilePath": "data/testcases/inputs/c/c1/input1.json",
-        "outputFilePath": "data/testcases/outputs/c/c1/output1.json"
+        "inputFilePath": "data/testcases/c/c1/1/input.txt",
+        "outputFilePath": "data/testcases/c/c1/1/output.txt"
       },
       {
         "testCaseId": 2,
-        "inputFilePath": "data/testcases/inputs/c/c1/input2.json",
-        "outputFilePath": "data/testcases/outputs/c/c1/output2.json"
+        "inputFilePath": "data/testcases/c/c1/2/input.txt",
+        "outputFilePath": "data/testcases/c/c1/2/output.txt"
       },
       {
         "testCaseId": 3,
-        "inputFilePath": "data/testcases/inputs/c/c1/input3.json",
-        "outputFilePath": "data/testcases/outputs/c/c1/output3.json"
+        "inputFilePath": "data/testcases/c/c1/3/input.txt",
+        "outputFilePath": "data/testcases/c/c1/3/output.txt"
       }
     ]
   },
@@ -36,18 +36,18 @@
     "testCases": [
       {
         "testCaseId": 1,
-        "inputFilePath": "data/testcases/inputs/c/c2_1/input1.json",
-        "outputFilePath": "data/testcases/outputs/c/c2_1/output1.json"
+        "inputFilePath": "data/testcases/c/c2_1/1/input.txt",
+        "outputFilePath": "data/testcases/c/c2_1/1/output.txt"
       },
       {
         "testCaseId": 2,
-        "inputFilePath": "data/testcases/inputs/c/c2_1/input2.json",
-        "outputFilePath": "data/testcases/outputs/c/c2_1/output2.json"
+        "inputFilePath": "data/testcases/c/c2_1/2/input.txt",
+        "outputFilePath": "data/testcases/c/c2_1/2/output.txt"
       },
       {
         "testCaseId": 3,
-        "inputFilePath": "data/testcases/inputs/c/c2_1/input3.json",
-        "outputFilePath": "data/testcases/outputs/c/c2_1/output3.json"
+        "inputFilePath": "data/testcases/c/c2_1/3/input.txt",
+        "outputFilePath": "data/testcases/c/c2_1/3/output.txt"
       }
     ]
   }

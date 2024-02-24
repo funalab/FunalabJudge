@@ -81,7 +81,7 @@ func execCommand(sId int, command string) (string, error) {
 }
 
 func execCommandWithInput(sId int, command string, input string) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 1000*time.Microsecond)
+	ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Microsecond)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, "sh", "-c", command)
 	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId))

@@ -2,15 +2,11 @@ package judge
 
 import (
 	"fmt"
-	"go-test/assignment"
 	"go-test/myTypes"
 	"go-test/problems"
 	"log"
-	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func JudgeProcess(c *gin.Context, s myTypes.Submission) {
@@ -38,22 +34,20 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		return
 	}
 	// 全テストケースをジャッジする
-	// 以下はassignment.TranslatePathIntoProblemRespを使うために流用, 整えたい
-	dbName := os.Getenv("DB_NAME")
-	prbCol := os.Getenv("PROBLEMS_COLLECTION")
-	client, exists := c.Get("mongoClient")
-	if !exists {
-		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
-		return
-	}
-	collection := (client.(*mongo.Client)).Database(dbName).Collection(prbCol)
-	p := assignment.TranslatePathIntoProblemResp(collection, int(s.ProblemId))
-	tLen := len(p.Testcases)
+	p := problems.GetProblemFromId(c, s.ProblemId)
+	tLen := len(p.TestcaseWithPaths)
 	acNum := 0
-	for i, t := range p.Testcases {
+	for i, t := range p.TestcaseWithPaths {
 		updateSubmissionStatus(c, int(s.Id), fmt.Sprintf("%d/%d", i, tLen))
 
-		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), t.InputFileContent)
+		input, err := readFileToString(t.InputFilePath)
+		if err != nil {
+			log.Println("Failed to read input of test case")
+			log.Println(err.Error())
+			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			continue
+		}
+		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), input)
 		if err != nil {
 			log.Println("Failed to run the testcase. RE is caused.")
 			log.Println(err.Error())
@@ -62,7 +56,14 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		}
 
 		// 実行結果をジャッジする
-		if compareWithAnswer(output, t.OutputFileContent) {
+		answer, err := readFileToString(t.OutputFilePath)
+		if err != nil {
+			log.Println("Failed to read output of test case")
+			log.Println(err.Error())
+			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			continue
+		}
+		if compareWithAnswer(output, answer) {
 			acNum++
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "AC")
 		} else {
@@ -70,7 +71,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		}
 	}
 	// 合否を判定して更新
-	if acNum >= int(problems.GetProblemFromId(c, s.ProblemId).BorderScore) {
+	if acNum >= int(p.BorderScore) {
 		updateSubmissionStatus(c, int(s.Id), "AC")
 	} else {
 		updateSubmissionStatus(c, int(s.Id), "WA")
