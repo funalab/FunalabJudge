@@ -55,6 +55,7 @@ func JudgeProcess(c *gin.Context, s myTypes.Submission) {
 		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), t.InputFileContent)
 		if err != nil {
 			log.Println("Failed to run the testcase. RE is caused.")
+			log.Println(err.Error())
 			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
 			continue
 		}
