@@ -2,8 +2,8 @@ package judge
 
 import (
 	"fmt"
+	"go-test/db/problems"
 	"go-test/myTypes"
-	"go-test/problems"
 	"log"
 	"os"
 	"path/filepath"

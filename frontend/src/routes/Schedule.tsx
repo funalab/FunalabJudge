@@ -1,7 +1,7 @@
 import React from 'react'
 import DefaultLayout from '../components/DefaultLayout'
 
-const Schedule: React.FC = () => {
+const SchedulePage: React.FC = () => {
   return (
     <DefaultLayout>
       <>
@@ -11,4 +11,4 @@ const Schedule: React.FC = () => {
   )
 }
 
-export default Schedule
+export default SchedulePage

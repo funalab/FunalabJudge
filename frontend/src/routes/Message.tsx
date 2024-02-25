@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Message: React.FC = () => {
+const MessagePage: React.FC = () => {
   return (
     <>
       MessagePage
@@ -8,4 +8,4 @@ const Message: React.FC = () => {
   )
 }
 
-export default Message
+export default MessagePage

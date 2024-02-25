@@ -2,9 +2,9 @@ package auth
 
 import (
 	"fmt"
+	"go-test/db/submission"
+	"go-test/db/users"
 	"go-test/myTypes"
-	"go-test/submission"
-	"go-test/user"
 	"strconv"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -22,7 +22,7 @@ func GetUserNameFromJwt(c *gin.Context) interface{} {
 
 func GetUserNameFromsubmissionId(c *gin.Context, submissionId int) string {
 	s := submission.GetSubmissionsFromSubmissionId(c, submissionId)
-	u := user.GetUserFromUserId(c, s.UserId)
+	u := users.GetUserFromUserId(c, s.UserId)
 	return u.UserName
 }
 

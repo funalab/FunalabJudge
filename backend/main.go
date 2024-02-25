@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"go-test/api"
-	"go-test/assignment"
 	"go-test/auth"
 	"go-test/db"
 	"go-test/env"
-	"go-test/submission"
+	"go-test/handlers"
 	"log"
+	"net/http"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -53,33 +52,21 @@ func main() {
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
 		// ユーザーごとにアクセス権が異なるエンドポイントには、userNameかsubmissionIdを含める
-		authed.POST("/changePass/:userName", auth.ChangeUserPass)
-		authed.GET("/getAssignmentStatus/:userName", api.GetAssignments)
-		authed.GET("/assignmentInfo/:problemId", assignment.AssignmentInfoHandler)
-		authed.GET("/submissions/:userName", submission.SubmissionQueueHandler)
-		authed.GET("/submission/:submissionId", submission.SubmissionHandler)
-		authed.POST("/addSubmission/:userName", submission.AddSubmissionHandler)
+		authed.POST("/changePassword/:userName", handlers.ChangePasswordHandler)
+		authed.GET("/getProblemList/:userName", handlers.GetProblemListHandler)
+		authed.GET("/getProblem/:problemId", handlers.GetProblemHandler)
+		authed.GET("/getSubmissionList/:userName", handlers.GetSubmissionListHandler)
+		authed.GET("/getSubmission/:submissionId", handlers.GetSubmissionHandler)
+		authed.POST("/addSubmission/:userName", handlers.AddSubmissionHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		log.Printf("NoRoute claims: %#v\n", claims)
-		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
 	})
 
 	// サーバーをポート3000で起動
 	router.Run(":3000")
 	fmt.Println("Server is running.")
 }
-
-// // ハッシュ化した初期パスワードを生成するコード
-// // 他のmain関数とimportを全てコメントアウトして実行する
-// import (
-// 	"fmt"
-// 	"go-test/auth"
-// )
-
-// func main() {
-// 	hash, _ := auth.HashPassword("password")
-// 	fmt.Println(hash)
-// }
