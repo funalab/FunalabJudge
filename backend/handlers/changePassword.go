@@ -31,8 +31,12 @@ func ChangePasswordHandler(c *gin.Context) {
 	}
 
 	searchField := users.User{UserName: jsonRequest.UserName}
-	u := users.SearchUser(client, searchField)
-	println(u.Password)
+	u, err := users.SearchUser(client, searchField)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"status": "Failed to find single result from DB:" + err.Error()})
+		return
+	}
+
 	if !auth.CheckPasswordHash(jsonRequest.ExPass, u.Password) {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "Password did not match"})
 		return
@@ -41,10 +45,11 @@ func ChangePasswordHandler(c *gin.Context) {
 	hash, _ := auth.HashPassword(jsonRequest.NewPass)
 	updateField := users.User{Password: hash}
 
-	err := users.UpdateUser(client, u, updateField)
+	err = users.UpdateUser(client, searchField, updateField)
+	println(err == nil)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"status": "Password updated successfully!"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "update failed :" + err.Error()})
 	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "update failed"})
+		c.JSON(http.StatusOK, gin.H{"status": "Password updated successfully!"})
 	}
 }

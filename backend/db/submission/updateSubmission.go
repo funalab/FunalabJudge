@@ -1,4 +1,4 @@
-package users
+package submission
 
 import (
 	"context"
@@ -9,10 +9,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func UpdateUser(client *mongo.Client, searchField User, updateField User) error {
+func UpdateSubmission(client *mongo.Client, searchField Submission, updateField Submission) error {
 	dbName := os.Getenv("DB_NAME")
-	usrCol := os.Getenv("USERS_COLLECTION")
-	collection := client.Database(dbName).Collection(usrCol)
+	subCol := os.Getenv("SUBMISSION_COLLECTION")
+	collection := client.Database(dbName).Collection(subCol)
 
 	sFilter := db.MakeFilter(searchField)
 	uFilter := bson.M{"$set": db.MakeFilter(updateField)}
