@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"go-test/auth"
 	"go-test/db"
-	"go-test/env"
 	"go-test/handlers"
+	"go-test/util"
 	"log"
 	"net/http"
 	"time"
@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	env.LoadEnv()
+	util.LoadEnv()
 	router := gin.Default()
 
 	router.Use(cors.New(cors.Config{

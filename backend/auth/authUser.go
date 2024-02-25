@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"go-test/db/submission"
 	"go-test/db/users"
-	"go-test/myTypes"
 	"strconv"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -14,7 +13,7 @@ import (
 func GetUserNameFromJwt(c *gin.Context) interface{} {
 	// jwtからuser情報を抽出し、UserAuthorizatorに渡す
 	claims := jwt.ExtractClaims(c)
-	return &myTypes.User{
+	return &users.User{
 		UserName: claims[JwtIdentityKey].(string),
 		Role:     claims[JwtUserRoleKey].(string),
 	}
@@ -28,7 +27,7 @@ func GetUserNameFromsubmissionId(c *gin.Context, submissionId int) string {
 
 func UserAuthorizator(data interface{}, c *gin.Context) bool {
 	// 引数"data"はGetUserNameFromJwtのreturn
-	if jwtUser, ok := data.(*myTypes.User); ok {
+	if jwtUser, ok := data.(*users.User); ok {
 		if jwtUser.Role == "admin" || jwtUser.Role == "manager" {
 			return true
 		} else if jwtUser.Role == "user" {

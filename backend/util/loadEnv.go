@@ -1,8 +1,9 @@
-package env
+package util
 
 import (
-	"github.com/joho/godotenv"
 	"log"
+
+	"github.com/joho/godotenv"
 )
 
 func LoadEnv() bool {

@@ -2,7 +2,7 @@ package judge
 
 import (
 	"fmt"
-	"go-test/myTypes"
+	"go-test/util"
 	"io"
 	"log"
 	"os"
@@ -30,19 +30,19 @@ func writeMakeFile(sId int) error {
 	makefile, err := os.Create(path)
 	if err != nil {
 		log.Println("Failed to write make file.")
-		return myTypes.NewGenerateMakefileErr(fmt.Sprintf("Failed to generate makefile: %v\n", err.Error()))
+		return util.NewGenerateMakefileErr(fmt.Sprintf("Failed to generate makefile: %v\n", err.Error()))
 	}
 	defer makefile.Close()
 
 	err = writeOptions(makefile, sId)
 	if err != nil {
 		log.Println("Failed to write makefile header.")
-		return myTypes.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile header: %v\n", err.Error()))
+		return util.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile header: %v\n", err.Error()))
 	}
 	err = writeTargets(makefile)
 	if err != nil {
 		log.Println("Failed to write make targets.")
-		return myTypes.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile targets: %v\n", err.Error()))
+		return util.NewGenerateMakefileErr(fmt.Sprintf("Failed to write makefile targets: %v\n", err.Error()))
 	}
 	return nil
 }

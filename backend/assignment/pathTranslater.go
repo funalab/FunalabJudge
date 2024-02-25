@@ -3,19 +3,72 @@ package assignment
 import (
 	"context"
 	"encoding/json"
-	"go-test/myTypes"
+	"go-test/db/problems"
 	"go-test/util"
 	"io"
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *myTypes.ProblemResp {
-	var p myTypes.ProblemContainPath
+type Testcase struct {
+	TestcaseId        int32
+	InputFileContent  string
+	OutputFileContent string
+}
+
+type ProblemJSON struct {
+	Name          string `json:"name"`
+	Statement     string `json:"statement"`
+	Constraints   string `json:"constraints"`
+	ExecutionTime int32  `json:"executionTime"`
+	MemoryLimit   int32  `json:"memoryLimit"`
+}
+
+type ProblemContainPath struct {
+	Pid               int                         `bson:"problemId"`
+	ProblemPath       string                      `bson:"problemPath"`
+	InputFmt          string                      `bson:"inputFormat"`
+	OutputFmt         string                      `bson:"outputFormat"`
+	TestcaseWithPaths []problems.TestcaseWithPath `bson:"testCases"`
+}
+
+type ProblemResp struct {
+	Pid       int
+	Name      string
+	ExTime    int32
+	MemLim    int32
+	Statement string
+	PrbConst  string
+	InputFmt  string
+	OutputFmt string
+	Testcases []Testcase
+}
+
+type ProblemWithStatus struct {
+	ProblemId    int       `bson:"problemId"`
+	ProblemPath  string    `bson:"problemPath"`
+	InputFormat  string    `bson:"inputFormat"`
+	OutputFormat string    `bson:"outputFormat"`
+	OpenDate     time.Time `bson:"openDate"`
+	CloseDate    time.Time `bson:"closeDate"`
+	BorderScore  int       `bson:"borderScore"`
+	Status       bool      `bson:"status"`
+}
+
+type ProblemRespWithDateInfo struct {
+	ProblemResp ProblemResp
+	OpenDate    time.Time
+	CloseDate   time.Time
+	Status      bool
+}
+
+func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *ProblemResp {
+	var p ProblemContainPath
 
 	err := coll.FindOne(context.TODO(), bson.M{"problemId": pid}).Decode(&p)
 	if err != nil {
@@ -35,25 +88,25 @@ func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *myTypes.Prob
 	return mapToProblemResp(&p, pj)
 }
 
-func parseProblemJSON(pf *os.File) (*myTypes.ProblemJSON, error) {
-	var pj myTypes.ProblemJSON
+func parseProblemJSON(pf *os.File) (*ProblemJSON, error) {
+	var pj ProblemJSON
 	b, err := io.ReadAll(pf)
 	if err != nil {
 		log.Fatalf("Failed to read problem file as byte: %v\n", err.Error())
-		return &myTypes.ProblemJSON{}, err
+		return &ProblemJSON{}, err
 	}
 	err = json.Unmarshal(b, &pj)
 	if err != nil {
 		log.Fatalf("Failed to unmarshal json file: %v\n", err.Error())
-		return &myTypes.ProblemJSON{}, err
+		return &ProblemJSON{}, err
 	}
 	return &pj, nil
 }
 
 /*TODO: Check whether parsing would be done correctly.*/
-func parseTestcaseWithPathIntoTestcase(tws *[]myTypes.TestcaseWithPath) *[]myTypes.Testcase {
-	ts := make([]myTypes.Testcase, 0)
-	for _, tw := range *tws {
+func parseTestcaseWithPathIntoTestcase(tws []problems.TestcaseWithPath) *[]Testcase {
+	ts := make([]Testcase, 0)
+	for _, tw := range tws {
 		sIn, err := os.ReadFile(filepath.Join("..", tw.InputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
@@ -69,8 +122,8 @@ func parseTestcaseWithPathIntoTestcase(tws *[]myTypes.TestcaseWithPath) *[]myTyp
 	return &ts
 }
 
-func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *myTypes.ProblemResp {
-	pr := new(myTypes.ProblemResp)
+func mapToProblemResp(p *ProblemContainPath, pj *ProblemJSON) *ProblemResp {
+	pr := new(ProblemResp)
 	pr.Pid = p.Pid
 	pr.Name = pj.Name
 	pr.ExTime = pj.ExecutionTime
@@ -79,11 +132,11 @@ func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *m
 	pr.PrbConst = pj.Constraints
 	pr.InputFmt = p.InputFmt
 	pr.OutputFmt = p.OutputFmt
-	pr.Testcases = *parseTestcaseWithPathIntoTestcase(&p.TestcaseWithPaths)
+	pr.Testcases = *parseTestcaseWithPathIntoTestcase(p.TestcaseWithPaths)
 	return pr
 }
-func mapToTestcase(tw myTypes.TestcaseWithPath, sIn string, sOut string) *myTypes.Testcase {
-	t := new(myTypes.Testcase)
+func mapToTestcase(tw problems.TestcaseWithPath, sIn string, sOut string) *Testcase {
+	t := new(Testcase)
 	t.TestcaseId = tw.TestcaseId
 	t.InputFileContent = sIn
 	t.OutputFileContent = sOut
