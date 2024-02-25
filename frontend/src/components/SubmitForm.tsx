@@ -1,4 +1,4 @@
-import { Text, Stack, Divider, Flex, HStack, Input, InputRightAddon, Button, Textarea } from '@chakra-ui/react'
+import { Text, Stack, Divider, Flex, HStack, Input, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
 import SubmitButton from './SubmitButton'
 
@@ -12,6 +12,11 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
 
   const handleInputFile = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const files: File[] = Array.from(ev.target.files!)
+    const regexOk = handleRegex(files)
+    if (!regexOk) {
+      ev.target.value = ''
+      return
+    }
     handleSelectedFiles(files)
     handleFileNames(files)
   }
@@ -25,6 +30,16 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
   const handleFileNames = (files: File[]) => {
     let f = files.map(file => file.name).join(', ')
     setFilenames(f)
+  }
+
+  const handleRegex = (files: File[]) => {
+    const regex = new RegExp('^Makefile$|\\.c$')
+    const regexNotOkFile = files.find((selectedFile: File) => (regex.test(selectedFile.name) === false))
+    if (regexNotOkFile) {
+      alert("CファイルとMakefileのみ提出してください。")
+      return false
+    }
+    return true
   }
 
   return (
