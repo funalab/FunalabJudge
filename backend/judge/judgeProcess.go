@@ -3,7 +3,7 @@ package judge
 import (
 	"fmt"
 	"go-test/db/problems"
-	"go-test/myTypes"
+	"go-test/db/submission"
 	"log"
 	"os"
 	"path/filepath"
@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func JudgeProcess(c *gin.Context, s myTypes.Submission) {
+func JudgeProcess(c *gin.Context, s submission.Submission) {
 	p := problems.GetProblemFromId(c, s.ProblemId)
 
 	ceFlag := false

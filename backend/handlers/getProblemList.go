@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"go-test/assignment"
+	"go-test/db/submission"
 	"go-test/myTypes"
 
 	"github.com/gin-gonic/gin"
@@ -44,7 +45,7 @@ func GetProblemListHandler(c *gin.Context) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		var submissions []myTypes.Submission
+		var submissions []submission.Submission
 		if err = submissionCursor.All(context.TODO(), &submissions); err != nil {
 			log.Fatal(err)
 		}

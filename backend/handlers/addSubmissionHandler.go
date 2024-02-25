@@ -2,8 +2,10 @@ package handlers
 
 import (
 	"context"
+	"go-test/db/problems"
+	"go-test/db/submission"
+	"go-test/db/users"
 	"go-test/judge"
-	"go-test/myTypes"
 	"go-test/util"
 	"log"
 	"net/http"
@@ -50,20 +52,20 @@ func AddSubmissionHandler(c *gin.Context) {
 	c.JSON(200, nil)
 }
 
-func makeSubmissionDocument(c *gin.Context, sr *submissionRequest) *myTypes.Submission {
+func makeSubmissionDocument(c *gin.Context, sr *submissionRequest) *submission.Submission {
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		return nil
 	}
 	col := (client.(*mongo.Client)).Database(os.Getenv("DB_NAME")).Collection(os.Getenv("USERS_COLLECTION"))
 	filter := bson.M{"userName": c.Param("userName")}
-	var u myTypes.User
+	var u users.User
 	err := col.FindOne(context.TODO(), filter).Decode(&u)
 	if err != nil {
 		log.Println("Failed to find such user.")
 		return nil
 	}
-	var s myTypes.Submission
+	var s submission.Submission
 	s.Id = int32(getMaxSubmissionId(c)) + 1
 	s.UserId = u.UserId
 	s.ProblemId = sr.ProblemId
@@ -73,14 +75,14 @@ func makeSubmissionDocument(c *gin.Context, sr *submissionRequest) *myTypes.Subm
 	/*Map Results*/
 	col = (client.(*mongo.Client)).Database(os.Getenv("DB_NAME")).Collection(os.Getenv("PROBLEMS_COLLECTION"))
 	filter = bson.M{"problemId": s.ProblemId}
-	var p myTypes.Problem
+	var p problems.Problem
 	err = col.FindOne(context.TODO(), filter).Decode(&p)
 	if err != nil {
 		log.Println("Failed to find such problem.")
 		return nil
 	}
 	nt := len(p.TestcaseWithPaths)
-	s.Results = make([]myTypes.Result, nt)
+	s.Results = make([]submission.Result, nt)
 
 	for index, ele := range s.Results {
 		ele.TestId = index + 1
@@ -103,7 +105,7 @@ func getMaxSubmissionId(c *gin.Context) int {
 	if err != nil {
 		log.Fatalln("Failed to find all submission information.")
 	}
-	var submissions []myTypes.Submission
+	var submissions []submission.Submission
 	if err = cur.All(context.TODO(), &submissions); err != nil {
 		log.Fatalln("Failed to fetch all submission information.")
 	}

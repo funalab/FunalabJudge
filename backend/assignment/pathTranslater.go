@@ -3,6 +3,7 @@ package assignment
 import (
 	"context"
 	"encoding/json"
+	"go-test/db/problems"
 	"go-test/myTypes"
 	"go-test/util"
 	"io"
@@ -14,8 +15,16 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+type ProblemContainPath struct {
+	Pid               int                         `bson:"problemId"`
+	ProblemPath       string                      `bson:"problemPath"`
+	InputFmt          string                      `bson:"inputFormat"`
+	OutputFmt         string                      `bson:"outputFormat"`
+	TestcaseWithPaths []problems.TestcaseWithPath `bson:"testCases"`
+}
+
 func TranslatePathIntoProblemResp(coll *mongo.Collection, pid int) *myTypes.ProblemResp {
-	var p myTypes.ProblemContainPath
+	var p ProblemContainPath
 
 	err := coll.FindOne(context.TODO(), bson.M{"problemId": pid}).Decode(&p)
 	if err != nil {
@@ -51,9 +60,9 @@ func parseProblemJSON(pf *os.File) (*myTypes.ProblemJSON, error) {
 }
 
 /*TODO: Check whether parsing would be done correctly.*/
-func parseTestcaseWithPathIntoTestcase(tws *[]myTypes.TestcaseWithPath) *[]myTypes.Testcase {
+func parseTestcaseWithPathIntoTestcase(tws []problems.TestcaseWithPath) *[]myTypes.Testcase {
 	ts := make([]myTypes.Testcase, 0)
-	for _, tw := range *tws {
+	for _, tw := range tws {
 		sIn, err := os.ReadFile(filepath.Join("..", tw.InputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
@@ -69,7 +78,7 @@ func parseTestcaseWithPathIntoTestcase(tws *[]myTypes.TestcaseWithPath) *[]myTyp
 	return &ts
 }
 
-func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *myTypes.ProblemResp {
+func mapToProblemResp(p *ProblemContainPath, pj *myTypes.ProblemJSON) *myTypes.ProblemResp {
 	pr := new(myTypes.ProblemResp)
 	pr.Pid = p.Pid
 	pr.Name = pj.Name
@@ -79,10 +88,10 @@ func mapToProblemResp(p *myTypes.ProblemContainPath, pj *myTypes.ProblemJSON) *m
 	pr.PrbConst = pj.Constraints
 	pr.InputFmt = p.InputFmt
 	pr.OutputFmt = p.OutputFmt
-	pr.Testcases = *parseTestcaseWithPathIntoTestcase(&p.TestcaseWithPaths)
+	pr.Testcases = *parseTestcaseWithPathIntoTestcase(p.TestcaseWithPaths)
 	return pr
 }
-func mapToTestcase(tw myTypes.TestcaseWithPath, sIn string, sOut string) *myTypes.Testcase {
+func mapToTestcase(tw problems.TestcaseWithPath, sIn string, sOut string) *myTypes.Testcase {
 	t := new(myTypes.Testcase)
 	t.TestcaseId = tw.TestcaseId
 	t.InputFileContent = sIn

@@ -4,15 +4,6 @@ import (
 	"time"
 )
 
-type Data struct {
-	Message string `json:"message"`
-}
-
-type SubmissionWithStatus struct {
-	Submission Submission `bson:",inline"`
-	Status     string     `bson:"status"`
-}
-
 type ProblemWithStatus struct {
 	ProblemId    int       `bson:"problemId"`
 	ProblemPath  string    `bson:"problemPath"`
@@ -41,14 +32,6 @@ type ProblemRespWithDateInfo struct {
 	OpenDate    time.Time
 	CloseDate   time.Time
 	Status      bool
-}
-
-type ProblemContainPath struct {
-	Pid               int                `bson:"problemId"`
-	ProblemPath       string             `bson:"problemPath"`
-	InputFmt          string             `bson:"inputFormat"`
-	OutputFmt         string             `bson:"outputFormat"`
-	TestcaseWithPaths []TestcaseWithPath `bson:"testCases"`
 }
 
 type ProblemJSON struct {
