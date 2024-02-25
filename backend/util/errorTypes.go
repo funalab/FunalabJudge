@@ -1,6 +1,11 @@
-package myTypes
+package util
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 /*MongoConnectionErr*/
 type MongoConnectionErr struct {
@@ -15,6 +20,10 @@ func NewMongoConnectionErr(errMsg string) error {
 	return &MongoConnectionErr{
 		Msg: errMsg,
 	}
+}
+
+func ResponseDBNotFoundError(c *gin.Context) {
+	c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
 }
 
 /*FindRootDirErr*/

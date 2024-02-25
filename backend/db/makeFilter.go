@@ -3,67 +3,39 @@ package db
 import (
 	"reflect"
 	"strconv"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-// 未完成
-func MakeFilterWithNonnilField(data interface{}) bson.M {
-	// TODO 引数の定義にアサーション入れたほうがいい？
+func MakeFilter(data interface{}) bson.M {
 	bsonMap := bson.M{}
-	v := reflect.ValueOf(data)
-	for i := 0; i < v.NumField(); i++ {
-		tag := v.Type().Field(i).Tag.Get("bson")
-		println(tag)
-		println(v.Field(i).Kind())
-		println(v.Field(i).IsNil())
-		if !v.Field(i).IsNil() {
-			value := parseReflectValue(v.Field(i))
+	rv := reflect.ValueOf(data)
+	for i := 0; i < rv.NumField(); i++ {
+		tag := rv.Type().Field(i).Tag.Get("bson")
+		value, isDefault := getValueString(rv.Field(i))
+		if !isDefault {
 			bsonMap[tag] = value
 		}
 	}
 	return bsonMap
 }
 
-func parseReflectValue(rv reflect.Value) string {
-	switch rv.Kind() {
-	case reflect.Bool:
-		if rv.Bool() {
-			return "true"
-		} else {
-			return "false"
+func getValueString(f reflect.Value) (string, bool) {
+	// compare with defaul value of each type
+	switch v := f.Interface().(type) {
+	case int32:
+		if v != 0 {
+			return strconv.FormatInt(int64(v), 10), false
 		}
-	case reflect.Int, reflect.Int64, reflect.Int32, reflect.Int16, reflect.Int8:
-		return strconv.FormatInt(rv.Int(), 10)
-	case reflect.Uint, reflect.Uint64, reflect.Uint32, reflect.Uint16, reflect.Uint8:
-		return strconv.FormatUint(rv.Uint(), 10)
-	case reflect.Float32:
-		return strconv.FormatFloat(rv.Float(), 'f', -1, 32)
-	case reflect.Float64:
-		return strconv.FormatFloat(rv.Float(), 'f', -1, 64)
-	case reflect.String:
-		return rv.String()
-	default:
-		return ""
-	}
-}
-
-func ExtractNonNullFieldValues(obj interface{}) []interface{} {
-	var values []interface{}
-
-	objVal := reflect.ValueOf(obj)
-
-	if objVal.Kind() != reflect.Struct {
-		panic("Expected a struct")
-	}
-
-	for i := 0; i < objVal.NumField(); i++ {
-		field := objVal.Field(i)
-
-		if !reflect.DeepEqual(field.Interface(), reflect.Zero(field.Type()).Interface()) {
-			values = append(values, field.Interface())
+	case string:
+		if v != "" {
+			return v, false
+		}
+	case time.Time:
+		if v != time.Date(1, 1, 1, 0, 0, 0, 0, time.UTC) {
+			return v.String(), false
 		}
 	}
-
-	return values
+	return "", true // default value or unknown type
 }

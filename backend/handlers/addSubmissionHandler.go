@@ -109,7 +109,7 @@ func getMaxSubmissionId(c *gin.Context) int {
 	if err = cur.All(context.TODO(), &submissions); err != nil {
 		log.Fatalln("Failed to fetch all submission information.")
 	}
-	maxSubmissionId := -1
+	maxSubmissionId := 1 // initial submission document id
 	for _, submission := range submissions {
 		submissionId := int(submission.Id)
 		maxSubmissionId = util.MaxInt(submissionId, maxSubmissionId)
