@@ -4,13 +4,13 @@ import { CardList } from "../components/CardList"
 import { axiosClient } from '../providers/AxiosClientProvider';
 import { useParams } from 'react-router-dom';
 
-export const Dashboard = () => {
+const DashboardPage = () => {
   const [data, setData] = useState([]);
   const { userName } = useParams();
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axiosClient.get(`/getAssignmentStatus/${userName}`)
+        const { data } = await axiosClient.get(`/getProblemList/${userName}`)
         setData(data);
       }
       catch (error) {
@@ -26,4 +26,4 @@ export const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

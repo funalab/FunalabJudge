@@ -14,7 +14,7 @@ import {
 import { HttpStatusCode } from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const Account: FC = () => {
+const AccountPage: FC = () => {
   const { userName } = useParams();
   const [exPass, setExPass] = useState("");
   const [newPass, setNewPass] = useState("");
@@ -24,7 +24,7 @@ const Account: FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     
-    axiosClient.post(`/changePass/${userName}`, {
+    axiosClient.post(`/changePassword/${userName}`, {
       userName: userName,
       exPass: exPass,
       newPass: newPass,
@@ -89,4 +89,4 @@ const Account: FC = () => {
   )
 }
 
-export default Account 
+export default AccountPage

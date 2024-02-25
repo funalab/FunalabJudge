@@ -3,8 +3,8 @@ package submission
 import (
 	"context"
 	"go-test/judge"
-	"go-test/myMath"
 	"go-test/myTypes"
+	"go-test/util"
 	"log"
 	"net/http"
 	"os"
@@ -110,7 +110,7 @@ func getMaxSubmissionId(c *gin.Context) int {
 	maxSubmissionId := -1
 	for _, submission := range submissions {
 		submissionId := int(submission.Id)
-		maxSubmissionId = myMath.MaxInt(submissionId, maxSubmissionId)
+		maxSubmissionId = util.MaxInt(submissionId, maxSubmissionId)
 	}
 	return maxSubmissionId
 }

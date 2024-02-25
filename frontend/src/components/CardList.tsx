@@ -66,7 +66,7 @@ export const CardList = ({ data }: CardListProps) => {
               </CardBody>
               <CardFooter>
                 {new Date() > new Date(assignment.OpenDate) ? (
-                  <Button colorScheme='teal' onClick={() => navigate(`/${userName}/assignmentInfo/${assignment.ProblemResp.Pid}`)}>
+                  <Button colorScheme='teal' onClick={() => navigate(`/${userName}/problem/${assignment.ProblemResp.Pid}`)}>
                     詳細
                   </Button>
                 ) : (

@@ -9,6 +9,7 @@ import (
 	"go-test/env"
 	"go-test/submission"
 	"log"
+	"net/http"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -53,33 +54,21 @@ func main() {
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
 		// ユーザーごとにアクセス権が異なるエンドポイントには、userNameかsubmissionIdを含める
-		authed.POST("/changePass/:userName", auth.ChangeUserPass)
-		authed.GET("/getAssignmentStatus/:userName", api.GetAssignments)
-		authed.GET("/assignmentInfo/:problemId", assignment.AssignmentInfoHandler)
-		authed.GET("/submissions/:userName", submission.SubmissionQueueHandler)
-		authed.GET("/submission/:submissionId", submission.SubmissionHandler)
+		authed.POST("/changePassword/:userName", auth.ChangePasswordHandler)
+		authed.GET("/getProblemList/:userName", api.GetProblemListHandler)
+		authed.GET("/getProblem/:problemId", assignment.GetProblemHandler)
+		authed.GET("/getSubmissionList/:userName", submission.GetSubmissionListHandler)
+		authed.GET("/getSubmission/:submissionId", submission.GetSubmissionHandler)
 		authed.POST("/addSubmission/:userName", submission.AddSubmissionHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		log.Printf("NoRoute claims: %#v\n", claims)
-		c.JSON(404, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
+		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
 	})
 
 	// サーバーをポート3000で起動
 	router.Run(":3000")
 	fmt.Println("Server is running.")
 }
-
-// // ハッシュ化した初期パスワードを生成するコード
-// // 他のmain関数とimportを全てコメントアウトして実行する
-// import (
-// 	"fmt"
-// 	"go-test/auth"
-// )
-
-// func main() {
-// 	hash, _ := auth.HashPassword("password")
-// 	fmt.Println(hash)
-// }
