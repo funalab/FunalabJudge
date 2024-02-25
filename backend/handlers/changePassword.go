@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"go-test/auth"
-	"go-test/user"
+	"go-test/db/users"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,14 +24,14 @@ func ChangePasswordHandler(c *gin.Context) {
 
 	// targUser := myTypes.User{UserName: jsonRequest.UserName}
 	// userInfo := user.SearchUser(c, targUser)
-	userInfo := user.GetUserFromUserName(c, jsonRequest.UserName)
+	userInfo := users.GetUserFromUserName(c, jsonRequest.UserName)
 	if !auth.CheckPasswordHash(jsonRequest.ExPass, userInfo.Password) {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "Password did not match"})
 		return
 	}
 
 	hash, _ := auth.HashPassword(jsonRequest.NewPass)
-	updated := user.UpdateUserPass(c, userInfo.UserName, hash)
+	updated := users.UpdateUserPass(c, userInfo.UserName, hash)
 	if updated {
 		c.JSON(http.StatusOK, gin.H{"status": "Password updated successfully!"})
 	} else {
