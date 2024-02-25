@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { axiosClient } from '../providers/AxiosClientProvider'
 
@@ -21,6 +21,10 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
   const navigate = useNavigate();
   const handleClick = async () => {
     /*navigate into submission queue endpoint with files*/
+    if (selectedFiles.length === 0) {
+      alert('1つ以上のファイルを選択してください')
+      return
+    }
     await axiosClient.post(`/addSubmission/${userName}`, {
       problemId: problemId,
       submittedDate: new Date(),

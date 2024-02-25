@@ -1,7 +1,6 @@
-import { Text, Stack, Divider, Flex, Button, HStack } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Text, Stack, Divider, Flex, HStack, Input, Textarea } from '@chakra-ui/react'
+import { useState } from 'react'
 import SubmitButton from './SubmitButton'
-import SubmitFile from './SubmitFile'
 
 export interface SubmitFormProps {
   problemId: number
@@ -9,44 +8,49 @@ export interface SubmitFormProps {
 
 const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+  const [filenames, setFilenames] = useState<string>('')
 
-  const handleSelectedFiles = (file: File) => {
-    setSelectedFiles(prevFiles => [...prevFiles, file])
+  const handleInputFile = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    const files: File[] = Array.from(ev.target.files!)
+    const regexOk = handleRegex(files)
+    if (!regexOk) {
+      ev.target.value = ''
+      return
+    }
+    handleSelectedFiles(files)
+    handleFileNames(files)
   }
 
-  const [inputFields, setInputFields] = useState<JSX.Element[]>([
-    <SubmitFile handleSelectedFiles={handleSelectedFiles} />
-  ]);
+  const handleSelectedFiles = (files: File[]) => {
+    files.map((file) => {
+      setSelectedFiles(prevFiles => [...prevFiles, file])
+    })
+  }
 
-  const handlePlus = () => {
-    const newInputFields = [...inputFields];
-    newInputFields.push(
-      <SubmitFile handleSelectedFiles={handleSelectedFiles} />
-    );
-    setInputFields(newInputFields);
-  };
+  const handleFileNames = (files: File[]) => {
+    let f = files.map(file => file.name).join(', ')
+    setFilenames(f)
+  }
 
-  const handleMinus = () => {
-    if (inputFields.length === 1) {
-      return;
+  const handleRegex = (files: File[]) => {
+    const regex = new RegExp('^Makefile$|\\.c$')
+    const regexNotOkFile = files.find((selectedFile: File) => (regex.test(selectedFile.name) === false))
+    if (regexNotOkFile) {
+      alert("CファイルとMakefileのみ提出してください。")
+      return false
     }
-    const newInputFields = [...inputFields];
-    newInputFields.pop();
-    setInputFields(newInputFields);
-  };
+    return true
+  }
 
   return (
     <>
       <Divider />
       <HStack>
         <Text fontSize={30} fontWeight={'bold'}>Submit Form</Text>
-        <Button onClick={handlePlus}>+</Button>
-        <Button onClick={handleMinus}>-</Button>
       </HStack>
       <Stack>
-        <Stack>
-          {inputFields}
-        </Stack>
+        <Input type="file" onChange={handleInputFile} multiple />
+        <Textarea placeholder="Your submitted files." value={filenames} />
         <Flex>
           <SubmitButton selectedFiles={selectedFiles} problemId={problemId} />
         </Flex>
