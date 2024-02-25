@@ -1,6 +1,4 @@
-// api/top_page.go
-
-package api
+package handlers
 
 import (
 	"context"

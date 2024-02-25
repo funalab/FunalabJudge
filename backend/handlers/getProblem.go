@@ -1,4 +1,4 @@
-package assignment
+package handlers
 
 import (
 	"log"
@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 
+	"go-test/assignment"
 	"go-test/myTypes"
 
 	"github.com/gin-gonic/gin"
@@ -26,7 +27,7 @@ func GetProblemHandler(c *gin.Context) {
 		log.Fatalf("Failed to parse problemId as a number: %v\n", pid)
 		c.JSON(400, myTypes.NewMongoConnectionErr(err.Error()))
 	}
-	resp := TranslatePathIntoProblemResp(collection, pid)
+	resp := assignment.TranslatePathIntoProblemResp(collection, pid)
 	if resp == nil {
 		log.Fatalf("Failed to find single result from DB: %v\n", err)
 		c.JSON(400, myTypes.NewFindOneAssignmentErr(err.Error()))

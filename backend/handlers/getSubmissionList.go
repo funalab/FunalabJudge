@@ -1,6 +1,7 @@
-package submission
+package handlers
 
 import (
+	"go-test/submission"
 	"go-test/user"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,7 @@ import (
 func GetSubmissionListHandler(c *gin.Context) {
 	userName := c.Param("userName")
 	userData := user.GetUserFromUserName(c, userName)
-	submissions, err := GetSubmissionsFromUser(c, *userData)
+	submissions, err := submission.GetSubmissionsFromUser(c, *userData)
 	if err != nil {
 		c.JSON(400, err.Error())
 	}

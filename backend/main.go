@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"go-test/api"
-	"go-test/assignment"
 	"go-test/auth"
 	"go-test/db"
 	"go-test/env"
-	"go-test/submission"
+	"go-test/handlers"
 	"log"
 	"net/http"
 	"time"
@@ -54,12 +52,12 @@ func main() {
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
 		// ユーザーごとにアクセス権が異なるエンドポイントには、userNameかsubmissionIdを含める
-		authed.POST("/changePassword/:userName", auth.ChangePasswordHandler)
-		authed.GET("/getProblemList/:userName", api.GetProblemListHandler)
-		authed.GET("/getProblem/:problemId", assignment.GetProblemHandler)
-		authed.GET("/getSubmissionList/:userName", submission.GetSubmissionListHandler)
-		authed.GET("/getSubmission/:submissionId", submission.GetSubmissionHandler)
-		authed.POST("/addSubmission/:userName", submission.AddSubmissionHandler)
+		authed.POST("/changePassword/:userName", handlers.ChangePasswordHandler)
+		authed.GET("/getProblemList/:userName", handlers.GetProblemListHandler)
+		authed.GET("/getProblem/:problemId", handlers.GetProblemHandler)
+		authed.GET("/getSubmissionList/:userName", handlers.GetSubmissionListHandler)
+		authed.GET("/getSubmission/:submissionId", handlers.GetSubmissionHandler)
+		authed.POST("/addSubmission/:userName", handlers.AddSubmissionHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
