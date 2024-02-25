@@ -9,19 +9,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// 基本的にusers collectionからは1つのdocumentを問い合わせる想定
-func SearchUser(client *mongo.Client, userInfo User) User {
+func SearchUser(client *mongo.Client, searchField User) User {
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("USERS_COLLECTION")
 	collection := client.Database(dbName).Collection(usrCol)
 
-	filter := db.MakeFilter(userInfo)
+	filter := db.MakeFilter(searchField)
 
-	var user User
-	err := collection.FindOne(context.TODO(), filter).Decode(&user)
+	var u User
+	err := collection.FindOne(context.TODO(), filter).Decode(&u)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v\n", err.Error())
 		return User{}
 	}
-	return user
+	return u
 }
