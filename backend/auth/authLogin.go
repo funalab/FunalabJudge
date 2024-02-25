@@ -1,13 +1,11 @@
 package auth
 
 import (
-	"context"
 	"go-test/db/users"
-	"os"
+	"go-test/util"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -17,28 +15,28 @@ type LoginRequest struct {
 }
 
 func LoginAuthenticator(c *gin.Context) (interface{}, error) {
-	var jsonRequest LoginRequest
+	client_, exists := c.Get("mongoClient")
+	if !exists {
+		util.ResponseDBNotFoundError(c)
+		return "", jwt.ErrFailedAuthentication
+	}
+	client := client_.(*mongo.Client)
 
+	var jsonRequest LoginRequest
 	if err := c.ShouldBind(&jsonRequest); err != nil {
 		return "", jwt.ErrMissingLoginValues
 	}
 
-	dbName := os.Getenv("DB_NAME")
-	usrCol := os.Getenv("USERS_COLLECTION")
-	client, _ := c.Get("mongoClient")
-	dbClient := client.(*mongo.Client)
-
-	var result users.User
-	filter := bson.M{"userName": jsonRequest.UserName}
-	err := dbClient.Database(dbName).Collection(usrCol).FindOne(context.TODO(), filter).Decode(&result)
+	searchField := users.User{UserName: jsonRequest.UserName}
+	u, err := users.SearchUser(client, searchField)
 	if err != nil {
 		return "", jwt.ErrMissingLoginValues
 	}
-	if !CheckPasswordHash(jsonRequest.Password, result.Password) {
+	if !CheckPasswordHash(jsonRequest.Password, u.Password) {
 		return "", jwt.ErrFailedAuthentication
 	}
 
-	return &result, nil
+	return &u, nil
 }
 
 func JwtMapper(data interface{}) jwt.MapClaims {

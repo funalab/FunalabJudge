@@ -1,4 +1,4 @@
-package users
+package problems
 
 import (
 	"context"
@@ -9,10 +9,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func UpdateUser(client *mongo.Client, searchField User, updateField User) error {
+func UpdateProblem(client *mongo.Client, searchField Problem, updateField Problem) error {
 	dbName := os.Getenv("DB_NAME")
-	usrCol := os.Getenv("USERS_COLLECTION")
-	collection := client.Database(dbName).Collection(usrCol)
+	prbCol := os.Getenv("PROBLEMS_COLLECTION")
+	collection := client.Database(dbName).Collection(prbCol)
 
 	sFilter := db.MakeFilter(searchField)
 	uFilter := bson.M{"$set": db.MakeFilter(updateField)}
