@@ -142,6 +142,7 @@ const SubmissionPage: React.FC = () => {
             <Thead>
               <Tr>
                 <Th>ケース名</Th>
+                <Th>テストケース詳細</Th>
                 <Th>結果</Th>
               </Tr>
             </Thead>
@@ -149,6 +150,7 @@ const SubmissionPage: React.FC = () => {
               {submission.Results.map((result) => (
                 <Tr>
                   <Td>{result.TestId}</Td>
+                  <Td></Td>
                   <Td>
                     <StatusBlock status={result.Status} />
                   </Td>
