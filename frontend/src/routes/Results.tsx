@@ -83,7 +83,7 @@ const ResultsPage: React.FC = () => {
                   Id={submissionWithStatus.Submission.Id}
                   SubmittedDate={submissionWithStatus.Submission.SubmittedDate}
                   ProblemId={submissionWithStatus.Submission.ProblemId}
-                  UserName={submissionWithStatus.Submission.UserName}
+                  UserId={submissionWithStatus.Submission.UserId}
                   Results={submissionWithStatus.Submission.Results}
                   Status={submissionWithStatus.Status}
                 />

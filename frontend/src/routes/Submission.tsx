@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
 import { Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
@@ -8,6 +8,8 @@ import { axiosClient } from '../providers/AxiosClientProvider'
 
 const SubmissionPage: React.FC = () => {
   const { submissionId } = useParams()
+  const location = useLocation();
+  const [totalStatus, setTotalStatus] = useState<string>('')
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
     UserId: 0,
@@ -32,6 +34,7 @@ const SubmissionPage: React.FC = () => {
           })
         }
         setScore(newScore)
+        setTotalStatus(location.state.status)
       })
       .catch(() => {
         console.log('error')
@@ -59,6 +62,7 @@ const SubmissionPage: React.FC = () => {
                 <Td>{submission.SubmittedDate}</Td>
                 <Td>{submission.ProblemId}</Td>
                 <Td>{score} / {submission.Results.length}</Td>
+                <Td>{totalStatus}</Td>
               </Tr>
             </Tbody>
           </Table>
