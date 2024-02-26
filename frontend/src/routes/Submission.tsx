@@ -73,15 +73,26 @@ const SubmissionPage: React.FC = () => {
             my={10}
             bg={"gray.50"}
             borderRadius={'2xl'}
+            boxShadow={'xl'}
           >
+            <p
+              className='pb-5 font-bold text-2xl'
+            >
+              あなたが提出したファイル一覧
+            </p>
             <Select
               value={selectedFileContent}
               onChange={handleSelectFile}
               mb={5}
+              color={'blue.500'}
+              fontStyle={'italic'}
+              fontWeight={'bold'}
             >
               {files.length > 0 && (
                 files.map((file) => (
-                  <option value={file.content}>
+                  <option
+                    value={file.content}
+                  >
                     {file.name}
                   </option>
                 ))
@@ -93,44 +104,53 @@ const SubmissionPage: React.FC = () => {
             />
           </Box>
         )}
-        <Heading>提出番号 {submissionId}</Heading>
-        <TableContainer>
+        <Box
+          p={10}
+          my={10}
+          bg={"gray.50"}
+          borderRadius={'2xl'}
+          boxShadow={'xl'}
+        >
+          <p className='pb-5 font-bold text-2xl'>ジャッジ結果</p>
+          <TableContainer>
+            <Table variant='simple'>
+              <Thead>
+                <Tr>
+                  <Th>提出日時</Th>
+                  <Th>問題</Th>
+                  <Th>得点</Th>
+                  <Th>判定</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>{Date(submission.SubmittedDate)}</Td>
+                  <Td>{submission.ProblemId}</Td>
+                  <Td>{score} / {submission.Results.length}</Td>
+                  <Td>{totalStatus}</Td>
+                </Tr>
+              </Tbody>
+            </Table>
+          </TableContainer>
+
+
           <Table variant='simple'>
             <Thead>
               <Tr>
-                <Th>提出日時</Th>
-                <Th>問題</Th>
-                <Th>得点</Th>
-                <Th>判定</Th>
+                <Th>ケース名</Th>
+                <Th>結果</Th>
               </Tr>
             </Thead>
             <Tbody>
-              <Tr>
-                <Td>{submission.SubmittedDate}</Td>
-                <Td>{submission.ProblemId}</Td>
-                <Td>{score} / {submission.Results.length}</Td>
-                <Td>{totalStatus}</Td>
-              </Tr>
+              {submission.Results.map((result) => (
+                <Tr>
+                  <Td>{result.TestId}</Td>
+                  <Td>{result.Status}</Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
-        </TableContainer>
-        <Heading>ジャッジ結果</Heading>
-        <Table variant='simple'>
-          <Thead>
-            <Tr>
-              <Th>ケース名</Th>
-              <Th>結果</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {submission.Results.map((result) => (
-              <Tr>
-                <Td>{result.TestId}</Td>
-                <Td>{result.Status}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+        </Box>
       </>
     </DefaultLayout>
   )
