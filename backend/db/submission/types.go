@@ -20,3 +20,8 @@ type SubmissionWithStatus struct {
 	Submission Submission `bson:",inline"`
 	Status     string     `bson:"status"`
 }
+
+type SubmittedFile struct {
+	Name    string `json:"name"`
+	Content string `json:"content"`
+}

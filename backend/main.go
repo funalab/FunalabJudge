@@ -58,6 +58,7 @@ func main() {
 		authed.GET("/getSubmissionList/:userName", handlers.GetSubmissionListHandler)
 		authed.GET("/getSubmission/:submissionId", handlers.GetSubmissionHandler)
 		authed.POST("/addSubmission/:userName", handlers.AddSubmissionHandler)
+		authed.GET("getSubmittedFiles/:submissionId", handlers.GetSubmittedFilesHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Heading, Tab, TabList, TabPanel, TabPanels, Table, TableContainer, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
+
+type SubmittedFile = {
+  name: string
+  content: string
+}
 
 const SubmissionPage: React.FC = () => {
   const { submissionId } = useParams()
   const location = useLocation();
   const [totalStatus, setTotalStatus] = useState<string>('')
+  const [files, setFiles] = useState<SubmittedFile[]>([])
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
     UserId: 0,
@@ -38,7 +44,17 @@ const SubmissionPage: React.FC = () => {
       })
       .catch(() => {
         console.log('error')
-        alert("Failed to fetch data from database")
+        alert("Failed to fetch data from database.")
+      })
+
+    axiosClient
+      .get(`getSubmittedFiles/${submissionId}`)
+      .then(({ data }) => {
+        setFiles(data)
+      })
+      .catch(() => {
+        console.log('error')
+        alert('Failed to fetch submitted files from database.')
       })
   }, []);
 
@@ -46,6 +62,26 @@ const SubmissionPage: React.FC = () => {
   return (
     <DefaultLayout>
       <>
+        {files && (
+          <Tabs variant='enclosed'>
+            <TabList>
+              {files.map((file) => (
+                <Tab>{file.name}</Tab>
+              ))}
+            </TabList>
+            <TabPanels>
+              {files.map((file) => (
+                <TabPanel>
+                  <pre>
+                    <code>
+                      {file.content}
+                    </code>
+                  </pre>
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </Tabs>
+        )}
         <Heading>提出番号 {submissionId}</Heading>
         <TableContainer>
           <Table variant='simple'>
@@ -67,7 +103,6 @@ const SubmissionPage: React.FC = () => {
             </Tbody>
           </Table>
         </TableContainer>
-
         <Heading>ジャッジ結果</Heading>
         <Table variant='simple'>
           <Thead>
