@@ -1,0 +1,3 @@
+type StatusProps = {
+  status: string
+}

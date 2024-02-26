@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Box, Heading, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
+import { getStatusColor } from '../api/GetStausColor'
+import StatusBlock from './StatusBlock'
 
 type SubmittedFile = {
   name: string
@@ -127,7 +129,9 @@ const SubmissionPage: React.FC = () => {
                   <Td>{Date(submission.SubmittedDate)}</Td>
                   <Td>{submission.ProblemId}</Td>
                   <Td>{score} / {submission.Results.length}</Td>
-                  <Td>{totalStatus}</Td>
+                  <Td>
+                    <StatusBlock status={totalStatus} />
+                  </Td>
                 </Tr>
               </Tbody>
             </Table>
@@ -145,14 +149,16 @@ const SubmissionPage: React.FC = () => {
               {submission.Results.map((result) => (
                 <Tr>
                   <Td>{result.TestId}</Td>
-                  <Td>{result.Status}</Td>
+                  <Td>
+                    <StatusBlock status={result.Status} />
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
           </Table>
         </Box>
       </>
-    </DefaultLayout>
+    </DefaultLayout >
   )
 }
 
