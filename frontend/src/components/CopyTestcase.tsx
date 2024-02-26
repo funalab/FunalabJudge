@@ -23,7 +23,7 @@ const CopyTestcase: React.FC<CopyTestcaseProps> = ({ text, content }) => {
 
   return (
     <>
-      <VStack mb={2}>
+      <VStack mb={2} mr={3}>
         <HStack spacing={4}>
           <Text fontSize={24} fontWeight={'bold'}>{text}</Text>
           <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>

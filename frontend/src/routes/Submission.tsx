@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Box, Center, Flex, Heading, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr, VStack } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
-import { getStatusColor } from '../api/GetStausColor'
 import StatusBlock from './StatusBlock'
+import CopyTestcase from '../components/CopyTestcase'
 
 type SubmittedFile = {
   name: string
@@ -20,6 +20,8 @@ const SubmissionPage: React.FC = () => {
   const [files, setFiles] = useState<SubmittedFile[]>([])
   const [selectedFileContent, setSelectedFileContent] = useState<string>('')
   const [score, setScore] = useState(0)
+  const [problemId, setProblemId] = useState(0)
+  const [testcases, setTestcases] = useState([])
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
     UserId: 0,
@@ -38,6 +40,7 @@ const SubmissionPage: React.FC = () => {
       .get(`/getSubmission/${submissionId}`)
       .then(({ data }) => {
         setSubmission(data)
+        setProblemId(data.ProblemId)
         let newScore = 0;
         {
           data.Results.forEach((result: Result) => {
@@ -65,6 +68,26 @@ const SubmissionPage: React.FC = () => {
         alert('Failed to fetch submitted files from database.')
       })
   }, []);
+
+  useEffect(() => {
+    if (problemId) {
+      axiosClient
+        .get(`getProblem/${problemId}`)
+        .then(({ data }) => {
+          console.log("Testcases >> ", data.Testcases)
+          const totals = []
+          const results = submission.Results
+          const ts = data.Testcases
+          for (let i = 0; i < results.length; i++) {
+            totals.push({
+              testcase: ts[i],
+              result: results[i]
+            })
+          }
+          setTestcases(totals)
+        })
+    }
+  }, [problemId])
 
   return (
     <DefaultLayout>
@@ -113,7 +136,7 @@ const SubmissionPage: React.FC = () => {
           borderRadius={'2xl'}
           boxShadow={'xl'}
         >
-          <p className='pb-5 font-bold text-2xl'>ジャッジ結果</p>
+          <p className='pb-5 font-bold text-2xl'>全てのテストケースのジャッジ結果</p>
           <TableContainer>
             <Table variant='simple'>
               <Thead>
@@ -138,21 +161,30 @@ const SubmissionPage: React.FC = () => {
           </TableContainer>
 
 
-          <Table variant='simple'>
+          <Table variant='simple' align="center">
             <Thead>
               <Tr>
-                <Th>ケース名</Th>
-                <Th>テストケース詳細</Th>
-                <Th>結果</Th>
+                <Th width={"30%"} textAlign={"center"}>ケース名</Th>
+                <Th width={"60%"} textAlign={"center"}>テストケース詳細</Th>
+                <Th width={"10%"} textAlign={"center"}>結果</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {submission.Results.map((result) => (
+              {testcases.map((t, index) => (
                 <Tr>
-                  <Td>{result.TestId}</Td>
-                  <Td></Td>
-                  <Td>
-                    <StatusBlock status={result.Status} />
+                  <Td width={"30%"} textAlign={"center"}>{index + 1}</Td>
+                  <Td width={"60%"} textAlign={"center"}>
+                    <Flex
+                      justifyContent={"center"}
+                    >
+                      <CopyTestcase text={`入力例${index + 1}`} content={t.testcase.InputFileContent} />
+                      <CopyTestcase text={`出力例${index + 1}`} content={t.testcase.OutputFileContent} />
+                    </Flex>
+                  </Td>
+                  <Td width={"10%"} textAlign={"center"}>
+                    <Flex justifyContent={"center"}>
+                      <StatusBlock status={t.result.Status} />
+                    </Flex>
                   </Td>
                 </Tr>
               ))}
