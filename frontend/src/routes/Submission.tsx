@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Heading, Tab, TabList, TabPanel, TabPanels, Table, TableContainer, Tabs, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Heading, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
@@ -16,6 +16,8 @@ const SubmissionPage: React.FC = () => {
   const location = useLocation();
   const [totalStatus, setTotalStatus] = useState<string>('')
   const [files, setFiles] = useState<SubmittedFile[]>([])
+  const [selectedFileContent, setSelectedFileContent] = useState<string>('')
+  const [score, setScore] = useState(0)
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
     UserId: 0,
@@ -25,7 +27,10 @@ const SubmissionPage: React.FC = () => {
     Status: ""
   })
 
-  const [score, setScore] = useState(0)
+  const handleSelectFile = (ev: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedFileContent(ev.target.value);
+  }
+
   useEffect(() => {
     axiosClient
       .get(`/getSubmission/${submissionId}`)
@@ -51,6 +56,7 @@ const SubmissionPage: React.FC = () => {
       .get(`getSubmittedFiles/${submissionId}`)
       .then(({ data }) => {
         setFiles(data)
+        setSelectedFileContent(data[0].content)
       })
       .catch(() => {
         console.log('error')
@@ -58,29 +64,34 @@ const SubmissionPage: React.FC = () => {
       })
   }, []);
 
-
   return (
     <DefaultLayout>
       <>
         {files && (
-          <Tabs variant='enclosed'>
-            <TabList>
-              {files.map((file) => (
-                <Tab>{file.name}</Tab>
-              ))}
-            </TabList>
-            <TabPanels>
-              {files.map((file) => (
-                <TabPanel>
-                  <pre>
-                    <code>
-                      {file.content}
-                    </code>
-                  </pre>
-                </TabPanel>
-              ))}
-            </TabPanels>
-          </Tabs>
+          <Box
+            p={10}
+            my={10}
+            bg={"gray.50"}
+            borderRadius={'2xl'}
+          >
+            <Select
+              value={selectedFileContent}
+              onChange={handleSelectFile}
+              mb={5}
+            >
+              {files.length > 0 && (
+                files.map((file) => (
+                  <option value={file.content}>
+                    {file.name}
+                  </option>
+                ))
+              )}
+            </Select>
+            <Textarea
+              value={selectedFileContent}
+              height="40vh"
+            />
+          </Box>
         )}
         <Heading>提出番号 {submissionId}</Heading>
         <TableContainer>
