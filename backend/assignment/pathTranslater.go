@@ -105,13 +105,14 @@ func parseProblemJSON(pf *os.File) (*ProblemJSON, error) {
 
 /*TODO: Check whether parsing would be done correctly.*/
 func parseTestcaseWithPathIntoTestcase(tws []problems.TestcaseWithPath) *[]Testcase {
+	staticDir := os.Getenv("STATIC_DIR")
 	ts := make([]Testcase, 0)
 	for _, tw := range tws {
-		sIn, err := os.ReadFile(filepath.Join("..", tw.InputFilePath))
+		sIn, err := os.ReadFile(filepath.Join(staticDir, tw.InputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
 		}
-		sOut, err := os.ReadFile(filepath.Join("..", tw.OutputFilePath))
+		sOut, err := os.ReadFile(filepath.Join(staticDir, tw.OutputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
 		}

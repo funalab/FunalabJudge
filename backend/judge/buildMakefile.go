@@ -7,12 +7,11 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 )
 
-func isHaveMakeFile(sId int) bool {
-	files, err := os.ReadDir(filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId)))
+func isHaveMakeFile(sId string) bool {
+	files, err := os.ReadDir(filepath.Join(os.Getenv("EXEC_DIR"), sId))
 	if err != nil {
 		log.Fatalf(err.Error())
 		return false
@@ -25,8 +24,8 @@ func isHaveMakeFile(sId int) bool {
 	return false
 }
 
-func writeMakeFile(sId int) error {
-	path := filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId), "Makefile")
+func writeMakeFile(sId string) error {
+	path := filepath.Join(os.Getenv("EXEC_DIR"), sId, "Makefile")
 	makefile, err := os.Create(path)
 	if err != nil {
 		log.Println("Failed to write make file.")
@@ -47,7 +46,7 @@ func writeMakeFile(sId int) error {
 	return nil
 }
 
-func writeOptions(mf *os.File, sId int) error {
+func writeOptions(mf *os.File, sId string) error {
 	err := writePROG(mf)
 	if err != nil {
 		return err
@@ -145,12 +144,12 @@ func writePROG(mf *os.File) error {
 	return nil
 }
 
-func writeOBJS(mf *os.File, sId int) error {
+func writeOBJS(mf *os.File, sId string) error {
 	_, err := io.WriteString(mf, "OBJS = ")
 	if err != nil {
 		return err
 	}
-	files, err := os.ReadDir(filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId)))
+	files, err := os.ReadDir(filepath.Join(os.Getenv("EXEC_DIR"), sId))
 	if err != nil {
 		return err
 	}

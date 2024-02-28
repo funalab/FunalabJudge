@@ -7,40 +7,31 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
-	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func updateSubmissionStatus(c *gin.Context, sId int, status string) {
-	client, exists := c.Get("mongoClient")
-	if !exists {
-		log.Fatal("DB client is not available.")
-	}
+func updateSubmissionStatus(client *mongo.Client, sId primitive.ObjectID, status string) {
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("SUBMISSION_COLLECTION")
-	collection := (client.(*mongo.Client)).Database(dbName).Collection(usrCol)
-	_, err := collection.UpdateOne(context.TODO(), bson.M{"id": sId}, bson.M{"$set": bson.M{"status": status}})
+	collection := client.Database(dbName).Collection(usrCol)
+	_, err := collection.UpdateOne(context.TODO(), bson.M{"_id": sId}, bson.M{"$set": bson.M{"status": status}})
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 }
 
-func updateSubmissionResult(c *gin.Context, sId int, tId int, status string) {
-	client, exists := c.Get("mongoClient")
-	if !exists {
-		log.Fatal("DB client is not available.")
-	}
+func updateSubmissionResult(client *mongo.Client, sId primitive.ObjectID, tId int, status string) {
 	dbName := os.Getenv("DB_NAME")
 	subCol := os.Getenv("SUBMISSION_COLLECTION")
-	collection := (client.(*mongo.Client)).Database(dbName).Collection(subCol)
+	collection := client.Database(dbName).Collection(subCol)
 
-	filter := bson.M{"id": sId}
+	filter := bson.M{"_id": sId}
 	update := bson.M{
 		"$set": bson.M{
 			"results.$[elem].status": status,
@@ -64,19 +55,19 @@ func compareWithAnswer(output string, answer string) bool {
 	return fixedOutput == fixedAnswer
 }
 
-func execCommand(sId int, command string) (string, error) {
+func execCommand(sId primitive.ObjectID, command string) (string, error) {
 	cmd := exec.Command("sh", "-c", command)
-	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId))
+	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
 
 	output, err := cmd.CombinedOutput()
 	return string(output), err
 }
 
-func execCommandWithInput(sId int, command string, input string) (string, error) {
+func execCommandWithInput(sId primitive.ObjectID, command string, input string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, "sh", "-c", command)
-	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId))
+	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
 
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
@@ -89,9 +80,9 @@ func execCommandWithInput(sId int, command string, input string) (string, error)
 	return string(output), err
 }
 
-func searchExecutableFile(sId int) (string, error) {
+func searchExecutableFile(sId primitive.ObjectID) (string, error) {
 	var executableFiles []string
-	targDir := filepath.Join(os.Getenv("EXEC_DIR"), strconv.Itoa(sId))
+	targDir := filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
 	err := filepath.Walk(targDir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
