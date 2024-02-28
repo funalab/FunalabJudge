@@ -10,10 +10,14 @@ const ExecutionConstraints: React.FC<ExecutionConstraintsProps> = ({ executionTi
   return (
     <>
       <HStack>
-        <Text>
+        <Text
+          fontWeight={"bold"}
+        >
           実行時間制限: {executionTime} sec
         </Text>
-        <Text>
+        <Text
+          fontWeight={"bold"}
+        >
           メモリ制限: {memoryLimit} MB
         </Text>
       </HStack>

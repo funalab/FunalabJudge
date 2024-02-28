@@ -1,4 +1,4 @@
-import { Text, Stack, Divider, Flex, HStack, Input, Textarea } from '@chakra-ui/react'
+import { Text, Stack, Divider, Flex, HStack, Input, Textarea, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import SubmitButton from './SubmitButton'
 
@@ -44,17 +44,14 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
 
   return (
     <>
-      <Divider />
-      <HStack>
+      <VStack mb={20}>
         <Text fontSize={30} fontWeight={'bold'}>Submit Form</Text>
-      </HStack>
-      <Stack>
-        <Input type="file" onChange={handleInputFile} multiple />
-        <Textarea placeholder="Your submitted files." value={filenames} />
-        <Flex>
+        <Stack>
+          <Input type="file" onChange={handleInputFile} multiple />
+          <Textarea placeholder="Your submitted files." value={filenames} />
           <SubmitButton selectedFiles={selectedFiles} problemId={problemId} />
-        </Flex>
-      </Stack>
+        </Stack>
+      </VStack>
     </>
   )
 }

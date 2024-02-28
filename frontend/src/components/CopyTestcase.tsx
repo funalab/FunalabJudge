@@ -26,7 +26,11 @@ const CopyTestcase: React.FC<CopyTestcaseProps> = ({ text, content }) => {
       <VStack mb={2} mr={3}>
         <HStack spacing={4}>
           <Text fontSize={24} fontWeight={'bold'}>{text}</Text>
-          <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
+          <Button
+            onClick={onCopy}
+            _hover={{ bg: "blue.300", color: "white", boxShadow: "xl" }}
+          >
+            {hasCopied ? "Copied!" : "Copy"}</Button>
         </HStack>
         <Textarea
           value={value}

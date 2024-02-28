@@ -40,7 +40,10 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
 
   return (
     <>
-      <Button onClick={handleClick}>
+      <Button
+        onClick={handleClick}
+        _hover={{ bg: "blue.300", color: "white", boxShadow: "xl" }}
+      >
         Submit
       </Button >
     </>

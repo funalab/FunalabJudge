@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Box, Stack } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter, Heading } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Heading, Text } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
@@ -51,18 +51,42 @@ export const CardList = ({ data }: CardListProps) => {
             return null;
           }
           return (
-            <Card key={assignment.ProblemResp.Pid} boxShadow={'dark-lg'}>
+            <Card
+              key={assignment.ProblemResp.Pid}
+              boxShadow={'xl'}
+              transition={"box-shadow 0.3s"}
+              _hover={{ top: -3, boxShadow: 'dark-lg', }}
+            >
               <CardHeader>
                 <Heading> {assignment.ProblemResp.Name}</Heading>
               </CardHeader>
               <CardBody>
-                <Box>
+                <Text
+                  fontWeight={"bold"}
+                >
                   Open: {new Date(assignment.OpenDate).toLocaleString()}
-                </Box>
-                <Box>
+                </Text>
+                <Text
+                  fontWeight={"bold"}
+                >
                   Close: {new Date(assignment.CloseDate).toLocaleString()}
-                </Box>
-                {assignment.Status && <Box bg="red.500" w='100%' display='flex' justifyContent="center" alignItems="center" color="white">DONE!!</Box>}
+                </Text>
+                {assignment.Status && (
+                  <Text
+                    bg="red.500"
+                    w='100%'
+                    h="50%"
+                    display='flex'
+                    justifyContent="center"
+                    alignItems="center"
+                    color="white"
+                    rounded={'xl'}
+                    mt="3"
+                    fontWeight={"bold"}
+                  >
+                    DONE!!
+                  </Text>
+                )}
               </CardBody>
               <CardFooter>
                 {new Date() > new Date(assignment.OpenDate) ? (
@@ -77,8 +101,9 @@ export const CardList = ({ data }: CardListProps) => {
               </CardFooter>
             </Card>
           );
-        })}
-      </SimpleGrid>
+        })
+        }
+      </SimpleGrid >
     );
   }
 
