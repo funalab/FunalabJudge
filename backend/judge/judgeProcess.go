@@ -8,103 +8,106 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func JudgeProcess(c *gin.Context, s submission.Submission) {
-	p := problems.GetProblemFromId(c, s.ProblemId)
-
+func JudgeProcess(client *mongo.Client, s submission.Submission) {
 	ceFlag := false
-	if !isHaveMakeFile(int(s.Id)) {
-		err := writeMakeFile(int(s.Id))
+	if !isHaveMakeFile(s.Id.Hex()) {
+		err := writeMakeFile(s.Id.Hex())
 		if err != nil {
 			log.Println("Failed to write make file :", err.Error())
-			updateSubmissionStatus(c, int(s.Id), "CE")
+			updateSubmissionStatus(client, s.Id, "CE")
 			ceFlag = true
 		}
 	}
 
-	_, err := execCommand(int(s.Id), "make")
+	_, err := execCommand(s.Id, "make")
 	if err != nil {
 		log.Println("Failed to compile :", err.Error())
-		updateSubmissionStatus(c, int(s.Id), "CE")
+		updateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
-	execFile, err := searchExecutableFile(int(s.Id))
+	execFile, err := searchExecutableFile(s.Id)
 	if err != nil {
 		log.Println("Failed to search executable file :", err.Error())
-		updateSubmissionStatus(c, int(s.Id), "CE")
+		updateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
+	p, err := problems.SearchProblemWithId(client, s.ProblemId)
+	if err != nil {
+		log.Fatalf("Failed to find single result from DB: %v\n", err)
+	}
 	if ceFlag {
 		for _, t := range p.TestcaseWithPaths {
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "CE")
+			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "CE")
 		}
 		return
 	}
 
 	// exec with all test cases
+	staticDir := os.Getenv("STATIC_DIR")
 	tLen := len(p.TestcaseWithPaths)
 	acNum := 0
 	reFlag := false
 	tleFlag := false
 	for i, t := range p.TestcaseWithPaths {
-		updateSubmissionStatus(c, int(s.Id), fmt.Sprintf("%d/%d", i, tLen))
+		updateSubmissionStatus(client, s.Id, fmt.Sprintf("%d/%d", i, tLen))
 
 		// exec test case
-		input, err := os.ReadFile(filepath.Join("..", t.InputFilePath))
+		input, err := os.ReadFile(filepath.Join(staticDir, t.InputFilePath))
 		if err != nil {
 			log.Println("Failed to read input of test case :", err.Error())
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
 		}
-		output, err := execCommandWithInput(int(s.Id), fmt.Sprintf("./%s", execFile), string(input))
+		output, err := execCommandWithInput(s.Id, fmt.Sprintf("./%s", execFile), string(input))
 		if err != nil {
 			if err.Error() == "signal: killed" {
 				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
-				updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "TLE")
+				updateSubmissionResult(client, s.Id, int(t.TestcaseId), "TLE")
 				tleFlag = true
 			} else {
 				log.Println("Failed to run the testcase. RE is caused :", err.Error())
-				updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+				updateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 			}
 			continue
 		}
 
 		// judge result
-		answer, err := os.ReadFile(filepath.Join("..", t.OutputFilePath))
+		answer, err := os.ReadFile(filepath.Join(staticDir, t.OutputFilePath))
 		if err != nil {
 			log.Println("Failed to read output of test case :", err.Error())
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "RE")
+			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
 		}
 		if compareWithAnswer(output, string(answer)) {
 			acNum++
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "AC")
+			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "AC")
 		} else {
-			updateSubmissionResult(c, int(s.Id), int(t.TestcaseId), "WA")
+			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "WA")
 		}
 	}
 	// judge pass/fail and update status
 	if reFlag {
-		updateSubmissionStatus(c, int(s.Id), "RE")
+		updateSubmissionStatus(client, s.Id, "RE")
 	} else if tleFlag {
-		updateSubmissionStatus(c, int(s.Id), "TLE")
+		updateSubmissionStatus(client, s.Id, "TLE")
 	} else if acNum < int(p.BorderScore) {
-		updateSubmissionStatus(c, int(s.Id), "WA")
+		updateSubmissionStatus(client, s.Id, "WA")
 	} else {
-		updateSubmissionStatus(c, int(s.Id), "AC")
+		updateSubmissionStatus(client, s.Id, "AC")
 	}
 
-	_, err = execCommand(int(s.Id), "make clean")
+	_, err = execCommand(s.Id, "make clean")
 	if err != nil {
 		log.Println("Failed to exec make clean :", err.Error())
-		updateSubmissionStatus(c, int(s.Id), "RE")
+		updateSubmissionStatus(client, s.Id, "RE")
 		return
 	}
 }

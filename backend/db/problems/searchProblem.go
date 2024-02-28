@@ -2,18 +2,18 @@ package problems
 
 import (
 	"context"
-	"go-test/db"
 	"os"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SearchProblem(client *mongo.Client, searchField Problem) (Problem, error) {
+func SearchProblemWithId(client *mongo.Client, problemId int32) (Problem, error) {
 	dbName := os.Getenv("DB_NAME")
-	prbCol := os.Getenv("PROBLEM_COLLECTION")
+	prbCol := os.Getenv("PROBLEMS_COLLECTION")
 	collection := client.Database(dbName).Collection(prbCol)
 
-	filter := db.MakeFilter(searchField)
+	filter := bson.M{"problemId": problemId}
 
 	var p Problem
 	err := collection.FindOne(context.TODO(), filter).Decode(&p)

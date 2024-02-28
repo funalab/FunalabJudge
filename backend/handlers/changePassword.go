@@ -30,8 +30,7 @@ func ChangePasswordHandler(c *gin.Context) {
 		return
 	}
 
-	searchField := users.User{UserName: jsonRequest.UserName}
-	u, err := users.SearchUser(client, searchField)
+	u, err := users.SearchUserWithUserName(client, jsonRequest.UserName)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "Failed to find single result from DB:" + err.Error()})
 		return
@@ -45,7 +44,7 @@ func ChangePasswordHandler(c *gin.Context) {
 	hash, _ := auth.HashPassword(jsonRequest.NewPass)
 	updateField := users.User{Password: hash}
 
-	err = users.UpdateUser(client, searchField, updateField)
+	err = users.UpdateUserWithUserName(client, u.UserName, updateField)
 	println(err == nil)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "update failed :" + err.Error()})

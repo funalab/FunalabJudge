@@ -1,41 +1,34 @@
 package handlers
 
 import (
-	"context"
 	"log"
-	"net/http"
-	"os"
-	"strconv"
 
 	"go-test/db/submission"
+	"go-test/util"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func GetSubmissionHandler(c *gin.Context) {
-	submissionId := c.Param("submissionId")
-	client, exists := c.Get("mongoClient")
+	client_, exists := c.Get("mongoClient")
 	if !exists {
-		c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not availale."})
+		util.ResponseDBNotFoundError(c)
+		return
 	}
-	dbName := os.Getenv("DB_NAME")
-	submitCol := os.Getenv("SUBMISSION_COLLECTION")
-	collection := (client.(*mongo.Client)).Database(dbName).Collection(submitCol)
+	client := client_.(*mongo.Client)
 
-	id, err := strconv.Atoi(submissionId)
-	filter := bson.D{{Key: "id", Value: id}}
-
-	var submission submission.Submission
-	err = collection.FindOne(context.TODO(), filter).Decode(&submission)
+	submissionId := c.Param("submissionId")
+	sId, err := primitive.ObjectIDFromHex(submissionId)
+	if err != nil {
+		log.Printf("Failed to parse objectId from hex: %v \n", err.Error())
+		c.JSON(400, err.Error())
+	}
+	s, err := submission.SearchSubmissionWithId(client, sId)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v \n", err.Error())
 		c.JSON(400, err.Error())
 	}
-
-	if err != nil {
-		c.JSON(400, err.Error())
-	}
-	c.JSON(200, submission)
+	c.JSON(200, s)
 }

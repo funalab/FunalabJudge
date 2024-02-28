@@ -5,7 +5,6 @@ import (
 	"go-test/auth"
 	"go-test/db"
 	"go-test/handlers"
-	"go-test/util"
 	"log"
 	"net/http"
 	"time"
@@ -13,10 +12,13 @@ import (
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	util.LoadEnv()
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Failed to load .env file.")
+	}
 	router := gin.Default()
 
 	router.Use(cors.New(cors.Config{
@@ -31,7 +33,7 @@ func main() {
 		// AllowMethods: []string{},
 	}))
 
-	err, client := db.Mongo_connectable()
+	client, err := db.Mongo_connectable()
 	if err != nil {
 		log.Printf("Connection err: %v\n", err.Error())
 	}
@@ -58,7 +60,7 @@ func main() {
 		authed.GET("/getSubmissionList/:userName", handlers.GetSubmissionListHandler)
 		authed.GET("/getSubmission/:submissionId", handlers.GetSubmissionHandler)
 		authed.POST("/addSubmission/:userName", handlers.AddSubmissionHandler)
-		authed.GET("getSubmittedFiles/:submissionId", handlers.GetSubmittedFilesHandler)
+		authed.GET("/getSubmittedFiles/:submissionId", handlers.GetSubmittedFilesHandler)
 	}
 
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
