@@ -1,5 +1,5 @@
 import { Button } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { axiosClient } from '../providers/AxiosClientProvider'
 
@@ -28,7 +28,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
     }
     await axiosClient.post(`/addSubmission/${userName}`, {
       problemId: problemId,
-      submittedDate: new Date(),
       files: selectedFiles,
     }, {
       headers: {

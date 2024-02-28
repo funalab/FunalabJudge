@@ -17,7 +17,7 @@ import (
 func GetProblemListHandler(c *gin.Context) {
 	dbName := os.Getenv("DB_NAME")
 	prbCol := os.Getenv("PROBLEMS_COLLECTION")
-	submitCol := os.Getenv("SUBMISSION_COLLECTION")
+	subCol := os.Getenv("SUBMISSION_COLLECTION")
 	client, exists := c.Get("mongoClient")
 	if !exists {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Database client not available"})
@@ -36,7 +36,7 @@ func GetProblemListHandler(c *gin.Context) {
 	}
 	//　続いてstatusを決定する。submissionのテーブルみに行って、userでまず引っ掛ける。その後problemIdごとに全てのテストケースでACになっているsubmittionが存在するかチェック
 	// TODO userでの絞り込みは現状してない, 全てのユーザーの全ての提出をみている
-	submissionCollection := dbClient.Database(dbName).Collection(submitCol)
+	submissionCollection := dbClient.Database(dbName).Collection(subCol)
 	resps := make([]assignment.ProblemRespWithDateInfo, 0)
 	for _, problem := range problems {
 		filter := bson.M{"problemId": problem.ProblemId}

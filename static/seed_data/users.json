@@ -1,30 +1,26 @@
 [
     {
-        "userId": 1,
         "userName": "isoda",
         "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
-        "createdDate": "2024-02-08T04:41:00",
+        "createdDate": "2024-02-08T04:41:00Z",
         "role": "admin"
     },
     {
-        "userId": 2,
         "userName": "araki",
         "password": "$2a$08$38tC08IBMz/xSbARcPcqIesYwg8f3aiZN42obqr4BvICS27FV.1Hi",
-        "createdDate": "2024-02-08T04:31:00",
+        "createdDate": "2024-02-08T04:31:00Z",
         "role": "admin"
     },
     {
-        "userId": 3,
         "userName": "rkimura",
         "password": "$2a$08$laH5k4fyAV3sKeDPp/QqR.DU/QPlW8UNYtfxoE2ceadVpXBprCxOi",
-        "createdDate": "2024-02-08T03:34:00",
+        "createdDate": "2024-02-08T03:34:00Z",
         "role": "admin"
     },
     {
-        "userId": 4,
         "userName": "kawakita",
         "password": "$2a$08$hV.s4wNRjTWCftM3uIVKSOHP1sJUVZb9uvFArAm49mwuuxldfRyl6",
-        "createdDate": "2024-02-09T08:13:00",
+        "createdDate": "2024-02-09T08:13:00Z",
         "role": "user"
     }
 ]

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
 import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import SubmissionTableRow, { SubmissionWithStatusProps } from '../components/SubmissionTableRow';
+import SubmissionTableRow, { SubmissionTableRowProps } from '../components/SubmissionTableRow';
 import { axiosClient } from '../providers/AxiosClientProvider';
 
 const ResultsPage: React.FC = () => {
   const { userName } = useParams()
-  const [submissionsWithStatus, setSubmissionWithStatus] = useState<SubmissionWithStatusProps[]>([])
+  const [submissions, setSubmissions] = useState<SubmissionTableRowProps[]>([])
   const [haveNotComplete, setHaveNotComplete] = useState<boolean>(false)
 
   useEffect(() => {
@@ -15,9 +15,9 @@ const ResultsPage: React.FC = () => {
       .get(`/getSubmissionList/${userName}`)
       .then((response) => {
         const { data } = response;
-        setSubmissionWithStatus(data.reverse())
+        setSubmissions(data.reverse())
         const complete = ["AC", "WA", "CE", "TLE", "RE"]
-        data.map((submission: SubmissionWithStatusProps) => {
+        data.map((submission: SubmissionTableRowProps) => {
           if (!complete.includes(submission.Status)) {
             setHaveNotComplete(true)
           }
@@ -36,10 +36,10 @@ const ResultsPage: React.FC = () => {
         axiosClient.get(`/getSubmissionList/${userName}`)
           .then((response) => {
             const { data } = response;
-            setSubmissionWithStatus(data.reverse())
+            setSubmissions(data.reverse())
             const complete = ["AC", "WA", "CE", "TLE", "RE"]
             let completeFlag = true
-            data.map((submission: SubmissionWithStatusProps) => {
+            data.map((submission: SubmissionTableRowProps) => {
               if (!complete.includes(submission.Status)) {
                 completeFlag = false
               }
@@ -78,14 +78,14 @@ const ResultsPage: React.FC = () => {
               {/* This section is ongoing-judge submission row. */}
 
               {/* This section is existing submission list. */}
-              {submissionsWithStatus?.map(submissionWithStatus => (
+              {submissions?.map(submissions => (
                 <SubmissionTableRow
-                  Id={submissionWithStatus.Submission.Id}
-                  SubmittedDate={submissionWithStatus.Submission.SubmittedDate}
-                  ProblemId={submissionWithStatus.Submission.ProblemId}
-                  UserId={submissionWithStatus.Submission.UserId}
-                  Results={submissionWithStatus.Submission.Results}
-                  Status={submissionWithStatus.Status}
+                  Id={submissions.Id}
+                  SubmittedDate={submissions.SubmittedDate}
+                  ProblemId={submissions.ProblemId}
+                  UserName={submissions.UserName}
+                  Results={submissions.Results}
+                  Status={submissions.Status}
                 />
               ))}
             </Tbody>
