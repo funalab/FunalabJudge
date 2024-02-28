@@ -9,12 +9,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func UpdateUser(client *mongo.Client, searchField User, updateField User) error {
+func UpdateUserWithUserName(client *mongo.Client, userName string, updateField User) error {
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("USERS_COLLECTION")
 	collection := client.Database(dbName).Collection(usrCol)
 
-	sFilter := db.MakeFilter(searchField)
+	sFilter := bson.M{"userName": userName}
 	uFilter := bson.M{"$set": db.MakeFilter(updateField)}
 
 	_, err := collection.UpdateOne(context.TODO(), sFilter, uFilter)
