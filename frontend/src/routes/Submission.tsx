@@ -22,6 +22,7 @@ const SubmissionPage: React.FC = () => {
   const [score, setScore] = useState(0)
   const [problemId, setProblemId] = useState(0)
   const [testcases, setTestcases] = useState([])
+  const [problemName, setProblemName] = useState("")
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
     UserId: 0,
@@ -60,7 +61,7 @@ const SubmissionPage: React.FC = () => {
     axiosClient
       .get(`getSubmittedFiles/${submissionId}`)
       .then(({ data }) => {
-        setFiles(data)
+        setFiles(data.reverse())
         setSelectedFileContent(data[0].content)
       })
       .catch(() => {
@@ -74,7 +75,7 @@ const SubmissionPage: React.FC = () => {
       axiosClient
         .get(`getProblem/${problemId}`)
         .then(({ data }) => {
-          console.log("Testcases >> ", data.Testcases)
+          setProblemName(data.Name)
           const totals = []
           const results = submission.Results
           const ts = data.Testcases
@@ -150,7 +151,7 @@ const SubmissionPage: React.FC = () => {
               <Tbody>
                 <Tr>
                   <Td>{new Date(submission.SubmittedDate).toLocaleString()}</Td>
-                  <Td>{submission.ProblemId}</Td>
+                  <Td>{problemName}</Td>
                   <Td>{score} / {submission.Results.length}</Td>
                   <Td>
                     <StatusBlock status={totalStatus} />
