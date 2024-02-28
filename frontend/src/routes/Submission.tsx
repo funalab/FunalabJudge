@@ -149,7 +149,7 @@ const SubmissionPage: React.FC = () => {
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>{Date(submission.SubmittedDate)}</Td>
+                  <Td>{new Date(submission.SubmittedDate).toLocaleString()}</Td>
                   <Td>{submission.ProblemId}</Td>
                   <Td>{score} / {submission.Results.length}</Td>
                   <Td>
@@ -159,37 +159,37 @@ const SubmissionPage: React.FC = () => {
               </Tbody>
             </Table>
           </TableContainer>
-
-
-          <Table variant='simple' align="center">
-            <Thead>
-              <Tr>
-                <Th width={"30%"} textAlign={"center"}>ケース名</Th>
-                <Th width={"60%"} textAlign={"center"}>テストケース詳細</Th>
-                <Th width={"10%"} textAlign={"center"}>結果</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {testcases.map((t, index) => (
+          <TableContainer>
+            <Table variant='simple' align="center">
+              <Thead>
                 <Tr>
-                  <Td width={"30%"} textAlign={"center"}>{index + 1}</Td>
-                  <Td width={"60%"} textAlign={"center"}>
-                    <Flex
-                      justifyContent={"center"}
-                    >
-                      <CopyTestcase text={`入力例${index + 1}`} content={t.testcase.InputFileContent} />
-                      <CopyTestcase text={`出力例${index + 1}`} content={t.testcase.OutputFileContent} />
-                    </Flex>
-                  </Td>
-                  <Td width={"10%"} textAlign={"center"}>
-                    <Flex justifyContent={"center"}>
-                      <StatusBlock status={t.result.Status} />
-                    </Flex>
-                  </Td>
+                  <Th width={"30%"} textAlign={"center"}>ケース名</Th>
+                  <Th width={"60%"} textAlign={"center"}>テストケース詳細</Th>
+                  <Th width={"10%"} textAlign={"center"}>結果</Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
+              </Thead>
+              <Tbody>
+                {testcases.map((t, index) => (
+                  <Tr>
+                    <Td width={"30%"} textAlign={"center"}>{index + 1}</Td>
+                    <Td width={"60%"} textAlign={"center"}>
+                      <Flex
+                        justifyContent={"center"}
+                      >
+                        <CopyTestcase text={`入力例${index + 1}`} content={t.testcase.InputFileContent} />
+                        <CopyTestcase text={`出力例${index + 1}`} content={t.testcase.OutputFileContent} />
+                      </Flex>
+                    </Td>
+                    <Td width={"10%"} textAlign={"center"}>
+                      <Flex justifyContent={"center"}>
+                        <StatusBlock status={t.result.Status} />
+                      </Flex>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </TableContainer>
         </Box>
       </>
     </DefaultLayout >

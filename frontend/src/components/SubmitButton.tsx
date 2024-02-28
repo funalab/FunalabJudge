@@ -19,6 +19,7 @@ interface SubmitButtonProps {
 const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId }) => {
   const { userName } = useParams()
   const navigate = useNavigate();
+
   const handleClick = async () => {
     /*navigate into submission queue endpoint with files*/
     if (selectedFiles.length === 0) {

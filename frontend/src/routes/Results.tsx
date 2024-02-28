@@ -15,7 +15,7 @@ const ResultsPage: React.FC = () => {
       .get(`/getSubmissionList/${userName}`)
       .then((response) => {
         const { data } = response;
-        setSubmissionWithStatus(data)
+        setSubmissionWithStatus(data.reverse())
         const complete = ["AC", "WA", "CE", "TLE", "RE"]
         data.map((submission: SubmissionWithStatusProps) => {
           if (!complete.includes(submission.Status)) {
@@ -36,7 +36,7 @@ const ResultsPage: React.FC = () => {
         axiosClient.get(`/getSubmissionList/${userName}`)
           .then((response) => {
             const { data } = response;
-            setSubmissionWithStatus(data)
+            setSubmissionWithStatus(data.reverse())
             const complete = ["AC", "WA", "CE", "TLE", "RE"]
             let completeFlag = true
             data.map((submission: SubmissionWithStatusProps) => {
@@ -61,7 +61,7 @@ const ResultsPage: React.FC = () => {
   return (
     <>
       <DefaultLayout>
-        <Heading>自分の提出</Heading>
+        <Heading mt={5}>自分の提出</Heading>
         <Divider />
         <TableContainer>
           <Table variant='simple'>
