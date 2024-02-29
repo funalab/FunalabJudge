@@ -17,7 +17,7 @@ func GetSubmissionListHandler(c *gin.Context) {
 	client := client_.(*mongo.Client)
 
 	userName := c.Param("userName")
-	submissions, err := submission.SearchSubmissionsWithUserName(client, userName)
+	submissions, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName})
 	if err != nil {
 		c.JSON(400, err.Error())
 	}

@@ -3,51 +3,14 @@ package judge
 import (
 	"context"
 	"errors"
-	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
-
-func updateSubmissionStatus(client *mongo.Client, sId primitive.ObjectID, status string) {
-	dbName := os.Getenv("DB_NAME")
-	usrCol := os.Getenv("SUBMISSION_COLLECTION")
-	collection := client.Database(dbName).Collection(usrCol)
-	_, err := collection.UpdateOne(context.TODO(), bson.M{"_id": sId}, bson.M{"$set": bson.M{"status": status}})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-}
-
-func updateSubmissionResult(client *mongo.Client, sId primitive.ObjectID, tId int, status string) {
-	dbName := os.Getenv("DB_NAME")
-	subCol := os.Getenv("SUBMISSION_COLLECTION")
-	collection := client.Database(dbName).Collection(subCol)
-
-	filter := bson.M{"_id": sId}
-	update := bson.M{
-		"$set": bson.M{
-			"results.$[elem].status": status,
-		},
-	}
-	arrayFilters := options.ArrayFilters{
-		Filters: []interface{}{bson.M{"elem.testCaseId": tId}},
-	}
-
-	_, err := collection.UpdateOne(context.TODO(), filter, update, &options.UpdateOptions{
-		ArrayFilters: &arrayFilters,
-	})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-}
 
 func compareWithAnswer(output string, answer string) bool {
 	fixedOutput := strings.TrimRight(output, "\n")

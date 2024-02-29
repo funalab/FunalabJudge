@@ -1,14 +1,14 @@
 package auth
 
 import (
-	"fmt"
 	"go-test/db/submission"
 	"go-test/db/users"
 	"go-test/util"
-	"strconv"
+	"log"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -36,13 +36,18 @@ func UserAuthorizator(data interface{}, c *gin.Context) bool {
 			urlUserName := c.Param("userName")
 			if urlUserName == "" { // userNameを含まないエンドポイントの場合
 				if c.Param("submissionId") != "" {
-					urlSubmissionId, err := strconv.Atoi(c.Param("submissionId"))
+					sId, err := primitive.ObjectIDFromHex(c.Param("submissionId"))
 					if err != nil {
-						fmt.Println(err)
-						return false
+						log.Printf("Failed to parse submissionId : %s\n", err.Error())
 					}
-					s, err := submission.SearchSubmissionWithId(client, int32(urlSubmissionId))
-					u, err := users.SearchUserWithUserName(client, s.UserName)
+					s, err := submission.SearchOneSubmissionWithId(client, sId)
+					if err != nil {
+						log.Printf("Failed to search submission from id : %s\n", err.Error())
+					}
+					u, err := users.SearchOneUserWithUserName(client, s.UserName)
+					if err != nil {
+						log.Printf("Failed to search user from userName : %s\n", err.Error())
+					}
 					urlUserName = u.UserName
 				} else {
 					// userNameもsubmissionIdもない = 全ユーザがアクセス可能なエンドポイント

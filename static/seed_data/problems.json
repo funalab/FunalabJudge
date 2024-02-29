@@ -1,51 +1,59 @@
 [
   {
     "problemId": 1,
-    "problemPath": "static/problems/c/c1.json",
-    "inputFormat": "C1 inputFormat",
-    "outputFormat": "C1 outputFormat",
+    "name": "My Alpha",
+    "statement": "キーボード (標準入力)から文字を受け取り、その文字がアルファベットなら、次の処理を実行するプログラムを作成してください。\n入力が大文字なら小文字に、小文字なら大文字に変換する。\nただし入力はEOF (Ctrl + D)を受け取るまで繰り返されます。",
+    "constraints": "入力はあらゆる文字\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
     "openDate": "2024-01-01T00:00:00Z",
     "closeDate": "2024-01-23T00:00:00Z",
     "borderScore": 3,
-    "testCases": [
+    "testcaseWithPaths": [
       {
-        "testCaseId": 1,
+        "testcaseId": 1,
         "inputFilePath": "testcases/c/c1/1/input.txt",
         "outputFilePath": "testcases/c/c1/1/output.txt"
       },
       {
-        "testCaseId": 2,
+        "testcaseId": 2,
         "inputFilePath": "testcases/c/c1/2/input.txt",
         "outputFilePath": "testcases/c/c1/2/output.txt"
       },
       {
-        "testCaseId": 3,
+        "testcaseId": 3,
         "inputFilePath": "testcases/c/c1/3/input.txt",
         "outputFilePath": "testcases/c/c1/3/output.txt"
       }
     ]
   },
   {
-    "problemId": 2,
-    "problemPath": "static/problems/c/c2_1.json",
-    "inputFormat": "C1 inputFormat",
-    "outputFormat": "C1 outputFormat",
+    "id": 2,
+    "name": "My Cat",
+    "statement": "EOF (Ctrl + D)を受け取るまで標準入力から文字列を受け取り、標準出力するmain関数を実装してください。",
+    "constraints": "入力はあらゆる文字列\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
     "openDate": "2024-01-01T00:00:00Z",
     "closeDate": "2024-01-23T00:00:00Z",
     "borderScore": 3,
-    "testCases": [
+    "testcaseWithPaths": [
       {
-        "testCaseId": 1,
+        "testcaseId": 1,
         "inputFilePath": "testcases/c/c2_1/1/input.txt",
         "outputFilePath": "testcases/c/c2_1/1/output.txt"
       },
       {
-        "testCaseId": 2,
+        "testcaseId": 2,
         "inputFilePath": "testcases/c/c2_1/2/input.txt",
         "outputFilePath": "testcases/c/c2_1/2/output.txt"
       },
       {
-        "testCaseId": 3,
+        "testcaseId": 3,
         "inputFilePath": "testcases/c/c2_1/3/input.txt",
         "outputFilePath": "testcases/c/c2_1/3/output.txt"
       }

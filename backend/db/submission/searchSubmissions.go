@@ -2,6 +2,7 @@ package submission
 
 import (
 	"context"
+	"go-test/db"
 	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -9,7 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SearchSubmissionWithId(client *mongo.Client, sId primitive.ObjectID) (Submission, error) {
+func SearchOneSubmissionWithId(client *mongo.Client, sId primitive.ObjectID) (Submission, error) {
 	dbName := os.Getenv("DB_NAME")
 	subCol := os.Getenv("SUBMISSION_COLLECTION")
 	collection := client.Database(dbName).Collection(subCol)
@@ -21,14 +22,14 @@ func SearchSubmissionWithId(client *mongo.Client, sId primitive.ObjectID) (Submi
 	return s, err
 }
 
-func SearchSubmissionsWithUserName(client *mongo.Client, userName string) ([]Submission, error) {
+func SearchSubmissions(client *mongo.Client, searchField Submission) ([]Submission, error) {
 	dbName := os.Getenv("DB_NAME")
 	subCol := os.Getenv("SUBMISSION_COLLECTION")
 	collection := client.Database(dbName).Collection(subCol)
 
-	filter := bson.M{"userName": userName}
+	sFilter := db.MakeFilter(searchField)
 
-	cursor, err := collection.Find(context.TODO(), filter)
+	cursor, err := collection.Find(context.TODO(), sFilter)
 	if err != nil {
 		return []Submission{}, err
 	}

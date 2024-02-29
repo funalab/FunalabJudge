@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import { Divider, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import ExecutionConstraints from "../components/ExecutionConstraints";
 import InputOutputBox from "../components/InputOutputBox";
-import Testcase, { TestcaseProps } from "../components/Testcase";
+import TestcaseBox from "../components/TestcaseBox";
 import DefaultLayout from "../components/DefaultLayout";
 import { axiosClient } from "../providers/AxiosClientProvider";
 import SubmitForm from "../components/SubmitForm";
+import { ProblemWithTestcase, Testcase } from "../types/DbTypes";
 
 const ProblemPage = () => {
   const { problemId } = useParams<string>();
@@ -14,24 +15,24 @@ const ProblemPage = () => {
   const [executionTime, setExecutionTime] = useState(0);
   const [memoryLimit, setMemoryLimit] = useState(0);
   const [statement, setStatement] = useState("");
-  const [problemConstraints, setProblemConstraints] = useState([]);
+  const [problemConstraints, setProblemConstraints] = useState("");
   const [inputFormat, setInputFormat] = useState("");
   const [outputFormat, setOutputFormat] = useState("");
-  const [testcases, setTestcases] = useState([]);
+  const [testcases, setTestcases] = useState<Testcase[]>([]);
 
   useEffect(() => {
     axiosClient
-      .get(`/getProblem/${problemId}`)
+      .get<ProblemWithTestcase>(`/getProblem/${problemId}`)
       .then((response) => {
-        const { data } = response;
-        setName(data.Name);
-        setExecutionTime(data.ExTime);
-        setMemoryLimit(data.MemLim);
-        setStatement(data.Statement);
-        setProblemConstraints(data.PrbConst);
-        setInputFormat(data.InputFmt);
-        setOutputFormat(data.OutputFmt);
-        setTestcases(data.Testcases);
+        const p: ProblemWithTestcase = response.data;
+        setName(p.Name);
+        setExecutionTime(p.ExecutionTime);
+        setMemoryLimit(p.MemoryLimit);
+        setStatement(p.Statement);
+        setProblemConstraints(p.Constraints);
+        setInputFormat(p.InputFmt);
+        setOutputFormat(p.OutputFmt);
+        setTestcases(p.Testcases);
       })
       .catch(() => {
         console.log("error");
@@ -92,10 +93,10 @@ const ProblemPage = () => {
           </Stack>
           <Divider />
           <Text fontSize={32} fontWeight={'bold'}>Sample Cases</Text>
-          {testcases.map((testcase: TestcaseProps, index: number) => (
+          {testcases.map((testcase: Testcase, index: number) => (
             <>
-              <Testcase
-                id={String(index + 1)}
+              <TestcaseBox
+                TestcaseId={index + 1}
                 InputFileContent={testcase.InputFileContent}
                 OutputFileContent={testcase.OutputFileContent}
               />
