@@ -78,9 +78,9 @@ func main() {
 			insertInterface = append(insertInterface, v)
 		}
 	}
-	_, err = client.Database(dbName).Collection(*targCol).InsertMany(context.TODO(), insertInterface)
+	insertResult, err := client.Database(dbName).Collection(*targCol).InsertMany(context.TODO(), insertInterface)
 	if err != nil {
 		log.Fatalf("failed to insert :%s\n", err.Error())
 	}
-	log.Println("insert completed!")
+	log.Printf("Inserted %v documents in %s collection!\n", len(insertResult.InsertedIDs), *targCol)
 }
