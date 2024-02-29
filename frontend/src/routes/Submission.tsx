@@ -7,10 +7,16 @@ import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
 import StatusBlock from './StatusBlock'
 import CopyTestcase from '../components/CopyTestcase'
+import { ProblemWithTestcase, Testcase } from '../types/DbTypes'
 
 type SubmittedFile = {
   name: string
   content: string
+}
+
+type TestcaseWithResult = {
+  testcase: Testcase,
+  result: Result
 }
 
 const SubmissionPage: React.FC = () => {
@@ -21,11 +27,11 @@ const SubmissionPage: React.FC = () => {
   const [selectedFileContent, setSelectedFileContent] = useState<string>('')
   const [score, setScore] = useState(0)
   const [problemId, setProblemId] = useState(0)
-  const [testcases, setTestcases] = useState([])
+  const [testcases, setTestcases] = useState<TestcaseWithResult[]>([])
   const [problemName, setProblemName] = useState("")
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
     Id: 0,
-    UserId: 0,
+    UserName: "",
     ProblemId: 0,
     SubmittedDate: "",
     Results: [] as Result[],
@@ -73,17 +79,21 @@ const SubmissionPage: React.FC = () => {
   useEffect(() => {
     if (problemId) {
       axiosClient
-        .get(`getProblem/${problemId}`)
+        .get<ProblemWithTestcase>(`/getProblem/${problemId}`)
         .then(({ data }) => {
-          setProblemName(data.Name)
-          const totals = []
+          const p: ProblemWithTestcase = data;
+          console.log(p)
+          setProblemName(p.Name)
+          const totals: TestcaseWithResult[] = []
           const results = submission.Results
-          const ts = data.Testcases
+          const ts = p.Testcases
           for (let i = 0; i < results.length; i++) {
-            totals.push({
+            totals.push()
+            let twr: TestcaseWithResult = {
               testcase: ts[i],
               result: results[i]
-            })
+            }
+            totals.push(twr)
           }
           setTestcases(totals)
         })
