@@ -4,30 +4,15 @@ import { Card, CardHeader, CardBody, CardFooter, Heading, Text } from '@chakra-u
 import { SimpleGrid } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
+import { Problem } from '../types/DbTypes';
 
-interface Problems {
-  CloseDate: string,
-  OpenDate: string,
-  Status: boolean
-  ProblemResp: ProblemResp,
-}
-
-interface ProblemResp {
-  Pid: number,
-  Name: string,
-  ExTime: number,
-  MemLim: number,
-  Statement: string,
-  Prbconst: string,
-  InputFmt: string,
-  OutputFmt: string,
-  OpenDate: string,
-  CloseDate: string,
-  BorderScore: number,
+interface problemWithStatus {
+	Problem: Problem,
+	Status: boolean,
 }
 
 interface CardListProps {
-  data: Problems[];
+  data: problemWithStatus[];
 }
 
 export const CardList = ({ data }: CardListProps) => {
@@ -42,36 +27,31 @@ export const CardList = ({ data }: CardListProps) => {
     return (
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
-        {data.map((assignment) => {
+        {data.map((pws) => {
           // CheckBoxの状態に応じて表示するカードを変更する
-          if (assignment.Status && !checkedItems[0]) {
+          if (pws.Status && !checkedItems[0]) {
             return null;
           }
-          if (new Date() < new Date(assignment.OpenDate) && !checkedItems[1]) {
+          if (new Date() < new Date(pws.Problem.OpenDate) && !checkedItems[1]) {
             return null;
           }
           return (
-            <Card
-              key={assignment.ProblemResp.Pid}
-              boxShadow={'xl'}
-              transition={"box-shadow 0.3s"}
-              _hover={{ top: -3, boxShadow: 'dark-lg', }}
-            >
+            <Card key={pws.Problem.Id} boxShadow={'dark-lg'}>
               <CardHeader>
-                <Heading> {assignment.ProblemResp.Name}</Heading>
+                <Heading> {pws.Problem.Name}</Heading>
               </CardHeader>
               <CardBody>
                 <Text
                   fontWeight={"bold"}
                 >
-                  Open: {new Date(assignment.OpenDate).toLocaleString()}
+                  Open: {new Date(pws.Problem.OpenDate).toLocaleString()}
                 </Text>
                 <Text
                   fontWeight={"bold"}
                 >
-                  Close: {new Date(assignment.CloseDate).toLocaleString()}
+                  Close: {new Date(pws.Problem.CloseDate).toLocaleString()}
                 </Text>
-                {assignment.Status && (
+                {pws.Status && (
                   <Text
                     bg="red.500"
                     w='100%'
@@ -89,8 +69,8 @@ export const CardList = ({ data }: CardListProps) => {
                 )}
               </CardBody>
               <CardFooter>
-                {new Date() > new Date(assignment.OpenDate) ? (
-                  <Button colorScheme='teal' onClick={() => navigate(`/${userName}/problem/${assignment.ProblemResp.Pid}`)}>
+                {new Date() > new Date(pws.Problem.OpenDate) ? (
+                  <Button colorScheme='teal' onClick={() => navigate(`/${userName}/problem/${pws.Problem.Id}`)}>
                     詳細
                   </Button>
                 ) : (

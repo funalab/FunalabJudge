@@ -27,7 +27,7 @@ func LoginAuthenticator(c *gin.Context) (interface{}, error) {
 		return "", jwt.ErrMissingLoginValues
 	}
 
-	u, err := users.SearchUserWithUserName(client, jsonRequest.UserName)
+	u, err := users.SearchOneUserWithUserName(client, jsonRequest.UserName)
 	if err != nil {
 		return "", jwt.ErrMissingLoginValues
 	}

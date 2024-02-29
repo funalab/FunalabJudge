@@ -25,7 +25,7 @@ func GetSubmissionHandler(c *gin.Context) {
 		log.Printf("Failed to parse objectId from hex: %v \n", err.Error())
 		c.JSON(400, err.Error())
 	}
-	s, err := submission.SearchSubmissionWithId(client, sId)
+	s, err := submission.SearchOneSubmissionWithId(client, sId)
 	if err != nil {
 		log.Printf("Failed to find single result from DB: %v \n", err.Error())
 		c.JSON(400, err.Error())

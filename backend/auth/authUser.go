@@ -40,11 +40,11 @@ func UserAuthorizator(data interface{}, c *gin.Context) bool {
 					if err != nil {
 						log.Printf("Failed to parse submissionId : %s\n", err.Error())
 					}
-					s, err := submission.SearchSubmissionWithId(client, sId)
+					s, err := submission.SearchOneSubmissionWithId(client, sId)
 					if err != nil {
 						log.Printf("Failed to search submission from id : %s\n", err.Error())
 					}
-					u, err := users.SearchUserWithUserName(client, s.UserName)
+					u, err := users.SearchOneUserWithUserName(client, s.UserName)
 					if err != nil {
 						log.Printf("Failed to search user from userName : %s\n", err.Error())
 					}

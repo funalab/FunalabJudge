@@ -32,7 +32,7 @@ func AddSubmissionHandler(c *gin.Context) {
 		c.JSON(400, gin.H{"err": err.Error()})
 	}
 	userName := c.Param("userName")
-	p, err := problems.SearchProblemWithId(client, sr.ProblemId)
+	p, err := problems.SearchOneProblemWithId(client, sr.ProblemId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"status": "Failed to find single result from DB:" + err.Error()})
 		return
