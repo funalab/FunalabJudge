@@ -28,7 +28,7 @@ You should run the below bunch of commands.
 If you wanna launch FLJ, you run following commands as different processes.  
 After that, you should go **http://localhost:5173**.  
 
-`cd frontend`
+`cd frontend`  
 `npm run dev`  
 `cd ../backend`  
 `go run main.go`  
