@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Box, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr, VStack } from '@chakra-ui/react'
+import { Box, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr} from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
@@ -187,6 +187,7 @@ const SubmissionPage: React.FC = () => {
                       <Flex
                         justifyContent={"center"}
                       >
+                        <CopyTestcase text={`引数例${index + 1}`} content={t.testcase.ArgsFileContent} />
                         <CopyTestcase text={`入力例${index + 1}`} content={t.testcase.InputFileContent} />
                         <CopyTestcase text={`出力例${index + 1}`} content={t.testcase.OutputFileContent} />
                       </Flex>

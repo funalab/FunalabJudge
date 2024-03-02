@@ -65,7 +65,7 @@ func parseTestcaseWithPathIntoTestcase(tws []TestcaseWithPath) []Testcase {
 	staticDir := os.Getenv("STATIC_DIR")
 	ts := make([]Testcase, 0)
 	for _, tw := range tws {
-		sIn, err := os.ReadFile(filepath.Join(staticDir, tw.InputFilePath))
+		sIn, err := os.ReadFile(filepath.Join(staticDir, *tw.InputFilePath))
 		if err != nil {
 			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
 		}

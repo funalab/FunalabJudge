@@ -8,9 +8,9 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-01-01T00:00:00Z",
-    "closeDate": "2024-01-23T00:00:00Z",
-    "borderScore": 3,
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 13,
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
@@ -26,6 +26,56 @@
         "testcaseId": 3,
         "inputFilePath": "testcases/c/c1/3/input.txt",
         "outputFilePath": "testcases/c/c1/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c1/4/input.txt",
+        "outputFilePath": "testcases/c/c1/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c1/5/input.txt",
+        "outputFilePath": "testcases/c/c1/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c1/6/input.txt",
+        "outputFilePath": "testcases/c/c1/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c1/7/input.txt",
+        "outputFilePath": "testcases/c/c1/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c1/8/input.txt",
+        "outputFilePath": "testcases/c/c1/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c1/9/input.txt",
+        "outputFilePath": "testcases/c/c1/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c1/10/input.txt",
+        "outputFilePath": "testcases/c/c1/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c1/11/input.txt",
+        "outputFilePath": "testcases/c/c1/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c1/12/input.txt",
+        "outputFilePath": "testcases/c/c1/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c1/13/input.txt",
+        "outputFilePath": "testcases/c/c1/13/output.txt"
       }
     ]
   },
@@ -38,25 +88,86 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-01-01T00:00:00Z",
-    "closeDate": "2024-01-23T00:00:00Z",
-    "borderScore": 3,
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
     "testcaseWithPaths": [
-      {
-        "testcaseId": 1,
-        "inputFilePath": "testcases/c/c2_1/1/input.txt",
-        "outputFilePath": "testcases/c/c2_1/1/output.txt"
-      },
-      {
-        "testcaseId": 2,
-        "inputFilePath": "testcases/c/c2_1/2/input.txt",
-        "outputFilePath": "testcases/c/c2_1/2/output.txt"
-      },
-      {
-        "testcaseId": 3,
-        "inputFilePath": "testcases/c/c2_1/3/input.txt",
-        "outputFilePath": "testcases/c/c2_1/3/output.txt"
-      }
+    {
+      "testcaseId": 1,
+      "inputFilePath": "testcases/c/c2_1/1/input.txt",
+      "outputFilePath": "testcases/c/c2_1/1/output.txt"
+    },
+    {
+      "testcaseId": 2,
+      "inputFilePath": "testcases/c/c2_1/2/input.txt",
+      "outputFilePath": "testcases/c/c2_1/2/output.txt"
+    },
+    {
+      "testcaseId": 3,
+      "inputFilePath": "testcases/c/c2_1/3/input.txt",
+      "outputFilePath": "testcases/c/c2_1/3/output.txt"
+    },
+    {
+      "testcaseId": 4,
+      "inputFilePath": "testcases/c/c2_1/4/input.txt",
+      "outputFilePath": "testcases/c/c2_1/4/output.txt"
+    },
+    {
+      "testcaseId": 5,
+      "inputFilePath": "testcases/c/c2_1/5/input.txt",
+      "outputFilePath": "testcases/c/c2_1/5/output.txt"
+    },
+    {
+      "testcaseId": 6,
+      "inputFilePath": "testcases/c/c2_1/6/input.txt",
+      "outputFilePath": "testcases/c/c2_1/6/output.txt"
+    },
+    {
+      "testcaseId": 7,
+      "inputFilePath": "testcases/c/c2_1/7/input.txt",
+      "outputFilePath": "testcases/c/c2_1/7/output.txt"
+    },
+    {
+      "testcaseId": 8,
+      "inputFilePath": "testcases/c/c2_1/8/input.txt",
+      "outputFilePath": "testcases/c/c2_1/8/output.txt"
+    },
+    {
+      "testcaseId": 9,
+      "inputFilePath": "testcases/c/c2_1/9/input.txt",
+      "outputFilePath": "testcases/c/c2_1/9/output.txt"
+    },
+    {
+      "testcaseId": 10,
+      "inputFilePath": "testcases/c/c2_1/10/input.txt",
+      "outputFilePath": "testcases/c/c2_1/10/output.txt"
+    },
+    {
+      "testcaseId": 11,
+      "inputFilePath": "testcases/c/c2_1/11/input.txt",
+      "outputFilePath": "testcases/c/c2_1/11/output.txt"
+    },
+    {
+      "testcaseId": 12,
+      "inputFilePath": "testcases/c/c2_1/12/input.txt",
+      "outputFilePath": "testcases/c/c2_1/12/output.txt"
+    },
+    {
+      "testcaseId": 13,
+      "inputFilePath": "testcases/c/c2_1/13/input.txt",
+      "outputFilePath": "testcases/c/c2_1/13/output.txt"
+    },
+    {
+      "testcaseId": 14,
+      "inputFilePath": "testcases/c/c2_1/14/input.txt",
+      "outputFilePath": "testcases/c/c2_1/14/output.txt"
+    },
+    {
+      "testcaseId": 15,
+      "inputFilePath": "testcases/c/c2_1/15/input.txt",
+      "outputFilePath": "testcases/c/c2_1/15/output.txt"
+    }
+
     ]
   }
 ]
