@@ -12,6 +12,11 @@ import (
 )
 
 func JudgeProcess(client *mongo.Client, s submission.Submission) {
+	p, err := problems.SearchOneProblemWithId(client, s.ProblemId)
+	if err != nil {
+		log.Fatalf("Failed to find single result from DB: %v\n", err)
+	}
+
 	ceFlag := false
 	if !isHaveMakeFile(s.Id.Hex()) {
 		err := writeMakeFile(s.Id.Hex())
@@ -22,7 +27,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		}
 	}
 
-	_, err := execCommand(s.Id, "make")
+	_, err = execCommand(s.Id, "make", nil)
 	if err != nil {
 		log.Println("Failed to compile :", err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
@@ -36,10 +41,6 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		ceFlag = true
 	}
 
-	p, err := problems.SearchOneProblemWithId(client, s.ProblemId)
-	if err != nil {
-		log.Fatalf("Failed to find single result from DB: %v\n", err)
-	}
 	if ceFlag {
 		for _, t := range p.TestcaseWithPaths {
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "CE")
@@ -55,16 +56,35 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 	tleFlag := false
 	for i, t := range p.TestcaseWithPaths {
 		submission.UpdateSubmissionStatus(client, s.Id, fmt.Sprintf("%d/%d", i, tLen))
+		command := fmt.Sprintf("./%s", execFile)
+		var input *string
 
 		// exec test case
-		input, err := os.ReadFile(filepath.Join(staticDir, t.InputFilePath))
-		if err != nil {
-			log.Println("Failed to read input of test case :", err.Error())
-			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
-			reFlag = true
-			continue
+		if t.ArgsFilePath != "" {
+			a, err := os.ReadFile(filepath.Join(staticDir, t.ArgsFilePath))
+			if err != nil {
+				log.Println("Failed to read args of test case :", err.Error())
+				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+				reFlag = true
+				continue
+			} else {
+				command = command + " " + string(a)
+			}
 		}
-		output, err := execCommandWithInput(s.Id, fmt.Sprintf("./%s", execFile), string(input))
+		if t.InputFilePath != "" {
+			i_, err := os.ReadFile(filepath.Join(staticDir, t.InputFilePath))
+			if err != nil {
+				log.Println("Failed to read input of test case :", err.Error())
+				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+				reFlag = true
+				continue
+			} else {
+				i := string(i_)
+				input = &i
+			}
+		}
+
+		output, err := execCommand(s.Id, command, input)
 		if err != nil {
 			if err.Error() == "signal: killed" {
 				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
@@ -104,7 +124,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		submission.UpdateSubmissionStatus(client, s.Id, "AC")
 	}
 
-	_, err = execCommand(s.Id, "make clean")
+	_, err = execCommand(s.Id, "make clean", nil)
 	if err != nil {
 		log.Println("Failed to exec make clean :", err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")

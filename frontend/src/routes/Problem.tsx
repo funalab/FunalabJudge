@@ -97,6 +97,7 @@ const ProblemPage = () => {
             <>
               <TestcaseBox
                 TestcaseId={index + 1}
+                ArgsFileContent={testcase.ArgsFileContent}
                 InputFileContent={testcase.InputFileContent}
                 OutputFileContent={testcase.OutputFileContent}
               />

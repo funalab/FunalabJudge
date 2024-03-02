@@ -3,10 +3,14 @@ import React from 'react'
 import CopyTestcase from './CopyTestcase'
 import { Testcase } from '../types/DbTypes'
 
-const TestcaseBox: React.FC<Testcase> = ({ TestcaseId, InputFileContent, OutputFileContent }) => {
+const TestcaseBox: React.FC<Testcase> = ({ TestcaseId, ArgsFileContent, InputFileContent, OutputFileContent }) => {
   return (
     <>
-      <SimpleGrid mt={6} mb={6} columns={2} spacingX={'20px'}>
+      <SimpleGrid mt={3} mb={6} columns={3} spacingX={'20px'}>
+        <CopyTestcase
+          text={`引数例${TestcaseId}`}
+          content={ArgsFileContent}
+        />
         <CopyTestcase
           text={`入力例${TestcaseId}`}
           content={InputFileContent}

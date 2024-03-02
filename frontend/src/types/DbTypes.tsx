@@ -15,6 +15,7 @@ export interface Problem {
 
 export interface TestcaseWithPath {
 	TestcaseId: number,
+	ArgsFilePath: string,
 	InputFilePath: string,
 	OutputFilePath: string,
 }
@@ -36,6 +37,7 @@ export interface ProblemWithTestcase {
 
 export interface Testcase {
 	TestcaseId: number,
+	ArgsFileContent: string,
 	InputFileContent: string,
 	OutputFileContent: string,
 }
