@@ -30,7 +30,7 @@ After that, you should go **http://localhost:5173**.
 
 `cd frontend`
 `npm run dev`  
-`cd ../backend`
+`cd ../backend`  
 `go run main.go`  
-`cd ..`
+`cd ..`  
 `sudo mongod --dbpath=/opt/local/var/db/mongodb`  
