@@ -18,20 +18,11 @@ func compareWithAnswer(output string, answer string) bool {
 	return fixedOutput == fixedAnswer
 }
 
-func execCommand(sId primitive.ObjectID, command string, input *string) (string, error) {
+func execCommand(sId primitive.ObjectID, command string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	cmd := exec.CommandContext(ctx, "sh", "-c", command)
 	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
-
-	if input != nil {
-		stdin, err := cmd.StdinPipe()
-		if err != nil {
-			return "", err
-		}
-		stdin.Write([]byte(*input + "\n"))
-		stdin.Close()
-	}
 	output, err := cmd.CombinedOutput()
 
 	return string(output), err

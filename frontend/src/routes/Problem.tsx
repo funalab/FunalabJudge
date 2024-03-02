@@ -93,7 +93,7 @@ const ProblemPage = () => {
           </Stack>
           <Divider />
           <Text fontSize={32} fontWeight={'bold'}>Sample Cases</Text>
-          {testcases.map((testcase: Testcase, index: number) => (
+          {testcases.slice(0, 3).map((testcase: Testcase, index: number) => (
             <>
               <TestcaseBox
                 TestcaseId={index + 1}

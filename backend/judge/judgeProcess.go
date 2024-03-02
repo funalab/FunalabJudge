@@ -27,7 +27,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		}
 	}
 
-	_, err = execCommand(s.Id, "make", nil)
+	_, err = execCommand(s.Id, "make")
 	if err != nil {
 		log.Println("Failed to compile :", err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
@@ -57,11 +57,10 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 	for i, t := range p.TestcaseWithPaths {
 		submission.UpdateSubmissionStatus(client, s.Id, fmt.Sprintf("%d/%d", i, tLen))
 		command := fmt.Sprintf("./%s", execFile)
-		var input *string
 
 		// exec test case
-		if t.ArgsFilePath != "" {
-			a, err := os.ReadFile(filepath.Join(staticDir, t.ArgsFilePath))
+		if t.ArgsFilePath != nil {
+			a, err := os.ReadFile(filepath.Join(staticDir, *t.ArgsFilePath))
 			if err != nil {
 				log.Println("Failed to read args of test case :", err.Error())
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
@@ -71,20 +70,13 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 				command = command + " " + string(a)
 			}
 		}
-		if t.InputFilePath != "" {
-			i_, err := os.ReadFile(filepath.Join(staticDir, t.InputFilePath))
-			if err != nil {
-				log.Println("Failed to read input of test case :", err.Error())
-				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
-				reFlag = true
-				continue
-			} else {
-				i := string(i_)
-				input = &i
-			}
+		if t.InputFilePath != nil {
+			// stdinのpipeを使うとバカ長いinputを入れるときに正常に動かなくなるので、リダイレクトする
+			// TODO 相対パス使ってる応急処置でnot elegant、絶対パスにしたい
+			command = command + " < ../" + filepath.Join(staticDir, *t.InputFilePath)
 		}
 
-		output, err := execCommand(s.Id, command, input)
+		output, err := execCommand(s.Id, command)
 		if err != nil {
 			if err.Error() == "signal: killed" {
 				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
@@ -124,7 +116,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		submission.UpdateSubmissionStatus(client, s.Id, "AC")
 	}
 
-	_, err = execCommand(s.Id, "make clean", nil)
+	_, err = execCommand(s.Id, "make clean")
 	if err != nil {
 		log.Println("Failed to exec make clean :", err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")

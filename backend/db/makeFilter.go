@@ -2,7 +2,6 @@ package db
 
 import (
 	"reflect"
-	"strconv"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,13 +20,13 @@ func MakeFilter(data interface{}) bson.M {
 	return bsonMap
 }
 
-func getValueString(f reflect.Value) (string, bool) {
+func getValueString(f reflect.Value) (interface{}, bool) {
 	// compare with defaul value of each type
 	// _id(primitive.ObjectId)は対象にしない
 	switch v := f.Interface().(type) {
 	case int32:
 		if v != 0 {
-			return strconv.FormatInt(int64(v), 10), false
+			return v, false
 		}
 	case string:
 		if v != "" {
@@ -35,7 +34,7 @@ func getValueString(f reflect.Value) (string, bool) {
 		}
 	case time.Time:
 		if v != time.Date(1, 1, 1, 0, 0, 0, 0, time.UTC) {
-			return v.String(), false
+			return v, false
 		}
 	}
 	return "", true // default value or unknown type
