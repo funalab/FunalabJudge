@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func SearchUserWithUserName(client *mongo.Client, userName string) (User, error) {
+func SearchOneUserWithUserName(client *mongo.Client, userName string) (User, error) {
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("USERS_COLLECTION")
 	collection := client.Database(dbName).Collection(usrCol)

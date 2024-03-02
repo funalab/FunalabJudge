@@ -17,7 +17,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		err := writeMakeFile(s.Id.Hex())
 		if err != nil {
 			log.Println("Failed to write make file :", err.Error())
-			updateSubmissionStatus(client, s.Id, "CE")
+			submission.UpdateSubmissionStatus(client, s.Id, "CE")
 			ceFlag = true
 		}
 	}
@@ -25,24 +25,24 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 	_, err := execCommand(s.Id, "make")
 	if err != nil {
 		log.Println("Failed to compile :", err.Error())
-		updateSubmissionStatus(client, s.Id, "CE")
+		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
 	execFile, err := searchExecutableFile(s.Id)
 	if err != nil {
 		log.Println("Failed to search executable file :", err.Error())
-		updateSubmissionStatus(client, s.Id, "CE")
+		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
-	p, err := problems.SearchProblemWithId(client, s.ProblemId)
+	p, err := problems.SearchOneProblemWithId(client, s.ProblemId)
 	if err != nil {
 		log.Fatalf("Failed to find single result from DB: %v\n", err)
 	}
 	if ceFlag {
 		for _, t := range p.TestcaseWithPaths {
-			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "CE")
+			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "CE")
 		}
 		return
 	}
@@ -54,13 +54,13 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 	reFlag := false
 	tleFlag := false
 	for i, t := range p.TestcaseWithPaths {
-		updateSubmissionStatus(client, s.Id, fmt.Sprintf("%d/%d", i, tLen))
+		submission.UpdateSubmissionStatus(client, s.Id, fmt.Sprintf("%d/%d", i, tLen))
 
 		// exec test case
 		input, err := os.ReadFile(filepath.Join(staticDir, t.InputFilePath))
 		if err != nil {
 			log.Println("Failed to read input of test case :", err.Error())
-			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
 		}
@@ -68,11 +68,11 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		if err != nil {
 			if err.Error() == "signal: killed" {
 				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
-				updateSubmissionResult(client, s.Id, int(t.TestcaseId), "TLE")
+				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "TLE")
 				tleFlag = true
 			} else {
 				log.Println("Failed to run the testcase. RE is caused :", err.Error())
-				updateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 			}
 			continue
@@ -82,32 +82,32 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		answer, err := os.ReadFile(filepath.Join(staticDir, t.OutputFilePath))
 		if err != nil {
 			log.Println("Failed to read output of test case :", err.Error())
-			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
 		}
 		if compareWithAnswer(output, string(answer)) {
 			acNum++
-			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "AC")
+			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "AC")
 		} else {
-			updateSubmissionResult(client, s.Id, int(t.TestcaseId), "WA")
+			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "WA")
 		}
 	}
 	// judge pass/fail and update status
 	if reFlag {
-		updateSubmissionStatus(client, s.Id, "RE")
+		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 	} else if tleFlag {
-		updateSubmissionStatus(client, s.Id, "TLE")
+		submission.UpdateSubmissionStatus(client, s.Id, "TLE")
 	} else if acNum < int(p.BorderScore) {
-		updateSubmissionStatus(client, s.Id, "WA")
+		submission.UpdateSubmissionStatus(client, s.Id, "WA")
 	} else {
-		updateSubmissionStatus(client, s.Id, "AC")
+		submission.UpdateSubmissionStatus(client, s.Id, "AC")
 	}
 
 	_, err = execCommand(s.Id, "make clean")
 	if err != nil {
 		log.Println("Failed to exec make clean :", err.Error())
-		updateSubmissionStatus(client, s.Id, "RE")
+		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 		return
 	}
 }

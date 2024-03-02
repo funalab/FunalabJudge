@@ -1,23 +1,18 @@
 import { SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import CopyTestcase from './CopyTestcase'
+import { Testcase } from '../types/DbTypes'
 
-export interface TestcaseProps {
-  id: string,
-  InputFileContent: string,
-  OutputFileContent: string
-}
-
-const Testcase: React.FC<TestcaseProps> = ({ id, InputFileContent, OutputFileContent }) => {
+const TestcaseBox: React.FC<Testcase> = ({ TestcaseId, InputFileContent, OutputFileContent }) => {
   return (
     <>
       <SimpleGrid mt={6} mb={6} columns={2} spacingX={'20px'}>
         <CopyTestcase
-          text={`入力例${id}`}
+          text={`入力例${TestcaseId}`}
           content={InputFileContent}
         />
         <CopyTestcase
-          text={`出力例${id}`}
+          text={`出力例${TestcaseId}`}
           content={OutputFileContent}
         />
       </SimpleGrid>
@@ -25,4 +20,4 @@ const Testcase: React.FC<TestcaseProps> = ({ id, InputFileContent, OutputFileCon
   )
 }
 
-export default Testcase
+export default TestcaseBox

@@ -30,7 +30,7 @@ func ChangePasswordHandler(c *gin.Context) {
 		return
 	}
 
-	u, err := users.SearchUserWithUserName(client, jsonRequest.UserName)
+	u, err := users.SearchOneUserWithUserName(client, jsonRequest.UserName)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"status": "Failed to find single result from DB:" + err.Error()})
 		return

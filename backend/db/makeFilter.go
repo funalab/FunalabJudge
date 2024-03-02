@@ -23,6 +23,7 @@ func MakeFilter(data interface{}) bson.M {
 
 func getValueString(f reflect.Value) (string, bool) {
 	// compare with defaul value of each type
+	// _id(primitive.ObjectId)は対象にしない
 	switch v := f.Interface().(type) {
 	case int32:
 		if v != 0 {
