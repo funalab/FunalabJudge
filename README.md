@@ -37,6 +37,7 @@ After that, you should go **http://localhost:5173**.
 
 `% cd ../frontend`  
 `% npm run build`  
-`% npm run preview` (for check on local)  
 `% cd ../backend`  
 `% go run main.go -release`  
+`% cd ../frontend`  
+`% npm run preview` (for check on local)  
