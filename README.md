@@ -29,8 +29,8 @@ If you wanna launch FLJ, you run following commands as different processes.
 After that, you should go **http://localhost:5173**.  
 
 `cd frontend`  
-`npm run dev`  
+`npm run build`  
 `cd ../backend`  
-`go run main.go`  
+`go run main.go --release`  
 `cd ..`  
 `sudo mongod --dbpath=/opt/local/var/db/mongodb`  

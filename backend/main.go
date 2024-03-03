@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"go-test/auth"
 	"go-test/db"
@@ -16,6 +17,13 @@ import (
 )
 
 func main() {
+	var (
+		releaseFlag = flag.Bool("release", false, "flag for release mode")
+	)
+	flag.Parse()
+	if *releaseFlag {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Failed to load .env file.")
 	}
