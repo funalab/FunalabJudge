@@ -17,16 +17,14 @@ Below, the way to install above requirements by macports.
 # Getting Started
 Firstly, you should clone this repo.  
 `% git clone git@github.com:LazyJudgements/FunalabJudge.git`  
-
-Next, if you've never use **vite**, you should run following command.  
-
-`% npm install vite`  
+`% cd FunalabJudge`  
 
 You should run the below bunch of commands.  
+`% cd frontend`  
 `% npm install`  
 
 You should add seed data into db by running following commands.  
-`% cd backend`  
+`% cd ../backend`  
 `% go run seeds/delete/delete.go -c problems`  
 `% go run seeds/delete/delete.go -c submission`  
 `% go run seeds/insert/insert.go -c problems -f problems.json`  
