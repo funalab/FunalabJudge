@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"errors"
 	"net/http"
 
 	"go-test/db/problems"
@@ -20,13 +21,12 @@ func GetProblemListHandler(c *gin.Context) {
 	client_, exists := c.Get("mongoClient")
 	if !exists {
 		util.ResponseDBNotFoundError(c)
-		return
 	}
 	client := client_.(*mongo.Client)
 
 	pList, err := problems.SearchProblems(client, problems.Problem{})
 	if err != nil {
-		c.JSON(400, err.Error())
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find problem list"), err))
 	}
 
 	var ps []problemWithStatus
@@ -34,7 +34,7 @@ func GetProblemListHandler(c *gin.Context) {
 	for _, p := range pList {
 		sList, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName, ProblemId: p.Id})
 		if err != nil {
-			c.JSON(400, err.Error())
+			c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find submission list"), err))
 		}
 		statusFlag := false
 		for _, s := range sList {

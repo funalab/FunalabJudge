@@ -14,7 +14,8 @@ const ResultsPage: React.FC = () => {
     axiosClient
       .get(`/getSubmissionList/${userName}`)
       .then((response) => {
-        const { data } = response;
+        const data: SubmissionTableRowProps[] = response.data;
+        if (!data) return
         setSubmissions(data.reverse())
         const complete = ["AC", "WA", "CE", "TLE", "RE"]
         data.map((submission: SubmissionTableRowProps) => {

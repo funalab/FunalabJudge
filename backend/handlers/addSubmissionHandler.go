@@ -1,11 +1,11 @@
 package handlers
 
 import (
+	"errors"
 	"go-test/db/problems"
 	"go-test/db/submission"
 	"go-test/judge"
 	"go-test/util"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -22,25 +22,21 @@ func AddSubmissionHandler(c *gin.Context) {
 	client_, exists := c.Get("mongoClient")
 	if !exists {
 		util.ResponseDBNotFoundError(c)
-		return
 	}
 	client := client_.(*mongo.Client)
 
 	var sr submissionRequest
 	if err := c.Bind(&sr); err != nil {
-		log.Println(err.Error())
-		c.JSON(400, gin.H{"err": err.Error()})
+		c.AbortWithError(http.StatusUnprocessableEntity, errors.Join(errors.New("failed to handle form content"), err))
 	}
 	userName := c.Param("userName")
 	p, err := problems.SearchOneProblemWithId(client, sr.ProblemId)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"status": "Failed to find single result from DB:" + err.Error()})
-		return
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
 	}
 	s, err := submission.InsertNewSubmission(client, userName, p)
 	if err != nil {
-		println(err.Error())
-		c.JSON(http.StatusInternalServerError, gin.H{"status": "Failed to insert:" + err.Error()})
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to insert new submission"), err))
 		return
 	}
 
@@ -51,6 +47,6 @@ func AddSubmissionHandler(c *gin.Context) {
 		c.SaveUploadedFile(file, filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), file.Filename))
 	}
 	// コンパイル&実行プロセスのマルチスレッド予約
-	go judge.JudgeProcess(client, s)
-	c.JSON(200, nil)
+	go judge.JudgeProcess(c, s)
+	c.JSON(http.StatusOK, nil)
 }

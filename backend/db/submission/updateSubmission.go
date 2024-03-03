@@ -3,7 +3,6 @@ package submission
 import (
 	"context"
 	"go-test/db"
-	"log"
 	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -24,17 +23,15 @@ func UpdateSubmission(client *mongo.Client, searchField Submission, updateField 
 	return err
 }
 
-func UpdateSubmissionStatus(client *mongo.Client, sId primitive.ObjectID, status string) {
+func UpdateSubmissionStatus(client *mongo.Client, sId primitive.ObjectID, status string) error {
 	dbName := os.Getenv("DB_NAME")
 	usrCol := os.Getenv("SUBMISSION_COLLECTION")
 	collection := client.Database(dbName).Collection(usrCol)
 	_, err := collection.UpdateOne(context.TODO(), bson.M{"_id": sId}, bson.M{"$set": bson.M{"status": status}})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	return err
 }
 
-func UpdateSubmissionResult(client *mongo.Client, sId primitive.ObjectID, tId int, status string) {
+func UpdateSubmissionResult(client *mongo.Client, sId primitive.ObjectID, tId int, status string) error {
 	dbName := os.Getenv("DB_NAME")
 	subCol := os.Getenv("SUBMISSION_COLLECTION")
 	collection := client.Database(dbName).Collection(subCol)
@@ -52,7 +49,5 @@ func UpdateSubmissionResult(client *mongo.Client, sId primitive.ObjectID, tId in
 	_, err := collection.UpdateOne(context.TODO(), filter, update, &options.UpdateOptions{
 		ArrayFilters: &arrayFilters,
 	})
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+	return err
 }

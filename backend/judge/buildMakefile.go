@@ -10,18 +10,17 @@ import (
 	"strings"
 )
 
-func isHaveMakeFile(sId string) bool {
+func isHaveMakeFile(sId string) (bool, error) {
 	files, err := os.ReadDir(filepath.Join(os.Getenv("EXEC_DIR"), sId))
 	if err != nil {
-		log.Fatalf(err.Error())
-		return false
+		return false, err
 	}
 	for _, file := range files {
 		if file.Name() == os.Getenv("MAKEFILE_NAME") {
-			return true
+			return true, nil
 		}
 	}
-	return false
+	return false, nil
 }
 
 func writeMakeFile(sId string) error {

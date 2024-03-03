@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	"log"
+	"errors"
+	"net/http"
 
 	"go-test/db/submission"
 	"go-test/util"
@@ -15,20 +16,17 @@ func GetSubmissionHandler(c *gin.Context) {
 	client_, exists := c.Get("mongoClient")
 	if !exists {
 		util.ResponseDBNotFoundError(c)
-		return
 	}
 	client := client_.(*mongo.Client)
 
 	submissionId := c.Param("submissionId")
 	sId, err := primitive.ObjectIDFromHex(submissionId)
 	if err != nil {
-		log.Printf("Failed to parse objectId from hex: %v \n", err.Error())
-		c.JSON(400, err.Error())
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to parse objectId from hex"), err))
 	}
 	s, err := submission.SearchOneSubmissionWithId(client, sId)
 	if err != nil {
-		log.Printf("Failed to find single result from DB: %v \n", err.Error())
-		c.JSON(400, err.Error())
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
 	}
-	c.JSON(200, s)
+	c.JSON(http.StatusOK, s)
 }

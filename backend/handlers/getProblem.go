@@ -1,7 +1,8 @@
 package handlers
 
 import (
-	"log"
+	"errors"
+	"net/http"
 	"strconv"
 
 	"go-test/db/problems"
@@ -15,15 +16,19 @@ func GetProblemHandler(c *gin.Context) {
 	client_, exists := c.Get("mongoClient")
 	if !exists {
 		util.ResponseDBNotFoundError(c)
-		return
 	}
 	client := client_.(*mongo.Client)
 	pId, err := strconv.Atoi(c.Param("problemId"))
 	if err != nil {
-		log.Fatalf("Failed to parse problemId as a number: %v\n", pId)
-		c.JSON(400, util.NewMongoConnectionErr(err.Error()))
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to parse problemId as a numbe"), err))
 	}
-	p, _ := problems.SearchOneProblemWithId(client, int32(pId))
-	pwt := problems.ReadTestcaseContent(p)
-	c.JSON(200, pwt)
+	p, err := problems.SearchOneProblemWithId(client, int32(pId))
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
+	}
+	pwt, err := problems.ReadTestcaseContent(p)
+	if err != nil {
+		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to read testcase file"), err))
+	}
+	c.JSON(http.StatusOK, pwt)
 }
