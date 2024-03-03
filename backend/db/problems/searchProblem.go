@@ -2,8 +2,8 @@ package problems
 
 import (
 	"context"
+	"errors"
 	"go-test/db"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -44,7 +44,8 @@ func SearchProblems(client *mongo.Client, searchField Problem) ([]Problem, error
 	return p, nil
 }
 
-func ReadTestcaseContent(p Problem) ProblemWithTestcase {
+func ReadTestcaseContent(p Problem) (ProblemWithTestcase, error) {
+	t, err := parseTestcaseWithPathToTestcase(p.TestcaseWithPaths)
 	return ProblemWithTestcase{
 		Id:            p.Id,
 		Name:          p.Name,
@@ -57,21 +58,21 @@ func ReadTestcaseContent(p Problem) ProblemWithTestcase {
 		OpenDate:      p.OpenDate,
 		CloseDate:     p.CloseDate,
 		BorderScore:   p.BorderScore,
-		Testcases:     parseTestcaseWithPathIntoTestcase(p.TestcaseWithPaths),
-	}
+		Testcases:     t,
+	}, err
 }
 
-func parseTestcaseWithPathIntoTestcase(tws []TestcaseWithPath) []Testcase {
+func parseTestcaseWithPathToTestcase(tws []TestcaseWithPath) ([]Testcase, error) {
 	staticDir := os.Getenv("STATIC_DIR")
 	ts := make([]Testcase, 0)
 	for _, tw := range tws {
 		sIn, err := os.ReadFile(filepath.Join(staticDir, *tw.InputFilePath))
 		if err != nil {
-			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
+			return []Testcase{}, errors.Join(errors.New("failed to read input file"), err)
 		}
 		sOut, err := os.ReadFile(filepath.Join(staticDir, tw.OutputFilePath))
 		if err != nil {
-			log.Fatalf("Failed to parse into sample json: %v\n", err.Error())
+			return []Testcase{}, errors.Join(errors.New("failed to read output file"), err)
 		}
 		ts = append(ts, Testcase{
 			TestcaseId:        tw.TestcaseId,
@@ -79,5 +80,5 @@ func parseTestcaseWithPathIntoTestcase(tws []TestcaseWithPath) []Testcase {
 			OutputFileContent: string(sOut),
 		})
 	}
-	return ts
+	return ts, nil
 }

@@ -1,6 +1,7 @@
 package util
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -23,7 +24,7 @@ func NewMongoConnectionErr(errMsg string) error {
 }
 
 func ResponseDBNotFoundError(c *gin.Context) {
-	c.JSON(http.StatusInternalServerError, gin.H{"Error": "DB client is not available."})
+	c.AbortWithError(http.StatusInternalServerError, errors.New("database client is not available"))
 }
 
 /*FindRootDirErr*/

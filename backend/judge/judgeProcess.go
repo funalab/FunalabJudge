@@ -1,27 +1,41 @@
 package judge
 
 import (
+	"errors"
 	"fmt"
 	"go-test/db/problems"
 	"go-test/db/submission"
-	"log"
+	"go-test/util"
 	"os"
 	"path/filepath"
 
+	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func JudgeProcess(client *mongo.Client, s submission.Submission) {
+func JudgeProcess(c *gin.Context, s submission.Submission) {
+	client_, exists := c.Get("mongoClient")
+	if !exists {
+		util.ResponseDBNotFoundError(c)
+	}
+	client := client_.(*mongo.Client)
+
 	p, err := problems.SearchOneProblemWithId(client, s.ProblemId)
 	if err != nil {
-		log.Fatalf("Failed to find single result from DB: %v\n", err)
+		c.Error(errors.Join(fmt.Errorf("[%s] failed to find single result", s.Id.Hex()), err))
+		submission.UpdateSubmissionStatus(client, s.Id, "RE")
+		return
 	}
 
 	ceFlag := false
-	if !isHaveMakeFile(s.Id.Hex()) {
+	r, err := isHaveMakeFile(s.Id.Hex())
+	if err != nil {
+		c.Error(errors.Join(fmt.Errorf("[%s] failed to find exec dir", s.Id.Hex()), err))
+	}
+	if !r {
 		err := writeMakeFile(s.Id.Hex())
 		if err != nil {
-			log.Println("Failed to write make file :", err.Error())
+			c.Error(errors.Join(fmt.Errorf("[%s] failed to write make file", s.Id.Hex()), err))
 			submission.UpdateSubmissionStatus(client, s.Id, "CE")
 			ceFlag = true
 		}
@@ -29,14 +43,14 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 
 	_, err = execCommand(s.Id, "make")
 	if err != nil {
-		log.Println("Failed to compile :", err.Error())
+		c.Error(errors.Join(fmt.Errorf("[%s] failed to compile", s.Id.Hex()), err))
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
 	execFile, err := searchExecutableFile(s.Id)
 	if err != nil {
-		log.Println("Failed to search executable file :", err.Error())
+		c.Error(errors.Join(fmt.Errorf("[%s] failed to find executable file", s.Id.Hex()), err))
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
@@ -62,7 +76,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		if t.ArgsFilePath != nil {
 			a, err := os.ReadFile(filepath.Join(staticDir, *t.ArgsFilePath))
 			if err != nil {
-				log.Println("Failed to read args of test case :", err.Error())
+				c.Error(errors.Join(fmt.Errorf("[%s] failed to read args of test case", s.Id.Hex()), err))
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
@@ -79,11 +93,11 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		output, err := execCommand(s.Id, command)
 		if err != nil {
 			if err.Error() == "signal: killed" {
-				log.Println("Failed to run the testcase. TLE is caused :", err.Error())
+				c.Error(errors.Join(fmt.Errorf("[%s] failed to run the testcase, TLE is caused", s.Id.Hex()), err))
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "TLE")
 				tleFlag = true
 			} else {
-				log.Println("Failed to run the testcase. RE is caused :", err.Error())
+				c.Error(errors.Join(fmt.Errorf("[%s] failed to run the testcase, RE is caused", s.Id.Hex()), err))
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 			}
@@ -93,7 +107,7 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 		// judge result
 		answer, err := os.ReadFile(filepath.Join(staticDir, t.OutputFilePath))
 		if err != nil {
-			log.Println("Failed to read output of test case :", err.Error())
+			c.Error(errors.Join(fmt.Errorf("[%s] failed to read output of test case", s.Id.Hex()), err))
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
@@ -118,7 +132,8 @@ func JudgeProcess(client *mongo.Client, s submission.Submission) {
 
 	_, err = execCommand(s.Id, "make clean")
 	if err != nil {
-		log.Println("Failed to exec make clean :", err.Error())
+		c.Error(errors.Join(fmt.Errorf("[%s] failed to exec make clean", s.Id.Hex()), err))
+
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 		return
 	}

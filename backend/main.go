@@ -6,8 +6,10 @@ import (
 	"go-test/auth"
 	"go-test/db"
 	"go-test/handlers"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
@@ -24,14 +26,16 @@ func main() {
 	if *releaseFlag {
 		gin.SetMode(gin.ReleaseMode)
 	}
+
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Failed to load .env file.")
 	}
+
 	router := gin.Default()
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"http://localhost:5173",
+			os.Getenv("FRONTEND_URL"),
 		},
 		AllowCredentials: true,
 		// preflightリクエストの結果をキャッシュする時間
@@ -41,11 +45,17 @@ func main() {
 		// AllowMethods: []string{},
 	}))
 
+	// Recovery middleware recovers from any panics and writes a 500 if there was one.
+	router.Use(gin.Recovery())
+
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f)
+	router.Use(gin.LoggerWithFormatter(loggerFormatter))
+
 	client, err := db.Mongo_connectable()
 	if err != nil {
-		log.Printf("Connection err: %v\n", err.Error())
+		log.Fatalf("Connection err: %v\n", err.Error())
 	}
-
 	router.Use(func(c *gin.Context) {
 		c.Set("mongoClient", client)
 		c.Next()
@@ -54,7 +64,6 @@ func main() {
 	authMiddleware, err := auth.NewJwtMiddleware()
 	if err != nil {
 		log.Fatal(err)
-		return
 	}
 	router.POST("/login", authMiddleware.LoginHandler)
 	router.POST("/logout", authMiddleware.LogoutHandler)
@@ -77,7 +86,19 @@ func main() {
 		c.JSON(http.StatusNotFound, gin.H{"code": "PAGE_NOT_FOUND", "message": "Page not found"})
 	})
 
-	// サーバーをポート3000で起動
-	router.Run(":3000")
+	// サーバー起動
+	router.Run(":" + os.Getenv("BACKEND_PORT"))
 	fmt.Println("Server is running.")
+}
+
+func loggerFormatter(param gin.LogFormatterParams) string {
+	return fmt.Sprintf("%s | %d | %s | %s | %s \"%s\" %s\n",
+		param.TimeStamp.Format(time.RFC3339),
+		param.StatusCode,
+		param.Latency,
+		param.ClientIP,
+		param.Method,
+		param.Path,
+		param.Request.UserAgent(),
+	)
 }
