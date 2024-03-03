@@ -2,28 +2,28 @@
 You need **Go environment**, **Node.js**, **npm**, **mongo shell**. 
 Below, the way to install above requirements by macports.  
 
-`sudo port install go`  
-`go version`  
+`% sudo port install go`  
+`% go version`  
 
-`sudo port install npm10`  
-`port installed npm10`  
+`% sudo port install npm10`  
+`% port installed npm10`  
 
-`sudo port install mongodb`  
-`port installed mongodb`  
+`% sudo port install mongodb`  
+`% port installed mongodb`  
 
 # Used technologies
 **React**, **Gin**, **MongoDB**  
 
 # Getting Started
 Firstly, you should clone this repo.  
-`git clone git@github.com:LazyJudgements/FunalabJudge.git`  
+`% git clone git@github.com:LazyJudgements/FunalabJudge.git`  
 
 Next, if you've never use **vite**, you should run following command.  
 
-`npm install vite`  
+`% npm install vite`  
 
 You should run the below bunch of commands.  
-`npm install`  
+`% npm install`  
 
 You should add seed data into db by running following commands.  
 `% cd backend`  
