@@ -25,6 +25,7 @@ You should run the below bunch of commands.
 
 You should add seed data into db by running following commands.  
 `% cd ../backend`  
+`% sudo mongod --dbpath=/opt/local/var/db/mongodb`  
 `% go run seeds/delete/delete.go -c problems`  
 `% go run seeds/delete/delete.go -c submission`  
 `% go run seeds/insert/insert.go -c problems -f problems.json`  
@@ -34,10 +35,8 @@ You should add seed data into db by running following commands.
 If you wanna launch FLJ, you run following commands as different processes.  
 After that, you should go **http://localhost:5173**.  
 
-`% cd frontend`  
+`% cd ../frontend`  
 `% npm run build`  
 `% npm run preview` (for check on local)  
 `% cd ../backend`  
 `% go run main.go -release`  
-`% cd ..`  
-`% sudo mongod --dbpath=/opt/local/var/db/mongodb`  
