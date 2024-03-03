@@ -5,7 +5,7 @@ import { Box, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thea
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
-import StatusBlock from './StatusBlock'
+import StatusBlock from '../components/StatusBlock'
 import CopyTestcase from '../components/CopyTestcase'
 import { ProblemWithTestcase, Testcase } from '../types/DbTypes'
 

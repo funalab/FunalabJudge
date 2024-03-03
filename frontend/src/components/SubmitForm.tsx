@@ -1,4 +1,4 @@
-import { Text, Stack, Divider, Flex, HStack, Input, Textarea, VStack } from '@chakra-ui/react'
+import { Text, Stack, Input, Textarea, VStack } from '@chakra-ui/react'
 import { useState } from 'react'
 import SubmitButton from './SubmitButton'
 

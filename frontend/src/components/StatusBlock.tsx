@@ -1,5 +1,4 @@
 import { Flex } from '@chakra-ui/react'
-import React from 'react'
 import { getStatusColor } from '../api/GetStausColor'
 
 const StatusBlock = ({ status }: StatusProps) => {
