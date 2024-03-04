@@ -56,10 +56,10 @@ After that, you should go **http://localhost:5173/login**.
 `% go run main.go -release`  
 
 # About .env file
-You must put a env file to frontend dir.  
+You must put a env file to **frontend** dir.  
 An example of env file is below...
 ```
-DB_URL=mongodb://localhost:{port_num}
+DB_URL=mongodb://localhost:{write_port_num_here}
 DB_NAME=dev
 PROBLEMS_COLLECTION=problems
 SUBMISSION_COLLECTION=submission
@@ -67,8 +67,8 @@ USERS_COLLECTION=users
 
 SERVER_IP=localhost
 VITE_SERVER_IP=${SERVER_IP}
-FRONTEND_PORT=5000
-BACKEND_PORT=5001
+FRONTEND_PORT={write_port_num_here}
+BACKEND_PORT={write_port_num_here}
 VITE_BACKEND_PORT=${BACKEND_PORT}
 
 SECRET_KEY=hogehoge
@@ -80,4 +80,4 @@ MAKEFILE_PROG_DEFAULT=final
 STATIC_DIR=../static/
 SEED_DATA_DIR=seed_data
 ```
-Especially, you should generate SECRET_KEY with `% openssl rand -base64 32` which is used for the signature of JWT token.
+Especially, you should generate **SECRET_KEY** with `% openssl rand -base64 32` which is used for the signature of JWT token.
