@@ -43,7 +43,6 @@ You should add seed data into db by running following commands.
 `% go run seeds/delete/delete.go -c submission`  
 `% go run seeds/insert/insert.go -c users -f users.json`  
 `% go run seeds/insert/insert.go -c problems -f problems.json`  
-`% go run seeds/insert/insert.go -c users -f users.json`  
 `% rm -rf ../compile_resource/*`  
 
 # Launch server
