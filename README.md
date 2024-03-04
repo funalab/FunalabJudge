@@ -55,3 +55,27 @@ After that, you should go **http://localhost:5173**.
 `% npm run preview`  
 `% cd ../backend`  
 `% go run main.go -release`  
+
+# About .env file
+You must put a env file to backend dir.  
+An example of env file is below...
+```
+DB_URL=mongodb://localhost:{port_num}
+DB_NAME=dev
+PROBLEMS_COLLECTION=problems
+SUBMISSION_COLLECTION=submission
+USERS_COLLECTION=users
+
+FRONTEND_URL=http://localhost:{port_num}
+SECRET_KEY=hogehoge
+
+BACKEND_PORT={port_num}
+
+EXEC_DIR=../compile_resource
+MAKEFILE_NAME=Makefile
+MAKEFILE_PROG_DEFAULT=final
+
+STATIC_DIR=../static/
+SEED_DATA_DIR=seed_data
+```
+Especially, you should generate SECRET_KEY with `% openssl rand -base64 32` which is used for the signature of JWT token.
