@@ -1,14 +1,14 @@
 import React from 'react'
 import DefaultLayout from '../components/DefaultLayout'
 
-const SchedulePage: React.FC = () => {
+const PetitCoderPage: React.FC = () => {
   return (
     <DefaultLayout>
       <>
-        SchedulePage
+        Coming soon...
       </>
     </DefaultLayout>
   )
 }
 
-export default SchedulePage
+export default PetitCoderPage

@@ -41,7 +41,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		}
 	}
 
-	_, err = execCommand(s.Id, "make")
+	_, err = execCommand(s.Id, "make", 2)
 	if err != nil {
 		c.Error(errors.Join(fmt.Errorf("[%s] failed to compile", s.Id.Hex()), err))
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
@@ -90,7 +90,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 			command = command + " < ../" + filepath.Join(staticDir, *t.InputFilePath)
 		}
 
-		output, err := execCommand(s.Id, command)
+		output, err := execCommand(s.Id, command, int(p.ExecutionTime))
 		if err != nil {
 			if err.Error() == "signal: killed" {
 				c.Error(errors.Join(fmt.Errorf("[%s] failed to run the testcase, TLE is caused", s.Id.Hex()), err))
@@ -130,7 +130,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		submission.UpdateSubmissionStatus(client, s.Id, "AC")
 	}
 
-	_, err = execCommand(s.Id, "make clean")
+	_, err = execCommand(s.Id, "make clean", 2)
 	if err != nil {
 		c.Error(errors.Join(fmt.Errorf("[%s] failed to exec make clean", s.Id.Hex()), err))
 

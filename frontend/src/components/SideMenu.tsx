@@ -1,10 +1,10 @@
 import { Box, Button, Icon } from "@chakra-ui/react";
 import {
   MdDashboard,
-  MdCalendarMonth,
   MdAccountBox,
   MdAssignment,
 } from "react-icons/md";
+import { FaMedal } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const SideMenu = () => {
@@ -27,9 +27,9 @@ export const SideMenu = () => {
       path: `/${userName}/results`,
     },
     {
-      name: "Schedule",
-      icon: MdCalendarMonth,
-      path: `/${userName}/schedule`,
+      name: "Petit Coder",
+      icon: FaMedal,
+      path: `/${userName}/petit_coder`,
     },
   ];
   return (

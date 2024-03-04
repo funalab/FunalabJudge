@@ -18,8 +18,8 @@ func compareWithAnswer(output string, answer string) bool {
 	return fixedOutput == fixedAnswer
 }
 
-func execCommand(sId primitive.ObjectID, command string) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+func execCommand(sId primitive.ObjectID, command string, execTime int) (string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(execTime))
 	defer cancel()
 	cmd := exec.CommandContext(ctx, "sh", "-c", command)
 	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
