@@ -47,7 +47,7 @@ You should add seed data into db by running following commands.
 
 # Launch server
 If you wanna launch FLJ, you run following commands as different processes.  
-After that, you should go **http://localhost:5173**.  
+After that, you should go **http://localhost:5173/login**.  
 
 `% cd frontend`  
 `% npm run build`  
@@ -56,7 +56,7 @@ After that, you should go **http://localhost:5173**.
 `% go run main.go -release`  
 
 # About .env file
-You must put a env file to backend dir.  
+You must put a env file to frontend dir.  
 An example of env file is below...
 ```
 DB_URL=mongodb://localhost:{port_num}
@@ -65,10 +65,13 @@ PROBLEMS_COLLECTION=problems
 SUBMISSION_COLLECTION=submission
 USERS_COLLECTION=users
 
-FRONTEND_URL=http://localhost:{port_num}
-SECRET_KEY=hogehoge
+SERVER_IP=localhost
+VITE_SERVER_IP=${SERVER_IP}
+FRONTEND_PORT=5000
+BACKEND_PORT=5001
+VITE_BACKEND_PORT=${BACKEND_PORT}
 
-BACKEND_PORT={port_num}
+SECRET_KEY=hogehoge
 
 EXEC_DIR=../compile_resource
 MAKEFILE_NAME=Makefile

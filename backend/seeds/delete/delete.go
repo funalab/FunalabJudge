@@ -14,7 +14,7 @@ import (
 
 // delete db
 func main() {
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load("../frontend/.env"); err != nil {
 		log.Fatal("Failed to load .env file.")
 	}
 	var (

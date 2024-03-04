@@ -27,7 +27,7 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	if err := godotenv.Load(); err != nil {
+	if err := godotenv.Load("../frontend/.env"); err != nil {
 		log.Fatal("Failed to load .env file.")
 	}
 
@@ -35,7 +35,7 @@ func main() {
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			os.Getenv("FRONTEND_URL"),
+			"http://" + os.Getenv("SERVER_IP") + ":" + os.Getenv("FRONTEND_PORT"),
 		},
 		AllowCredentials: true,
 		// preflightリクエストの結果をキャッシュする時間
@@ -87,7 +87,7 @@ func main() {
 	})
 
 	// サーバー起動
-	router.Run(":" + os.Getenv("BACKEND_PORT"))
+	router.Run(os.Getenv("SERVER_IP") + ":" + os.Getenv("BACKEND_PORT"))
 	fmt.Println("Server is running.")
 }
 

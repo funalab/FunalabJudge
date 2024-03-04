@@ -20,7 +20,7 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		SendCookie:      true,
 		SecureCookie:    false, //non HTTPS dev environments
 		CookieHTTPOnly:  true,  // JS can't modify
-		CookieDomain:    "localhost",
+		CookieDomain:    os.Getenv("SERVER_IP"),
 		CookieName:      "token", // default:jwt
 		TokenLookup:     "cookie:token",
 		CookieSameSite:  http.SameSiteStrictMode, // CSRF対策にもなる
