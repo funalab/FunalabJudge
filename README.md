@@ -28,7 +28,7 @@ The following ports are currently installed:
 
 # Getting Started
 Firstly, you should clone this repo.  
-`% git clone git@github.com:LazyJudgements/FunalabJudge.git`  
+`% git clone git@github.com:funalab/FunalabJudge.git`  
 `% cd FunalabJudge`  
 
 You should run the below bunch of commands.  
