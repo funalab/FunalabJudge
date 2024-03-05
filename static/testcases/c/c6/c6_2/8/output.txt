@@ -1,0 +1,3 @@
+Hinatazaka: 10
+Kenemuta: 8
+Miku: 4

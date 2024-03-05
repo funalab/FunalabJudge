@@ -1,0 +1,5 @@
+Takane: 6
+no: 2
+Nadeshiko: 9
+Matsumoto: 9
+Momona: 6

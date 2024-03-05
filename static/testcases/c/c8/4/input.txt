@@ -1,0 +1,10 @@
+ogawa,35
+okada,11
+matsumoto,82
+aoki,8
+sasaki,100
+takada,22
+yokoyama,47
+nishimura,32
+fujimoto,1
+horiuchi,50

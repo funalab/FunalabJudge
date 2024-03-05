@@ -1,0 +1,2 @@
+isoda: 5
+ichiro: 6

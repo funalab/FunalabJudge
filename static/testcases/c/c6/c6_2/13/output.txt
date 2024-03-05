@@ -1,0 +1,2 @@
+ozeki: 5
+saki: 4

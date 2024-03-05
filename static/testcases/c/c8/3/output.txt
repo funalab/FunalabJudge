@@ -1,0 +1,3 @@
+kobayashi,4
+makise,10
+maeda,33

@@ -1,0 +1,3 @@
+Otani: 5
+Syohei: 6
+Kekkon: 6

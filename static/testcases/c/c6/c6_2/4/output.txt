@@ -1,0 +1,3 @@
+actor: 5
+Muro: 4
+Tsuyoshi: 8

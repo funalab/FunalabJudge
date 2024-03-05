@@ -1,0 +1,2 @@
+Araki: 5
+Taichi: 6

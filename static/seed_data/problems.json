@@ -92,82 +92,841 @@
     "closeDate": "2024-03-07T00:00:00+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
-    {
-      "testcaseId": 1,
-      "inputFilePath": "testcases/c/c2_1/1/input.txt",
-      "outputFilePath": "testcases/c/c2_1/1/output.txt"
-    },
-    {
-      "testcaseId": 2,
-      "inputFilePath": "testcases/c/c2_1/2/input.txt",
-      "outputFilePath": "testcases/c/c2_1/2/output.txt"
-    },
-    {
-      "testcaseId": 3,
-      "inputFilePath": "testcases/c/c2_1/3/input.txt",
-      "outputFilePath": "testcases/c/c2_1/3/output.txt"
-    },
-    {
-      "testcaseId": 4,
-      "inputFilePath": "testcases/c/c2_1/4/input.txt",
-      "outputFilePath": "testcases/c/c2_1/4/output.txt"
-    },
-    {
-      "testcaseId": 5,
-      "inputFilePath": "testcases/c/c2_1/5/input.txt",
-      "outputFilePath": "testcases/c/c2_1/5/output.txt"
-    },
-    {
-      "testcaseId": 6,
-      "inputFilePath": "testcases/c/c2_1/6/input.txt",
-      "outputFilePath": "testcases/c/c2_1/6/output.txt"
-    },
-    {
-      "testcaseId": 7,
-      "inputFilePath": "testcases/c/c2_1/7/input.txt",
-      "outputFilePath": "testcases/c/c2_1/7/output.txt"
-    },
-    {
-      "testcaseId": 8,
-      "inputFilePath": "testcases/c/c2_1/8/input.txt",
-      "outputFilePath": "testcases/c/c2_1/8/output.txt"
-    },
-    {
-      "testcaseId": 9,
-      "inputFilePath": "testcases/c/c2_1/9/input.txt",
-      "outputFilePath": "testcases/c/c2_1/9/output.txt"
-    },
-    {
-      "testcaseId": 10,
-      "inputFilePath": "testcases/c/c2_1/10/input.txt",
-      "outputFilePath": "testcases/c/c2_1/10/output.txt"
-    },
-    {
-      "testcaseId": 11,
-      "inputFilePath": "testcases/c/c2_1/11/input.txt",
-      "outputFilePath": "testcases/c/c2_1/11/output.txt"
-    },
-    {
-      "testcaseId": 12,
-      "inputFilePath": "testcases/c/c2_1/12/input.txt",
-      "outputFilePath": "testcases/c/c2_1/12/output.txt"
-    },
-    {
-      "testcaseId": 13,
-      "inputFilePath": "testcases/c/c2_1/13/input.txt",
-      "outputFilePath": "testcases/c/c2_1/13/output.txt"
-    },
-    {
-      "testcaseId": 14,
-      "inputFilePath": "testcases/c/c2_1/14/input.txt",
-      "outputFilePath": "testcases/c/c2_1/14/output.txt"
-    },
-    {
-      "testcaseId": 15,
-      "inputFilePath": "testcases/c/c2_1/15/input.txt",
-      "outputFilePath": "testcases/c/c2_1/15/output.txt"
-    }
-
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c2_1/1/input.txt",
+        "outputFilePath": "testcases/c/c2_1/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c2_1/2/input.txt",
+        "outputFilePath": "testcases/c/c2_1/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c2_1/3/input.txt",
+        "outputFilePath": "testcases/c/c2_1/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c2_1/4/input.txt",
+        "outputFilePath": "testcases/c/c2_1/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c2_1/5/input.txt",
+        "outputFilePath": "testcases/c/c2_1/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c2_1/6/input.txt",
+        "outputFilePath": "testcases/c/c2_1/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c2_1/7/input.txt",
+        "outputFilePath": "testcases/c/c2_1/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c2_1/8/input.txt",
+        "outputFilePath": "testcases/c/c2_1/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c2_1/9/input.txt",
+        "outputFilePath": "testcases/c/c2_1/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c2_1/10/input.txt",
+        "outputFilePath": "testcases/c/c2_1/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c2_1/11/input.txt",
+        "outputFilePath": "testcases/c/c2_1/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c2_1/12/input.txt",
+        "outputFilePath": "testcases/c/c2_1/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c2_1/13/input.txt",
+        "outputFilePath": "testcases/c/c2_1/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c2_1/14/input.txt",
+        "outputFilePath": "testcases/c/c2_1/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c2_1/15/input.txt",
+        "outputFilePath": "testcases/c/c2_1/15/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "My Average",
+    "statement": "EOFを受け取るまで標準入力に与えられた数値の平均と合計を標準出力するプログラムaverage.cを実装し、実行しましょう。",
+    "constraints": "与えられる値  はすべて実数\n入力は空白区切りで与えられる\n 小数点以下6桁まで出力する\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c2_2/1/input.txt",
+        "outputFilePath": "testcases/c/c2_2/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c2_2/2/input.txt",
+        "outputFilePath": "testcases/c/c2_2/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c2_2/3/input.txt",
+        "outputFilePath": "testcases/c/c2_2/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c2_2/4/input.txt",
+        "outputFilePath": "testcases/c/c2_2/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c2_2/5/input.txt",
+        "outputFilePath": "testcases/c/c2_2/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c2_2/6/input.txt",
+        "outputFilePath": "testcases/c/c2_2/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c2_2/7/input.txt",
+        "outputFilePath": "testcases/c/c2_2/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c2_2/8/input.txt",
+        "outputFilePath": "testcases/c/c2_2/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c2_2/9/input.txt",
+        "outputFilePath": "testcases/c/c2_2/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c2_2/10/input.txt",
+        "outputFilePath": "testcases/c/c2_2/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c2_2/11/input.txt",
+        "outputFilePath": "testcases/c/c2_2/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c2_2/12/input.txt",
+        "outputFilePath": "testcases/c/c2_2/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c2_2/13/input.txt",
+        "outputFilePath": "testcases/c/c2_2/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c2_2/14/input.txt",
+        "outputFilePath": "testcases/c/c2_2/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c2_2/15/input.txt",
+        "outputFilePath": "testcases/c/c2_2/15/output.txt"
+      },
+      {
+        "testcaseId": 16,
+        "inputFilePath": "testcases/c/c2_2/16/input.txt",
+        "outputFilePath": "testcases/c/c2_2/16/output.txt"
+      },
+      {
+        "testcaseId": 17,
+        "inputFilePath": "testcases/c/c2_2/17/input.txt",
+        "outputFilePath": "testcases/c/c2_2/17/output.txt"
+      },
+      {
+        "testcaseId": 18,
+        "inputFilePath": "testcases/c/c2_2/18/input.txt",
+        "outputFilePath": "testcases/c/c2_2/18/output.txt"
+      },
+      {
+        "testcaseId": 19,
+        "inputFilePath": "testcases/c/c2_2/19/input.txt",
+        "outputFilePath": "testcases/c/c2_2/19/output.txt"
+      },
+      {
+        "testcaseId": 20,
+        "inputFilePath": "testcases/c/c2_2/20/input.txt",
+        "outputFilePath": "testcases/c/c2_2/20/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Greatest Common Divisor (GCD)",
+    "statement": "標準入力により与えた2つの正の整数の最大公約数を出力する関数gcd.cを作成し、main.cでgcd.cを呼び出し実行する。",
+    "constraints": "再帰関数を用いて、最大公約数を求める関数を作成する。\n ヘッダファイルmyheader.hに関数の宣言を行い、これをmain関数を含むファイルで#includeする。",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c5/1/input.txt",
+        "outputFilePath": "testcases/c/c5/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c5/2/input.txt",
+        "outputFilePath": "testcases/c/c5/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c5/3/input.txt",
+        "outputFilePath": "testcases/c/c5/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c5/4/input.txt",
+        "outputFilePath": "testcases/c/c5/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c5/5/input.txt",
+        "outputFilePath": "testcases/c/c5/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c5/6/input.txt",
+        "outputFilePath": "testcases/c/c5/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c5/7/input.txt",
+        "outputFilePath": "testcases/c/c5/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c5/8/input.txt",
+        "outputFilePath": "testcases/c/c5/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c5/9/input.txt",
+        "outputFilePath": "testcases/c/c5/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c5/10/input.txt",
+        "outputFilePath": "testcases/c/c5/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c5/11/input.txt",
+        "outputFilePath": "testcases/c/c5/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c5/12/input.txt",
+        "outputFilePath": "testcases/c/c5/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c5/13/input.txt",
+        "outputFilePath": "testcases/c/c5/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c5/14/input.txt",
+        "outputFilePath": "testcases/c/c5/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c5/15/input.txt",
+        "outputFilePath": "testcases/c/c5/15/output.txt"
+      },
+      {
+        "testcaseId": 16,
+        "inputFilePath": "testcases/c/c5/16/input.txt",
+        "outputFilePath": "testcases/c/c5/16/output.txt"
+      },
+      {
+        "testcaseId": 17,
+        "inputFilePath": "testcases/c/c5/17/input.txt",
+        "outputFilePath": "testcases/c/c5/17/output.txt"
+      },
+      {
+        "testcaseId": 18,
+        "inputFilePath": "testcases/c/c5/18/input.txt",
+        "outputFilePath": "testcases/c/c5/18/output.txt"
+      },
+      {
+        "testcaseId": 19,
+        "inputFilePath": "testcases/c/c5/19/input.txt",
+        "outputFilePath": "testcases/c/c5/19/output.txt"
+      },
+      {
+        "testcaseId": 20,
+        "inputFilePath": "testcases/c/c5/20/input.txt",
+        "outputFilePath": "testcases/c/c5/20/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "main_mystrlen",
+    "statement": "標準入力で与えられた文字列の長さを標準出力する関数main_mystrlen.cを実装し、実行しましょう。",
+    "constraints": "改行文字は文字列の長さに含まれない。\n標準入力にscanf()を使用してはいけない。\n 課題においては、'string.h'の関数strlen()の使用は禁止。\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c6_1/1/input.txt",
+        "outputFilePath": "testcases/c/c6_1/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c6_1/2/input.txt",
+        "outputFilePath": "testcases/c/c6_1/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c6_1/3/input.txt",
+        "outputFilePath": "testcases/c/c6_1/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c6_1/4/input.txt",
+        "outputFilePath": "testcases/c/c6_1/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c6_1/5/input.txt",
+        "outputFilePath": "testcases/c/c6_1/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c6_1/6/input.txt",
+        "outputFilePath": "testcases/c/c6_1/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c6_1/7/input.txt",
+        "outputFilePath": "testcases/c/c6_1/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c6_1/8/input.txt",
+        "outputFilePath": "testcases/c/c6_1/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c6_1/9/input.txt",
+        "outputFilePath": "testcases/c/c6_1/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c6_1/10/input.txt",
+        "outputFilePath": "testcases/c/c6_1/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c6_1/11/input.txt",
+        "outputFilePath": "testcases/c/c6_1/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c6_1/12/input.txt",
+        "outputFilePath": "testcases/c/c6_1/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c6_1/13/input.txt",
+        "outputFilePath": "testcases/c/c6_1/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c6_1/14/input.txt",
+        "outputFilePath": "testcases/c/c6_1/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c6_1/15/input.txt",
+        "outputFilePath": "testcases/c/c6_1/15/output.txt"
+      },
+      {
+        "testcaseId": 16,
+        "inputFilePath": "testcases/c/c6_1/16/input.txt",
+        "outputFilePath": "testcases/c/c6_1/16/output.txt"
+      },
+      {
+        "testcaseId": 17,
+        "inputFilePath": "testcases/c/c6_1/17/input.txt",
+        "outputFilePath": "testcases/c/c6_1/17/output.txt"
+      },
+      {
+        "testcaseId": 18,
+        "inputFilePath": "testcases/c/c6_1/18/input.txt",
+        "outputFilePath": "testcases/c/c6_1/18/output.txt"
+      },
+      {
+        "testcaseId": 19,
+        "inputFilePath": "testcases/c/c6_1/19/input.txt",
+        "outputFilePath": "testcases/c/c6_1/19/output.txt"
+      },
+      {
+        "testcaseId": 20,
+        "inputFilePath": "testcases/c/c6_1/20/input.txt",
+        "outputFilePath": "testcases/c/c6_1/20/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "main_mystrlen2",
+    "statement": "main関数の引数として与えられた文字列の長さを標準出力する関数main_mystrlen2.cを実装し、実行しましょう。",
+    "constraints": "改行文字は文字列の長さに含まれない。\n標準入力にscanf()を使用してはいけない。\n 課題においては、'string.h'の関数strlen()の使用は禁止。\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c6_2/1/input.txt",
+        "outputFilePath": "testcases/c/c6_2/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c6_2/2/input.txt",
+        "outputFilePath": "testcases/c/c6_2/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c6_2/3/input.txt",
+        "outputFilePath": "testcases/c/c6_2/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c6_2/4/input.txt",
+        "outputFilePath": "testcases/c/c6_2/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c6_2/5/input.txt",
+        "outputFilePath": "testcases/c/c6_2/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c6_2/6/input.txt",
+        "outputFilePath": "testcases/c/c6_2/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c6_2/7/input.txt",
+        "outputFilePath": "testcases/c/c6_2/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c6_2/8/input.txt",
+        "outputFilePath": "testcases/c/c6_2/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c6_2/9/input.txt",
+        "outputFilePath": "testcases/c/c6_2/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c6_2/10/input.txt",
+        "outputFilePath": "testcases/c/c6_2/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c6_2/11/input.txt",
+        "outputFilePath": "testcases/c/c6_2/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c6_2/12/input.txt",
+        "outputFilePath": "testcases/c/c6_2/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c6_2/13/input.txt",
+        "outputFilePath": "testcases/c/c6_2/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c6_2/14/input.txt",
+        "outputFilePath": "testcases/c/c6_2/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c6_2/15/input.txt",
+        "outputFilePath": "testcases/c/c6_2/15/output.txt"
+      },
+      {
+        "testcaseId": 16,
+        "inputFilePath": "testcases/c/c6_2/16/input.txt",
+        "outputFilePath": "testcases/c/c6_2/16/output.txt"
+      },
+      {
+        "testcaseId": 17,
+        "inputFilePath": "testcases/c/c6_2/17/input.txt",
+        "outputFilePath": "testcases/c/c6_2/17/output.txt"
+      },
+      {
+        "testcaseId": 18,
+        "inputFilePath": "testcases/c/c6_2/18/input.txt",
+        "outputFilePath": "testcases/c/c6_2/18/output.txt"
+      },
+      {
+        "testcaseId": 19,
+        "inputFilePath": "testcases/c/c6_2/19/input.txt",
+        "outputFilePath": "testcases/c/c6_2/19/output.txt"
+      },
+      {
+        "testcaseId": 20,
+        "inputFilePath": "testcases/c/c6_2/20/input.txt",
+        "outputFilePath": "testcases/c/c6_2/20/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "main_SortStruct",
+    "statement": "EOFを受け取るまで標準入力に与えられた数値の平均と合計を標準出力するプログラムaverage.cを実装し、実行しましょう。",
+    "constraints": "与えられる値  はすべて実数\n入力は空白区切りで与えられる\n 小数点以下6桁まで出力する\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c8_1/1/input.txt",
+        "outputFilePath": "testcases/c/c8_1/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c8_1/2/input.txt",
+        "outputFilePath": "testcases/c/c8_1/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c8_1/3/input.txt",
+        "outputFilePath": "testcases/c/c8_1/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c8_1/4/input.txt",
+        "outputFilePath": "testcases/c/c8_1/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c8_1/5/input.txt",
+        "outputFilePath": "testcases/c/c8_1/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c8_1/6/input.txt",
+        "outputFilePath": "testcases/c/c8_1/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c8_1/7/input.txt",
+        "outputFilePath": "testcases/c/c8_1/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c8/8/input.txt",
+        "outputFilePath": "testcases/c/c8/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c8_1/9/input.txt",
+        "outputFilePath": "testcases/c/c8_1/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c8_1/10/input.txt",
+        "outputFilePath": "testcases/c/c8_1/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c8_1/11/input.txt",
+        "outputFilePath": "testcases/c/c8_1/11/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "File",
+    "statement": "ファイルから読み込んだ単語群を辞書順にソートし、別のファイルに出力するmain関数( file.c )の実装しましょう。",
+    "constraints": "第1引数に入力ファイル名、第2引数に出力ファイル名を受け取る。\n単語数の上限は適当に静的に確保してください (define 文とかで、256ぐらいあれば大丈夫かと)\n ",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c10_1/1/input.txt",
+        "outputFilePath": "testcases/c/c10/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c10_1/2/input.txt",
+        "outputFilePath": "testcases/c/c10_1/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c10_1/3/input.txt",
+        "outputFilePath": "testcases/c/c10_1/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c10_1/4/input.txt",
+        "outputFilePath": "testcases/c/c10_1/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c10_1/5/input.txt",
+        "outputFilePath": "testcases/c/c10_1/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c10_1/6/input.txt",
+        "outputFilePath": "testcases/c/c10_1/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c10_1/7/input.txt",
+        "outputFilePath": "testcases/c/c10_1/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c10_1/8/input.txt",
+        "outputFilePath": "testcases/c/c10_1/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c10_1/9/input.txt",
+        "outputFilePath": "testcases/c/c10_1/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c10_1/10/input.txt",
+        "outputFilePath": "testcases/c/c10_1/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c10_1/11/input.txt",
+        "outputFilePath": "testcases/c/c10_1/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c10_1/12/input.txt",
+        "outputFilePath": "testcases/c/c10_1/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c10_1/13/input.txt",
+        "outputFilePath": "testcases/c/c10_1/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c10_1/14/input.txt",
+        "outputFilePath": "testcases/c/c10_1/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c10_1/15/input.txt",
+        "outputFilePath": "testcases/c/c10_1/15/output.txt"
+      },
+      {
+        "testcaseId": 16,
+        "inputFilePath": "testcases/c/c10_1/16/input.txt",
+        "outputFilePath": "testcases/c/c10_1/16/output.txt"
+      },
+      {
+        "testcaseId": 17,
+        "inputFilePath": "testcases/c/c10_1/17/input.txt",
+        "outputFilePath": "testcases/c/c10_1/17/output.txt"
+      },
+      {
+        "testcaseId": 18,
+        "inputFilePath": "testcases/c/c10_1/18/input.txt",
+        "outputFilePath": "testcases/c/c10_1/18/output.txt"
+      },
+      {
+        "testcaseId": 19,
+        "inputFilePath": "testcases/c/c10_1/19/input.txt",
+        "outputFilePath": "testcases/c/c10_1/19/output.txt"
+      },
+      {
+        "testcaseId": 20,
+        "inputFilePath": "testcases/c/c10_1/20/input.txt",
+        "outputFilePath": "testcases/c/c10_1/20/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "main_mystrsubst",
+    "statement": "標準入力で与えられた文字列s1,s2,s3を用いて新たな文字列new_strを標準出力する関数main_mystrsubst.cの実装しましょう。",
+    "constraints": "新しい文字列のメモリは関数mystrsubst()内で適切なサイズを動的に確保する\n",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "C1 inputFormat",
+    "outputFmt": "C1 outputFormat",
+    "openDate": "2024-03-05T00:00:00+09:00",
+    "closeDate": "2024-03-07T00:00:00+09:00",
+    "borderScore": 15,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c10_2/1/input.txt",
+        "outputFilePath": "testcases/c/c10_2/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c10_2/2/input.txt",
+        "outputFilePath": "testcases/c/c10_2/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c10_2/3/input.txt",
+        "outputFilePath": "testcases/c/c10_2/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c10_2/4/input.txt",
+        "outputFilePath": "testcases/c/c10_2/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c10_2/5/input.txt",
+        "outputFilePath": "testcases/c/c10_2/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c10_2/6/input.txt",
+        "outputFilePath": "testcases/c/c10_2/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c10_2/7/input.txt",
+        "outputFilePath": "testcases/c/c10_2/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c10_2/8/input.txt",
+        "outputFilePath": "testcases/c/c10_2/8/output.txt"
+      },
+      {
+        "testcaseId": 9,
+        "inputFilePath": "testcases/c/c10_2/9/input.txt",
+        "outputFilePath": "testcases/c/c10_2/9/output.txt"
+      },
+      {
+        "testcaseId": 10,
+        "inputFilePath": "testcases/c/c10_2/10/input.txt",
+        "outputFilePath": "testcases/c/c10_2/10/output.txt"
+      },
+      {
+        "testcaseId": 11,
+        "inputFilePath": "testcases/c/c10_2/11/input.txt",
+        "outputFilePath": "testcases/c/c10_2/11/output.txt"
+      },
+      {
+        "testcaseId": 12,
+        "inputFilePath": "testcases/c/c10_2/12/input.txt",
+        "outputFilePath": "testcases/c/c10_2/12/output.txt"
+      },
+      {
+        "testcaseId": 13,
+        "inputFilePath": "testcases/c/c10_2/13/input.txt",
+        "outputFilePath": "testcases/c/c10_2/13/output.txt"
+      },
+      {
+        "testcaseId": 14,
+        "inputFilePath": "testcases/c/c10_2/14/input.txt",
+        "outputFilePath": "testcases/c/c10_2/14/output.txt"
+      },
+      {
+        "testcaseId": 15,
+        "inputFilePath": "testcases/c/c10_2/15/input.txt",
+        "outputFilePath": "testcases/c/c10_2/15/output.txt"
+      },
+      {
+        "testcaseId": 16,
+        "inputFilePath": "testcases/c/c10_2/16/input.txt",
+        "outputFilePath": "testcases/c/c10_2/16/output.txt"
+      },
+      {
+        "testcaseId": 17,
+        "inputFilePath": "testcases/c/c10_2/17/input.txt",
+        "outputFilePath": "testcases/c/c10_2/17/output.txt"
+      },
+      {
+        "testcaseId": 18,
+        "inputFilePath": "testcases/c/c10_2/18/input.txt",
+        "outputFilePath": "testcases/c/c10_2/18/output.txt"
+      },
+      {
+        "testcaseId": 19,
+        "inputFilePath": "testcases/c/c10_2/19/input.txt",
+        "outputFilePath": "testcases/c/c10_2/19/output.txt"
+      },
+      {
+        "testcaseId": 20,
+        "inputFilePath": "testcases/c/c10_2/20/input.txt",
+        "outputFilePath": "testcases/c/c10_2/20/output.txt"
+      }
     ]
   }
 ]
