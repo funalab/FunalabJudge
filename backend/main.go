@@ -37,12 +37,25 @@ func main() {
 		AllowOrigins: []string{
 			"http://" + os.Getenv("PUBLIC_SERVER_IP") + ":" + os.Getenv("FRONTEND_PORT"),
 		},
+		// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
+		AllowMethods: []string{
+			"POST",
+			"GET",
+			"OPTIONS",
+		},
+		// 許可したいHTTPリクエストヘッダ
+		AllowHeaders: []string{
+			"Access-Control-Allow-Credentials",
+			"Access-Control-Allow-Headers",
+			"Content-Type",
+			"Content-Length",
+			"Accept-Encoding",
+			"Authorization",
+		},
+		// cookieなどの情報を必要とするかどうか
 		AllowCredentials: true,
 		// preflightリクエストの結果をキャッシュする時間
-		MaxAge:       24 * time.Hour,
-		AllowHeaders: []string{"content-type"}, // 他はなくても現状動く
-		// 以下の項目は、全てを許可しない設定にしても認証機能に影響はなかった, セキュリティの観点で設定が必要な可能性はある
-		// AllowMethods: []string{},
+		MaxAge: 24 * time.Hour,
 	}))
 
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
