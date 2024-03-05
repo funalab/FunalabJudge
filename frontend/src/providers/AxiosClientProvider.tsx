@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import axios, { HttpStatusCode } from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const SERVER_IP: string = import.meta.env.VITE_SERVER_IP;
+const SERVER_IP: string = import.meta.env.VITE_PUBLIC_SERVER_IP;
 const BACKEND_PORT: string = import.meta.env.VITE_BACKEND_PORT
 axios.defaults.baseURL = `http://${SERVER_IP}:${BACKEND_PORT}`;
 axios.defaults.withCredentials = true;

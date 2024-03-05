@@ -35,7 +35,7 @@ func main() {
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
-			"http://" + os.Getenv("SERVER_IP") + ":" + os.Getenv("FRONTEND_PORT"),
+			"http://" + os.Getenv("PUBLIC_SERVER_IP") + ":" + os.Getenv("FRONTEND_PORT"),
 		},
 		AllowCredentials: true,
 		// preflightリクエストの結果をキャッシュする時間
@@ -87,7 +87,7 @@ func main() {
 	})
 
 	// サーバー起動
-	router.Run(os.Getenv("SERVER_IP") + ":" + os.Getenv("BACKEND_PORT"))
+	router.Run(os.Getenv("PRIVATE_SERVER_IP") + ":" + os.Getenv("BACKEND_PORT"))
 	fmt.Println("Server is running.")
 }
 
