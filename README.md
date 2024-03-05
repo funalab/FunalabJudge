@@ -26,6 +26,33 @@ The following ports are currently installed:
 # Used technologies
 **React**, **Gin**, **MongoDB**  
 
+# About .env file
+You must put a env file to **frontend** dir.  
+An example of env file is below...
+```
+DB_URL=mongodb://localhost:{write_port_num_here}
+DB_NAME=dev
+PROBLEMS_COLLECTION=problems
+SUBMISSION_COLLECTION=submission
+USERS_COLLECTION=users
+
+SERVER_IP=localhost
+VITE_SERVER_IP=${SERVER_IP}
+FRONTEND_PORT={write_port_num_here}
+BACKEND_PORT={write_port_num_here}
+VITE_BACKEND_PORT=${BACKEND_PORT}
+
+SECRET_KEY=hogehoge
+
+EXEC_DIR=../compile_resource
+MAKEFILE_NAME=Makefile
+MAKEFILE_PROG_DEFAULT=final
+
+STATIC_DIR=../static/
+SEED_DATA_DIR=seed_data
+```
+Especially, you should generate **SECRET_KEY** with `% openssl rand -base64 32` which is used for the signature of JWT token.
+
 # Getting Started
 Firstly, you should clone this repo.  
 `% git clone git@github.com:funalab/FunalabJudge.git`  
@@ -54,30 +81,3 @@ After that, you should go **http://localhost:5173/login**.
 `% npm run preview`  
 `% cd ../backend`  
 `% go run main.go -release`  
-
-# About .env file
-You must put a env file to **frontend** dir.  
-An example of env file is below...
-```
-DB_URL=mongodb://localhost:{write_port_num_here}
-DB_NAME=dev
-PROBLEMS_COLLECTION=problems
-SUBMISSION_COLLECTION=submission
-USERS_COLLECTION=users
-
-SERVER_IP=localhost
-VITE_SERVER_IP=${SERVER_IP}
-FRONTEND_PORT={write_port_num_here}
-BACKEND_PORT={write_port_num_here}
-VITE_BACKEND_PORT=${BACKEND_PORT}
-
-SECRET_KEY=hogehoge
-
-EXEC_DIR=../compile_resource
-MAKEFILE_NAME=Makefile
-MAKEFILE_PROG_DEFAULT=final
-
-STATIC_DIR=../static/
-SEED_DATA_DIR=seed_data
-```
-Especially, you should generate **SECRET_KEY** with `% openssl rand -base64 32` which is used for the signature of JWT token.
