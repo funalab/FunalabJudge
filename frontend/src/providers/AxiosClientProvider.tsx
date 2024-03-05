@@ -7,7 +7,12 @@ const BACKEND_PORT: string = import.meta.env.VITE_BACKEND_PORT
 axios.defaults.baseURL = `http://${SERVER_IP}:${BACKEND_PORT}`;
 axios.defaults.withCredentials = true;
 
-export const axiosClient = axios.create({})
+export const axiosClient = axios.create({
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true,
+}
+})
 
 export function AxiosClientProvider({ children }: { children: React.ReactElement }) {
   const navigater = useNavigate()
