@@ -31,9 +31,9 @@ export const Login: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  sessionStorage.removeItem("authUserName");
-  sessionStorage.removeItem("authUserRole");
-  sessionStorage.removeItem("authUserExp");
+  localStorage.removeItem("authUserName");
+  localStorage.removeItem("authUserRole");
+  localStorage.removeItem("authUserExp");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -45,9 +45,9 @@ export const Login: FC = () => {
       .then((response) => {
         if (response.status === HttpStatusCode.Ok) {
           const jwtToken = jwtDecode<MyJwtPayload>(response.data.token);
-          sessionStorage.setItem("authUserName", jwtToken.user);
-          sessionStorage.setItem("authUserRole", jwtToken.role);
-          sessionStorage.setItem("authUserExp", jwtToken.exp.toString());
+          localStorage.setItem("authUserName", jwtToken.user);
+          localStorage.setItem("authUserRole", jwtToken.role);
+          localStorage.setItem("authUserExp", jwtToken.exp.toString());
           if (location.state) {
             navigate(location.state, { replace: true })
           } else {

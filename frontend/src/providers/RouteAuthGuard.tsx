@@ -11,9 +11,9 @@ type Props = {
 export const RouteAuthGuard: React.FC<Props> = (props) => {
   let allowRoute = false;
 
-  const authUserName = sessionStorage.getItem("authUserName");
-  const authUserRole = sessionStorage.getItem("authUserRole");
-  const authUserExp = Number(sessionStorage.getItem("authUserExp"));
+  const authUserName = localStorage.getItem("authUserName");
+  const authUserRole = localStorage.getItem("authUserRole");
+  const authUserExp = Number(localStorage.getItem("authUserExp"));
 
   if ( authUserName && authUserRole && authUserExp ) {
     allowRoute = AuthUser({

@@ -8,15 +8,15 @@ import LogoImage from "../../images/funalab.png"
 
 export const TopHeader = () => {
   const navigate = useNavigate()
-  const loginUser = sessionStorage.getItem("authUserName")
+  const loginUser = localStorage.getItem("authUserName")
 
   const handleLogout = async () => {
     try {
       const { status } = await axiosClient.post("/logout")
       if (status === HttpStatusCode.Ok) {
-        sessionStorage.removeItem("authUserName");
-        sessionStorage.removeItem("authUserRole");
-        sessionStorage.removeItem("authUserExp");
+        localStorage.removeItem("authUserName");
+        localStorage.removeItem("authUserRole");
+        localStorage.removeItem("authUserExp");
         navigate("/login");
       } else {
         // gin-jwtのソースコード的に、OK以外を返すことはない?
