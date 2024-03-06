@@ -59,6 +59,12 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		for _, t := range p.TestcaseWithPaths {
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "CE")
 		}
+		_, err = execCommand(s.Id, "make clean", 2)
+		if err != nil {
+			c.Error(errors.Join(fmt.Errorf("[%s] failed to exec make clean", s.Id.Hex()), err))
+			submission.UpdateSubmissionStatus(client, s.Id, "RE")
+			return
+		}
 		return
 	}
 
@@ -133,7 +139,6 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 	_, err = execCommand(s.Id, "make clean", 2)
 	if err != nil {
 		c.Error(errors.Join(fmt.Errorf("[%s] failed to exec make clean", s.Id.Hex()), err))
-
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 		return
 	}
