@@ -1,1 +1,1 @@
-./a.out zouzei Megane
+zouzei Megane

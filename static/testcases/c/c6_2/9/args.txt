@@ -1,1 +1,1 @@
-./a.out Araki Taichi
+Araki Taichi

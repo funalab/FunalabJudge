@@ -1,1 +1,1 @@
-./a.out zinu tagu
+zinu tagu

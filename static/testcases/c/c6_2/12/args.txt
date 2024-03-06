@@ -1,1 +1,1 @@
-./a.out mito ayaka
+mito ayaka

@@ -1,1 +1,1 @@
-./a.out funa soul
+funa soul

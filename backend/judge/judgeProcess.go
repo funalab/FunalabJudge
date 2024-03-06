@@ -79,8 +79,8 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		command := fmt.Sprintf("./%s", execFile)
 
 		// exec test case
-		if t.ArgsFilePath != nil {
-			a, err := os.ReadFile(filepath.Join(staticDir, *t.ArgsFilePath))
+		if t.ArgsFilePath != "" {
+			a, err := os.ReadFile(filepath.Join(staticDir, t.ArgsFilePath))
 			if err != nil {
 				c.Error(errors.Join(fmt.Errorf("[%s] failed to read args of test case", s.Id.Hex()), err))
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
@@ -90,10 +90,11 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 				command = command + " " + string(a)
 			}
 		}
-		if t.InputFilePath != nil {
+		println(t.InputFilePath, t.InputFilePath != "")
+		if t.InputFilePath != "" {
 			// stdinのpipeを使うとバカ長いinputを入れるときに正常に動かなくなるので、リダイレクトする
 			// TODO 相対パス使ってる応急処置でnot elegant、絶対パスにしたい
-			command = command + " < ../" + filepath.Join(staticDir, *t.InputFilePath)
+			command = command + " < ../" + filepath.Join(staticDir, t.InputFilePath)
 		}
 
 		output, err := execCommand(s.Id, command, int(p.ExecutionTime))

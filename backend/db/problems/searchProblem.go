@@ -66,19 +66,29 @@ func parseTestcaseWithPathToTestcase(tws []TestcaseWithPath) ([]Testcase, error)
 	staticDir := os.Getenv("STATIC_DIR")
 	ts := make([]Testcase, 0)
 	for _, tw := range tws {
-		sIn, err := os.ReadFile(filepath.Join(staticDir, *tw.InputFilePath))
-		if err != nil {
-			return []Testcase{}, errors.Join(errors.New("failed to read input file"), err)
+		ts_ := Testcase{TestcaseId: tw.TestcaseId}
+		if tw.ArgsFilePath != "" {
+			sArgs, err := os.ReadFile(filepath.Join(staticDir, tw.ArgsFilePath))
+			if err != nil {
+				return []Testcase{}, errors.Join(errors.New("failed to read args file"), err)
+			}
+			ts_.ArgsFileContent = string(sArgs)
 		}
-		sOut, err := os.ReadFile(filepath.Join(staticDir, tw.OutputFilePath))
-		if err != nil {
-			return []Testcase{}, errors.Join(errors.New("failed to read output file"), err)
+		if tw.InputFilePath != "" {
+			sIn, err := os.ReadFile(filepath.Join(staticDir, tw.InputFilePath))
+			if err != nil {
+				return []Testcase{}, errors.Join(errors.New("failed to read input file"), err)
+			}
+			ts_.InputFileContent = string(sIn)
 		}
-		ts = append(ts, Testcase{
-			TestcaseId:        tw.TestcaseId,
-			InputFileContent:  string(sIn),
-			OutputFileContent: string(sOut),
-		})
+		if tw.OutputFilePath != "" {
+			sOut, err := os.ReadFile(filepath.Join(staticDir, tw.OutputFilePath))
+			if err != nil {
+				return []Testcase{}, errors.Join(errors.New("failed to read output file"), err)
+			}
+			ts_.OutputFileContent = string(sOut)
+		}
+		ts = append(ts, ts_)
 	}
 	return ts, nil
 }
