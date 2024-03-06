@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { HttpStatusCode } from "axios";
 import { axiosClient } from "../providers/AxiosClientProvider";
 import { MdLogout } from "react-icons/md";
+import LogoImage from "../../images/funalab.png"
 
 export const TopHeader = () => {
   const navigate = useNavigate()
@@ -42,7 +43,7 @@ export const TopHeader = () => {
       px={8}
     >
       <Box ml="10px">
-        <Image src="../images/funalab.png" alt="Logo" width={75} />
+        <Image src={LogoImage} alt="Logo" width={75} />
       </Box>
       <Spacer />
       <Box mt="10px" mr="10px">

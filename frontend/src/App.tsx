@@ -13,8 +13,12 @@ import SubmissionPage from "./routes/Submission";
 import NotFound from "./routes/NotFound";
 import { RouteAuthGuard } from "./providers/RouteAuthGuard";
 import { PageType } from "./types/PageTypes";
+import { useEffect } from "react";
 
 const App: React.FC = () => {
+  useEffect(() => {
+    document.title = 'Funalab Judge';
+  }, []);
   return (
     <BrowserRouter>
       <AxiosClientProvider>
