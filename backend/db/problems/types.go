@@ -9,6 +9,8 @@ type Problem struct {
 	Constraints       string             `bson:"constraints"`
 	ExecutionTime     int32              `bson:"executionTime"`
 	MemoryLimit       int32              `bson:"memoryLimit"`
+	InputFmt          string             `bson:"inputFormat"`
+	OutputFmt         string             `bson:"outputFormat"`
 	OpenDate          time.Time          `bson:"openDate"`
 	CloseDate         time.Time          `bson:"closeDate"`
 	BorderScore       int32              `bson:"borderScore"`
@@ -29,6 +31,8 @@ type ProblemWithTestcase struct {
 	Constraints   string     `bson:"constraints"`
 	ExecutionTime int32      `bson:"executionTime"`
 	MemoryLimit   int32      `bson:"memoryLimit"`
+	InputFmt      string     `bson:"inputFormat"`
+	OutputFmt     string     `bson:"outputFormat"`
 	OpenDate      time.Time  `bson:"openDate"`
 	CloseDate     time.Time  `bson:"closeDate"`
 	BorderScore   int32      `bson:"borderScore"`

@@ -53,6 +53,8 @@ func ReadTestcaseContent(p Problem) (ProblemWithTestcase, error) {
 		Constraints:   p.Constraints,
 		ExecutionTime: p.ExecutionTime,
 		MemoryLimit:   p.MemoryLimit,
+		InputFmt:      p.InputFmt,
+		OutputFmt:     p.OutputFmt,
 		OpenDate:      p.OpenDate,
 		CloseDate:     p.CloseDate,
 		BorderScore:   p.BorderScore,

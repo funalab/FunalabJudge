@@ -41,9 +41,8 @@ const ProblemPage = () => {
               >
                 問題文
               </Text>
-              <Text>{pwt?.Statement}</Text>
+              <Text whiteSpace="pre-line">{pwt?.Statement}</Text>
             </Stack>
-
             <Stack mb={8}>
               <Text
                 fontSize={24}
@@ -51,7 +50,25 @@ const ProblemPage = () => {
               >
                 制約
               </Text>
-              <Text>{pwt?.Constraints}</Text>
+              <Text whiteSpace="pre-line">{pwt?.Constraints}</Text>
+            </Stack>
+            <Stack mb={8}>
+              <Text
+                fontSize={24}
+                fontWeight={'bold'}
+              >
+                入力形式
+              </Text>
+              <Text whiteSpace="pre-line">{pwt?.InputFmt}</Text>
+            </Stack>
+            <Stack mb={8}>
+              <Text
+                fontSize={24}
+                fontWeight={'bold'}
+              >
+                出力形式
+              </Text>
+              <Text whiteSpace="pre-line">{pwt?.OutputFmt}</Text>
             </Stack>
           </Stack>
           <Divider />

@@ -1,0 +1,15 @@
+input_args
+string index
+argg 1
+segh 2
+sdfgas 3
+fpbosedfkkh 4
+j 5
+
+sorted data
+string index
+argg 1
+fpbosedfkkh 4
+j 5
+sdfgas 3
+segh 2

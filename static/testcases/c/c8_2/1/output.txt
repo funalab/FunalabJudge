@@ -1,0 +1,9 @@
+input_args
+string index
+ab 1
+bc 2
+
+sorted data
+string index
+ab 1
+bc 2

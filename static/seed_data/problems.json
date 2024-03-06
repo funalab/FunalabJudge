@@ -6,6 +6,8 @@
     "constraints": "入力はあらゆる文字\n",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-05T00:00:00+09:00",
     "closeDate": "2024-03-06T23:59:59+09:00",
     "borderScore": 13,
@@ -84,6 +86,8 @@
     "constraints": "入力はあらゆる文字列\n",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-05T00:00:00+09:00",
     "closeDate": "2024-03-06T23:59:59+09:00",
     "borderScore": 15,
@@ -172,6 +176,8 @@
     "constraints": "与えられる値  はすべて実数\n入力は空白区切りで与えられる\n 小数点以下6桁まで出力する\n",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-05T00:00:00+09:00",
     "closeDate": "2024-03-06T23:59:59+09:00",
     "borderScore": 20,
@@ -285,6 +291,8 @@
     "constraints": "再帰関数を用いて、最大公約数を求める関数を作成する。\n ヘッダファイルmyheader.hに関数の宣言を行い、これをmain関数を含むファイルで#includeする。",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-06T00:00:00+09:00",
     "closeDate": "2024-03-11T23:59:59+09:00",
     "borderScore": 20,
@@ -398,6 +406,8 @@
     "constraints": "改行文字は文字列の長さに含まれない。\n標準入力にscanf()を使用してはいけない。\n 課題においては、'string.h'の関数strlen()の使用は禁止。\n",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-06T00:00:00+09:00",
     "closeDate": "2024-03-11T23:59:59+09:00",
     "borderScore": 20,
@@ -511,6 +521,8 @@
     "constraints": "改行文字は文字列の長さに含まれない。\n標準入力にscanf()を使用してはいけない。\n 課題においては、'string.h'の関数strlen()の使用は禁止。\n",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-06T00:00:00+09:00",
     "closeDate": "2024-03-11T23:59:59+09:00",
     "borderScore": 20,
@@ -620,10 +632,12 @@
   {
     "id": 8,
     "name": "main_SortStruct",
-    "statement": "EOFを受け取るまで標準入力に与えられた数値の平均と合計を標準出力するプログラムaverage.cを実装し、実行しましょう。",
-    "constraints": "与えられる値  はすべて実数\n入力は空白区切りで与えられる\n 小数点以下6桁まで出力する\n",
+    "statement": "標準入力で与えられたplayers情報を年齢順にソートし、標準出力する main 関数の実装 (main_SortStruct.c)。\n\n注意事項\n• 前回までの課題で作成した mystr 系の関数を用いると良いかも？\n• メモリリークに気を付ける (free() を忘れない)\n• ソースコードを提出(ヘッダーファイルを用いたなら、それも忘れずに)",
+    "constraints": "• 与えられる人数Nは 1<=N<=256\n• 年齢X_iは0 <=X_i <=  100\n• 年齢に数字以外が与えられた場合^D後にエラーを返す",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "名前1,年齢1\n名前2,年齢2\n...\n^D (Ctrl+D)",
+    "outputFmt": "名前1,年齢1\n名前2,年齢2\n...\n\n# エラーの場合\ninput error: name(str),age(int)",
     "openDate": "2024-03-07T00:00:00+09:00",
     "closeDate": "2024-03-12T23:59:59+09:00",
     "borderScore": 11,
@@ -692,6 +706,8 @@
     "constraints": "第1引数に入力ファイル名、第2引数に出力ファイル名を受け取る。\n単語数の上限は適当に静的に確保してください (define 文とかで、256ぐらいあれば大丈夫かと)\n ",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-08T00:00:00+09:00",
     "closeDate": "2024-03-12T23:59:59+09:00",
     "borderScore": 20,
@@ -805,6 +821,8 @@
     "constraints": "新しい文字列のメモリは関数mystrsubst()内で適切なサイズを動的に確保する\n",
     "executionTime": 1,
     "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
     "openDate": "2024-03-08T00:00:00+09:00",
     "closeDate": "2024-03-12T23:59:59+09:00",
     "borderScore": 20,
@@ -908,6 +926,56 @@
         "testcaseId": 20,
         "inputFilePath": "testcases/c/c10_2/20/input.txt",
         "outputFilePath": "testcases/c/c10_2/20/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "DictStruct",
+    "statement": "コマンドライン引数の文字列を辞書順にソートし、標準出力する main 関数の実装 (main_DictStruct.c)。",
+    "constraints": "• 与えられる要素数Nは  1<=N<=256\n• 文字列の長さX_i は  1<=N<=256\n• コマンドライン引数が与えられない場合usageを返す",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "./a.out 文字列1 文字列2 ...",
+    "outputFmt": "input_args\nstring index\n文字列1 1\n文字列2 2\n...\n\nsorted data\nstring index\n文字列2 2\n文字列1 1\n\n# エラーの場合\nusage: ./a.out target-args",
+    "openDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
+    "borderScore": 7,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c8_2/1/input.txt",
+        "outputFilePath": "testcases/c/c8_2/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c8_2/2/input.txt",
+        "outputFilePath": "testcases/c/c8_2/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c8_2/3/input.txt",
+        "outputFilePath": "testcases/c/c8_2/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c8_2/4/input.txt",
+        "outputFilePath": "testcases/c/c8_2/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c8_2/5/input.txt",
+        "outputFilePath": "testcases/c/c8_2/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c8_2/6/input.txt",
+        "outputFilePath": "testcases/c/c8_2/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c8_2/7/input.txt",
+        "outputFilePath": "testcases/c/c8_2/7/output.txt"
       }
     ]
   }
