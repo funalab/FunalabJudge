@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Divider, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import ExecutionConstraints from "../components/ExecutionConstraints";
-import InputOutputBox from "../components/InputOutputBox";
+// import InputOutputBox from "../components/InputOutputBox";
 import TestcaseBox from "../components/TestcaseBox";
 import DefaultLayout from "../components/DefaultLayout";
 import { axiosClient } from "../providers/AxiosClientProvider";
@@ -16,8 +16,8 @@ const ProblemPage = () => {
   const [memoryLimit, setMemoryLimit] = useState(0);
   const [statement, setStatement] = useState("");
   const [problemConstraints, setProblemConstraints] = useState("");
-  const [inputFormat, setInputFormat] = useState("");
-  const [outputFormat, setOutputFormat] = useState("");
+  // const [inputFormat, setInputFormat] = useState("");
+  // const [outputFormat, setOutputFormat] = useState("");
   const [testcases, setTestcases] = useState<Testcase[]>([]);
 
   useEffect(() => {
@@ -30,8 +30,8 @@ const ProblemPage = () => {
         setMemoryLimit(p.MemoryLimit);
         setStatement(p.Statement);
         setProblemConstraints(p.Constraints);
-        setInputFormat(p.InputFmt);
-        setOutputFormat(p.OutputFmt);
+        // setInputFormat(p.InputFmt);
+        // setOutputFormat(p.OutputFmt);
         setTestcases(p.Testcases);
       })
       .catch(() => {
