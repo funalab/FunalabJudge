@@ -1091,7 +1091,7 @@
   },
   {
     "id": 15,
-    "name": "mystrcmp",
+    "name": "mystrncmp",
     "statement": "標準入力で与えられた2つの文字列をn文字目まで比較した結果をmain関数の実装 (main_mystrcmp.c)。",
     "constraints": "• 1つ目と2つ目の入力は任意の文字列\n• 3つ目の入力は任意の整数",
     "executionTime": 1,
