@@ -978,5 +978,170 @@
         "outputFilePath": "testcases/c/c8_2/7/output.txt"
       }
     ]
+  },
+  {
+    "id": 12,
+    "name": "mystrcpy",
+    "statement": "標準入力で与えられた文字列をコピーして標準出力するmain関数の実装。",
+    "constraints": "• 入力は任意の文字列",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "文字列",
+    "outputFmt": "input_str: 文字列\ncopied_str: コピーされた文字列",
+    "openDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
+    "borderScore": 3,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c7_1/1/input.txt",
+        "outputFilePath": "testcases/c/c7_1/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c7_1/2/input.txt",
+        "outputFilePath": "testcases/c/c7_1/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c7_1/3/input.txt",
+        "outputFilePath": "testcases/c/c7_1/3/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "mystrncpy",
+    "statement": "標準入力で与えられた文字列をn文字目までコピーして標準出力するmain関数の実装。",
+    "constraints": "• 1つ目の入力は任意の文字列\n• 2つ目の入力は任意の整数",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "文字列\n数字(n)",
+    "outputFmt": "input_str: 文字列\ncopied_str: コピーされた文字列",
+    "openDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
+    "borderScore": 4,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c7_2/1/input.txt",
+        "outputFilePath": "testcases/c/c7_2/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c7_2/2/input.txt",
+        "outputFilePath": "testcases/c/c7_2/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c7_2/3/input.txt",
+        "outputFilePath": "testcases/c/c7_2/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c7_2/4/input.txt",
+        "outputFilePath": "testcases/c/c7_2/4/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "mystrcmp",
+    "statement": "標準入力で与えられた2つの文字列を比較した結果をmain関数の実装 (main_mystrcmp.c)。",
+    "constraints": "入力は任意の文字列",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "文字列1\n文字列2",
+    "outputFmt": "s1 ( < or > or == ) s2",
+    "openDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
+    "borderScore": 6,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c7_3/1/input.txt",
+        "outputFilePath": "testcases/c/c7_3/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c7_3/2/input.txt",
+        "outputFilePath": "testcases/c/c7_3/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c7_3/3/input.txt",
+        "outputFilePath": "testcases/c/c7_3/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c7_3/4/input.txt",
+        "outputFilePath": "testcases/c/c7_3/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c7_3/5/input.txt",
+        "outputFilePath": "testcases/c/c7_3/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c7_3/6/input.txt",
+        "outputFilePath": "testcases/c/c7_3/6/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "mystrcmp",
+    "statement": "標準入力で与えられた2つの文字列をn文字目まで比較した結果をmain関数の実装 (main_mystrcmp.c)。",
+    "constraints": "• 1つ目と2つ目の入力は任意の文字列\n• 3つ目の入力は任意の整数",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "文字列1\n文字列2\n数字(n)",
+    "outputFmt": "s1 ( < or > or == ) s2",
+    "openDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
+    "borderScore": 8,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "inputFilePath": "testcases/c/c7_4/1/input.txt",
+        "outputFilePath": "testcases/c/c7_4/1/output.txt"
+      },
+      {
+        "testcaseId": 2,
+        "inputFilePath": "testcases/c/c7_4/2/input.txt",
+        "outputFilePath": "testcases/c/c7_4/2/output.txt"
+      },
+      {
+        "testcaseId": 3,
+        "inputFilePath": "testcases/c/c7_4/3/input.txt",
+        "outputFilePath": "testcases/c/c7_4/3/output.txt"
+      },
+      {
+        "testcaseId": 4,
+        "inputFilePath": "testcases/c/c7_4/4/input.txt",
+        "outputFilePath": "testcases/c/c7_4/4/output.txt"
+      },
+      {
+        "testcaseId": 5,
+        "inputFilePath": "testcases/c/c7_4/5/input.txt",
+        "outputFilePath": "testcases/c/c7_4/5/output.txt"
+      },
+      {
+        "testcaseId": 6,
+        "inputFilePath": "testcases/c/c7_4/6/input.txt",
+        "outputFilePath": "testcases/c/c7_4/6/output.txt"
+      },
+      {
+        "testcaseId": 7,
+        "inputFilePath": "testcases/c/c7_4/7/input.txt",
+        "outputFilePath": "testcases/c/c7_4/7/output.txt"
+      },
+      {
+        "testcaseId": 8,
+        "inputFilePath": "testcases/c/c7_4/8/input.txt",
+        "outputFilePath": "testcases/c/c7_4/8/output.txt"
+      }
+    ]
   }
 ]

@@ -1,0 +1,2 @@
+input_str: 12345abcd
+copied_str: 12345abcd

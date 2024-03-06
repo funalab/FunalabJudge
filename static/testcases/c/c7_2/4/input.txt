@@ -1,0 +1,2 @@
+mystrncpy
+100

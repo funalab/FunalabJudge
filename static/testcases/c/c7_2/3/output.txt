@@ -1,0 +1,2 @@
+input_str: a a a a a
+copied_str: a a 

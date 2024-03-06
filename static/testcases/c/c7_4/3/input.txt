@@ -1,0 +1,3 @@
+mystrcmp
+mystrncpm
+6

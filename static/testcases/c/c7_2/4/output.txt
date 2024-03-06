@@ -1,0 +1,2 @@
+input_str: mystrncpy
+copied_str: mystrncpy
