@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Divider, Heading, Stack, Text, VStack } from "@chakra-ui/react";
 import ExecutionConstraints from "../components/ExecutionConstraints";
-// import InputOutputBox from "../components/InputOutputBox";
 import TestcaseBox from "../components/TestcaseBox";
 import DefaultLayout from "../components/DefaultLayout";
 import { axiosClient } from "../providers/AxiosClientProvider";
@@ -11,31 +10,16 @@ import { ProblemWithTestcase, Testcase } from "../types/DbTypes";
 
 const ProblemPage = () => {
   const { problemId } = useParams<string>();
-  const [name, setName] = useState("");
-  const [executionTime, setExecutionTime] = useState(0);
-  const [memoryLimit, setMemoryLimit] = useState(0);
-  const [statement, setStatement] = useState("");
-  const [problemConstraints, setProblemConstraints] = useState("");
-  // const [inputFormat, setInputFormat] = useState("");
-  // const [outputFormat, setOutputFormat] = useState("");
-  const [testcases, setTestcases] = useState<Testcase[]>([]);
+  const [pwt, setPwt] = useState<ProblemWithTestcase>()
 
   useEffect(() => {
     axiosClient
       .get<ProblemWithTestcase>(`/getProblem/${problemId}`)
       .then((response) => {
-        const p: ProblemWithTestcase = response.data;
-        setName(p.Name);
-        setExecutionTime(p.ExecutionTime);
-        setMemoryLimit(p.MemoryLimit);
-        setStatement(p.Statement);
-        setProblemConstraints(p.Constraints);
-        // setInputFormat(p.InputFmt);
-        // setOutputFormat(p.OutputFmt);
-        setTestcases(p.Testcases);
+        setPwt(response.data)
       })
-      .catch(() => {
-        console.log("error");
+      .catch((error) => {
+        console.log(error);
         alert("Failed to fetch data from database.");
       });
   }, [problemId]);
@@ -43,12 +27,12 @@ const ProblemPage = () => {
   return (
       <DefaultLayout>
         <VStack>
-          <Heading my={3}>{name}</Heading>
+          <Heading my={3}>{pwt?.Name}</Heading>
           <Divider />
           <Stack my={6}>
             <ExecutionConstraints
-              executionTime={executionTime}
-              memoryLimit={memoryLimit}
+              executionTime={pwt?.ExecutionTime}
+              memoryLimit={pwt?.MemoryLimit}
             />
             <Stack mt={4} mb={8}>
               <Text
@@ -57,7 +41,7 @@ const ProblemPage = () => {
               >
                 問題文
               </Text>
-              <Text>{statement}</Text>
+              <Text>{pwt?.Statement}</Text>
             </Stack>
 
             <Stack mb={8}>
@@ -67,39 +51,13 @@ const ProblemPage = () => {
               >
                 制約
               </Text>
-              <Text>{problemConstraints}</Text>
+              <Text>{pwt?.Constraints}</Text>
             </Stack>
-            {/* <Stack mb={8}>
-              <Text
-                fontSize={24}
-                fontWeight={'bold'}
-              >
-                入力
-              </Text>
-              <Text>入力は以下の形式で標準入力から与えられる。</Text>
-              <InputOutputBox content={inputFormat} />
-
-            </Stack>
-            <Text
-              fontSize={24}
-              fontWeight={'bold'}
-            >
-              出力
-            </Text>
-            <Text>出力は以下の形式で標準出力に出力せよ。</Text>
-            <InputOutputBox content={outputFormat} /> */}
           </Stack>
           <Divider />
           <Text fontSize={32} fontWeight={'bold'}>Sample Cases</Text>
-          {testcases.slice(0, Math.min(3, testcases.length)).map((testcase: Testcase, index: number) => (
-            <>
-              <TestcaseBox
-                TestcaseId={index + 1}
-                ArgsFileContent={testcase.ArgsFileContent}
-                InputFileContent={testcase.InputFileContent}
-                OutputFileContent={testcase.OutputFileContent}
-              />
-            </>
+          {pwt?.Testcases.slice(0, Math.min(3, isNaN(pwt?.Testcases.length) ? 0 : pwt?.Testcases.length)).map((testcase: Testcase) => (
+            <TestcaseBox {...testcase} />
           ))}
           <SubmitForm problemId={+problemId!} />
         </VStack>
