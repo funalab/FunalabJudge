@@ -69,8 +69,7 @@ const ProblemPage = () => {
               </Text>
               <Text>{problemConstraints}</Text>
             </Stack>
-
-            <Stack mb={8}>
+            {/* <Stack mb={8}>
               <Text
                 fontSize={24}
                 fontWeight={'bold'}
@@ -88,11 +87,11 @@ const ProblemPage = () => {
               出力
             </Text>
             <Text>出力は以下の形式で標準出力に出力せよ。</Text>
-            <InputOutputBox content={outputFormat} />
+            <InputOutputBox content={outputFormat} /> */}
           </Stack>
           <Divider />
           <Text fontSize={32} fontWeight={'bold'}>Sample Cases</Text>
-          {testcases.slice(0, 3).map((testcase: Testcase, index: number) => (
+          {testcases.slice(0, Math.min(3, testcases.length)).map((testcase: Testcase, index: number) => (
             <>
               <TestcaseBox
                 TestcaseId={index + 1}
