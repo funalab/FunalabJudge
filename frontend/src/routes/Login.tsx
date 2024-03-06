@@ -20,7 +20,7 @@ import { jwtDecode } from 'jwt-decode';
 export interface MyJwtPayload {
   exp: number,
   orig_iat: number,
-  role: string,
+  joined: Date,
   user: string,
 }
 
@@ -32,7 +32,7 @@ export const Login: FC = () => {
   const location = useLocation();
 
   localStorage.removeItem("authUserName");
-  localStorage.removeItem("authUserRole");
+  localStorage.removeItem("authJoinedDate");
   localStorage.removeItem("authUserExp");
 
   const handleSubmit = (event: FormEvent) => {
@@ -46,7 +46,7 @@ export const Login: FC = () => {
         if (response.status === HttpStatusCode.Ok) {
           const jwtToken = jwtDecode<MyJwtPayload>(response.data.token);
           localStorage.setItem("authUserName", jwtToken.user);
-          localStorage.setItem("authUserRole", jwtToken.role);
+          localStorage.setItem("authJoinedDate", jwtToken.joined.toString());
           localStorage.setItem("authUserExp", jwtToken.exp.toString());
           if (location.state) {
             navigate(location.state, { replace: true })

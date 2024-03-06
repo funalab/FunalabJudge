@@ -15,7 +15,7 @@ export const TopHeader = () => {
       const { status } = await axiosClient.post("/logout")
       if (status === HttpStatusCode.Ok) {
         localStorage.removeItem("authUserName");
-        localStorage.removeItem("authUserRole");
+        localStorage.removeItem("authJoinedDate");
         localStorage.removeItem("authUserExp");
         navigate("/login");
       } else {
