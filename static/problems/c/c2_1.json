@@ -1,7 +1,0 @@
-{
-  "name": "My Cat",
-  "statement": "EOF (Ctrl + D)を受け取るまで標準入力から文字列を受け取り、標準出力するmain関数を実装してください。",
-  "constraints": "入力はあらゆる文字列\n",
-  "executionTime": 1,
-  "memoryLimit": 1024
-}

@@ -9,7 +9,7 @@
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
     "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-06T23:59:59+09:00",
     "borderScore": 13,
     "testcaseWithPaths": [
       {
@@ -89,7 +89,7 @@
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
     "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-06T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
@@ -179,7 +179,7 @@
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
     "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-06T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
@@ -293,8 +293,8 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "openDate": "2024-03-06T00:00:00+09:00",
+    "closeDate": "2024-03-11T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
@@ -408,8 +408,8 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "openDate": "2024-03-06T00:00:00+09:00",
+    "closeDate": "2024-03-11T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
@@ -523,8 +523,8 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "openDate": "2024-03-06T00:00:00+09:00",
+    "closeDate": "2024-03-11T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
@@ -638,8 +638,8 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "openDate": "2024-03-07T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
@@ -679,8 +679,8 @@
       },
       {
         "testcaseId": 8,
-        "inputFilePath": "testcases/c/c8/8/input.txt",
-        "outputFilePath": "testcases/c/c8/8/output.txt"
+        "inputFilePath": "testcases/c/c8_1/8/input.txt",
+        "outputFilePath": "testcases/c/c8_1/8/output.txt"
       },
       {
         "testcaseId": 9,
@@ -708,14 +708,14 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "openDate": "2024-03-08T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
         "inputFilePath": "testcases/c/c10_1/1/input.txt",
-        "outputFilePath": "testcases/c/c10/1/output.txt"
+        "outputFilePath": "testcases/c/c10_1/1/output.txt"
       },
       {
         "testcaseId": 2,
@@ -823,8 +823,8 @@
     "memoryLimit": 1024,
     "inputFmt": "C1 inputFormat",
     "outputFmt": "C1 outputFormat",
-    "openDate": "2024-03-05T00:00:00+09:00",
-    "closeDate": "2024-03-07T00:00:00+09:00",
+    "openDate": "2024-03-08T00:00:00+09:00",
+    "closeDate": "2024-03-12T23:59:59+09:00",
     "borderScore": 15,
     "testcaseWithPaths": [
       {

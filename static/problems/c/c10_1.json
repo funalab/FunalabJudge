@@ -1,7 +1,0 @@
-{
-  "name": "File Master1",
-  "statement": "コマンドライン引数からファイルinputを受けとり、inputの中に書かれた単語をソートして別のファイルoutputに出力し、そのファイルを返すmain関数を実装してください。",
-  "constraints": "入力は複数の単語が書かれたファイル。何も書かれていないこともある。\n",
-  "executionTime": 1,
-  "memoryLimit": 1024
-}

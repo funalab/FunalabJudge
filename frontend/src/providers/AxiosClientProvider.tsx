@@ -2,18 +2,12 @@ import { useEffect } from 'react'
 import axios, { HttpStatusCode } from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const PUBLIC_SERVER_IP: string = import.meta.env.VITE_PUBLIC_SERVER_IP;
-const PRIVATE_SERVER_IP: string = import.meta.env.VITE_PRIVATE_SERVER_IP;
+const SERVER_IP: string = import.meta.env.VITE_PUBLIC_SERVER_IP;
 const BACKEND_PORT: string = import.meta.env.VITE_BACKEND_PORT
-axios.defaults.baseURL = `http://${PUBLIC_SERVER_IP}:${BACKEND_PORT}`;
+axios.defaults.baseURL = `http://${SERVER_IP}:${BACKEND_PORT}`;
 axios.defaults.withCredentials = true;
 
-export const axiosClient = axios.create({
-  headers: {
-    "Access-Control-Allow-Origin": PRIVATE_SERVER_IP,
-    "Access-Control-Allow-Credentials": true,
-}
-})
+export const axiosClient = axios.create({})
 
 export function AxiosClientProvider({ children }: { children: React.ReactElement }) {
   const navigater = useNavigate()

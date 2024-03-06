@@ -1,7 +1,0 @@
-{
-  "name": "Greatest Common Divisor",
-  "statement": "標準入力により与えられる2つの正の整数A、Bの最大公約数を出力するプログラムを実装してください。\nなお、このプログラムは再帰関数を用いて実装を行ってください。",
-  "constraints": "AとBは正の整数",
-  "executionTime": 1,
-  "memoryLimit": 1024
-}

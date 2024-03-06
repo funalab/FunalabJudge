@@ -37,26 +37,12 @@ func main() {
 		AllowOrigins: []string{
 			"http://" + os.Getenv("PUBLIC_SERVER_IP") + ":" + os.Getenv("FRONTEND_PORT"),
 		},
-		// アクセスを許可したいHTTPメソッド(以下の例だとPUTやDELETEはアクセスできません)
-		AllowMethods: []string{
-			"POST",
-			"GET",
-			"OPTIONS",
-		},
-		// 許可したいHTTPリクエストヘッダ
-		AllowHeaders: []string{
-			"Access-Control-Allow-Credentials",
-			"Access-Control-Allow-Headers",
-			"Access-Control-Allow-Origin",
-			"Content-Type",
-			"Content-Length",
-			"Accept-Encoding",
-			"Authorization",
-		},
-		// cookieなどの情報を必要とするかどうか
 		AllowCredentials: true,
 		// preflightリクエストの結果をキャッシュする時間
-		MaxAge: 24 * time.Hour,
+		MaxAge:       24 * time.Hour,
+		AllowHeaders: []string{"content-type"}, // 他はなくても現状動く
+		// 以下の項目は、全てを許可しない設定にしても認証機能に影響はなかった, セキュリティの観点で設定が必要な可能性はある
+		// AllowMethods: []string{},
 	}))
 
 	// Recovery middleware recovers from any panics and writes a 500 if there was one.
@@ -79,7 +65,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	router.Use(CORSMiddleware())
 	router.POST("/login", authMiddleware.LoginHandler)
 	router.POST("/logout", authMiddleware.LogoutHandler)
 	router.GET("/refresh_token", authMiddleware.RefreshHandler)
@@ -116,20 +101,4 @@ func loggerFormatter(param gin.LogFormatterParams) string {
 		param.Path,
 		param.Request.UserAgent(),
 	)
-}
-
-func CORSMiddleware() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://"+os.Getenv("PUBLIC_SERVER_IP")+":"+os.Getenv("FRONTEND_PORT"))
-		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
-
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-
-		c.Next()
-	}
 }
