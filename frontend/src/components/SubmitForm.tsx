@@ -33,10 +33,10 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
   }
 
   const handleRegex = (files: File[]) => {
-    const regex = new RegExp('^Makefile$|\\.c$')
+    const regex = new RegExp('^Makefile$|\\.c$|\\.h$')
     const regexNotOkFile = files.find((selectedFile: File) => (regex.test(selectedFile.name) === false))
     if (regexNotOkFile) {
-      alert("CファイルとMakefileのみ提出してください。")
+      alert("Cファイルおよびヘッダファイル、Makefileのみ提出してください。")
       return false
     }
     return true
