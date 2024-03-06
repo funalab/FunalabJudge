@@ -41,7 +41,6 @@ const ProblemPage = () => {
   }, [problemId]);
 
   return (
-    <>
       <DefaultLayout>
         <VStack>
           <Heading my={3}>{name}</Heading>
@@ -106,7 +105,6 @@ const ProblemPage = () => {
           <SubmitForm problemId={+problemId!} />
         </VStack>
       </DefaultLayout >
-    </>
   );
 };
 

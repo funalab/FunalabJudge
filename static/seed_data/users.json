@@ -1,26 +1,80 @@
 [
   {
+    "userName": "funa",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2009-04-01T00:00:00+09:00",
+    "role": "admin"
+  },
+  {
     "userName": "isoda",
     "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
-    "createdDate": "2024-02-08T04:41:00Z",
+    "createdDate": "2022-04-01T00:00:00+09:00",
     "role": "admin"
   },
   {
     "userName": "araki",
-    "password": "$2a$08$38tC08IBMz/xSbARcPcqIesYwg8f3aiZN42obqr4BvICS27FV.1Hi",
-    "createdDate": "2024-02-08T04:31:00Z",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2023-04-01T00:00:00+09:00",
     "role": "admin"
   },
   {
     "userName": "rkimura",
-    "password": "$2a$08$laH5k4fyAV3sKeDPp/QqR.DU/QPlW8UNYtfxoE2ceadVpXBprCxOi",
-    "createdDate": "2024-02-08T03:34:00Z",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2023-04-01T00:00:00+09:00",
     "role": "admin"
   },
   {
-    "userName": "kawakita",
-    "password": "$2a$08$hV.s4wNRjTWCftM3uIVKSOHP1sJUVZb9uvFArAm49mwuuxldfRyl6",
-    "createdDate": "2024-02-09T08:13:00Z",
+    "userName": "mito",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2023-04-01T00:00:00+09:00",
+    "role": "manager"
+  },
+  {
+    "userName": "imada",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2023-04-01T00:00:00+09:00",
+    "role": "manager"
+  },
+  {
+    "userName": "minagawa",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2023-04-01T00:00:00+09:00",
+    "role": "manager"
+  },
+  {
+    "userName": "sozeki",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2023-04-01T00:00:00+09:00",
+    "role": "manager"
+  },
+  {
+    "userName": "hasegawa",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2024-04-01T00:00:00+09:00",
+    "role": "user"
+  },
+  {
+    "userName": "msuzuki",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2024-04-01T00:00:00+09:00",
+    "role": "user"
+  },
+  {
+    "userName": "hamashima",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2024-04-01T00:00:00+09:00",
+    "role": "user"
+  },
+  {
+    "userName": "iwamoto",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2024-04-01T00:00:00+09:00",
+    "role": "user"
+  },
+  {
+    "userName": "sugawara",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "createdDate": "2024-04-01T00:00:00+09:00",
     "role": "user"
   }
 ]
