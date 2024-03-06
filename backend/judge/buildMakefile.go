@@ -156,7 +156,7 @@ func writeOBJS(mf *os.File, sId string) error {
 		if file.Name() == os.Getenv("MAKEFILE_NAME") {
 			continue
 		}
-		if strings.Split(file.Name(), ".")[1] == ".c" {
+		if strings.Split(file.Name(), ".")[1] == "c" {
 			main := strings.Split(file.Name(), ".")[0]
 			obj := main + ".o" + " "
 			_, err := io.WriteString(mf, obj)
