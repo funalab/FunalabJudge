@@ -944,37 +944,37 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
-        "inputFilePath": "testcases/c/c8_2/1/input.txt",
+        "argsFilePath": "testcases/c/c8_2/1/args.txt",
         "outputFilePath": "testcases/c/c8_2/1/output.txt"
       },
       {
         "testcaseId": 2,
-        "inputFilePath": "testcases/c/c8_2/2/input.txt",
+        "argsFilePath": "testcases/c/c8_2/2/args.txt",
         "outputFilePath": "testcases/c/c8_2/2/output.txt"
       },
       {
         "testcaseId": 3,
-        "inputFilePath": "testcases/c/c8_2/3/input.txt",
+        "argsFilePath": "testcases/c/c8_2/3/args.txt",
         "outputFilePath": "testcases/c/c8_2/3/output.txt"
       },
       {
         "testcaseId": 4,
-        "inputFilePath": "testcases/c/c8_2/4/input.txt",
+        "argsFilePath": "testcases/c/c8_2/4/args.txt",
         "outputFilePath": "testcases/c/c8_2/4/output.txt"
       },
       {
         "testcaseId": 5,
-        "inputFilePath": "testcases/c/c8_2/5/input.txt",
+        "argsFilePath": "testcases/c/c8_2/5/args.txt",
         "outputFilePath": "testcases/c/c8_2/5/output.txt"
       },
       {
         "testcaseId": 6,
-        "inputFilePath": "testcases/c/c8_2/6/input.txt",
+        "argsFilePath": "testcases/c/c8_2/6/args.txt",
         "outputFilePath": "testcases/c/c8_2/6/output.txt"
       },
       {
         "testcaseId": 7,
-        "inputFilePath": "testcases/c/c8_2/7/input.txt",
+        "argsFilePath": "testcases/c/c8_2/7/args.txt",
         "outputFilePath": "testcases/c/c8_2/7/output.txt"
       }
     ]
