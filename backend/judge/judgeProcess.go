@@ -90,7 +90,6 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 				command = command + " " + string(a)
 			}
 		}
-		println(t.InputFilePath, t.InputFilePath != "")
 		if t.InputFilePath != "" {
 			// stdinのpipeを使うとバカ長いinputを入れるときに正常に動かなくなるので、リダイレクトする
 			// TODO 相対パス使ってる応急処置でnot elegant、絶対パスにしたい
