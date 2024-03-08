@@ -10,6 +10,8 @@ import { useNavigate, useParams } from "react-router-dom";
 export const SideMenu = () => {
   const navigate = useNavigate();
   const { userName } = useParams();
+  const loginUserJoinedYear = (new Date(localStorage.getItem("authJoinedDate"))).getFullYear()
+  const nowDate = new Date()
   const sideMenuItems = [
     {
       name: "Dashboard",
@@ -31,6 +33,11 @@ export const SideMenu = () => {
       icon: FaMedal,
       path: `/${userName}/petit_coder`,
     },
+    {
+      name: "B3 Results",
+      icon: MdAssignment,
+      path: `/all_results`
+    }
   ];
   return (
     <Box
@@ -42,14 +49,15 @@ export const SideMenu = () => {
       position={"fixed"}
     >
       {sideMenuItems.map((item) => (
-        <label key={item.name}>
-          <Box mt="10px" ml="10px">
-            <Button variant="ghost" onClick={() => navigate(item.path)}>
-              <Icon as={item.icon} w={7} h={7} mr="13px" />
-              {item.name}
-            </Button>
-          </Box>
-        </label>
+        item.name === "B3 Results" && loginUserJoinedYear === nowDate.getFullYear() ? null :
+          <label key={item.name}>
+            <Box mt="10px" ml="10px">
+              <Button variant="ghost" onClick={() => navigate(item.path)}>
+                <Icon as={item.icon} w={7} h={7} mr="13px" />
+                {item.name}
+              </Button>
+            </Box>
+          </label>
       ))}
     </Box>
   );

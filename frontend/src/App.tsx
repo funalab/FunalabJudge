@@ -14,6 +14,7 @@ import NotFound from "./routes/NotFound";
 import { RouteAuthGuard } from "./providers/RouteAuthGuard";
 import { PageType } from "./types/PageTypes";
 import { useEffect } from "react";
+import B3ResultsPage from "./routes/B3Results";
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -33,6 +34,7 @@ const App: React.FC = () => {
             <Route path="results" element={<RouteAuthGuard component={<ResultsPage />} pageType={PageType.Private} />} />
             <Route path="submission/:submissionId" element={<RouteAuthGuard component={<SubmissionPage />} pageType={PageType.Private} />} />
           </Route>
+          <Route path="all_results" element={<RouteAuthGuard component={<B3ResultsPage />} pageType={PageType.Private} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AxiosClientProvider>

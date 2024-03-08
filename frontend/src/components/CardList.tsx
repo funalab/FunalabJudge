@@ -28,7 +28,6 @@ export const CardList = ({ data }: CardListProps) => {
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
         {data.map((pws) => {
-          console.log("pws>>", pws)
           // CheckBoxの状態に応じて表示するカードを変更する
           if (pws.Status && !checkedItems[0]) {
             return null;
