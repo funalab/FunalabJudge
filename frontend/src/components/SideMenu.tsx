@@ -5,11 +5,11 @@ import {
   MdAssignment,
 } from "react-icons/md";
 import { FaMedal } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const SideMenu = () => {
   const navigate = useNavigate();
-  const { userName } = useParams();
+  const userName = localStorage.getItem("authUserName")
   const loginUserJoinedYear = (new Date(localStorage.getItem("authJoinedDate"))).getFullYear()
   const nowDate = new Date()
   const sideMenuItems = [

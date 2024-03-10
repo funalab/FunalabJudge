@@ -55,7 +55,7 @@ export const CardList = ({ data }: CardListProps) => {
                   <Text
                     bg="red.500"
                     w='100%'
-                    h="50%"
+                    h="30%"
                     display='flex'
                     justifyContent="center"
                     alignItems="center"

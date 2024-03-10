@@ -1,22 +1,20 @@
 
 import { Button, Divider, Heading, Table, TableCaption, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
+import StatusBlock from './StatusBlock'
 
 interface problemStatus {
-  id: number,
-  Status: String,
+  TestId: number,
+  Status: string,
 }
 
-interface B3Status {
-  user: string,
-  problems: problemStatus[],
+export interface B3StatusProps {
+  UserName: string,
+  ProblemsStatus: problemStatus[],
 }
 
-interface B3StatusProps {
-  data: B3Status[]
-}
 
-export const B3results = ({ data }: B3StatusProps) => {
+export const B3results = ({ data }: { data: B3StatusProps[] }) => {
   const navigate = useNavigate()
   return (
     <>
@@ -29,20 +27,20 @@ export const B3results = ({ data }: B3StatusProps) => {
             <Tr>
               <Th>Problem Id</Th>
               {data?.map(b3 => (
-                <Th>
-                  <Button variant="link" onClick={() => navigate(`/${b3.user}/results`)}>
-                    {b3.user}
+                <Th key={b3.UserName}>
+                  <Button variant="link" onClick={() => navigate(`/${b3.UserName}/results`)}>
+                    {b3.UserName}
                   </Button>
                 </Th>
               ))}
             </Tr>
           </Thead>
           <Tbody>
-            {data[0].problems.map((problem, i) => (
-              <Tr key={problem.id}>
-                <Td>{problem.id}</Td>
+            {data.length > 1 && data[0].ProblemsStatus?.map((problem, i) => (
+              <Tr key={problem.TestId}>
+                <Td>{problem.TestId}</Td>
                 {data?.map(b3 => (
-                  <Td>{b3.problems[i].Status}</Td>
+                  <Td><StatusBlock status={b3.ProblemsStatus[i].Status} onClick={() => navigate(`/${b3.UserName}/results`, { state: problem.TestId.toString() })} /></Td>
                 ))}
               </Tr>
             ))}
