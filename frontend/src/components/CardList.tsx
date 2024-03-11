@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button, Box, Stack } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter, Heading, Text } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Icon } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
 import { Problem } from '../types/DbTypes';
+import { MdLockClock, MdLockOpen } from "react-icons/md";
 
 interface problemWithStatus {
   Problem: Problem,
@@ -44,12 +45,12 @@ export const CardList = ({ data }: CardListProps) => {
                 <Text
                   fontWeight={"bold"}
                 >
-                  Open: {new Date(pws.Problem.OpenDate).toLocaleString()}
+                  <Icon as={MdLockOpen} w={5} h={5} mr="5px" />{new Date(pws.Problem.OpenDate).toLocaleString()}
                 </Text>
                 <Text
                   fontWeight={"bold"}
                 >
-                  Close: {new Date(pws.Problem.CloseDate).toLocaleString()}
+                  <Icon as={MdLockClock} w={5} h={5} mr="5px" />{new Date(pws.Problem.CloseDate).toLocaleString()}
                 </Text>
                 {pws.Status && (
                   <Text
