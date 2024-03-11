@@ -3,6 +3,7 @@ import {
   MdDashboard,
   MdAccountBox,
   MdAssignment,
+  MdOutlineChecklist
 } from "react-icons/md";
 import { FaMedal } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export const SideMenu = () => {
   const navigate = useNavigate();
   const userName = localStorage.getItem("authUserName")
-  const loginUserJoinedYear = (new Date(localStorage.getItem("authJoinedDate"))).getFullYear()
+  const loginUserJoinedYear = new Date(localStorage.getItem("authJoinedDate")|| Date.now()).getFullYear()
   const nowDate = new Date()
   const sideMenuItems = [
     {
@@ -35,7 +36,7 @@ export const SideMenu = () => {
     },
     {
       name: "B3 Results",
-      icon: MdAssignment,
+      icon: MdOutlineChecklist,
       path: `/all_results`
     }
   ];
