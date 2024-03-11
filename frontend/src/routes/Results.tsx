@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
-import { Divider, Heading, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Divider, Heading, Input, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import SubmissionTableRow, { SubmissionTableRowProps } from '../components/SubmissionTableRow';
 import { axiosClient } from '../providers/AxiosClientProvider';
 
 const ResultsPage: React.FC = () => {
+  const location = useLocation() as { state: string }
   const { userName } = useParams()
   const [submissions, setSubmissions] = useState<SubmissionTableRowProps[]>([])
   const [haveNotComplete, setHaveNotComplete] = useState<boolean>(false)
-
+  const [problemFilter, setProblemFilter] = useState<string>(location?.state || '')
   useEffect(() => {
     axiosClient
       .get(`/getSubmissionList/${userName}`)
@@ -58,7 +59,6 @@ const ResultsPage: React.FC = () => {
       return () => clearInterval(intervalId);
     }
   }, [haveNotComplete])
-
   return (
     <>
       <DefaultLayout>
@@ -70,7 +70,16 @@ const ResultsPage: React.FC = () => {
             <Thead>
               <Tr>
                 <Th>提出日時</Th>
-                <Th>問題</Th>
+                <Th>
+                  問題
+                  <Input
+                    type="text"
+                    value={problemFilter}
+                    onChange={(e) => setProblemFilter(e.target.value)}
+                    placeholder={`Search...`}
+                    style={{ marginLeft: '10px', width: '50%' }}
+                  />
+                </Th>
                 <Th>ユーザ</Th>
                 <Th>結果</Th>
               </Tr>
@@ -79,15 +88,16 @@ const ResultsPage: React.FC = () => {
               {/* This section is ongoing-judge submission row. */}
 
               {/* This section is existing submission list. */}
-              {submissions?.map(submissions => (
-                <SubmissionTableRow
-                  Id={submissions.Id}
-                  SubmittedDate={submissions.SubmittedDate}
-                  ProblemId={submissions.ProblemId}
-                  UserName={submissions.UserName}
-                  Results={submissions.Results}
-                  Status={submissions.Status}
-                />
+              {submissions?.map(submission => (
+                (problemFilter === "" || submission.ProblemId.toString() === problemFilter) && (
+                  <SubmissionTableRow
+                    Id={submission.Id}
+                    SubmittedDate={submission.SubmittedDate}
+                    ProblemId={submission.ProblemId}
+                    UserName={submission.UserName}
+                    Results={submission.Results}
+                    Status={submission.Status}
+                  />)
               ))}
             </Tbody>
             <Tfoot>

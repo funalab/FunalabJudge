@@ -78,8 +78,10 @@ func main() {
 		authed.GET("/getSubmission/:submissionId", handlers.GetSubmissionHandler)
 		authed.POST("/addSubmission/:userName", handlers.AddSubmissionHandler)
 		authed.GET("/getSubmittedFiles/:submissionId", handlers.GetSubmittedFilesHandler)
+
 	}
 
+	router.GET("/getB3Status", handlers.GetB3StatusHandler)
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		log.Printf("NoRoute claims: %#v\n", claims)

@@ -1,7 +1,6 @@
 import React from "react";
 import { PageType } from "../types/PageTypes";
 import { Navigate, useLocation, useParams } from "react-router-dom";
-import { RoleType } from "../types/RoleTypes";
 
 type Props = {
   component: React.ReactNode;
@@ -12,15 +11,15 @@ export const RouteAuthGuard: React.FC<Props> = (props) => {
   let allowRoute = false;
 
   const authUserName = localStorage.getItem("authUserName");
-  const authUserRole = localStorage.getItem("authUserRole");
-  const authUserExp = Number(localStorage.getItem("authUserExp"));
+  const authJoinedDate = localStorage.getItem("authJoinedDate");
+  const authUserExp = localStorage.getItem("authUserExp");
 
-  if ( authUserName && authUserRole && authUserExp ) {
+  if ( authUserName && authJoinedDate && authUserExp ) {
     allowRoute = AuthUser({
       pageType: props.pageType,
       authUserName: authUserName,
-      authUserRole: authUserRole,
-      authUserExp: authUserExp,
+      authJoinedDate: new Date(authJoinedDate),
+      authUserExp: Number(authUserExp),
     });
   } else {
     alert("コンテンツの閲覧にはログインが必要です。");
@@ -37,7 +36,7 @@ export const RouteAuthGuard: React.FC<Props> = (props) => {
 type AuthUserProps = {
   pageType: PageType,
   authUserName: string,
-  authUserRole: string,
+  authJoinedDate: Date,
   authUserExp: number
 }
 
@@ -51,17 +50,15 @@ export const AuthUser = (props:AuthUserProps): boolean => {
     if (props.pageType == PageType.Public) {
         return true;
     } else if (props.pageType == PageType.Private) {
-        if (props.authUserRole === RoleType.Admin || props.authUserRole === RoleType.Manager) {
+        if (props.authJoinedDate.getFullYear() < new Date().getFullYear()) {
             return true;
-        } else if (props.authUserRole == RoleType.User) {
+        } else {
             if (props.authUserName == userName) {
                 return true;  // matched userName
             } else {
                 alert("ページへのアクセス権がありません。アクセス権のあるアカウントでログインしてください。");
                 return false;  // unmatched userName
             }
-        } else {
-            return false;  // unknown RoleType
         }
     }
     return false  // unknown PageType

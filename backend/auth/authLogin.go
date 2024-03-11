@@ -3,6 +3,7 @@ package auth
 import (
 	"go-test/db/users"
 	"go-test/util"
+	"time"
 
 	jwt "github.com/appleboy/gin-jwt/v2"
 	"github.com/gin-gonic/gin"
@@ -42,8 +43,8 @@ func JwtMapper(data interface{}) jwt.MapClaims {
 	// 引数"data"はLoginAuthenticatorの一つ目のreturn
 	if v, ok := data.(*users.User); ok {
 		return jwt.MapClaims{
-			JwtIdentityKey: v.UserName,
-			JwtUserRoleKey: v.Role,
+			JwtIdentityKey:   v.UserName,
+			JwtJoinedDateKey: v.JoinedDate.Local().Format(time.RFC3339),
 		}
 	}
 	return jwt.MapClaims{}

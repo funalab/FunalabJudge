@@ -9,7 +9,7 @@ import (
 )
 
 const JwtIdentityKey = "user"
-const JwtUserRoleKey = "role"
+const JwtJoinedDateKey = "joined"
 
 func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 	jwtMiddleware, err := jwt.New(&jwt.GinJWTMiddleware{

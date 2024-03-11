@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Button, Box, Stack } from '@chakra-ui/react';
-import { Card, CardHeader, CardBody, CardFooter, Heading, Text } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Icon } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
 import { Problem } from '../types/DbTypes';
+import { MdLockClock, MdLockOpen } from "react-icons/md";
 
 interface problemWithStatus {
   Problem: Problem,
@@ -28,7 +29,6 @@ export const CardList = ({ data }: CardListProps) => {
       // 渡された引数のkeyの数だけカードの一覧を表示する
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 4 }} spacing="20px">
         {data.map((pws) => {
-          console.log("pws>>", pws)
           // CheckBoxの状態に応じて表示するカードを変更する
           if (pws.Status && !checkedItems[0]) {
             return null;
@@ -45,18 +45,18 @@ export const CardList = ({ data }: CardListProps) => {
                 <Text
                   fontWeight={"bold"}
                 >
-                  Open: {new Date(pws.Problem.OpenDate).toLocaleString()}
+                  <Icon as={MdLockOpen} w={5} h={5} mr="5px" />{new Date(pws.Problem.OpenDate).toLocaleString()}
                 </Text>
                 <Text
                   fontWeight={"bold"}
                 >
-                  Close: {new Date(pws.Problem.CloseDate).toLocaleString()}
+                  <Icon as={MdLockClock} w={5} h={5} mr="5px" />{new Date(pws.Problem.CloseDate).toLocaleString()}
                 </Text>
                 {pws.Status && (
                   <Text
                     bg="red.500"
                     w='100%'
-                    h="50%"
+                    h="30%"
                     display='flex'
                     justifyContent="center"
                     alignItems="center"
