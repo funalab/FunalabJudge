@@ -19,9 +19,10 @@ type Problem struct {
 
 type TestcaseWithPath struct {
 	TestcaseId     int32  `bson:"testCaseId"`
-	ArgsFilePath   string `bson:"argsFilePath"`  // optional
-	InputFilePath  string `bson:"inputFilePath"` // optional
+	ArgsFilePath   string `bson:"argsFilePath"`
+	InputFilePath  string `bson:"inputFilePath"`
 	OutputFilePath string `bson:"outputFilePath"`
+	AnswerFilePath string `bson:"answerFilePath"`
 }
 
 type ProblemWithTestcase struct {

@@ -14,68 +14,94 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/1/input.txt",
-        "outputFilePath": "testcases/c/c1/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/2/input.txt",
-        "outputFilePath": "testcases/c/c1/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/3/input.txt",
-        "outputFilePath": "testcases/c/c1/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/4/input.txt",
-        "outputFilePath": "testcases/c/c1/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/5/input.txt",
-        "outputFilePath": "testcases/c/c1/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/6/input.txt",
-        "outputFilePath": "testcases/c/c1/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/7/input.txt",
-        "outputFilePath": "testcases/c/c1/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/8/input.txt",
-        "outputFilePath": "testcases/c/c1/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/9/input.txt",
-        "outputFilePath": "testcases/c/c1/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/10/input.txt",
-        "outputFilePath": "testcases/c/c1/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/11/input.txt",
-        "outputFilePath": "testcases/c/c1/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/11/output.txt"
       },
       {
         "testcaseId": 12,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/12/input.txt",
-        "outputFilePath": "testcases/c/c1/12/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/12/output.txt"
       },
       {
         "testcaseId": 13,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c1/13/input.txt",
-        "outputFilePath": "testcases/c/c1/13/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c1/13/output.txt"
       }
     ]
   },
@@ -94,78 +120,108 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/1/input.txt",
-        "outputFilePath": "testcases/c/c2_1/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/2/input.txt",
-        "outputFilePath": "testcases/c/c2_1/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/3/input.txt",
-        "outputFilePath": "testcases/c/c2_1/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/4/input.txt",
-        "outputFilePath": "testcases/c/c2_1/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/5/input.txt",
-        "outputFilePath": "testcases/c/c2_1/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/6/input.txt",
-        "outputFilePath": "testcases/c/c2_1/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/7/input.txt",
-        "outputFilePath": "testcases/c/c2_1/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/8/input.txt",
-        "outputFilePath": "testcases/c/c2_1/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/9/input.txt",
-        "outputFilePath": "testcases/c/c2_1/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/10/input.txt",
-        "outputFilePath": "testcases/c/c2_1/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/11/input.txt",
-        "outputFilePath": "testcases/c/c2_1/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/11/output.txt"
       },
       {
         "testcaseId": 12,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/12/input.txt",
-        "outputFilePath": "testcases/c/c2_1/12/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/12/output.txt"
       },
       {
         "testcaseId": 13,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/13/input.txt",
-        "outputFilePath": "testcases/c/c2_1/13/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/13/output.txt"
       },
       {
         "testcaseId": 14,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/14/input.txt",
-        "outputFilePath": "testcases/c/c2_1/14/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/14/output.txt"
       },
       {
         "testcaseId": 15,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_1/15/input.txt",
-        "outputFilePath": "testcases/c/c2_1/15/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_1/15/output.txt"
       }
     ]
   },
@@ -184,103 +240,143 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/1/input.txt",
-        "outputFilePath": "testcases/c/c2_2/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/2/input.txt",
-        "outputFilePath": "testcases/c/c2_2/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/3/input.txt",
-        "outputFilePath": "testcases/c/c2_2/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/4/input.txt",
-        "outputFilePath": "testcases/c/c2_2/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/5/input.txt",
-        "outputFilePath": "testcases/c/c2_2/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/6/input.txt",
-        "outputFilePath": "testcases/c/c2_2/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/7/input.txt",
-        "outputFilePath": "testcases/c/c2_2/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/8/input.txt",
-        "outputFilePath": "testcases/c/c2_2/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/9/input.txt",
-        "outputFilePath": "testcases/c/c2_2/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/10/input.txt",
-        "outputFilePath": "testcases/c/c2_2/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/11/input.txt",
-        "outputFilePath": "testcases/c/c2_2/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/11/output.txt"
       },
       {
         "testcaseId": 12,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/12/input.txt",
-        "outputFilePath": "testcases/c/c2_2/12/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/12/output.txt"
       },
       {
         "testcaseId": 13,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/13/input.txt",
-        "outputFilePath": "testcases/c/c2_2/13/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/13/output.txt"
       },
       {
         "testcaseId": 14,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/14/input.txt",
-        "outputFilePath": "testcases/c/c2_2/14/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/14/output.txt"
       },
       {
         "testcaseId": 15,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/15/input.txt",
-        "outputFilePath": "testcases/c/c2_2/15/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/15/output.txt"
       },
       {
         "testcaseId": 16,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/16/input.txt",
-        "outputFilePath": "testcases/c/c2_2/16/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/16/output.txt"
       },
       {
         "testcaseId": 17,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/17/input.txt",
-        "outputFilePath": "testcases/c/c2_2/17/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/17/output.txt"
       },
       {
         "testcaseId": 18,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/18/input.txt",
-        "outputFilePath": "testcases/c/c2_2/18/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/18/output.txt"
       },
       {
         "testcaseId": 19,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/19/input.txt",
-        "outputFilePath": "testcases/c/c2_2/19/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/19/output.txt"
       },
       {
         "testcaseId": 20,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c2_2/20/input.txt",
-        "outputFilePath": "testcases/c/c2_2/20/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c2_2/20/output.txt"
       }
     ]
   },
@@ -299,103 +395,143 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/1/input.txt",
-        "outputFilePath": "testcases/c/c5/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/2/input.txt",
-        "outputFilePath": "testcases/c/c5/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/3/input.txt",
-        "outputFilePath": "testcases/c/c5/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/4/input.txt",
-        "outputFilePath": "testcases/c/c5/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/5/input.txt",
-        "outputFilePath": "testcases/c/c5/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/6/input.txt",
-        "outputFilePath": "testcases/c/c5/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/7/input.txt",
-        "outputFilePath": "testcases/c/c5/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/8/input.txt",
-        "outputFilePath": "testcases/c/c5/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/9/input.txt",
-        "outputFilePath": "testcases/c/c5/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/10/input.txt",
-        "outputFilePath": "testcases/c/c5/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/11/input.txt",
-        "outputFilePath": "testcases/c/c5/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/11/output.txt"
       },
       {
         "testcaseId": 12,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/12/input.txt",
-        "outputFilePath": "testcases/c/c5/12/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/12/output.txt"
       },
       {
         "testcaseId": 13,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/13/input.txt",
-        "outputFilePath": "testcases/c/c5/13/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/13/output.txt"
       },
       {
         "testcaseId": 14,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/14/input.txt",
-        "outputFilePath": "testcases/c/c5/14/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/14/output.txt"
       },
       {
         "testcaseId": 15,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/15/input.txt",
-        "outputFilePath": "testcases/c/c5/15/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/15/output.txt"
       },
       {
         "testcaseId": 16,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/16/input.txt",
-        "outputFilePath": "testcases/c/c5/16/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/16/output.txt"
       },
       {
         "testcaseId": 17,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/17/input.txt",
-        "outputFilePath": "testcases/c/c5/17/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/17/output.txt"
       },
       {
         "testcaseId": 18,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/18/input.txt",
-        "outputFilePath": "testcases/c/c5/18/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/18/output.txt"
       },
       {
         "testcaseId": 19,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/19/input.txt",
-        "outputFilePath": "testcases/c/c5/19/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/19/output.txt"
       },
       {
         "testcaseId": 20,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c5/20/input.txt",
-        "outputFilePath": "testcases/c/c5/20/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c5/20/output.txt"
       }
     ]
   },
@@ -414,103 +550,143 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/1/input.txt",
-        "outputFilePath": "testcases/c/c6_1/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/2/input.txt",
-        "outputFilePath": "testcases/c/c6_1/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/3/input.txt",
-        "outputFilePath": "testcases/c/c6_1/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/4/input.txt",
-        "outputFilePath": "testcases/c/c6_1/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/5/input.txt",
-        "outputFilePath": "testcases/c/c6_1/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/6/input.txt",
-        "outputFilePath": "testcases/c/c6_1/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/7/input.txt",
-        "outputFilePath": "testcases/c/c6_1/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/8/input.txt",
-        "outputFilePath": "testcases/c/c6_1/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/9/input.txt",
-        "outputFilePath": "testcases/c/c6_1/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/10/input.txt",
-        "outputFilePath": "testcases/c/c6_1/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/11/input.txt",
-        "outputFilePath": "testcases/c/c6_1/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/11/output.txt"
       },
       {
         "testcaseId": 12,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/12/input.txt",
-        "outputFilePath": "testcases/c/c6_1/12/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/12/output.txt"
       },
       {
         "testcaseId": 13,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/13/input.txt",
-        "outputFilePath": "testcases/c/c6_1/13/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/13/output.txt"
       },
       {
         "testcaseId": 14,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/14/input.txt",
-        "outputFilePath": "testcases/c/c6_1/14/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/14/output.txt"
       },
       {
         "testcaseId": 15,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/15/input.txt",
-        "outputFilePath": "testcases/c/c6_1/15/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/15/output.txt"
       },
       {
         "testcaseId": 16,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/16/input.txt",
-        "outputFilePath": "testcases/c/c6_1/16/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/16/output.txt"
       },
       {
         "testcaseId": 17,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/17/input.txt",
-        "outputFilePath": "testcases/c/c6_1/17/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/17/output.txt"
       },
       {
         "testcaseId": 18,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/18/input.txt",
-        "outputFilePath": "testcases/c/c6_1/18/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/18/output.txt"
       },
       {
         "testcaseId": 19,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/19/input.txt",
-        "outputFilePath": "testcases/c/c6_1/19/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/19/output.txt"
       },
       {
         "testcaseId": 20,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c6_1/20/input.txt",
-        "outputFilePath": "testcases/c/c6_1/20/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_1/20/output.txt"
       }
     ]
   },
@@ -530,102 +706,142 @@
       {
         "testcaseId": 1,
         "argsFilePath": "testcases/c/c6_2/1/args.txt",
-        "outputFilePath": "testcases/c/c6_2/1/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/1/output.txt"
       },
       {
         "testcaseId": 2,
         "argsFilePath": "testcases/c/c6_2/2/args.txt",
-        "outputFilePath": "testcases/c/c6_2/2/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/2/output.txt"
       },
       {
         "testcaseId": 3,
         "argsFilePath": "testcases/c/c6_2/3/args.txt",
-        "outputFilePath": "testcases/c/c6_2/3/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/3/output.txt"
       },
       {
         "testcaseId": 4,
         "argsFilePath": "testcases/c/c6_2/4/args.txt",
-        "outputFilePath": "testcases/c/c6_2/4/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/4/output.txt"
       },
       {
         "testcaseId": 5,
         "argsFilePath": "testcases/c/c6_2/5/args.txt",
-        "outputFilePath": "testcases/c/c6_2/5/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/5/output.txt"
       },
       {
         "testcaseId": 6,
         "argsFilePath": "testcases/c/c6_2/6/args.txt",
-        "outputFilePath": "testcases/c/c6_2/6/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/6/output.txt"
       },
       {
         "testcaseId": 7,
         "argsFilePath": "testcases/c/c6_2/7/args.txt",
-        "outputFilePath": "testcases/c/c6_2/7/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/7/output.txt"
       },
       {
         "testcaseId": 8,
         "argsFilePath": "testcases/c/c6_2/8/args.txt",
-        "outputFilePath": "testcases/c/c6_2/8/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/8/output.txt"
       },
       {
         "testcaseId": 9,
         "argsFilePath": "testcases/c/c6_2/9/args.txt",
-        "outputFilePath": "testcases/c/c6_2/9/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/9/output.txt"
       },
       {
         "testcaseId": 10,
         "argsFilePath": "testcases/c/c6_2/10/args.txt",
-        "outputFilePath": "testcases/c/c6_2/10/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/10/output.txt"
       },
       {
         "testcaseId": 11,
         "argsFilePath": "testcases/c/c6_2/11/args.txt",
-        "outputFilePath": "testcases/c/c6_2/11/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/11/output.txt"
       },
       {
         "testcaseId": 12,
         "argsFilePath": "testcases/c/c6_2/12/args.txt",
-        "outputFilePath": "testcases/c/c6_2/12/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/12/output.txt"
       },
       {
         "testcaseId": 13,
         "argsFilePath": "testcases/c/c6_2/13/args.txt",
-        "outputFilePath": "testcases/c/c6_2/13/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/13/output.txt"
       },
       {
         "testcaseId": 14,
         "argsFilePath": "testcases/c/c6_2/14/args.txt",
-        "outputFilePath": "testcases/c/c6_2/14/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/14/output.txt"
       },
       {
         "testcaseId": 15,
         "argsFilePath": "testcases/c/c6_2/15/args.txt",
-        "outputFilePath": "testcases/c/c6_2/15/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/15/output.txt"
       },
       {
         "testcaseId": 16,
         "argsFilePath": "testcases/c/c6_2/16/args.txt",
-        "outputFilePath": "testcases/c/c6_2/16/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/16/output.txt"
       },
       {
         "testcaseId": 17,
         "argsFilePath": "testcases/c/c6_2/17/args.txt",
-        "outputFilePath": "testcases/c/c6_2/17/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/17/output.txt"
       },
       {
         "testcaseId": 18,
         "argsFilePath": "testcases/c/c6_2/18/args.txt",
-        "outputFilePath": "testcases/c/c6_2/18/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/18/output.txt"
       },
       {
         "testcaseId": 19,
         "argsFilePath": "testcases/c/c6_2/19/args.txt",
-        "outputFilePath": "testcases/c/c6_2/19/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/19/output.txt"
       },
       {
         "testcaseId": 20,
         "argsFilePath": "testcases/c/c6_2/20/args.txt",
-        "outputFilePath": "testcases/c/c6_2/20/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c6_2/20/output.txt"
       }
     ]
   },
@@ -644,58 +860,80 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/1/input.txt",
-        "outputFilePath": "testcases/c/c8_1/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/2/input.txt",
-        "outputFilePath": "testcases/c/c8_1/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/3/input.txt",
-        "outputFilePath": "testcases/c/c8_1/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/4/input.txt",
-        "outputFilePath": "testcases/c/c8_1/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/5/input.txt",
-        "outputFilePath": "testcases/c/c8_1/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/6/input.txt",
-        "outputFilePath": "testcases/c/c8_1/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/7/input.txt",
-        "outputFilePath": "testcases/c/c8_1/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/8/input.txt",
-        "outputFilePath": "testcases/c/c8_1/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/9/input.txt",
-        "outputFilePath": "testcases/c/c8_1/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/10/input.txt",
-        "outputFilePath": "testcases/c/c8_1/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c8_1/11/input.txt",
-        "outputFilePath": "testcases/c/c8_1/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_1/11/output.txt"
       }
     ]
   },
@@ -714,103 +952,143 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
-        "inputFilePath": "testcases/c/c10_1/1/input.txt",
-        "outputFilePath": "testcases/c/c10_1/1/output.txt"
+        "argsFilePath": "testcases/c/c10_1/1/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/1/output.txt"
       },
       {
         "testcaseId": 2,
-        "inputFilePath": "testcases/c/c10_1/2/input.txt",
-        "outputFilePath": "testcases/c/c10_1/2/output.txt"
+        "argsFilePath": "testcases/c/c10_1/2/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_1/2/output.txt"
       },
       {
         "testcaseId": 3,
-        "inputFilePath": "testcases/c/c10_1/3/input.txt",
-        "outputFilePath": "testcases/c/c10_1/3/output.txt"
+        "argsFilePath": "testcases/c/c10_1/3/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/3/output.txt"
       },
       {
         "testcaseId": 4,
-        "inputFilePath": "testcases/c/c10_1/4/input.txt",
-        "outputFilePath": "testcases/c/c10_1/4/output.txt"
+        "argsFilePath": "testcases/c/c10_1/4/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/4/output.txt"
       },
       {
         "testcaseId": 5,
-        "inputFilePath": "testcases/c/c10_1/5/input.txt",
-        "outputFilePath": "testcases/c/c10_1/5/output.txt"
+        "argsFilePath": "testcases/c/c10_1/5/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/5/output.txt"
       },
       {
         "testcaseId": 6,
-        "inputFilePath": "testcases/c/c10_1/6/input.txt",
-        "outputFilePath": "testcases/c/c10_1/6/output.txt"
+        "argsFilePath": "testcases/c/c10_1/6/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/6/output.txt"
       },
       {
         "testcaseId": 7,
-        "inputFilePath": "testcases/c/c10_1/7/input.txt",
-        "outputFilePath": "testcases/c/c10_1/7/output.txt"
+        "argsFilePath": "testcases/c/c10_1/7/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/7/output.txt"
       },
       {
         "testcaseId": 8,
-        "inputFilePath": "testcases/c/c10_1/8/input.txt",
-        "outputFilePath": "testcases/c/c10_1/8/output.txt"
+        "argsFilePath": "testcases/c/c10_1/8/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/8/output.txt"
       },
       {
         "testcaseId": 9,
-        "inputFilePath": "testcases/c/c10_1/9/input.txt",
-        "outputFilePath": "testcases/c/c10_1/9/output.txt"
+        "argsFilePath": "testcases/c/c10_1/9/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/9/output.txt"
       },
       {
         "testcaseId": 10,
-        "inputFilePath": "testcases/c/c10_1/10/input.txt",
-        "outputFilePath": "testcases/c/c10_1/10/output.txt"
+        "argsFilePath": "testcases/c/c10_1/10/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/10/output.txt"
       },
       {
         "testcaseId": 11,
-        "inputFilePath": "testcases/c/c10_1/11/input.txt",
-        "outputFilePath": "testcases/c/c10_1/11/output.txt"
+        "argsFilePath": "testcases/c/c10_1/11/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/11/output.txt"
       },
       {
         "testcaseId": 12,
-        "inputFilePath": "testcases/c/c10_1/12/input.txt",
-        "outputFilePath": "testcases/c/c10_1/12/output.txt"
+        "argsFilePath": "testcases/c/c10_1/12/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/12/output.txt"
       },
       {
         "testcaseId": 13,
-        "inputFilePath": "testcases/c/c10_1/13/input.txt",
-        "outputFilePath": "testcases/c/c10_1/13/output.txt"
+        "argsFilePath": "testcases/c/c10_1/13/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/13/output.txt"
       },
       {
         "testcaseId": 14,
-        "inputFilePath": "testcases/c/c10_1/14/input.txt",
-        "outputFilePath": "testcases/c/c10_1/14/output.txt"
+        "argsFilePath": "testcases/c/c10_1/14/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/14/output.txt"
       },
       {
         "testcaseId": 15,
-        "inputFilePath": "testcases/c/c10_1/15/input.txt",
-        "outputFilePath": "testcases/c/c10_1/15/output.txt"
+        "argsFilePath": "testcases/c/c10_1/15/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/15/output.txt"
       },
       {
         "testcaseId": 16,
-        "inputFilePath": "testcases/c/c10_1/16/input.txt",
-        "outputFilePath": "testcases/c/c10_1/16/output.txt"
+        "argsFilePath": "testcases/c/c10_1/16/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/16/output.txt"
       },
       {
         "testcaseId": 17,
-        "inputFilePath": "testcases/c/c10_1/17/input.txt",
-        "outputFilePath": "testcases/c/c10_1/17/output.txt"
+        "argsFilePath": "testcases/c/c10_1/17/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/17/output.txt"
       },
       {
         "testcaseId": 18,
-        "inputFilePath": "testcases/c/c10_1/18/input.txt",
-        "outputFilePath": "testcases/c/c10_1/18/output.txt"
+        "argsFilePath": "testcases/c/c10_1/18/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/18/output.txt"
       },
       {
         "testcaseId": 19,
-        "inputFilePath": "testcases/c/c10_1/19/input.txt",
-        "outputFilePath": "testcases/c/c10_1/19/output.txt"
+        "argsFilePath": "testcases/c/c10_1/19/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/19/output.txt"
       },
       {
         "testcaseId": 20,
-        "inputFilePath": "testcases/c/c10_1/20/input.txt",
-        "outputFilePath": "testcases/c/c10_1/20/output.txt"
+        "argsFilePath": "testcases/c/c10_1/20/args.txt",
+        "inputFilePath": "",
+        "outputFilePath": "output.txt",
+        "answerFilePath": "testcases/c/c10_1/20/output.txt"
       }
     ]
   },
@@ -829,103 +1107,143 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/1/input.txt",
-        "outputFilePath": "testcases/c/c10_2/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/2/input.txt",
-        "outputFilePath": "testcases/c/c10_2/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/3/input.txt",
-        "outputFilePath": "testcases/c/c10_2/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/4/input.txt",
-        "outputFilePath": "testcases/c/c10_2/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/5/input.txt",
-        "outputFilePath": "testcases/c/c10_2/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/6/input.txt",
-        "outputFilePath": "testcases/c/c10_2/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/7/input.txt",
-        "outputFilePath": "testcases/c/c10_2/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/8/input.txt",
-        "outputFilePath": "testcases/c/c10_2/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/8/output.txt"
       },
       {
         "testcaseId": 9,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/9/input.txt",
-        "outputFilePath": "testcases/c/c10_2/9/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/9/output.txt"
       },
       {
         "testcaseId": 10,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/10/input.txt",
-        "outputFilePath": "testcases/c/c10_2/10/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/10/output.txt"
       },
       {
         "testcaseId": 11,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/11/input.txt",
-        "outputFilePath": "testcases/c/c10_2/11/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/11/output.txt"
       },
       {
         "testcaseId": 12,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/12/input.txt",
-        "outputFilePath": "testcases/c/c10_2/12/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/12/output.txt"
       },
       {
         "testcaseId": 13,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/13/input.txt",
-        "outputFilePath": "testcases/c/c10_2/13/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/13/output.txt"
       },
       {
         "testcaseId": 14,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/14/input.txt",
-        "outputFilePath": "testcases/c/c10_2/14/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/14/output.txt"
       },
       {
         "testcaseId": 15,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/15/input.txt",
-        "outputFilePath": "testcases/c/c10_2/15/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/15/output.txt"
       },
       {
         "testcaseId": 16,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/16/input.txt",
-        "outputFilePath": "testcases/c/c10_2/16/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/16/output.txt"
       },
       {
         "testcaseId": 17,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/17/input.txt",
-        "outputFilePath": "testcases/c/c10_2/17/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/17/output.txt"
       },
       {
         "testcaseId": 18,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/18/input.txt",
-        "outputFilePath": "testcases/c/c10_2/18/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/18/output.txt"
       },
       {
         "testcaseId": 19,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/19/input.txt",
-        "outputFilePath": "testcases/c/c10_2/19/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/19/output.txt"
       },
       {
         "testcaseId": 20,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c10_2/20/input.txt",
-        "outputFilePath": "testcases/c/c10_2/20/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c10_2/20/output.txt"
       }
     ]
   },
@@ -945,37 +1263,51 @@
       {
         "testcaseId": 1,
         "argsFilePath": "testcases/c/c8_2/1/args.txt",
-        "outputFilePath": "testcases/c/c8_2/1/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/1/output.txt"
       },
       {
         "testcaseId": 2,
         "argsFilePath": "testcases/c/c8_2/2/args.txt",
-        "outputFilePath": "testcases/c/c8_2/2/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/2/output.txt"
       },
       {
         "testcaseId": 3,
         "argsFilePath": "testcases/c/c8_2/3/args.txt",
-        "outputFilePath": "testcases/c/c8_2/3/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/3/output.txt"
       },
       {
         "testcaseId": 4,
         "argsFilePath": "testcases/c/c8_2/4/args.txt",
-        "outputFilePath": "testcases/c/c8_2/4/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/4/output.txt"
       },
       {
         "testcaseId": 5,
         "argsFilePath": "testcases/c/c8_2/5/args.txt",
-        "outputFilePath": "testcases/c/c8_2/5/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/5/output.txt"
       },
       {
         "testcaseId": 6,
         "argsFilePath": "testcases/c/c8_2/6/args.txt",
-        "outputFilePath": "testcases/c/c8_2/6/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/6/output.txt"
       },
       {
         "testcaseId": 7,
         "argsFilePath": "testcases/c/c8_2/7/args.txt",
-        "outputFilePath": "testcases/c/c8_2/7/output.txt"
+        "inputFilePath": "",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c8_2/7/output.txt"
       }
     ]
   },
@@ -994,18 +1326,24 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_1/1/input.txt",
-        "outputFilePath": "testcases/c/c7_1/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_1/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_1/2/input.txt",
-        "outputFilePath": "testcases/c/c7_1/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_1/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_1/3/input.txt",
-        "outputFilePath": "testcases/c/c7_1/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_1/3/output.txt"
       }
     ]
   },
@@ -1024,23 +1362,31 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_2/1/input.txt",
-        "outputFilePath": "testcases/c/c7_2/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_2/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_2/2/input.txt",
-        "outputFilePath": "testcases/c/c7_2/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_2/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_2/3/input.txt",
-        "outputFilePath": "testcases/c/c7_2/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_2/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_2/4/input.txt",
-        "outputFilePath": "testcases/c/c7_2/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_2/4/output.txt"
       }
     ]
   },
@@ -1059,33 +1405,45 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_3/1/input.txt",
-        "outputFilePath": "testcases/c/c7_3/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_3/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_3/2/input.txt",
-        "outputFilePath": "testcases/c/c7_3/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_3/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_3/3/input.txt",
-        "outputFilePath": "testcases/c/c7_3/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_3/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_3/4/input.txt",
-        "outputFilePath": "testcases/c/c7_3/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_3/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_3/5/input.txt",
-        "outputFilePath": "testcases/c/c7_3/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_3/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_3/6/input.txt",
-        "outputFilePath": "testcases/c/c7_3/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_3/6/output.txt"
       }
     ]
   },
@@ -1104,43 +1462,59 @@
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/1/input.txt",
-        "outputFilePath": "testcases/c/c7_4/1/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/1/output.txt"
       },
       {
         "testcaseId": 2,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/2/input.txt",
-        "outputFilePath": "testcases/c/c7_4/2/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/2/output.txt"
       },
       {
         "testcaseId": 3,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/3/input.txt",
-        "outputFilePath": "testcases/c/c7_4/3/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/3/output.txt"
       },
       {
         "testcaseId": 4,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/4/input.txt",
-        "outputFilePath": "testcases/c/c7_4/4/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/4/output.txt"
       },
       {
         "testcaseId": 5,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/5/input.txt",
-        "outputFilePath": "testcases/c/c7_4/5/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/5/output.txt"
       },
       {
         "testcaseId": 6,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/6/input.txt",
-        "outputFilePath": "testcases/c/c7_4/6/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/6/output.txt"
       },
       {
         "testcaseId": 7,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/7/input.txt",
-        "outputFilePath": "testcases/c/c7_4/7/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/7/output.txt"
       },
       {
         "testcaseId": 8,
+        "argsFilePath": "",
         "inputFilePath": "testcases/c/c7_4/8/input.txt",
-        "outputFilePath": "testcases/c/c7_4/8/output.txt"
+        "outputFilePath": "",
+        "answerFilePath": "testcases/c/c7_4/8/output.txt"
       }
     ]
   }

@@ -10,13 +10,18 @@ import (
 	"strings"
 )
 
+const (
+	MAKEFILE_NAME         = "Makefile"
+	MAKEFILE_PROG_DEFAULT = "final"
+)
+
 func isHaveMakeFile(sId string) (bool, error) {
 	files, err := os.ReadDir(filepath.Join(os.Getenv("EXEC_DIR"), sId))
 	if err != nil {
 		return false, err
 	}
 	for _, file := range files {
-		if file.Name() == os.Getenv("MAKEFILE_NAME") {
+		if file.Name() == MAKEFILE_NAME {
 			return true, nil
 		}
 	}
@@ -136,7 +141,7 @@ func writeTargets(mf *os.File) error {
 }
 
 func writePROG(mf *os.File) error {
-	_, err := io.WriteString(mf, fmt.Sprintf("PROG = %s\n", os.Getenv("MAKEFILE_PROG_DEFAULT")))
+	_, err := io.WriteString(mf, fmt.Sprintf("PROG = %s\n", MAKEFILE_PROG_DEFAULT))
 	if err != nil {
 		return err
 	}
@@ -153,7 +158,7 @@ func writeOBJS(mf *os.File, sId string) error {
 		return err
 	}
 	for _, file := range files {
-		if file.Name() == os.Getenv("MAKEFILE_NAME") {
+		if file.Name() == MAKEFILE_NAME {
 			continue
 		}
 		if strings.Split(file.Name(), ".")[1] == "c" {

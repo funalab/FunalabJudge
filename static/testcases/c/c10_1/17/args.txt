@@ -1,0 +1,1 @@
+../../static/testcases/c/c10_1/17/input.txt output.txt
