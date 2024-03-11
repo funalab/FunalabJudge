@@ -29,7 +29,7 @@ const ResultsPage: React.FC = () => {
         console.log(error)
         alert("Failed to fetch data from database")
       })
-  }, [])
+  }, [userName])
 
   /*未確定の奴があるなら1sずつリクエストを投げてレンダリングをする*/
   useEffect(() => {
