@@ -100,6 +100,7 @@ const ResultsPage: React.FC = () => {
                   Id={submission.Id}
                   SubmittedDate={submission.SubmittedDate}
                   ProblemId={submission.ProblemId}
+                  ProblemName={submission.ProblemName}
                   UserName={submission.UserName}
                   Results={submission.Results}
                   Status={submission.Status}

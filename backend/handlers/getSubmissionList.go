@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"go-test/db/problems"
 	"go-test/db/submission"
 	"go-test/util"
 	"net/http"
@@ -18,9 +19,14 @@ func GetSubmissionListHandler(c *gin.Context) {
 	client := client_.(*mongo.Client)
 
 	userName := c.Param("userName")
-	submissions, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName})
+	sList, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName})
 	if err != nil {
 		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find submission list"), err))
 	}
-	c.JSON(http.StatusOK, submissions)
+	var ssWithPname []submission.SubmissionWithProblemName
+	for _, s := range sList {
+		pList, _ := problems.SearchProblems(client, problems.Problem{Id: s.ProblemId})
+		ssWithPname = append(ssWithPname, submission.SubmissionWithProblemName{Submission: s, ProblemName: pList[0].Name})
+	}
+	c.JSON(http.StatusOK, ssWithPname)
 }

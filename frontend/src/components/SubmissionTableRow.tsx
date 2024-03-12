@@ -2,7 +2,6 @@ import { Td, Tr, Button, Flex } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from "react-router-dom"
 import StatusBlock from './StatusBlock'
-import { changePid2Pname } from '../api/ChangePid2Pname'
 
 export interface SubmissionWithStatusProps {
   Status: string
@@ -14,6 +13,7 @@ export interface SubmissionTableRowProps {
   Id: number;
   UserName: string;
   ProblemId: number;
+  ProblemName: string;
   SubmittedDate: string;
   Results: Result[];
   Status: string;
@@ -24,17 +24,16 @@ export interface Result {
   Status: string;
 }
 
-const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Filter, Id, SubmittedDate, ProblemId, UserName, Status }) => {
+const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Filter, Id, SubmittedDate, ProblemId, ProblemName, UserName, Status }) => {
   const navigate = useNavigate()
-  const Pname = changePid2Pname({ id: ProblemId })
   return (
-    (Filter === "" || Pname === Filter) && (
+    (Filter === "" || ProblemName === Filter) && (
       <>
         <Tr>
           <Td>{new Date(SubmittedDate).toLocaleString()}</Td>
           <Td>
             <Button variant="link" onClick={() => navigate(`/${UserName}/problem/${ProblemId}`)}>
-              {Pname}
+              {ProblemName}
             </Button>
           </Td>
           <Td>{UserName}</Td>

@@ -24,3 +24,8 @@ type SubmittedFile struct {
 	Name    string `json:"name"`
 	Content string `json:"content"`
 }
+
+type SubmissionWithProblemName struct {
+	Submission
+	ProblemName string
+}
