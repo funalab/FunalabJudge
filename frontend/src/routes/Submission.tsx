@@ -32,6 +32,7 @@ const SubmissionPage: React.FC = () => {
   const [testcases, setTestcases] = useState<TestcaseWithResult[]>([])
   const [problemName, setProblemName] = useState("")
   const [submission, setSubmission] = useState<SubmissionTableRowProps>({
+    Filter: "",
     Id: 0,
     UserName: "",
     ProblemId: 0,
