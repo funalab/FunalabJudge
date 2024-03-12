@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from "react-router-dom";
 import DefaultLayout from '../components/DefaultLayout'
-import { Divider, Heading, Input, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Button, Divider, Heading, Input, Table, TableCaption, TableContainer, Tbody, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import SubmissionTableRow, { SubmissionTableRowProps } from '../components/SubmissionTableRow';
 import { axiosClient } from '../providers/AxiosClientProvider';
 
@@ -11,6 +11,7 @@ const ResultsPage: React.FC = () => {
   const [submissions, setSubmissions] = useState<SubmissionTableRowProps[]>([])
   const [haveNotComplete, setHaveNotComplete] = useState<boolean>(false)
   const [problemFilter, setProblemFilter] = useState<string>(location?.state || '')
+  const [inputValue, setInputValue] = useState<string>(location?.state || '')
   useEffect(() => {
     axiosClient
       .get(`/getSubmissionList/${userName}`)
@@ -59,10 +60,14 @@ const ResultsPage: React.FC = () => {
       return () => clearInterval(intervalId);
     }
   }, [haveNotComplete])
+
+  const handleSearch = () => {
+    setProblemFilter(inputValue);
+  };
   return (
     <>
       <DefaultLayout>
-        <Heading mt={5}>自分の提出</Heading>
+        <Heading mt={5}>{userName}の提出</Heading>
         <Divider />
         <TableContainer>
           <Table variant='simple'>
@@ -74,11 +79,12 @@ const ResultsPage: React.FC = () => {
                   問題
                   <Input
                     type="text"
-                    value={problemFilter}
-                    onChange={(e) => setProblemFilter(e.target.value)}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                     placeholder={`Search...`}
                     style={{ marginLeft: '10px', width: '50%' }}
                   />
+                  <Button onClick={handleSearch} style={{ marginLeft: '5px', width: '10%' }}>検索</Button>
                 </Th>
                 <Th>ユーザ</Th>
                 <Th>結果</Th>
@@ -89,16 +95,16 @@ const ResultsPage: React.FC = () => {
 
               {/* This section is existing submission list. */}
               {submissions?.map(submission => (
-                (problemFilter === "" || submission.ProblemId.toString() === problemFilter) && (
-                  <SubmissionTableRow
-                    Id={submission.Id}
-                    SubmittedDate={submission.SubmittedDate}
-                    ProblemId={submission.ProblemId}
-                    UserName={submission.UserName}
-                    Results={submission.Results}
-                    Status={submission.Status}
-                  />)
-              ))}
+                <SubmissionTableRow
+                  Filter={problemFilter}
+                  Id={submission.Id}
+                  SubmittedDate={submission.SubmittedDate}
+                  ProblemId={submission.ProblemId}
+                  UserName={submission.UserName}
+                  Results={submission.Results}
+                  Status={submission.Status}
+                />)
+              )}
             </Tbody>
             <Tfoot>
               {/* Nothing */}

@@ -46,3 +46,9 @@ type Testcase struct {
 	InputFileContent  string
 	OutputFileContent string
 }
+
+type ProblemWithStatus struct {
+	ProblemId   int
+	ProblemName string
+	Status      string
+}

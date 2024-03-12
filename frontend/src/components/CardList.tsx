@@ -39,7 +39,7 @@ export const CardList = ({ data }: CardListProps) => {
           return (
             <Card key={pws.Problem.Id} boxShadow={'dark-lg'}>
               <CardHeader>
-                <Heading> {pws.Problem.Name}</Heading>
+                <Heading size='md'> {pws.Problem.Name}</Heading>
               </CardHeader>
               <CardBody>
                 <Text

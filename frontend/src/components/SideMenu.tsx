@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export const SideMenu = () => {
   const navigate = useNavigate();
   const userName = localStorage.getItem("authUserName")
-  const loginUserJoinedYear = new Date(localStorage.getItem("authJoinedDate")|| Date.now()).getFullYear()
+  const loginUserJoinedYear = new Date(localStorage.getItem("authJoinedDate") || Date.now()).getFullYear()
   const nowDate = new Date()
   const sideMenuItems = [
     {
@@ -35,7 +35,7 @@ export const SideMenu = () => {
       path: `/${userName}/petit_coder`,
     },
     {
-      name: "B3 Results",
+      name: "B3 Status",
       icon: MdOutlineChecklist,
       path: `/all_results`
     }

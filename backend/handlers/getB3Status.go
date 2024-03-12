@@ -34,10 +34,10 @@ func GetB3StatusHandler(c *gin.Context) {
 	ps, err := problems.SearchProblems(client, problems.Problem{})
 	var usst []users.UserStatus
 	for _, u := range us {
-		var rs []submission.Result
+		var rs []problems.ProblemWithStatus
 		for _, p := range ps {
-			us := submission.Submission{UserName: u, ProblemId: p.Id}
-			ss, err := submission.SearchSubmissions(client, us)
+			ups := submission.Submission{UserName: u, ProblemId: p.Id}
+			ss, err := submission.SearchSubmissions(client, ups)
 			if err != nil {
 				c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
 			}
@@ -57,7 +57,8 @@ func GetB3StatusHandler(c *gin.Context) {
 					pst = "CE"
 				}
 			}
-			rs = append(rs, submission.Result{TestId: int(p.Id), Status: pst})
+			pn, err := problems.SearchProblems(client, problems.Problem{Id: p.Id})
+			rs = append(rs, problems.ProblemWithStatus{ProblemId: int(p.Id), ProblemName: pn[0].Name, Status: pst})
 
 		}
 		usst = append(usst, users.UserStatus{UserName: u, ProblemsStatus: rs})

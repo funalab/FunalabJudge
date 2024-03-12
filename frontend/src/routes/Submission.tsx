@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Box, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr} from '@chakra-ui/react'
+import { Box, Button, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
@@ -21,6 +21,8 @@ type TestcaseWithResult = {
 
 const SubmissionPage: React.FC = () => {
   const { submissionId } = useParams()
+  const userName = localStorage.getItem("authUserName")
+  const navigate = useNavigate()
   const location = useLocation();
   const [totalStatus, setTotalStatus] = useState<string>('')
   const [files, setFiles] = useState<SubmittedFile[]>([])
@@ -82,7 +84,6 @@ const SubmissionPage: React.FC = () => {
         .get<ProblemWithTestcase>(`/getProblem/${problemId}`)
         .then(({ data }) => {
           const p: ProblemWithTestcase = data;
-          console.log(p)
           setProblemName(p.Name)
           const totals: TestcaseWithResult[] = []
           const results = submission.Results
@@ -161,7 +162,11 @@ const SubmissionPage: React.FC = () => {
               <Tbody>
                 <Tr>
                   <Td>{new Date(submission.SubmittedDate).toLocaleString()}</Td>
-                  <Td>{problemName}</Td>
+                  <Td>
+                    <Button variant="link" onClick={() => navigate(`/${userName}/problem/${problemId}`)}>
+                      {problemName}
+                    </Button>
+                  </Td>
                   <Td>{score} / {submission.Results.length}</Td>
                   <Td>
                     <StatusBlock status={totalStatus} />

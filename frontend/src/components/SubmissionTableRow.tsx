@@ -2,6 +2,7 @@ import { Td, Tr, Button, Flex } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from "react-router-dom"
 import StatusBlock from './StatusBlock'
+import { changePid2Pname } from '../api/ChangePid2Pname'
 
 export interface SubmissionWithStatusProps {
   Status: string
@@ -9,6 +10,7 @@ export interface SubmissionWithStatusProps {
 }
 
 export interface SubmissionTableRowProps {
+  Filter: string;
   Id: number;
   UserName: string;
   ProblemId: number;
@@ -22,28 +24,32 @@ export interface Result {
   Status: string;
 }
 
-const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Id, SubmittedDate, ProblemId, UserName, Status }) => {
+const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Filter, Id, SubmittedDate, ProblemId, UserName, Status }) => {
   const navigate = useNavigate()
+  const Pname = changePid2Pname({ id: ProblemId })
   return (
-    <>
-      <Tr>
-        <Td>{new Date(SubmittedDate).toLocaleString()}</Td>
-        <Td>
-          <Button variant="link" onClick={() => navigate(`/${UserName}/problem/${ProblemId}`)}>
-            {ProblemId}
-          </Button>
-        </Td>
-        <Td>{UserName}</Td>
-        <Td>
-          <Flex mr={2}>
-            <StatusBlock status={Status} />
-            <Button ml='20px' variant="link" onClick={() => navigate(`/${UserName}/submission/${Id}`, { state: { status: Status } })}>
-              詳細
+    (Filter === "" || Pname === Filter) && (
+      <>
+        <Tr>
+          <Td>{new Date(SubmittedDate).toLocaleString()}</Td>
+          <Td>
+            <Button variant="link" onClick={() => navigate(`/${UserName}/problem/${ProblemId}`)}>
+              {Pname}
             </Button>
-          </Flex>
-        </Td>
-      </Tr>
-    </>
+          </Td>
+          <Td>{UserName}</Td>
+          <Td>
+            <Flex mr={2}>
+              <StatusBlock status={Status} />
+              <Button ml='20px' variant="link" onClick={() => navigate(`/${UserName}/submission/${Id}`, { state: { status: Status } })}>
+                詳細
+              </Button>
+            </Flex>
+          </Td>
+        </Tr>
+
+      </>
+    )
   )
 }
 export default SubmissionTableRow

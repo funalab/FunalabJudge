@@ -1,7 +1,9 @@
 package users
 
-import "time"
-import "go-test/db/submission"
+import (
+	"go-test/db/problems"
+	"time"
+)
 
 type User struct {
 	UserName   string    `bson:"userName"`
@@ -9,6 +11,6 @@ type User struct {
 	JoinedDate time.Time `bson:"joinedDate"`
 }
 type UserStatus struct {
-	UserName       string              `bson:"userName"`
-	ProblemsStatus []submission.Result `bson:"problemsStatus"`
+	UserName       string                       `bson:"userName"`
+	ProblemsStatus []problems.ProblemWithStatus `bson:"problemsStatus"`
 }
