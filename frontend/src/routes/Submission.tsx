@@ -36,6 +36,7 @@ const SubmissionPage: React.FC = () => {
     Id: 0,
     UserName: "",
     ProblemId: 0,
+    ProblemName: "",
     SubmittedDate: "",
     Results: [] as Result[],
     Status: ""
