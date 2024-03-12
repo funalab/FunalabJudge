@@ -18,14 +18,14 @@ func compareWithAnswer(output string, answer string) bool {
 	return fixedOutput == fixedAnswer
 }
 
-func execCommand(sId primitive.ObjectID, command string, execTime int) (string, error) {
+func execCommand(sId primitive.ObjectID, command string, execTime int) ([]byte, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(execTime))
 	defer cancel()
 	cmd := exec.CommandContext(ctx, "sh", "-c", command)
 	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
 	output, err := cmd.CombinedOutput()
 
-	return string(output), err
+	return output, err
 }
 
 func searchExecutableFile(sId primitive.ObjectID) (string, error) {

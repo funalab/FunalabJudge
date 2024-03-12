@@ -13,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const DEFAULT_OUTPUT_FILENAME = "output.txt"
+const DEFAULT_OUTPUT_FILENAME = "output"
 
 func JudgeProcess(c *gin.Context, s submission.Submission) {
 	client_, exists := c.Get("mongoClient")
@@ -73,7 +73,6 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 	// exec with all test cases
 	staticDir := os.Getenv("STATIC_DIR")
 	tLen := len(p.TestcaseWithPaths)
-	outputFileName := ""
 	acNum := 0
 	reFlag := false
 	tleFlag := false
@@ -98,15 +97,8 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 			// TODO 相対パス使ってる応急処置でnot elegant、絶対パスにしたい
 			command = command + " < ../" + filepath.Join(staticDir, t.InputFilePath)
 		}
-		// file.cのために用意したフィールド
-		if t.OutputFilePath != "" {
-			outputFileName = t.OutputFilePath
-		} else {
-			command = command + " &> " + DEFAULT_OUTPUT_FILENAME
-			outputFileName = DEFAULT_OUTPUT_FILENAME
-		}
 
-		_, err := execCommand(s.Id, command, int(p.ExecutionTime))
+		output, err := execCommand(s.Id, command, int(p.ExecutionTime))
 		if err != nil {
 			if err.Error() == "signal: killed" {
 				c.Error(errors.Join(fmt.Errorf("[%s] failed to run the testcase, TLE is caused", s.Id.Hex()), err))
@@ -120,14 +112,18 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 			continue
 		}
 
-		// judge result
-		output, err := os.ReadFile(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), outputFileName))
-		if err != nil {
-			c.Error(errors.Join(fmt.Errorf("[%s] failed to read output of test case", s.Id.Hex()), err))
-			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
-			reFlag = true
-			continue
+		// file.cのために用意したフィールド
+		if t.OutputFilePath != "" {
+			output, err = os.ReadFile(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFilePath))
+			if err != nil {
+				c.Error(errors.Join(fmt.Errorf("[%s] failed to read output of test case", s.Id.Hex()), err))
+				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+				reFlag = true
+				continue
+			}
 		}
+
+		// judge result
 		answer, err := os.ReadFile(filepath.Join(staticDir, t.AnswerFilePath))
 		if err != nil {
 			c.Error(errors.Join(fmt.Errorf("[%s] failed to read answer of test case", s.Id.Hex()), err))
@@ -140,13 +136,6 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "AC")
 		} else {
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "WA")
-		}
-		// outputファイルを削除
-		if err := os.Remove(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), outputFileName)); err != nil {
-			c.Error(errors.Join(fmt.Errorf("[%s] failed to remove output file", s.Id.Hex()), err))
-			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
-			reFlag = true
-			continue
 		}
 	}
 	// judge pass/fail and update status
