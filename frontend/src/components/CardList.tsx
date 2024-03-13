@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Box, Stack } from '@chakra-ui/react';
+import { Button, Stack } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Icon } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
 import { useNavigate, useParams } from "react-router-dom"
@@ -7,12 +7,12 @@ import { Checkbox } from '@chakra-ui/react'
 import { Problem } from '../types/DbTypes';
 import { MdLockClock, MdLockOpen } from "react-icons/md";
 
-interface problemWithStatus {
+export interface problemWithStatus {
   Problem: Problem,
   Status: boolean,
 }
 
-interface CardListProps {
+export interface CardListProps {
   data: problemWithStatus[];
 }
 
@@ -90,9 +90,6 @@ export const CardList = ({ data }: CardListProps) => {
 
   return (
     <>
-      <Box my={4}>
-        <Heading>Assignments</Heading>
-      </Box>
       <Stack spacing={5} direction='row'>
         {check_list.map((check, index: number) => (
           <Checkbox
