@@ -146,14 +146,14 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		}
 	}
 	// judge pass/fail and update status
-	if reFlag {
+	if acNum >= int(p.BorderScore) {
+		submission.UpdateSubmissionStatus(client, s.Id, "AC")
+	} else if reFlag {
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 	} else if tleFlag {
 		submission.UpdateSubmissionStatus(client, s.Id, "TLE")
-	} else if acNum < int(p.BorderScore) {
-		submission.UpdateSubmissionStatus(client, s.Id, "WA")
 	} else {
-		submission.UpdateSubmissionStatus(client, s.Id, "AC")
+		submission.UpdateSubmissionStatus(client, s.Id, "WA")
 	}
 
 	_, err = execCommand(s.Id, "make clean", 2)
