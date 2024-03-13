@@ -121,6 +121,13 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 				reFlag = true
 				continue
 			}
+			// outputファイルを削除
+			if err := os.Remove(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFilePath)); err != nil {
+				c.Error(errors.Join(fmt.Errorf("[%s] failed to remove output file", s.Id.Hex()), err))
+				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
+				reFlag = true
+				continue
+			}
 		}
 
 		// judge result
