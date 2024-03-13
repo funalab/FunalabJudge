@@ -961,7 +961,7 @@
         "testcaseId": 2,
         "argsFilePath": "testcases/c/c10_1/2/args.txt",
         "inputFilePath": "",
-        "outputFilePath": "",
+        "outputFilePath": "output.txt",
         "answerFilePath": "testcases/c/c10_1/2/output.txt"
       },
       {

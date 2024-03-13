@@ -1,11 +1,11 @@
 package judge
 
 import (
-	"errors"
 	"fmt"
 	"go-test/db/problems"
 	"go-test/db/submission"
 	"go-test/util"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -24,7 +24,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 
 	p, err := problems.SearchOneProblemWithId(client, s.ProblemId)
 	if err != nil {
-		c.Error(fmt.Errorf("[%s] failed to find single result: %s", s.Id.Hex(), err.Error()))
+		log.Printf("[%s] failed to find single result : %s", s.Id.Hex(), err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 		return
 	}
@@ -32,12 +32,12 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 	ceFlag := false
 	r, err := isHaveMakeFile(s.Id.Hex())
 	if err != nil {
-		c.Error(errors.Join(fmt.Errorf("[%s] failed to find exec dir", s.Id.Hex()), err))
+		log.Printf("[%s] failed to find exec dir : %s", s.Id.Hex(), err)
 	}
 	if !r {
 		err := writeMakeFile(s.Id.Hex())
 		if err != nil {
-			c.Error(errors.Join(fmt.Errorf("[%s] failed to write make file", s.Id.Hex()), err))
+			log.Printf("[%s] failed to write make file : %s", s.Id.Hex(), err)
 			submission.UpdateSubmissionStatus(client, s.Id, "CE")
 			ceFlag = true
 		}
@@ -45,14 +45,14 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 
 	_, err = execCommand(s.Id, "make", 2)
 	if err != nil {
-		c.Error(errors.Join(fmt.Errorf("[%s] failed to compile", s.Id.Hex()), err))
+		log.Printf("[%s] failed to compile : %s", s.Id.Hex(), err)
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
 	execFile, err := searchExecutableFile(s.Id)
 	if err != nil {
-		c.Error(errors.Join(fmt.Errorf("[%s] failed to find executable file", s.Id.Hex()), err))
+		log.Printf("[%s] failed to find executable file : %s", s.Id.Hex(), err)
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
@@ -63,7 +63,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		}
 		_, err = execCommand(s.Id, "make clean", 2)
 		if err != nil {
-			c.Error(errors.Join(fmt.Errorf("[%s] failed to exec make clean", s.Id.Hex()), err))
+			log.Printf("[%s] failed to exec make clean : %s", s.Id.Hex(), err)
 			submission.UpdateSubmissionStatus(client, s.Id, "RE")
 			return
 		}
@@ -84,7 +84,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		if t.ArgsFilePath != "" {
 			a, err := os.ReadFile(filepath.Join(staticDir, t.ArgsFilePath))
 			if err != nil {
-				c.Error(errors.Join(fmt.Errorf("[%s] failed to read args of test case", s.Id.Hex()), err))
+				log.Printf("[%s] failed to read args of test case : %s", s.Id.Hex(), err)
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
@@ -101,11 +101,11 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		output, err := execCommand(s.Id, command, int(p.ExecutionTime))
 		if err != nil {
 			if err.Error() == "signal: killed" {
-				c.Error(errors.Join(fmt.Errorf("[%s] failed to run the testcase, TLE is caused", s.Id.Hex()), err))
+				log.Printf("[%s] failed to run the testcase, TLE is caused : %s", s.Id.Hex(), err)
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "TLE")
 				tleFlag = true
 			} else {
-				c.Error(errors.Join(fmt.Errorf("[%s] failed to run the testcase, RE is caused", s.Id.Hex()), err))
+				log.Printf("[%s] failed to run the testcase, RE is caused : %s", s.Id.Hex(), err)
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 			}
@@ -116,14 +116,14 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		if t.OutputFilePath != "" {
 			output, err = os.ReadFile(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFilePath))
 			if err != nil {
-				c.Error(errors.Join(fmt.Errorf("[%s] failed to read output of test case", s.Id.Hex()), err))
+				log.Printf("[%s] failed to read output of test case : %s", s.Id.Hex(), err)
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
 			}
 			// outputファイルを削除
 			if err := os.Remove(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFilePath)); err != nil {
-				c.Error(errors.Join(fmt.Errorf("[%s] failed to remove output file", s.Id.Hex()), err))
+				log.Printf("[%s] failed to remove output file : %s", s.Id.Hex(), err)
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
@@ -133,7 +133,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		// judge result
 		answer, err := os.ReadFile(filepath.Join(staticDir, t.AnswerFilePath))
 		if err != nil {
-			c.Error(errors.Join(fmt.Errorf("[%s] failed to read answer of test case", s.Id.Hex()), err))
+			log.Printf("[%s] failed to read answer of test case : %s", s.Id.Hex(), err)
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
@@ -158,7 +158,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 
 	_, err = execCommand(s.Id, "make clean", 2)
 	if err != nil {
-		c.Error(errors.Join(fmt.Errorf("[%s] failed to exec make clean", s.Id.Hex()), err))
+		log.Printf("[%s] failed to exec make clean : %s", s.Id.Hex(), err)
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 		return
 	}

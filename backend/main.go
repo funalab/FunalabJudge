@@ -49,6 +49,7 @@ func main() {
 	router.Use(gin.Recovery())
 
 	f, _ := os.Create("gin.log")
+	log.SetOutput(f)
 	gin.DefaultWriter = io.MultiWriter(f)
 	router.Use(gin.LoggerWithFormatter(loggerFormatter))
 
