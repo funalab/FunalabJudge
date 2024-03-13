@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { AxiosClientProvider } from "./providers/AxiosClientProvider";
 
@@ -31,9 +31,12 @@ const App: React.FC = () => {
             <Route path="problem/:problemId" element={<RouteAuthGuard component={<ProblemPage />} pageType={PageType.Private} />} />
             <Route path="results" element={<RouteAuthGuard component={<ResultsPage />} pageType={PageType.Private} />} />
             <Route path="submission/:submissionId" element={<RouteAuthGuard component={<SubmissionPage />} pageType={PageType.Private} />} />
+            <Route path="" element={<Navigate to="dashboard" />} />
+            <Route path="*" element={<Navigate to="dashboard" />} />
           </Route>
-          <Route path="all_results" element={<RouteAuthGuard component={<B3ResultsPage />} pageType={PageType.Private} />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/all_results" element={<RouteAuthGuard component={<B3ResultsPage />} pageType={PageType.Private} />} />
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </AxiosClientProvider>
     </BrowserRouter>
