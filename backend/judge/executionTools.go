@@ -12,6 +12,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+const DEFAULT_WAIT_DELAY = 100
+
 func compareWithAnswer(output string, answer string) bool {
 	fixedOutput := strings.TrimRight(output, "\n")
 	fixedAnswer := strings.TrimRight(answer, "\n")
@@ -23,6 +25,7 @@ func execCommand(sId primitive.ObjectID, command string, execTime int) ([]byte, 
 	defer cancel()
 	cmd := exec.CommandContext(ctx, "sh", "-c", command)
 	cmd.Dir = filepath.Join(os.Getenv("EXEC_DIR"), sId.Hex())
+	cmd.WaitDelay = time.Duration(DEFAULT_WAIT_DELAY) * time.Microsecond
 	output, err := cmd.CombinedOutput()
 
 	return output, err
