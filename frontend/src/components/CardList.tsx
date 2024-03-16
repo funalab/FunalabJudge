@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Stack } from '@chakra-ui/react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Icon } from '@chakra-ui/react'
 import { SimpleGrid } from '@chakra-ui/react'
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
 import { Problem } from '../types/DbTypes';
 import { MdLockClock, MdLockOpen } from "react-icons/md";
@@ -22,7 +22,6 @@ export const CardList = ({ data }: CardListProps) => {
   const [checkedItems, setCheckedItems] = useState(new Array(check_list.length).fill(false))
 
   const navigate = useNavigate()
-  const { userName } = useParams()
 
   const CardGrid = ({ data }: CardListProps) => {
     return (
@@ -71,7 +70,7 @@ export const CardList = ({ data }: CardListProps) => {
               </CardBody>
               <CardFooter>
                 {new Date() > new Date(pws.Problem.OpenDate) ? (
-                  <Button colorScheme='teal' onClick={() => navigate(`/${userName}/problem/${pws.Problem.Id}`)}>
+                  <Button colorScheme='teal' onClick={() => navigate(`/problem/${pws.Problem.Id}`)}>
                     詳細
                   </Button>
                 ) : (

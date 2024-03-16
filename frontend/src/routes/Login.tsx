@@ -51,7 +51,7 @@ export const Login: FC = () => {
           if (location.state) {
             navigate(location.state, { replace: true })
           } else {
-            navigate(`/${userName}/dashboard`, { replace: true })
+            navigate(`/dashboard`, { replace: true })
           }
         } else {
           console.error(response.statusText);

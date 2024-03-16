@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"fmt"
 	"go-test/auth"
 	"go-test/db/users"
 	"go-test/util"
@@ -12,9 +13,8 @@ import (
 )
 
 type ChangePassRequest struct {
-	UserName string `json:"userName"`
-	ExPass   string `json:"exPass"`
-	NewPass  string `json:"newPass"`
+	ExPass  string `json:"exPass"`
+	NewPass string `json:"newPass"`
 }
 
 func ChangePasswordHandler(c *gin.Context) {
@@ -26,16 +26,20 @@ func ChangePasswordHandler(c *gin.Context) {
 
 	var jsonRequest ChangePassRequest
 	if err := c.Bind(&jsonRequest); err != nil {
-		c.AbortWithError(http.StatusUnprocessableEntity, errors.Join(errors.New("failed to handle form content"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to handle form content : %s", err.Error()))
+		return
 	}
 
-	u, err := users.SearchOneUserWithUserName(client, jsonRequest.UserName)
+	u_ := auth.GetUserFromJwt(c).(*users.User)
+	u, err := users.SearchOneUserWithUserName(client, u_.UserName)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find single result : %s", err.Error()))
+		return
 	}
 
 	if !auth.CheckPasswordHash(jsonRequest.ExPass, u.Password) {
-		c.AbortWithError(http.StatusUnauthorized, errors.New("password did not match"))
+		c.AbortWithError(http.StatusBadRequest, errors.New("password did not match"))
+		return
 	}
 
 	hash, _ := auth.HashPassword(jsonRequest.NewPass)
@@ -43,7 +47,7 @@ func ChangePasswordHandler(c *gin.Context) {
 
 	err = users.UpdateUserWithUserName(client, u.UserName, updateField)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to update password"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to update password : %s", err.Error()))
 	} else {
 		c.JSON(http.StatusOK, gin.H{"status": "Password updated successfully!"})
 	}

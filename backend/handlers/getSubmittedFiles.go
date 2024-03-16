@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"errors"
+	"fmt"
 	"go-test/db/submission"
 	"net/http"
 	"os"
@@ -16,7 +16,8 @@ func GetSubmittedFilesHandler(c *gin.Context) {
 
 	fs, err := os.ReadDir(compileResourcePath)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to get files from directory path"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to get files from directory path : %s", err.Error()))
+		return
 	}
 
 	files := make([]submission.SubmittedFile, 0)
@@ -24,7 +25,8 @@ func GetSubmittedFilesHandler(c *gin.Context) {
 	for _, f := range fs {
 		content, err := os.ReadFile(filepath.Join(compileResourcePath, f.Name()))
 		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to read file content"), err))
+			c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to read file content : %s", err.Error()))
+			return
 		}
 		var sf submission.SubmittedFile
 		sf.Name = f.Name()

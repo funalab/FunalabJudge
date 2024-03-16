@@ -1,6 +1,6 @@
 import { Flex, Image, Button, Spacer } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { HttpStatusCode } from "axios";
 import { axiosClient } from "../providers/AxiosClientProvider";
 import { MdLogout } from "react-icons/md";
@@ -9,7 +9,6 @@ import LogoImage from "../../images/funalab.png"
 export const TopHeader = () => {
   const navigate = useNavigate()
   const loginUser = localStorage.getItem("authUserName")
-  const { userName: pathUser } = useParams()
 
   const handleLogout = async () => {
     try {
@@ -49,7 +48,6 @@ export const TopHeader = () => {
       <Box mt="10px" mr="10px">
         Hello <b>{loginUser}</b> 👋<br></br>
         Welcome to <b>FunalabJudge</b><br></br>
-        {pathUser != undefined && pathUser !== loginUser && <b>{pathUser}のページを表示しています</b>}
       </Box>
       <Box mt="13px" ml="10px">
         <Button leftIcon={<MdLogout />} colorScheme='teal' variant='solid' onClick={handleLogout} >

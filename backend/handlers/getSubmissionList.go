@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"errors"
+	"fmt"
 	"go-test/db/problems"
 	"go-test/db/submission"
 	"go-test/util"
@@ -21,7 +21,8 @@ func GetSubmissionListHandler(c *gin.Context) {
 	userName := c.Param("userName")
 	sList, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName})
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find submission list"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find submission list : %s", err.Error()))
+		return
 	}
 	var ssWithPname []submission.SubmissionWithProblemName
 	for _, s := range sList {

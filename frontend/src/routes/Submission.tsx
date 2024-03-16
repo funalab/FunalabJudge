@@ -21,7 +21,6 @@ type TestcaseWithResult = {
 
 const SubmissionPage: React.FC = () => {
   const { submissionId } = useParams()
-  const userName = localStorage.getItem("authUserName")
   const navigate = useNavigate()
   const location = useLocation();
   const [totalStatus, setTotalStatus] = useState<string>('')
@@ -117,7 +116,7 @@ const SubmissionPage: React.FC = () => {
             <p
               className='pb-5 font-bold text-2xl'
             >
-              あなたが提出したファイル一覧
+              提出ファイル一覧
             </p>
             <Select
               value={selectedFileContent}
@@ -165,7 +164,7 @@ const SubmissionPage: React.FC = () => {
                 <Tr>
                   <Td>{new Date(submission.SubmittedDate).toLocaleString()}</Td>
                   <Td>
-                    <Button variant="link" onClick={() => navigate(`/${userName}/problem/${problemId}`)}>
+                    <Button variant="link" onClick={() => navigate(`/problem/${problemId}`)}>
                       {problemName}
                     </Button>
                   </Td>

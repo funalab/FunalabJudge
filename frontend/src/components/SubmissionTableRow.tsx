@@ -32,7 +32,7 @@ const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Filter, Id, Sub
         <Tr>
           <Td>{new Date(SubmittedDate).toLocaleString()}</Td>
           <Td>
-            <Button variant="link" onClick={() => navigate(`/${UserName}/problem/${ProblemId}`)}>
+            <Button variant="link" onClick={() => navigate(`/problem/${ProblemId}`)}>
               {ProblemName}
             </Button>
           </Td>
@@ -40,7 +40,7 @@ const SubmissionTableRow: React.FC<SubmissionTableRowProps> = ({ Filter, Id, Sub
           <Td>
             <Flex mr={2}>
               <StatusBlock status={Status} />
-              <Button ml='20px' variant="link" onClick={() => navigate(`/${UserName}/submission/${Id}`, { state: { status: Status } })}>
+              <Button ml='20px' variant="link" onClick={() => navigate(`/submission/${Id}`, { state: { status: Status } })}>
                 詳細
               </Button>
             </Flex>

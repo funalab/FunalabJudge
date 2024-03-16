@@ -13,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func GetUserNameFromJwt(c *gin.Context) interface{} {
+func GetUserFromJwt(c *gin.Context) interface{} {
 	// jwtからuser情報を抽出し、UserAuthorizatorに渡す
 	claims := jwt.ExtractClaims(c)
 	joinedDate, _ := time.Parse(time.RFC3339, claims[JwtJoinedDateKey].(string))

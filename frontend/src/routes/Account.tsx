@@ -12,37 +12,36 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { HttpStatusCode } from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AccountPage: FC = () => {
-  const { userName } = useParams();
   const [exPass, setExPass] = useState("");
   const [newPass, setNewPass] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     
-    axiosClient.post(`/changePassword/${userName}`, {
-      userName: userName,
+    axiosClient.post(`/changePassword`, {
       exPass: exPass,
       newPass: newPass,
     })
     .then((response) => {
       if (response.status === HttpStatusCode.Ok) {
         alert("パスワードの変更が完了しました。");
-        navigate(`/${userName}/dashboard`)
-      } else if (response.status === HttpStatusCode.Unauthorized) {
+        navigate(`/dashboard`)
       } else {
         console.error(response.statusText);
-        setError('ログイン情報が間違っています。');
+        alert('パスワードの変更に失敗しました。');
       }
     })
     .catch((error) => {
-      if (error.response?.status === HttpStatusCode.Unauthorized) {
+      if (error.response?.status === HttpStatusCode.BadRequest) {
         console.error(error);
-        alert('ログイン中のユーザーには変更権限がありません。');
+        alert('パスワードが間違っています。');
+      } else if (error.response?.status === HttpStatusCode.InternalServerError) {
+        console.error(error);
+        alert('パスワードの変更に失敗しました。');
       } else {
         console.error(error);
         alert('通信に失敗しました。');
@@ -77,7 +76,6 @@ const AccountPage: FC = () => {
               <PasswordField id="newPass" value={newPass} onChange={(e) => setNewPass(e.target.value)}/>
             </FormControl>
           </Stack>
-          {error && <div style={{ color: 'red' }}>{error}</div>}
           <Stack spacing="6">
             <Button onClick={handleSubmit}>パスワードを変更する</Button>
           </Stack>

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"errors"
+	"fmt"
 	"net/http"
 
 	"go-test/db/problems"
@@ -26,7 +26,8 @@ func GetProblemListHandler(c *gin.Context) {
 
 	pList, err := problems.SearchProblems(client, problems.Problem{})
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find problem list"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find problem list : %s", err.Error()))
+		return
 	}
 
 	var ps []problemWithStatus
@@ -34,7 +35,8 @@ func GetProblemListHandler(c *gin.Context) {
 	for _, p := range pList {
 		sList, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName, ProblemId: p.Id})
 		if err != nil {
-			c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find submission list"), err))
+			c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find submission list : %s", err.Error()))
+			return
 		}
 		statusFlag := false
 		for _, s := range sList {

@@ -2,19 +2,18 @@ import { useState, useEffect } from 'react';
 import { DefaultLayout } from "../components/DefaultLayout";
 import { CardList } from "../components/CardList"
 import { axiosClient } from '../providers/AxiosClientProvider';
-import { useParams } from 'react-router-dom';
 import { Box, Flex, Heading, Progress, Spacer, Icon } from '@chakra-ui/react';
 import { problemWithStatus } from '../components/CardList';
 import { MdFlag } from "react-icons/md";
 
 const DashboardPage = () => {
+  const authUserName = localStorage.getItem("authUserName");
   const [data, setData] = useState([]);
-  const { userName } = useParams();
   const [progress, setProgress] = useState(0)
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axiosClient.get(`/getProblemList/${userName}`)
+        const { data } = await axiosClient.get(`/getProblemList/${authUserName}`)
         setData(data);
         var done = 0
         var total = 0

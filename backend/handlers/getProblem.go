@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -20,15 +20,18 @@ func GetProblemHandler(c *gin.Context) {
 	client := client_.(*mongo.Client)
 	pId, err := strconv.Atoi(c.Param("problemId"))
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to parse problemId as a numbe"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to parse problemId as a numbe : %s", err.Error()))
+		return
 	}
 	p, err := problems.SearchOneProblemWithId(client, int32(pId))
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find single result : %s", err.Error()))
+		return
 	}
 	pwt, err := problems.ReadTestcaseContent(p)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to read testcase file"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to read testcase file : %s", err.Error()))
+		return
 	}
 	c.JSON(http.StatusOK, pwt)
 }

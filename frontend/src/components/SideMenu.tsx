@@ -17,22 +17,22 @@ export const SideMenu = () => {
     {
       name: "Dashboard",
       icon: MdDashboard,
-      path: `/${userName}/dashboard`,
+      path: `/dashboard`,
     },
     {
       name: "Account",
       icon: MdAccountBox,
-      path: `/${userName}/account`,
+      path: `/account`,
     },
     {
       name: "Results",
       icon: MdAssignment,
-      path: `/${userName}/results`,
+      path: `/results/${userName}`,
     },
     {
       name: "Petit Coder",
       icon: FaMedal,
-      path: `/${userName}/petit_coder`,
+      path: `/petit_coder`,
     },
     {
       name: "B3 Status",

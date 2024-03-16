@@ -27,7 +27,7 @@ func NewJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 		IdentityKey:     JwtIdentityKey,
 		PayloadFunc:     JwtMapper,
 		Authenticator:   LoginAuthenticator,
-		IdentityHandler: GetUserNameFromJwt,
+		IdentityHandler: GetUserFromJwt,
 		Authorizator:    UserAuthorizator,
 	})
 

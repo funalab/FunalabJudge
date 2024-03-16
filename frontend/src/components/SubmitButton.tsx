@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react'
 import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { axiosClient } from '../providers/AxiosClientProvider'
 
 /*
@@ -17,7 +17,7 @@ interface SubmitButtonProps {
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId }) => {
-  const { userName } = useParams()
+  const userName = localStorage.getItem("authUserName")
   const navigate = useNavigate();
 
   const handleClick = async () => {
@@ -26,7 +26,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
       alert('1つ以上のファイルを選択してください')
       return
     }
-    await axiosClient.post(`/addSubmission/${userName}`, {
+    await axiosClient.post(`/addSubmission`, {
       problemId: problemId,
       files: selectedFiles,
     }, {
@@ -34,7 +34,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ selectedFiles, problemId })
         'content-type': 'multipart/form-data',
       },
     })
-    const navigationLink = `/${userName}/results` /*  should be changed into result queue endpoint., temporary userId == 1*/
+    const navigationLink = `/results/${userName}` /*  should be changed into result queue endpoint., temporary userId == 1*/
     navigate(navigationLink)
   }
 

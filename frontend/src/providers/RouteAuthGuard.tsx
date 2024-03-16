@@ -9,24 +9,35 @@ type Props = {
 
 export const RouteAuthGuard: React.FC<Props> = (props) => {
   let allowRoute = false;
+  let message = "";
+  const location = useLocation();
 
   const authUserName = localStorage.getItem("authUserName");
   const authJoinedDate = localStorage.getItem("authJoinedDate");
   const authUserExp = localStorage.getItem("authUserExp");
 
   if ( authUserName && authJoinedDate && authUserExp ) {
-    allowRoute = AuthUser({
-      pageType: props.pageType,
-      authUserName: authUserName,
-      authJoinedDate: new Date(authJoinedDate),
-      authUserExp: Number(authUserExp),
-    });
+    if (Number(authUserExp) < Date.now() / 1000) {
+      allowRoute = false;
+      message = "ログイン保持期限が切れました。再度ログインしてください。";
+    } else if (props.pageType === PageType.Public) {
+      allowRoute = true;
+    } else if (props.pageType === PageType.Private) {
+      [allowRoute, message] = CheckAccessPermission({
+        authUserName: authUserName,
+        authJoinedDate: new Date(authJoinedDate)
+      });
+    } else {
+      // unknown page type
+    }
   } else {
-    alert("コンテンツの閲覧にはログインが必要です。");
+    allowRoute = false;
+    message = "コンテンツの閲覧にはログインが必要です。";
   }
 
   if (!allowRoute) {
-    return <Navigate to="/login" state={{from:useLocation()}} replace={false} />
+    alert(message);
+    return <Navigate to="/login" state={{from: location}} replace={false} />
   }
 
   return <>{props.component}</>;
@@ -34,32 +45,19 @@ export const RouteAuthGuard: React.FC<Props> = (props) => {
 }
 
 type AuthUserProps = {
-  pageType: PageType,
   authUserName: string,
-  authJoinedDate: Date,
-  authUserExp: number
+  authJoinedDate: Date
 }
 
-export const AuthUser = (props:AuthUserProps): boolean => {
-    // ページの種別ごとにユーザーのアクセス制御を行う関数
+export const CheckAccessPermission = (props:AuthUserProps): [boolean, string] => {
     const { userName } = useParams()
-    if (props.authUserExp < Date.now() / 1000) {
-      alert("ログイン保持期限が切れました。再度ログインしてください。")
-      return false  // expired token
-    }
-    if (props.pageType == PageType.Public) {
-        return true;
-    } else if (props.pageType == PageType.Private) {
-        if (props.authJoinedDate.getFullYear() < new Date().getFullYear()) {
-            return true;
+    if (props.authJoinedDate.getFullYear() < new Date().getFullYear()) {
+        return [true, ""];  // senior student
+    } else {
+        if (props.authUserName == userName) {
+            return [true, ""];  // matched userName
         } else {
-            if (props.authUserName == userName) {
-                return true;  // matched userName
-            } else {
-                alert("ページへのアクセス権がありません。アクセス権のあるアカウントでログインしてください。");
-                return false;  // unmatched userName
-            }
+            return [false, "ページへのアクセス権がありません。アクセス権のあるアカウントでログインしてください。"];  // unmatched userName
         }
     }
-    return false  // unknown PageType
 }

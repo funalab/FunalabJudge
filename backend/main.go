@@ -71,14 +71,16 @@ func main() {
 	router.GET("/refresh_token", authMiddleware.RefreshHandler)
 	authed := router.Group("").Use(authMiddleware.MiddlewareFunc())
 	{
-		// ユーザーごとにアクセス権が異なるエンドポイントには、userNameかsubmissionIdを含める
-		authed.POST("/changePassword/:userName", handlers.ChangePasswordHandler)
+		// 以下のエンドポイントでは、B3は自分の情報のみ、上級生は全員の情報にアクセス可能 (URLにuserNameかsubmissionIdを含める)
 		authed.GET("/getProblemList/:userName", handlers.GetProblemListHandler)
-		authed.GET("/getProblem/:problemId", handlers.GetProblemHandler)
 		authed.GET("/getSubmissionList/:userName", handlers.GetSubmissionListHandler)
 		authed.GET("/getSubmission/:submissionId", handlers.GetSubmissionHandler)
-		authed.POST("/addSubmission/:userName", handlers.AddSubmissionHandler)
 		authed.GET("/getSubmittedFiles/:submissionId", handlers.GetSubmittedFilesHandler)
+		// 以下のエンドポイントはユーザによらず全員がアクセス可能
+		authed.GET("/getProblem/:problemId", handlers.GetProblemHandler)
+		// 以下のエンドポイントは引数を持たず、jwt_tokenからユーザ情報を認識する
+		authed.POST("/changePassword", handlers.ChangePasswordHandler)
+		authed.POST("/addSubmission", handlers.AddSubmissionHandler)
 
 	}
 

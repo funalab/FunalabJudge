@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"errors"
+	"fmt"
 	"net/http"
 
 	"go-test/db/submission"
@@ -22,11 +22,13 @@ func GetSubmissionHandler(c *gin.Context) {
 	submissionId := c.Param("submissionId")
 	sId, err := primitive.ObjectIDFromHex(submissionId)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to parse objectId from hex"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to parse objectId from hex : %s", err.Error()))
+		return
 	}
 	s, err := submission.SearchOneSubmissionWithId(client, sId)
 	if err != nil {
-		c.AbortWithError(http.StatusInternalServerError, errors.Join(errors.New("failed to find single result"), err))
+		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find single result : %s", err.Error()))
+		return
 	}
 	c.JSON(http.StatusOK, s)
 }
