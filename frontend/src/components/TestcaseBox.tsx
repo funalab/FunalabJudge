@@ -13,11 +13,11 @@ const TestcaseBox: React.FC<Testcase> = (t: Testcase) => {
         />
         <CopyTestcase
           text={`入力例${t.TestcaseId}`}
-          content={t.InputFileContent}
+          content={t.StdinFileContent}
         />
         <CopyTestcase
           text={`出力例${t.TestcaseId}`}
-          content={t.OutputFileContent}
+          content={t.AnswerFileContent}
         />
       </SimpleGrid>
     </>

@@ -18,11 +18,12 @@ type Problem struct {
 }
 
 type TestcaseWithPath struct {
-	TestcaseId     int32  `bson:"testCaseId"`
-	ArgsFilePath   string `bson:"argsFilePath"`
-	InputFilePath  string `bson:"inputFilePath"`
-	OutputFilePath string `bson:"outputFilePath"`
-	AnswerFilePath string `bson:"answerFilePath"`
+	TestcaseId        int32    `bson:"testCaseId"`
+	ArgsFilePath      string   `bson:"argsFilePath"`
+	StdinFilePath     string   `bson:"stdinFilePath"`
+	InputFilePathList []string `bson:"inputFilePathList"`
+	OutputFileName    string   `bson:"outputFileName"`
+	AnswerFilePath    string   `bson:"answerFilePath"`
 }
 
 type ProblemWithTestcase struct {
@@ -43,8 +44,14 @@ type ProblemWithTestcase struct {
 type Testcase struct {
 	TestcaseId        int32
 	ArgsFileContent   string
-	InputFileContent  string
-	OutputFileContent string
+	StdinFileContent  string
+	InputFileList     []InputFileContent
+	AnswerFileContent string
+}
+
+type InputFileContent struct {
+	FileName string
+	Content  string
 }
 
 type ProblemWithStatus struct {

@@ -74,19 +74,19 @@ func parseTestcaseWithPathToTestcase(tws []TestcaseWithPath) ([]Testcase, error)
 			}
 			ts_.ArgsFileContent = string(sArgs)
 		}
-		if tw.InputFilePath != "" {
-			sIn, err := os.ReadFile(filepath.Join(staticDir, tw.InputFilePath))
+		if tw.StdinFilePath != "" {
+			sIn, err := os.ReadFile(filepath.Join(staticDir, tw.StdinFilePath))
 			if err != nil {
 				return []Testcase{}, errors.Join(errors.New("failed to read input file"), err)
 			}
-			ts_.InputFileContent = string(sIn)
+			ts_.StdinFileContent = string(sIn)
 		}
 		if tw.AnswerFilePath != "" {
 			sOut, err := os.ReadFile(filepath.Join(staticDir, tw.AnswerFilePath))
 			if err != nil {
 				return []Testcase{}, errors.Join(errors.New("failed to read output file"), err)
 			}
-			ts_.OutputFileContent = string(sOut)
+			ts_.AnswerFileContent = string(sOut)
 		}
 		ts = append(ts, ts_)
 	}
