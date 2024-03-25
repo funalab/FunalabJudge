@@ -1,6 +1,7 @@
 [
   {
     "id": 1,
+    "isPetitCoder": false,
     "name": "My Alpha",
     "statement": "キーボード (標準入力)から文字を受け取り、その文字がアルファベットなら、次の処理を実行するプログラムを作成してください。\n入力が大文字なら小文字に、小文字なら大文字に変換する。\nただし入力はEOF (Ctrl + D)を受け取るまで繰り返されます。",
     "constraints": "入力はあらゆる文字\n",
@@ -107,6 +108,7 @@
   },
   {
     "id": 2,
+    "isPetitCoder": false,
     "name": "My Cat",
     "statement": "EOF (Ctrl + D)を受け取るまで標準入力から文字列を受け取り、標準出力するmain関数を実装してください。",
     "constraints": "入力はあらゆる文字列\n",
@@ -227,6 +229,7 @@
   },
   {
     "id": 3,
+    "isPetitCoder": false,
     "name": "My Average",
     "statement": "EOFを受け取るまで標準入力に与えられた数値の平均と合計を標準出力するプログラムaverage.cを実装し、実行しましょう。",
     "constraints": "与えられる値  はすべて実数\n入力は空白区切りで与えられる\n 小数点以下6桁まで出力する\n",
@@ -382,6 +385,7 @@
   },
   {
     "id": 4,
+    "isPetitCoder": false,
     "name": "Greatest Common Divisor (GCD)",
     "statement": "標準入力により与えた2つの正の整数の最大公約数を出力する関数gcd.cを作成し、main.cでgcd.cを呼び出し実行する。",
     "constraints": "再帰関数を用いて、最大公約数を求める関数を作成する。\n ヘッダファイルmyheader.hに関数の宣言を行い、これをmain関数を含むファイルで#includeする。",
@@ -537,6 +541,7 @@
   },
   {
     "id": 5,
+    "isPetitCoder": false,
     "name": "main_mystrlen",
     "statement": "標準入力で与えられた文字列の長さを標準出力する関数main_mystrlen.cを実装し、実行しましょう。",
     "constraints": "改行文字は文字列の長さに含まれない。\n標準入力にscanf()を使用してはいけない。\n 課題においては、'string.h'の関数strlen()の使用は禁止。\n",
@@ -692,6 +697,7 @@
   },
   {
     "id": 6,
+    "isPetitCoder": false,
     "name": "main_mystrlen2",
     "statement": "main関数の引数として与えられた文字列の長さを標準出力する関数main_mystrlen2.cを実装し、実行しましょう。",
     "constraints": "改行文字は文字列の長さに含まれない。\n標準入力にscanf()を使用してはいけない。\n 課題においては、'string.h'の関数strlen()の使用は禁止。\n",
@@ -847,6 +853,7 @@
   },
   {
     "id": 8,
+    "isPetitCoder": false,
     "name": "main_SortStruct",
     "statement": "標準入力で与えられたplayers情報を年齢順にソートし、標準出力する main 関数の実装 (main_SortStruct.c)。\n\n注意事項\n• 前回までの課題で作成した mystr 系の関数を用いると良いかも？\n• メモリリークに気を付ける (free() を忘れない)\n• ソースコードを提出(ヘッダーファイルを用いたなら、それも忘れずに)",
     "constraints": "• 与えられる人数Nは 1<=N<=256\n• 年齢X_iは0 <=X_i <=  100\n• 年齢に数字以外が与えられた場合^D後にエラーを返す",
@@ -939,6 +946,7 @@
   },
   {
     "id": 9,
+    "isPetitCoder": false,
     "name": "File",
     "statement": "ファイルから読み込んだ単語群を辞書順にソートし、別のファイルに出力するmain関数( file.c )の実装しましょう。",
     "constraints": "第1引数に入力ファイル名、第2引数に出力ファイル名を受け取る。\n単語数の上限は適当に静的に確保してください (define 文とかで、256ぐらいあれば大丈夫かと)\n ",
@@ -1094,6 +1102,7 @@
   },
   {
     "id": 10,
+    "isPetitCoder": false,
     "name": "main_mystrsubst",
     "statement": "標準入力で与えられた文字列s1,s2,s3を用いて新たな文字列new_strを標準出力する関数main_mystrsubst.cの実装しましょう。",
     "constraints": "新しい文字列のメモリは関数mystrsubst()内で適切なサイズを動的に確保する\n",
@@ -1249,6 +1258,7 @@
   },
   {
     "id": 11,
+    "isPetitCoder": false,
     "name": "DictStruct",
     "statement": "コマンドライン引数の文字列を辞書順にソートし、標準出力する main 関数の実装 (main_DictStruct.c)。",
     "constraints": "• 与えられる要素数Nは  1<=N<=256\n• 文字列の長さX_i は  1<=N<=256\n• コマンドライン引数が与えられない場合usageを返す",
@@ -1313,6 +1323,7 @@
   },
   {
     "id": 12,
+    "isPetitCoder": false,
     "name": "mystrcpy",
     "statement": "標準入力で与えられた文字列をコピーして標準出力するmain関数の実装。",
     "constraints": "• 入力は任意の文字列",
@@ -1349,6 +1360,7 @@
   },
   {
     "id": 13,
+    "isPetitCoder": false,
     "name": "mystrncpy",
     "statement": "標準入力で与えられた文字列をn文字目までコピーして標準出力するmain関数の実装。",
     "constraints": "• 1つ目の入力は任意の文字列\n• 2つ目の入力は任意の整数",
@@ -1392,6 +1404,7 @@
   },
   {
     "id": 14,
+    "isPetitCoder": false,
     "name": "mystrcmp",
     "statement": "標準入力で与えられた2つの文字列を比較した結果をmain関数の実装 (main_mystrcmp.c)。",
     "constraints": "入力は任意の文字列",
@@ -1449,6 +1462,7 @@
   },
   {
     "id": 15,
+    "isPetitCoder": false,
     "name": "mystrncmp",
     "statement": "標準入力で与えられた2つの文字列をn文字目まで比較した結果をmain関数の実装 (main_mystrcmp.c)。",
     "constraints": "• 1つ目と2つ目の入力は任意の文字列\n• 3つ目の入力は任意の整数",
@@ -1515,6 +1529,250 @@
         "inputFilePath": "testcases/c/c7_4/8/input.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/c/c7_4/8/output.txt"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "isPetitCoder": true,
+    "name": "[PC_EASY] Your Name",
+    "statement": "長さLcmの橋の上にFunasoul君がたくさんおり、毎秒1cmのスピードで橋の上を歩いています。\n各Funasoul君は左右のどちらかを向いており、橋の端に到達するとFunasoul君は落ちていきます。(Funasoul君はとても丈夫な体の持ち主です)\n橋は非常に幅が狭いため、Funasoul君同士が出会うとそれぞれ反対方向を向き戻っていきます。\nあなたには各Funasoul君が橋の左端から何cmのところに存在するかは配列で与えられますが、各Funasoul君が左右どちらを向いているかは与えられません。\n全てのFunasoul君が橋の上から落ちていなくなるまでの最小の時間と最大の時間を教えてください。",
+    "constraints": "",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
+    "openDate": "2024-03-26T00:45:00+09:00",
+    "closeDate": "2024-03-26T12:15:00+09:00",
+    "borderScore": 6,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/easy/in_sample.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/easy/out_sample.txt"
+      },
+      {
+        "testcaseId": 2,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/easy/input1.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/easy/output1.txt"
+      },
+      {
+        "testcaseId": 3,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/easy/input2.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/easy/output2.txt"
+      },
+      {
+        "testcaseId": 4,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/easy/input3.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/easy/output3.txt"
+      },
+      {
+        "testcaseId": 5,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/easy/input4.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/easy/output4.txt"
+      },
+      {
+        "testcaseId": 6,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/easy/input5.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/easy/output5.txt"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "isPetitCoder": true,
+    "name": "[PC_MEDIUM] Reverse List",
+    "statement": "長さLcmの橋の上にFunasoul君がたくさんおり、毎秒1cmのスピードで橋の上を歩いています。\n各Funasoul君は左右のどちらかを向いており、橋の端に到達するとFunasoul君は落ちていきます。(Funasoul君はとても丈夫な体の持ち主です)\n橋は非常に幅が狭いため、Funasoul君同士が出会うとそれぞれ反対方向を向き戻っていきます。\nあなたには各Funasoul君が橋の左端から何cmのところに存在するかは配列で与えられますが、各Funasoul君が左右どちらを向いているかは与えられません。\n全てのFunasoul君が橋の上から落ちていなくなるまでの最小の時間と最大の時間を教えてください。",
+    "constraints": "",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
+    "openDate": "2024-03-26T00:45:00+09:00",
+    "closeDate": "2024-03-26T12:15:00+09:00",
+    "borderScore": 6,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/medium/in_sample.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/medium/out_sample.txt"
+      },
+      {
+        "testcaseId": 2,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/medium/input1.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/medium/output1.txt"
+      },
+      {
+        "testcaseId": 3,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/medium/input2.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/medium/output2.txt"
+      },
+      {
+        "testcaseId": 4,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/medium/input3.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/medium/output3.txt"
+      },
+      {
+        "testcaseId": 5,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/medium/input4.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/medium/output4.txt"
+      },
+      {
+        "testcaseId": 6,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/medium/input5.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/medium/output5.txt"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "isPetitCoder": true,
+    "name": "[PC_HARD] Be a King of Pirates!",
+    "statement": "Funasoul君の夢は海賊王になることです。\nFunasoul君は手始めに海に存在する島を片っ端から制圧することにしました。\nあなたにはFunasoul君から地図が与えられます。\n地図の大きさはNxMで表され(Nが縦、Mが横)、0,1で描かれており、1が島、0が海を表しています。\n地図上で縦, 横または斜め方向に隣接している2つの島は1つの大きな島と考えてください。\nFunasoul君は海賊王になりたくてうずうずしています。\n彼の夢を叶えるために早急に何個の島を制圧する必要があるか教えてください。",
+    "constraints": "",
+    "executionTime": 1,
+    "memoryLimit": 1024,
+    "inputFmt": "",
+    "outputFmt": "",
+    "openDate": "2024-03-26T00:45:00+09:00",
+    "closeDate": "2024-03-26T12:15:00+09:00",
+    "borderScore": 16,
+    "testcaseWithPaths": [
+      {
+        "testcaseId": 1,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/in_sample1.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/out_sample1.txt"
+      },
+      {
+        "testcaseId": 2,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/in_sample2.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/out_sample2.txt"
+      },
+      {
+        "testcaseId": 3,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/in_sample3.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/out_sample3.txt"
+      },
+      {
+        "testcaseId": 4,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/in_sample4.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/out_sample4.txt"
+      },
+      {
+        "testcaseId": 5,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/in_sample5.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/out_sample5.txt"
+      },
+      {
+        "testcaseId": 6,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/in_sample6.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/out_sample6.txt"
+      },
+      {
+        "testcaseId": 7,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input1.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output1.txt"
+      },
+      {
+        "testcaseId": 8,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input2.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output2.txt"
+      },
+      {
+        "testcaseId": 9,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input3.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output3.txt"
+      },
+      {
+        "testcaseId": 10,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input4.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output4.txt"
+      },
+      {
+        "testcaseId": 11,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input5.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output5.txt"
+      },
+      {
+        "testcaseId": 12,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input6.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output6.txt"
+      },
+      {
+        "testcaseId": 13,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input7.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output7.txt"
+      },
+      {
+        "testcaseId": 14,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input8.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output8.txt"
+      },
+      {
+        "testcaseId": 15,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input9.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output9.txt"
+      },
+      {
+        "testcaseId": 16,
+        "argsFilePath": "",
+        "inputFilePath": "testcases/pc/2024/hard/input10.txt",
+        "outputFilePath": "",
+        "answerFilePath": "testcases/pc/2024/hard/output10.txt"
       }
     ]
   }

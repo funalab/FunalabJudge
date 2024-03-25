@@ -78,13 +78,12 @@ func main() {
 		authed.GET("/getSubmittedFiles/:submissionId", handlers.GetSubmittedFilesHandler)
 		// 以下のエンドポイントはユーザによらず全員がアクセス可能
 		authed.GET("/getProblem/:problemId", handlers.GetProblemHandler)
-		// 以下のエンドポイントは引数を持たず、jwt_tokenからユーザ情報を認識する
 		authed.POST("/changePassword", handlers.ChangePasswordHandler)
 		authed.POST("/addSubmission", handlers.AddSubmissionHandler)
-
+		authed.GET("/getB3Status", handlers.GetB3StatusHandler)
+		authed.GET("/getPetitCoderStatus", handlers.GetPetitCoderStatusHandler)
 	}
 
-	router.GET("/getB3Status", handlers.GetB3StatusHandler)
 	router.NoRoute(authMiddleware.MiddlewareFunc(), func(c *gin.Context) {
 		claims := jwt.ExtractClaims(c)
 		log.Printf("NoRoute claims: %#v\n", claims)

@@ -4,6 +4,7 @@ import "time"
 
 type Problem struct {
 	Id                int32              `bson:"problemId"`
+	IsPetitCoder      *bool              `bson:"isPetitCoder"`
 	Name              string             `bson:"name"`
 	Statement         string             `bson:"statement"`
 	Constraints       string             `bson:"constraints"`
@@ -45,10 +46,4 @@ type Testcase struct {
 	ArgsFileContent   string
 	InputFileContent  string
 	OutputFileContent string
-}
-
-type ProblemWithStatus struct {
-	ProblemId   int
-	ProblemName string
-	Status      string
 }

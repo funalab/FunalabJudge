@@ -33,6 +33,39 @@ func SearchSubmissions(client *mongo.Client, searchField Submission) ([]Submissi
 	if err != nil {
 		return []Submission{}, err
 	}
+	defer cursor.Close(context.Background())
+	var submissions []Submission
+	if err = cursor.All(context.TODO(), &submissions); err != nil {
+		return []Submission{}, err
+	}
+	return submissions, nil
+}
+
+// isPetitCoderのproblemIdかつACなsubmissionを、userNameでdistinctし、submittedDateで並び替えて返す
+func SearchPetitCoderSubmissions(client *mongo.Client, problemId int32) ([]Submission, error) {
+	dbName := os.Getenv("DB_NAME")
+	subCol := os.Getenv("SUBMISSION_COLLECTION")
+	collection := client.Database(dbName).Collection(subCol)
+
+	pipeline := []bson.M{
+		{"$match": bson.M{
+			"problemId": problemId,
+			"status":    "AC",
+		}},
+		{"$sort": bson.M{"userName": 1, "submittedDate": 1}},
+		{"$group": bson.M{
+			"_id":        "$userName", // userNameでグループ化
+			"firstEntry": bson.M{"$first": "$$ROOT"},
+		}},
+		{"$replaceRoot": bson.M{"newRoot": "$firstEntry"}}, // グループごとの最初のエントリを新しいルートに置き換える
+	}
+
+	cursor, err := collection.Aggregate(context.Background(), pipeline)
+	if err != nil {
+		return []Submission{}, err
+	}
+	defer cursor.Close(context.Background())
+
 	var submissions []Submission
 	if err = cursor.All(context.TODO(), &submissions); err != nil {
 		return []Submission{}, err

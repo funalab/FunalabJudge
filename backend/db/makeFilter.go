@@ -36,6 +36,10 @@ func getValueString(f reflect.Value) (interface{}, bool) {
 		if v != time.Date(1, 1, 1, 0, 0, 0, 0, time.UTC) {
 			return v, false
 		}
+	case *bool:
+		if v != nil {
+			return *v, false
+		}
 	}
 	return "", true // default value or unknown type
 }

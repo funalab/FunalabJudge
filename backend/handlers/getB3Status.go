@@ -14,6 +14,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+type userStatus struct {
+	UserName       string              `bson:"userName"`
+	ProblemsStatus []problemWithStatus `bson:"problemsStatus"`
+}
+
+type problemWithStatus struct {
+	ProblemId   int
+	ProblemName string
+	Status      string
+}
+
 func GetB3StatusHandler(c *gin.Context) {
 	client_, exists := c.Get("mongoClient")
 	if !exists {
@@ -30,10 +41,11 @@ func GetB3StatusHandler(c *gin.Context) {
 		c.AbortWithError(http.StatusInternalServerError, fmt.Errorf("failed to find single result : %s", err.Error()))
 		return
 	}
-	ps, _ := problems.SearchProblems(client, problems.Problem{})
-	var usst []users.UserStatus
+	tmpBool := false
+	ps, _ := problems.SearchProblems(client, problems.Problem{IsPetitCoder: &tmpBool})
+	var usst []userStatus
 	for _, u := range us {
-		var rs []problems.ProblemWithStatus
+		var rs []problemWithStatus
 		for _, p := range ps {
 			ups := submission.Submission{UserName: u, ProblemId: p.Id}
 			ss, err := submission.SearchSubmissions(client, ups)
@@ -58,10 +70,10 @@ func GetB3StatusHandler(c *gin.Context) {
 				}
 			}
 			pn, _ := problems.SearchProblems(client, problems.Problem{Id: p.Id})
-			rs = append(rs, problems.ProblemWithStatus{ProblemId: int(p.Id), ProblemName: pn[0].Name, Status: pst})
+			rs = append(rs, problemWithStatus{ProblemId: int(p.Id), ProblemName: pn[0].Name, Status: pst})
 
 		}
-		usst = append(usst, users.UserStatus{UserName: u, ProblemsStatus: rs})
+		usst = append(usst, userStatus{UserName: u, ProblemsStatus: rs})
 	}
 
 	c.JSON(http.StatusOK, usst)

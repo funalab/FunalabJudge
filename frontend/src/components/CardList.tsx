@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { Checkbox } from '@chakra-ui/react'
 import { Problem } from '../types/DbTypes';
 import { MdLockClock, MdLockOpen } from "react-icons/md";
+import { GiPodium } from "react-icons/gi";
 
 export interface problemWithStatus {
   Problem: Problem,
@@ -16,12 +17,20 @@ export interface CardListProps {
   data: problemWithStatus[];
 }
 
+// 問題をOpenDateの順にソートする比較関数
+const sortByOpenDate = (a: problemWithStatus, b: problemWithStatus): number => {
+  const dateA: Date = new Date(a.Problem.OpenDate);
+  const dateB: Date = new Date(b.Problem.OpenDate);
+  return dateA.getTime() - dateB.getTime();
+};
+
 export const CardList = ({ data }: CardListProps) => {
 
   const check_list = ["完了済みの課題も表示する", "未公開の課題も表示する"] //必要に応じて項目を増やすならここだけ変えればチェックボックスはそれに応じて増える
   const [checkedItems, setCheckedItems] = useState(new Array(check_list.length).fill(false))
 
   const navigate = useNavigate()
+  data = data.sort(sortByOpenDate)
 
   const CardGrid = ({ data }: CardListProps) => {
     return (
@@ -38,7 +47,10 @@ export const CardList = ({ data }: CardListProps) => {
           return (
             <Card key={pws.Problem.Id} boxShadow={'dark-lg'}>
               <CardHeader>
-                <Heading size='md'> {pws.Problem.Name}</Heading>
+                <Heading size='md'>
+                  {pws.Problem.IsPetitCoder && <Icon as={GiPodium} w={6} h={6} mr="10px" />}
+                  {pws.Problem.Name}
+                </Heading>
               </CardHeader>
               <CardBody>
                 <Text

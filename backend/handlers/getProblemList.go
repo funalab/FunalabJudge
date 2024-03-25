@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type problemWithStatus struct {
+type problemWithStatusForDashboard struct {
 	Problem problems.Problem
 	Status  bool
 }
@@ -30,7 +30,7 @@ func GetProblemListHandler(c *gin.Context) {
 		return
 	}
 
-	var ps []problemWithStatus
+	var ps []problemWithStatusForDashboard
 	userName := c.Param("userName")
 	for _, p := range pList {
 		sList, err := submission.SearchSubmissions(client, submission.Submission{UserName: userName, ProblemId: p.Id})
@@ -45,7 +45,7 @@ func GetProblemListHandler(c *gin.Context) {
 				break
 			}
 		}
-		ps = append(ps, problemWithStatus{Problem: p, Status: statusFlag})
+		ps = append(ps, problemWithStatusForDashboard{Problem: p, Status: statusFlag})
 	}
 
 	c.JSON(http.StatusOK, ps)

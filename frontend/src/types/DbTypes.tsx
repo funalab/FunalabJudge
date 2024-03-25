@@ -1,5 +1,6 @@
 export interface Problem {
 	Id: number,
+	IsPetitCoder: boolean,
 	Name: string,
 	Statement: string,
 	Constraints: string,

@@ -5,7 +5,7 @@ import {
   MdAssignment,
   MdOutlineChecklist
 } from "react-icons/md";
-import { FaMedal } from "react-icons/fa";
+import { GiPodium } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 
 export const SideMenu = () => {
@@ -31,7 +31,7 @@ export const SideMenu = () => {
     },
     {
       name: "Petit Coder",
-      icon: FaMedal,
+      icon: GiPodium,
       path: `/petit_coder`,
     },
     {

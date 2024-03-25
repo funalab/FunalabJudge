@@ -48,7 +48,7 @@ const SubmitForm: React.FC<SubmitFormProps> = ({ problemId }) => {
         <Text fontSize={30} fontWeight={'bold'}>Submit Form</Text>
         <Stack>
           <Input type="file" onChange={handleInputFile} multiple />
-          <Textarea placeholder="Your submitted files." value={filenames} />
+          <Textarea placeholder="Your submitted files." value={filenames} readOnly />
           <SubmitButton selectedFiles={selectedFiles} problemId={problemId} />
         </Stack>
       </VStack>
