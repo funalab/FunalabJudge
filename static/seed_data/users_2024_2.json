@@ -1,0 +1,52 @@
+[
+  {
+    "userName": "funa",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2009-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "kawakita",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2022-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "taguchi",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2022-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "amtakahashi",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2022-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "kanazawa",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2021-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "morikura",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2023-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "hiki",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2018-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "tsukada",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2023-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "tomiyama",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2021-04-01T00:00:00+09:00"
+  },
+  {
+    "userName": "mitsueda",
+    "password": "$2a$08$MIgYe.dbI9IAv.oPPgPSRuxXsQWeuqj2QceyhJmUfsSMtnRP21hLq",
+    "joinedDate": "2021-04-01T00:00:00+09:00"
+  }
+]
