@@ -1724,54 +1724,60 @@
     "isPetitCoder": true,
     "name": "[PC_EASY] Your Name",
     "statement": "長さLcmの橋の上にFunasoul君がたくさんおり、毎秒1cmのスピードで橋の上を歩いています。\n各Funasoul君は左右のどちらかを向いており、橋の端に到達するとFunasoul君は落ちていきます。(Funasoul君はとても丈夫な体の持ち主です)\n橋は非常に幅が狭いため、Funasoul君同士が出会うとそれぞれ反対方向を向き戻っていきます。\nあなたには各Funasoul君が橋の左端から何cmのところに存在するかは配列で与えられますが、各Funasoul君が左右どちらを向いているかは与えられません。\n全てのFunasoul君が橋の上から落ちていなくなるまでの最小の時間と最大の時間を教えてください。",
-    "constraints": "",
+    "constraints": "N <= 10^5",
     "executionTime": 1,
     "memoryLimit": 1024,
-    "inputFmt": "",
-    "outputFmt": "",
-    "openDate": "2024-03-26T00:45:00+09:00",
+    "inputFmt": "2行に渡って与えられる。\n先頭行には橋の長さLと橋の上に存在するFunasoul君の数Nが空白区切りで与えられる。\n2行目には各Funasoul君が橋の左端からどのくらいの位置にいるかが整数の配列として与えられる。",
+    "outputFmt": "出力は1行目に最小の時間、2行目に最大の時間を出力してください",
+    "openDate": "2024-03-26T10:45:00+09:00",
     "closeDate": "2024-03-26T12:15:00+09:00",
     "borderScore": 6,
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/easy/in_sample.txt",
+        "stdinFilePath": "testcases/pc/2024/easy/in_sample.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/easy/out_sample.txt"
       },
       {
         "testcaseId": 2,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/easy/input1.txt",
+        "stdinFilePath": "testcases/pc/2024/easy/input1.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/easy/output1.txt"
       },
       {
         "testcaseId": 3,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/easy/input2.txt",
+        "stdinFilePath": "testcases/pc/2024/easy/input2.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/easy/output2.txt"
       },
       {
         "testcaseId": 4,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/easy/input3.txt",
+        "stdinFilePath": "testcases/pc/2024/easy/input3.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/easy/output3.txt"
       },
       {
         "testcaseId": 5,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/easy/input4.txt",
+        "stdinFilePath": "testcases/pc/2024/easy/input4.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/easy/output4.txt"
       },
       {
         "testcaseId": 6,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/easy/input5.txt",
+        "stdinFilePath": "testcases/pc/2024/easy/input5.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/easy/output5.txt"
       }
@@ -1781,55 +1787,55 @@
     "id": 17,
     "isPetitCoder": true,
     "name": "[PC_MEDIUM] Reverse List",
-    "statement": "長さLcmの橋の上にFunasoul君がたくさんおり、毎秒1cmのスピードで橋の上を歩いています。\n各Funasoul君は左右のどちらかを向いており、橋の端に到達するとFunasoul君は落ちていきます。(Funasoul君はとても丈夫な体の持ち主です)\n橋は非常に幅が狭いため、Funasoul君同士が出会うとそれぞれ反対方向を向き戻っていきます。\nあなたには各Funasoul君が橋の左端から何cmのところに存在するかは配列で与えられますが、各Funasoul君が左右どちらを向いているかは与えられません。\n全てのFunasoul君が橋の上から落ちていなくなるまでの最小の時間と最大の時間を教えてください。",
+    "statement": "要素数Nのリストが与えられます。\nこの時、与えられる連結リストの[left, right]の区間を反転する関数reverseBetween(ListNode* head, int left, int right)を作成してください。\nheadは与えられる連結リストの先頭、left, rightは1から始まる連結リストの各要素を表すIndexです。\n\n注意: ListNodeを変更することは不可です。配布ファイルのmedium.cのみを編集してください。また、メモリ上にListNodeを確保する際にはmallocを使ってください。あらかじめ与えられる要素の数も不定です。",
     "constraints": "",
     "executionTime": 1,
     "memoryLimit": 1024,
-    "inputFmt": "",
-    "outputFmt": "",
-    "openDate": "2024-03-26T00:45:00+09:00",
+    "inputFmt": "N\n[リスト]\nleft right",
+    "outputFmt": "反転後のリストを改行区切りで出力",
+    "openDate": "2024-03-26T10:45:00+09:00",
     "closeDate": "2024-03-26T12:15:00+09:00",
     "borderScore": 6,
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/medium/in_sample.txt",
+        "stdinFilePath": "testcases/pc/2024/medium/in_sample.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/medium/out_sample.txt"
       },
       {
         "testcaseId": 2,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/medium/input1.txt",
+        "stdinFilePath": "testcases/pc/2024/medium/input1.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/medium/output1.txt"
       },
       {
         "testcaseId": 3,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/medium/input2.txt",
+        "stdinFilePath": "testcases/pc/2024/medium/input2.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/medium/output2.txt"
       },
       {
         "testcaseId": 4,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/medium/input3.txt",
+        "stdinFilePath": "testcases/pc/2024/medium/input3.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/medium/output3.txt"
       },
       {
         "testcaseId": 5,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/medium/input4.txt",
+        "stdinFilePath": "testcases/pc/2024/medium/input4.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/medium/output4.txt"
       },
       {
         "testcaseId": 6,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/medium/input5.txt",
+        "stdinFilePath": "testcases/pc/2024/medium/input5.txt",
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/medium/output5.txt"
       }
@@ -1843,121 +1849,137 @@
     "constraints": "",
     "executionTime": 1,
     "memoryLimit": 1024,
-    "inputFmt": "",
-    "outputFmt": "",
-    "openDate": "2024-03-26T00:45:00+09:00",
+    "inputFmt": "M N\n2行目以降にNxMの0,1で埋められた配列が与えられる。",
+    "outputFmt": "島の数を整数で標準出力に出力せよ。",
+    "openDate": "2024-03-26T10:45:00+09:00",
     "closeDate": "2024-03-26T12:15:00+09:00",
     "borderScore": 16,
     "testcaseWithPaths": [
       {
         "testcaseId": 1,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/in_sample1.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/in_sample1.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/out_sample1.txt"
       },
       {
         "testcaseId": 2,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/in_sample2.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/in_sample2.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/out_sample2.txt"
       },
       {
         "testcaseId": 3,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/in_sample3.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/in_sample3.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/out_sample3.txt"
       },
       {
         "testcaseId": 4,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/in_sample4.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/in_sample4.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/out_sample4.txt"
       },
       {
         "testcaseId": 5,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/in_sample5.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/in_sample5.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/out_sample5.txt"
       },
       {
         "testcaseId": 6,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/in_sample6.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/in_sample6.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/out_sample6.txt"
       },
       {
         "testcaseId": 7,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input1.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input1.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output1.txt"
       },
       {
         "testcaseId": 8,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input2.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input2.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output2.txt"
       },
       {
         "testcaseId": 9,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input3.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input3.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output3.txt"
       },
       {
         "testcaseId": 10,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input4.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input4.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output4.txt"
       },
       {
         "testcaseId": 11,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input5.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input5.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output5.txt"
       },
       {
         "testcaseId": 12,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input6.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input6.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output6.txt"
       },
       {
         "testcaseId": 13,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input7.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input7.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output7.txt"
       },
       {
         "testcaseId": 14,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input8.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input8.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output8.txt"
       },
       {
         "testcaseId": 15,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input9.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input9.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output9.txt"
       },
       {
         "testcaseId": 16,
         "argsFilePath": "",
-        "inputFilePath": "testcases/pc/2024/hard/input10.txt",
+        "stdinFilePath": "testcases/pc/2024/hard/input10.txt",
+        "inputFilePathList": [],
         "outputFilePath": "",
         "answerFilePath": "testcases/pc/2024/hard/output10.txt"
       }
