@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Box, Button, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Button, Code, Flex, Select, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
 import StatusBlock from '../components/StatusBlock'
 import CopyTestcase from '../components/CopyTestcase'
 import { ProblemWithTestcase, Testcase } from '../types/DbTypes'
+import CopyTestcaseMulti from '../components/CopyTestcaseMulti'
 
 type SubmittedFile = {
   name: string
@@ -113,9 +114,7 @@ const SubmissionPage: React.FC = () => {
             borderRadius={'2xl'}
             boxShadow={'xl'}
           >
-            <p
-              className='pb-5 font-bold text-2xl'
-            >
+            <p className='pb-5 font-bold text-2xl' >
               提出ファイル一覧
             </p>
             <Select
@@ -128,18 +127,13 @@ const SubmissionPage: React.FC = () => {
             >
               {files.length > 0 && (
                 files.map((file) => (
-                  <option
-                    value={file.content}
-                  >
+                  <option value={file.content} >
                     {file.name}
                   </option>
                 ))
               )}
             </Select>
-            <Textarea
-              value={selectedFileContent}
-              height="40vh"
-            />
+            <Code whiteSpace="pre-wrap" overflowX="auto" overflowY="auto" height="40vh" width="100%" children={selectedFileContent} />
           </Box>
         )}
         <Box
@@ -190,12 +184,11 @@ const SubmissionPage: React.FC = () => {
                   <Tr>
                     <Td width={"30%"} textAlign={"center"}>{index + 1}</Td>
                     <Td width={"60%"} textAlign={"center"}>
-                      <Flex
-                        justifyContent={"center"}
-                      >
-                        <CopyTestcase text={`引数例${index + 1}`} content={t.testcase.ArgsFileContent} />
-                        <CopyTestcase text={`入力例${index + 1}`} content={t.testcase.InputFileContent} />
-                        <CopyTestcase text={`出力例${index + 1}`} content={t.testcase.OutputFileContent} />
+                      <Flex justifyContent={"center"} >
+                        <CopyTestcase text={`引数`} content={t.testcase.ArgsFileContent} />
+                        { t.testcase.InputFileList.length > 0 && <CopyTestcaseMulti text={`使用ファイル`} files={t.testcase.InputFileList} /> }
+                        <CopyTestcase text={`入力`} content={t.testcase.StdinFileContent} />
+                        <CopyTestcase text={`出力`} content={t.testcase.AnswerFileContent} />
                       </Flex>
                     </Td>
                     <Td width={"10%"} textAlign={"center"}>

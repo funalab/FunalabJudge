@@ -13,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const DEFAULT_OUTPUT_FILENAME = "output"
+const COMPILE_DURATION = 2
 
 func JudgeProcess(c *gin.Context, s submission.Submission) {
 	client_, exists := c.Get("mongoClient")
@@ -26,33 +26,36 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 	if err != nil {
 		log.Printf("[%s] failed to find single result : %s", s.Id.Hex(), err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
+		for _, t := range s.Results {
+			submission.UpdateSubmissionResult(client, s.Id, t.TestId, "RE")
+		}
 		return
 	}
 
 	ceFlag := false
 	r, err := isHaveMakeFile(s.Id.Hex())
 	if err != nil {
-		log.Printf("[%s] failed to find exec dir : %s", s.Id.Hex(), err)
+		log.Printf("[%s] failed to find exec dir : %s", s.Id.Hex(), err.Error())
 	}
 	if !r {
 		err := writeMakeFile(s.Id.Hex())
 		if err != nil {
-			log.Printf("[%s] failed to write make file : %s", s.Id.Hex(), err)
+			log.Printf("[%s] failed to write make file : %s", s.Id.Hex(), err.Error())
 			submission.UpdateSubmissionStatus(client, s.Id, "CE")
 			ceFlag = true
 		}
 	}
 
-	_, err = execCommand(s.Id, "make", 2)
+	_, err = execCommand(s.Id, "make", COMPILE_DURATION)
 	if err != nil {
-		log.Printf("[%s] failed to compile : %s", s.Id.Hex(), err)
+		log.Printf("[%s] failed to compile : %s", s.Id.Hex(), err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
 
 	execFile, err := searchExecutableFile(s.Id)
 	if err != nil {
-		log.Printf("[%s] failed to find executable file : %s", s.Id.Hex(), err)
+		log.Printf("[%s] failed to find executable file : %s", s.Id.Hex(), err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "CE")
 		ceFlag = true
 	}
@@ -61,9 +64,9 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		for _, t := range p.TestcaseWithPaths {
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "CE")
 		}
-		_, err = execCommand(s.Id, "make clean", 2)
+		_, err = execCommand(s.Id, "make clean", COMPILE_DURATION)
 		if err != nil {
-			log.Printf("[%s] failed to exec make clean : %s", s.Id.Hex(), err)
+			log.Printf("[%s] failed to exec make clean : %s", s.Id.Hex(), err.Error())
 			submission.UpdateSubmissionStatus(client, s.Id, "RE")
 			return
 		}
@@ -84,7 +87,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		if t.ArgsFilePath != "" {
 			a, err := os.ReadFile(filepath.Join(staticDir, t.ArgsFilePath))
 			if err != nil {
-				log.Printf("[%s] failed to read args of test case : %s", s.Id.Hex(), err)
+				log.Printf("[%s] failed to read args of test case : %s", s.Id.Hex(), err.Error())
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
@@ -92,38 +95,49 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 				command = command + " " + string(a)
 			}
 		}
-		if t.InputFilePath != "" {
+		if t.StdinFilePath != "" {
 			// stdinのpipeを使うとバカ長いinputを入れるときに正常に動かなくなるので、リダイレクトする
 			// TODO 相対パス使ってる応急処置でnot elegant、絶対パスにしたい
-			command = command + " < ../" + filepath.Join(staticDir, t.InputFilePath)
+			command = command + " < ../" + filepath.Join(staticDir, t.StdinFilePath)
+		}
+		for _, fPath := range t.InputFilePathList {
+			err = os.Symlink(filepath.Join("..", staticDir, fPath), filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), filepath.Base(fPath)))
+			if err != nil {
+				log.Printf("[%s] failed to create symLink of %s : %s", s.Id.Hex(), fPath, err.Error())
+			}
 		}
 
 		output, err := execCommand(s.Id, command, int(p.ExecutionTime))
 		if err != nil {
 			if err.Error() == "signal: killed" {
-				log.Printf("[%s] failed to run the testcase, TLE is caused : %s", s.Id.Hex(), err)
+				log.Printf("[%s] failed to run the testcase, TLE is caused : %s", s.Id.Hex(), err.Error())
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "TLE")
 				tleFlag = true
 			} else {
-				log.Printf("[%s] failed to run the testcase, RE is caused : %s", s.Id.Hex(), err)
+				log.Printf("[%s] failed to run the testcase, RE is caused : %s", s.Id.Hex(), err.Error())
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 			}
 			continue
 		}
+		for _, fPath := range t.InputFilePathList {
+			err = os.Remove(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), filepath.Base(fPath)))
+			if err != nil {
+				log.Printf("[%s] failed to remove symLink of %s : %s", s.Id.Hex(), fPath, err.Error())
+			}
+		}
 
 		// file.cのために用意したフィールド
-		if t.OutputFilePath != "" {
-			output, err = os.ReadFile(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFilePath))
+		if t.OutputFileName != "" {
+			output, err = os.ReadFile(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFileName))
 			if err != nil {
-				log.Printf("[%s] failed to read output of test case : %s", s.Id.Hex(), err)
+				log.Printf("[%s] failed to read output of test case : %s", s.Id.Hex(), err.Error())
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
 			}
-			// outputファイルを削除
-			if err := os.Remove(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFilePath)); err != nil {
-				log.Printf("[%s] failed to remove output file : %s", s.Id.Hex(), err)
+			if err := os.Remove(filepath.Join(os.Getenv("EXEC_DIR"), s.Id.Hex(), t.OutputFileName)); err != nil {
+				log.Printf("[%s] failed to remove output file : %s", s.Id.Hex(), err.Error())
 				submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 				reFlag = true
 				continue
@@ -133,7 +147,7 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		// judge result
 		answer, err := os.ReadFile(filepath.Join(staticDir, t.AnswerFilePath))
 		if err != nil {
-			log.Printf("[%s] failed to read answer of test case : %s", s.Id.Hex(), err)
+			log.Printf("[%s] failed to read answer of test case : %s", s.Id.Hex(), err.Error())
 			submission.UpdateSubmissionResult(client, s.Id, int(t.TestcaseId), "RE")
 			reFlag = true
 			continue
@@ -156,9 +170,9 @@ func JudgeProcess(c *gin.Context, s submission.Submission) {
 		submission.UpdateSubmissionStatus(client, s.Id, "WA")
 	}
 
-	_, err = execCommand(s.Id, "make clean", 2)
+	_, err = execCommand(s.Id, "make clean", COMPILE_DURATION)
 	if err != nil {
-		log.Printf("[%s] failed to exec make clean : %s", s.Id.Hex(), err)
+		log.Printf("[%s] failed to exec make clean : %s", s.Id.Hex(), err.Error())
 		submission.UpdateSubmissionStatus(client, s.Id, "RE")
 		return
 	}

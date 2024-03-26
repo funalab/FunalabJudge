@@ -1,1 +1,1 @@
-../../static/testcases/c/c10_1/15/input.txt output.txt
+input.txt output.txt
