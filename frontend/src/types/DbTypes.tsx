@@ -40,8 +40,8 @@ export interface ProblemWithTestcase {
 export interface Testcase {
 	TestcaseId: number,
 	ArgsFileContent: string,
-	StdinFileContent: string
-	InputFileList: InputFileContent
+	StdinFileContent: string,
+	InputFileList: InputFileContent[],
 	AnswerFileContent: string,
 }
 

@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import DefaultLayout from '../components/DefaultLayout'
-import { Box, Button, Code, Flex, Select, Table, TableContainer, Tbody, Td, Textarea, Text, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Button, Code, Flex, Select, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import { SubmissionTableRowProps } from '../components/SubmissionTableRow'
 import { Result } from "../components/SubmissionTableRow"
 import { axiosClient } from '../providers/AxiosClientProvider'
 import StatusBlock from '../components/StatusBlock'
 import CopyTestcase from '../components/CopyTestcase'
 import { ProblemWithTestcase, Testcase } from '../types/DbTypes'
+import CopyTestcaseMulti from '../components/CopyTestcaseMulti'
 
 type SubmittedFile = {
   name: string
@@ -185,6 +186,7 @@ const SubmissionPage: React.FC = () => {
                     <Td width={"60%"} textAlign={"center"}>
                       <Flex justifyContent={"center"} >
                         <CopyTestcase text={`引数`} content={t.testcase.ArgsFileContent} />
+                        { t.testcase.InputFileList.length > 0 && <CopyTestcaseMulti text={`使用ファイル`} files={t.testcase.InputFileList} /> }
                         <CopyTestcase text={`入力`} content={t.testcase.StdinFileContent} />
                         <CopyTestcase text={`出力`} content={t.testcase.AnswerFileContent} />
                       </Flex>

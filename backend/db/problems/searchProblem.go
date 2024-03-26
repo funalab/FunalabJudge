@@ -77,10 +77,22 @@ func parseTestcaseWithPathToTestcase(tws []TestcaseWithPath) ([]Testcase, error)
 		if tw.StdinFilePath != "" {
 			sIn, err := os.ReadFile(filepath.Join(staticDir, tw.StdinFilePath))
 			if err != nil {
-				return []Testcase{}, errors.Join(errors.New("failed to read input file"), err)
+				return []Testcase{}, errors.Join(errors.New("failed to read stdin file"), err)
 			}
 			ts_.StdinFileContent = string(sIn)
 		}
+		inputs := make([]InputFileContent, 0)
+		for _, f := range tw.InputFilePathList {
+			inpt, err := os.ReadFile(filepath.Join(staticDir, f))
+			if err != nil {
+				return []Testcase{}, errors.Join(errors.New("failed to read input file"), err)
+			}
+			inputs = append(inputs, InputFileContent{
+				FileName: filepath.Base(f),
+				Content:  string(inpt),
+			})
+		}
+		ts_.InputFileList = inputs
 		if tw.AnswerFilePath != "" {
 			sOut, err := os.ReadFile(filepath.Join(staticDir, tw.AnswerFilePath))
 			if err != nil {
