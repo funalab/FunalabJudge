@@ -15,7 +15,9 @@ The following ports are currently installed:
 ```
 
 ```
-% sudo port install npm10
+❯ port installed nodejs20
+The following ports are currently installed:
+  nodejs20 @20.11.1_0 (active)
 % port installed npm10
 The following ports are currently installed:
   npm10 @10.4.0_0 (active)
